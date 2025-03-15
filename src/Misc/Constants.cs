@@ -8,9 +8,8 @@ internal static class Constants
 	public const string ModAuthor = "GreenComfyTea";
 	public const string ModName = "YURI Overlay";
 	public const string ModNameNoWhitespaces = "YURI_Overlay";
-	public const string ModFolderName = "YourUselessRewildingInterfacePlugin";
 
-	public const string Version = "1.1.1";
+	public const string Version = "1.2.0";
 
 	public const string DataPath = @"reframework\data\";
 	public const string PluginDataPath = $@"{DataPath}{ModNameNoWhitespaces}\";

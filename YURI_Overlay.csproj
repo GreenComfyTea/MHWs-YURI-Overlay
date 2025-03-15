@@ -1,19 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0-windows10.0.26100.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>warnings</Nullable>
-    <Platforms>AnyCPU;x64</Platforms>
-    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <SignAssembly>False</SignAssembly>
-    <ErrorReport>prompt</ErrorReport>
-    <Title>YURI Overlay</Title>
-    <Authors>GreenComfyTea</Authors>
-    <Company>GreenComfyTea</Company>
-    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-    <PlatformTarget>x64</PlatformTarget>
+	<TargetFramework>net8.0-windows10.0.26100.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>warnings</Nullable>
+	<Platforms>AnyCPU;x64</Platforms>
+	<SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+	<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+	<SignAssembly>False</SignAssembly>
+	<ErrorReport>prompt</ErrorReport>
+	<Title>YURI Overlay</Title>
+	<Authors>GreenComfyTea</Authors>
+	<Company>GreenComfyTea</Company>
+	<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+	<PlatformTarget>x64</PlatformTarget>
 	<EnableWindowsTargeting>true</EnableWindowsTargeting>
 	<OutputPath>bin\reframework\plugins\managed\</OutputPath>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -23,33 +23,33 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>embedded</DebugType>
-    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+	<DebugType>embedded</DebugType>
+	<CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <DebugType>embedded</DebugType>
-    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+	<DebugType>embedded</DebugType>
+	<CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DebugType>embedded</DebugType>
-    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+	<DebugType>embedded</DebugType>
+	<CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <DebugType>embedded</DebugType>
-    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+	<DebugType>embedded</DebugType>
+	<CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="ImGui.NET">
-      <HintPath>REFramework\plugins\managed\dependencies\ImGui.NET.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="REFramework.NET">
-      <HintPath>REFramework\plugins\REFramework.NET.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+	<Reference Include="ImGui.NET">
+	  <HintPath>REFramework\plugins\managed\dependencies\ImGui.NET.dll</HintPath>
+	  <Private>True</Private>
+	</Reference>
+	<Reference Include="REFramework.NET">
+	  <HintPath>REFramework\plugins\REFramework.NET.dll</HintPath>
+	  <Private>True</Private>
+	</Reference>
   </ItemGroup>
 </Project>
