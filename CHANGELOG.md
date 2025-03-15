@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.0](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.1.1...v1.2.0) (2025-03-15)
+
+
+### Features
+
+* Added Large Monster Stamina and Rage ([d458b49](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/d458b49404d512b1500f0e661ce1bdb77b7a7d60))
+* Added Split into Two Colors option for bars ([fb10ae2](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/fb10ae2e6e85642575319e2c5a8ad549a6f2b32c))
+* Optimized Large Monster data update ([0ca1e97](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/0ca1e979da79083d6616dde0f08a80c3c10465da))
+
 ## [1.1.1](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.1.0...v1.1.1) (2025-03-11)
 
 
