@@ -15,12 +15,57 @@
 	<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 	<PlatformTarget>x64</PlatformTarget>
 	<EnableWindowsTargeting>true</EnableWindowsTargeting>
-	<OutputPath>bin\reframework\plugins\managed\</OutputPath>
+	<OutputPath>bin</OutputPath>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-	<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
+  
+  <Target Name="MoveDependenciesToSubfolder" AfterTargets="PostBuildEvent">
+	<ItemGroup>
+        <FilesToDelete Include="$(OutputPath)ImGui.NET.dll;
+                                $(OutputPath)ImGui.NET.xml;
+                                $(OutputPath)Microsoft.CodeAnalysis.CSharp.dll;
+                                $(OutputPath)Microsoft.CodeAnalysis.CSharp.xml;
+                                $(OutputPath)Microsoft.CodeAnalysis.dll;
+								$(OutputPath)Microsoft.CodeAnalysis.xml;
+								$(OutputPath)Microsoft.Windows.SDK.NET.dll;
+								$(OutputPath)REFCoreDeps.dll;
+                                $(OutputPath)REFramework.NET.dll;
+								$(OutputPath)REFramework.NET.xml;
+                                $(OutputPath)YURI_Overlay.deps.json" />		  
+    </ItemGroup>
+  
+    <ItemGroup>
+        <Dependencies Include="$(OutputPath)*" Exclude="$(OutputPath)dependencies\**;
+														$(OutputPath)ImGui.NET.dll;
+														$(OutputPath)ImGui.NET.xml;
+														$(OutputPath)Microsoft.CodeAnalysis.CSharp.dll;
+														$(OutputPath)Microsoft.CodeAnalysis.CSharp.xml;
+														$(OutputPath)Microsoft.CodeAnalysis.dll;
+														$(OutputPath)Microsoft.CodeAnalysis.xml;
+														$(OutputPath)Microsoft.Windows.SDK.NET.dll;
+														$(OutputPath)REFCoreDeps.dll;
+														$(OutputPath)REFramework.NET.dll;
+														$(OutputPath)REFramework.NET.xml;
+														$(OutputPath)YURI_Overlay.deps.json;
+														$(OutputPath)YURI_Overlay.dll" />			  
+    </ItemGroup>
+	
+	<ItemGroup>
+        <PluginDll Include="$(OutputPath)YURI_Overlay.dll" />			  
+    </ItemGroup>
+	
+	<MakeDir Directories="$(OutputPath)reframework\plugins\managed\dependencies" />
+	
+	<Delete Files="@(FilesToDelete)" />
+	
+	<Move SourceFiles="@(PluginDll)" 
+          DestinationFolder="$(OutputPath)reframework\plugins\managed" />
+    
+    <Move SourceFiles="@(Dependencies)" 
+          DestinationFolder="$(OutputPath)reframework\plugins\managed\dependencies" /> 
+  </Target>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 	<DebugType>embedded</DebugType>
