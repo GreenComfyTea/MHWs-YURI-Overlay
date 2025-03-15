@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.1.0...v1.1.1) (2025-03-11)
+
+
+### Bug Fixes
+
+* Large Monster always being Fulgur Anji ([362f463](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/362f4639285000cfc58aacaec7606077ff1041fe))
+
 ## [1.1.0](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.0.0...v1.1.0) (2025-03-10)
 
 

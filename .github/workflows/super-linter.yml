@@ -34,6 +34,7 @@ jobs:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_NATURAL_LANGUAGE: false
+          VALIDATE_MARKDOWN: false
           FIX_ANSIBLE: true
           FIX_CLANG_FORMAT: true
           FIX_CSHARP: true
