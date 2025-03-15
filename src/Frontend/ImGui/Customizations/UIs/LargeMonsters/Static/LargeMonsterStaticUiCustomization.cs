@@ -13,7 +13,8 @@ internal class LargeMonsterStaticUiCustomization : Customization
 
 	public LabelElementCustomization NameLabel = new();
 	public LargeMonsterHealthComponentCustomization Health = new();
-
+	public LargeMonsterStaminaComponentCustomization Stamina = new();
+	public LargeMonsterRageComponentCustomization Rage = new();
 
 	public LargeMonsterStaticUiCustomization() { }
 
@@ -22,7 +23,7 @@ internal class LargeMonsterStaticUiCustomization : Customization
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
-		var customizationName = $"{parentName}-Static";
+		var customizationName = $"{parentName}-static";
 
 		if(ImGui.TreeNode($"{localization.Static}##{customizationName}"))
 		{
@@ -34,6 +35,8 @@ internal class LargeMonsterStaticUiCustomization : Customization
 			isChanged |= Sorting.RenderImGui(customizationName);
 			isChanged |= NameLabel.RenderImGui(localization.NameLabel, $"{customizationName}-name-label");
 			isChanged |= Health.RenderImGui(customizationName);
+			isChanged |= Stamina.RenderImGui(customizationName);
+			isChanged |= Rage.RenderImGui(customizationName);
 
 			ImGui.TreePop();
 		}

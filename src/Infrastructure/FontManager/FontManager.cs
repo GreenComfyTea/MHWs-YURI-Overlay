@@ -9,17 +9,19 @@ internal sealed partial class FontManager
 	private static readonly Lazy<FontManager> Lazy = new(() => new FontManager());
 	public static FontManager Instance => Lazy.Value;
 
-	private bool IsInitialized { get; set; } = false;
+	public bool IsInitialized = false;
 	public FontCustomization Customization;
 
-	private ushort[] FullGlyphRange { get; } = [0x0020, ushort.MaxValue, 0];
-	private ushort[] EmojiGlyphRange { get; } = [0x2122, 0x2B55, 0];
+	private readonly ushort[] FullGlyphRange = [0x0020, ushort.MaxValue, 0];
+	private readonly ushort[] EmojiGlyphRange = [0x2122, 0x2B55, 0];
 
-	public Dictionary<string, FontObject> Fonts { get; set; } = [];
+	public Dictionary<string, FontObject> Fonts = [];
 
-	private List<string> FontNames { get; set; } = [];
+	private readonly List<string> FontNames = [];
 
 	public FontObject ActiveFont = (string.Empty, null);
+
+	public List<ushort[]> GlyphRanges = [];
 
 	private FontManager() { }
 
@@ -29,10 +31,13 @@ internal sealed partial class FontManager
 	{
 		LogManager.Info("[FontManager] Initializing...");
 
-		IsInitialized = true;
+		GlyphRanges.Add(FullGlyphRange);
+		GlyphRanges.Add(EmojiGlyphRange);
 
 		LoadAllFonts();
 		SetCurrentFont(LocalizationManager.Instance.ActiveLocalization);
+
+		IsInitialized = true;
 
 		LogManager.Info("[FontManager] Initialization Done!");
 
@@ -53,13 +58,15 @@ internal sealed partial class FontManager
 			Fonts[localizationIsoName] = LoadFont(localization);
 		}
 
+		ImGui.GetIO().Fonts.Build();
+
 		LogManager.Info("[FontManager] Loading All Fonts Done!");
 		return this;
 	}
 
 	public unsafe FontObject LoadFont(JsonDatabase<Localization> localization)
 	{
-		var fontConfig = ConfigManager.Instance.ActiveConfig.Data.Fonts;
+		var fontConfigs = ConfigManager.Instance.ActiveConfig.Data.Fonts;
 
 		var fontInfo = localization.Data.FontInfo;
 		var fontName = fontInfo.Name;
@@ -74,17 +81,18 @@ internal sealed partial class FontManager
 		}
 
 		var glyphRanges = GetGlyphRanges(localization);
+		GlyphRanges.Add(glyphRanges);
 
-		var isFound = fontConfig.TryGetValue(fontName, out var customization);
+		var isFound = fontConfigs.TryGetValue(fontName, out var customization);
 
 		if(!isFound)
 		{
 			customization = new FontCustomization();
-			fontConfig[fontName] = customization;
+			fontConfigs[fontName] = customization;
 		}
 
 		var newFont = RegisterFont(
-			$"{Constants.FontsPath}{fontName}",
+			Path.Combine(Constants.FontsPath, fontName),
 			customization!.FontSize,
 			glyphRanges,
 			false,
@@ -148,13 +156,69 @@ internal sealed partial class FontManager
 		return glyphRanges;
 	}
 
-	private static unsafe ImFontPtr RegisterFont(string filePathName, float fontSize, ushort[] glyphRanges, bool mergeMode = false, int horizontalOversample = 2, int verticalOversample = 2)
+	private unsafe ImFontPtr RegisterFont(string filePathName, float fontSize, ushort[] glyphRanges, bool mergeMode = false, int horizontalOversample = 2, int verticalOversample = 2)
 	{
-		ImFontConfigPtr imFontConfig = ImGuiNative.ImFontConfig_ImFontConfig();
-		imFontConfig.MergeMode = mergeMode;
-		imFontConfig.OversampleH = horizontalOversample;
-		imFontConfig.OversampleV = verticalOversample;
+		try
+		{
+			LogManager.Info($"[FontManager] Registering Font: {filePathName}");
 
-		return ImGui.GetIO().Fonts.AddFontFromFileTTF(filePathName, fontSize, imFontConfig);
+			if(string.IsNullOrEmpty(filePathName))
+			{
+				LogManager.Error("[FontManager] File path is null or empty.");
+				return null;
+			}
+
+			string fullPath = Path.Combine(@"D:\Programs\Steam\steamapps\common\MonsterHunterWilds\", filePathName);
+			if(!File.Exists(fullPath))
+			{
+				LogManager.Error($"[FontManager] Font file not found: {fullPath}");
+				return null;
+			}
+
+			if(glyphRanges == null || glyphRanges.Length == 0)
+			{
+				LogManager.Error("[FontManager] Glyph ranges are null or empty.");
+				return null;
+			}
+
+			fixed(ushort* glyphRangesPointer = glyphRanges)
+			{
+				LogManager.Info($"[FontManager] Allocating ImFontConfig");
+
+				ImFontConfig* fontConfig = ImGuiNative.ImFontConfig_ImFontConfig();
+				if(fontConfig == null)
+				{
+					LogManager.Error("[FontManager] ImFontConfig allocation failed.");
+					return null;
+				}
+
+				fontConfig->MergeMode = mergeMode ? (byte) 1 : (byte) 0;
+				fontConfig->PixelSnapH = 1;
+				fontConfig->GlyphMinAdvanceX = fontSize;
+				fontConfig->GlyphRanges = glyphRangesPointer;
+
+				LogManager.Info($"[FontManager] Registering Font at {fullPath} with size {fontSize}");
+
+				ImFontPtr font = ImGui.GetIO().Fonts.AddFontFromFileTTF(fullPath, fontSize, fontConfig);
+
+				if(font.NativePtr == null)
+				{
+					LogManager.Error("[FontManager] AddFontFromFileTTF returned null.");
+					ImGuiNative.ImFontConfig_destroy(fontConfig);
+					return null;
+				}
+
+				LogManager.Info("[FontManager] Font successfully registered.");
+
+				ImGuiNative.ImFontConfig_destroy(fontConfig);
+
+				return font;
+			}
+		}
+		catch(Exception exception)
+		{
+			LogManager.Error(exception);
+			return null;
+		}
 	}
 }

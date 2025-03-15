@@ -27,8 +27,10 @@ internal class LargeMonsterHealthComponent
 
 	public void Draw(ImDrawListPtr backgroundDrawList, Vector2 position, float opacityScale = 1f)
 	{
+		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier;
+
 		var offset = customizationAccessor().Offset;
-		var offsetPosition = new Vector2(position.X + offset.X, position.Y + offset.Y);
+		var offsetPosition = new Vector2(position.X + (sizeScaleModifier * offset.X), position.Y + (sizeScaleModifier * offset.Y));
 
 		_healthBarElement.Draw(backgroundDrawList, offsetPosition, _largeMonster.HealthPercentage, opacityScale);
 		_healthPercentageLabelElement.Draw(backgroundDrawList, offsetPosition, opacityScale, _largeMonster.HealthPercentage);

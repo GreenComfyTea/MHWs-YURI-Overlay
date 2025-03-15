@@ -37,7 +37,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 	public void Draw(ImDrawListPtr backgroundDrawList)
 	{
-		UpdateAllDistances();
+		//UpdateAllDistances();
 		DrawDynamicUi(backgroundDrawList);
 		DrawStaticUi(backgroundDrawList);
 	}
@@ -49,15 +49,15 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		LogManager.Info($"[LargeMonsterUIManager] Disposed!");
 	}
 
-	private void UpdateAllDistances()
-	{
-		foreach(var largeMonsterPair in MonsterManager.Instance.LargeMonsters)
-		{
-			var largeMonster = largeMonsterPair.Value;
+	//private void UpdateAllDistances()
+	//{
+	//	foreach(var largeMonsterPair in MonsterManager.Instance.LargeMonsters)
+	//	{
+	//		var largeMonster = largeMonsterPair.Value;
 
-			largeMonster.UpdateDistance();
-		}
-	}
+	//		largeMonster.UpdateDistance();
+	//	}
+	//}
 
 	private void UpdateDynamic()
 	{

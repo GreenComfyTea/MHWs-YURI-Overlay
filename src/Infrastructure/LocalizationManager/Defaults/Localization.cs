@@ -146,11 +146,16 @@ internal class ImGuiLocalization
 	public string UpdateDelaySeconds = "Update Delay (seconds)";
 	public string CalculationCaching = "Calculation Caching";
 
-	public string Font { get; set; } = "Font";
-	public string AnyChangesToFontRequireGameRestart { get; set; } = "Any Changes to Font Require Game Restart!";
-	public string FontSize { get; set; } = "Font Size";
-	public string HorizontalOversample { get; set; } = "Horizontal Oversample";
-	public string VerticalOversample { get; set; } = "Vertical Oversample";
+	public string Font = "Font";
+	public string AnyChangesToFontRequireGameRestart = "Any Changes to Font Require Game Restart!";
+	public string FontSize = "Font Size";
+	public string HorizontalOversample = "Horizontal Oversample";
+	public string VerticalOversample = "Vertical Oversample";
+
+	public string Stamina = "Stamina";
+	public string TimerLabel = "Timer Label";
+	public string Rage = "Rage";
+	public string TimerBar = "Timer Bar";
 }
 
 internal class Localization

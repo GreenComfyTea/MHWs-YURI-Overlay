@@ -75,7 +75,7 @@ internal sealed class BarElement
 			return;
 		}
 
-		progress = Utils.Clamp(progress, 0f, 1f);
+		progress = Math.Clamp(progress, 0f, 1f);
 
 		var outline = customization.Outline;
 		var outlineThickness = outline.Thickness;
@@ -328,7 +328,7 @@ internal sealed class BarElement
 				break;
 		}
 
-		_outlineColor = customization.Outline.Color.colorInfo.Abgr;
+		_outlineColor = customization.Outline.Color.ColorInfo.Abgr;
 
 		if(Utils.IsApproximatelyEqual(opacityScale, 1f))
 		{

@@ -139,9 +139,7 @@ internal sealed class MonsterManager : IDisposable
 				}
 				else
 				{
-					var largeMonster = LargeMonsters[enemyCharacter];
-					largeMonster.UpdateHealth();
-					largeMonster.UpdatePosition();
+					LargeMonsters[enemyCharacter].Update();
 				}
 			}
 

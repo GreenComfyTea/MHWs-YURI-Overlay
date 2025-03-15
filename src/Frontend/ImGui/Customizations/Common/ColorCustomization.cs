@@ -7,11 +7,11 @@ namespace YURI_Overlay;
 internal class ColorCustomization : Customization
 {
 	[JsonIgnore]
-	public ColorInfo colorInfo = new();
+	public ColorInfo ColorInfo = new();
 	public string Color
 	{
-		get => colorInfo.RgbaHex;
-		set => colorInfo.RgbaHex = value;
+		get => ColorInfo.RgbaHex;
+		set => ColorInfo.RgbaHex = value;
 	}
 
 	public ColorCustomization() { }
@@ -25,11 +25,11 @@ internal class ColorCustomization : Customization
 
 		if(ImGui.TreeNode($"{localization.Color}##${customizationName}"))
 		{
-			var isColorChanged = ImGui.ColorPicker4($"##${customizationName}", ref colorInfo.vector);
+			var isColorChanged = ImGui.ColorPicker4($"##${customizationName}", ref ColorInfo.vector);
 			isChanged |= isColorChanged;
 			if(isColorChanged)
 			{
-				colorInfo.Vector = colorInfo.vector;
+				ColorInfo.Vector = ColorInfo.vector;
 			}
 
 			ImGui.TreePop();

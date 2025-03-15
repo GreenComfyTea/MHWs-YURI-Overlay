@@ -18,7 +18,7 @@ public class Plugin
 
 		try
 		{
-			Task.Run(Init);
+			Task.Run(Initialize);
 		}
 		catch(Exception exception)
 		{
@@ -43,7 +43,7 @@ public class Plugin
 		LogManager.Info("I permitted it to pass over me and through me. When it had gone past I turned the inner eye to see its path. Where the fear had gone, there was nothing. Only I remained...");
 	}
 
-	private static void Init()
+	private static void Initialize()
 	{
 		try
 		{
@@ -54,7 +54,7 @@ public class Plugin
 			var localizationHelper = LocalizationHelper.Instance;
 			var reframeworkManager = ReframeworkManager.Instance;
 
-			//var fontManager = FontManager.Instance;
+			var fontManager = FontManager.Instance;
 
 			var imGuiManager = ImGuiManager.Instance;
 			var overlayManager = OverlayManager.Instance;
@@ -81,8 +81,8 @@ public class Plugin
 			LogManager.Info("Callbacks: Initializing...");
 
 			REFrameworkNET.Callbacks.ImGuiRender.Post += OnImGuiRender;
-
 			IsInitialized = true;
+
 
 			LogManager.Info("Callbacks: Initialized!");
 		}
@@ -92,6 +92,9 @@ public class Plugin
 		}
 	}
 
+	private static void OnBeginRendering()
+	{
+	}
 
 	private static void OnImGuiRender()
 	{

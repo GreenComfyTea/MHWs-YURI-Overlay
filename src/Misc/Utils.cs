@@ -8,34 +8,6 @@ namespace YURI_Overlay;
 
 internal static class Utils
 {
-	public static int Clamp(int value, int min, int max)
-	{
-		if(value < min)
-		{
-			return min;
-		}
-		else if(value > max)
-		{
-			return max;
-		}
-
-		return value;
-	}
-
-	public static float Clamp(float value, float min, float max)
-	{
-		if(value < min)
-		{
-			return min;
-		}
-		else if(value > max)
-		{
-			return max;
-		}
-
-		return value;
-	}
-
 	public static bool IsApproximatelyEqual(float a, float b)
 	{
 		return Math.Abs(a - b) <= Constants.Epsilon;
@@ -155,5 +127,14 @@ internal static class Utils
 		alpha = (uint) (alpha * opacity);
 
 		return (alpha << 24) | (blue << 16) | (green << 8) | red;
+	}
+
+	public static string FormatTimer(float seconds, float maxSeconds)
+	{
+		var totalSeconds = (int) Math.Round(Math.Clamp(seconds, 0f, maxSeconds));
+
+		var minutes = totalSeconds / 60;
+		var remainingSeconds = totalSeconds % 60;
+		return $"{minutes}:{remainingSeconds:F2}";
 	}
 }

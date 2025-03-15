@@ -9,6 +9,8 @@ internal sealed class LargeMonsterStaticUi
 
 	private readonly LabelElement _nameLabelElement;
 	private readonly LargeMonsterHealthComponent _healthComponent;
+	private readonly LargeMonsterStaminaComponent _staminaComponent;
+	private readonly LargeMonsterRageComponent _rageComponent;
 
 	public LargeMonsterStaticUi(LargeMonster largeMonster)
 	{
@@ -17,6 +19,8 @@ internal sealed class LargeMonsterStaticUi
 
 		_nameLabelElement = new LabelElement(() => _customizationAccessor().NameLabel);
 		_healthComponent = new LargeMonsterHealthComponent(largeMonster, () => _customizationAccessor().Health);
+		_staminaComponent = new LargeMonsterStaminaComponent(largeMonster, () => _customizationAccessor().Stamina);
+		_rageComponent = new LargeMonsterRageComponent(largeMonster, () => _customizationAccessor().Rage);
 	}
 
 	public void Draw(ImDrawListPtr backgroundDrawList, int locationIndex)
@@ -35,7 +39,9 @@ internal sealed class LargeMonsterStaticUi
 		position.X += spacing.X * positionScaleModifier * locationIndex;
 		position.Y += spacing.Y * positionScaleModifier * locationIndex;
 
+		_rageComponent.Draw(backgroundDrawList, position);
 		_healthComponent.Draw(backgroundDrawList, position);
 		_nameLabelElement.Draw(backgroundDrawList, position, 1f, _largeMonster.Name);
+		_staminaComponent.Draw(backgroundDrawList, position);
 	}
 }
