@@ -44,7 +44,7 @@ jobs:
       
     - name: Zip the Build
       run: |
-        cd /home/runner/work/MHWs-YURI-Overlay/MHWs-YURI-Overlay/bin/reframework/plugins/managed/ && zip -r YURI_Overlay.zip -- *
+        cd /home/runner/work/MHWs-YURI-Overlay/MHWs-YURI-Overlay/bin/ && zip -r YURI_Overlay.zip -- *
 
     - name: Expose Commit Data
       uses: rlespinasse/git-commit-data-action@v1
@@ -70,7 +70,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.NIGHTLY_TOKEN }}
       with:
         upload_url: ${{ steps.create-build-release.outputs.upload_url }}
-        asset_path: /home/runner/work/MHWs-YURI-Overlay/MHWs-YURI-Overlay/bin/reframework/plugins/managed/YURI_Overlay.zip
+        asset_path: /home/runner/work/MHWs-YURI-Overlay/MHWs-YURI-Overlay/bin/YURI_Overlay.zip
         asset_name: YURI_Overlay_000${{ github.run_number }}_${{ env.GIT_COMMIT_SHORT_SHA }}.zip
         asset_content_type: application/zip
         
@@ -96,6 +96,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.NIGHTLY_TOKEN }}
       with:
         upload_url: ${{ steps.update-latest-release.outputs.upload_url }}
-        asset_path: /home/runner/work/MHWs-YURI-Overlay/MHWs-YURI-Overlay/bin/reframework/plugins/managed/YURI_Overlay.zip
+        asset_path: /home/runner/work/MHWs-YURI-Overlay/MHWs-YURI-Overlay/bin/YURI_Overlay.zip
         asset_name: YURI_Overlay_00${{ github.run_number }}_${{ env.GIT_COMMIT_SHORT_SHA }}.zip
         asset_content_type: application/zip
