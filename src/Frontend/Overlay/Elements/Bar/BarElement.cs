@@ -274,57 +274,57 @@ internal sealed class BarElement
 		switch(customization.Settings.FillDirection)
 		{
 			case FillDirections.RightToLeft:
-				_backgroundColorTopRight = backgroundColor.StartInfo1.Abgr;
-				_backgroundColorBottomRight = backgroundColor.StartInfo2.Abgr;
+				_backgroundColorTopRight = backgroundColor.Start.ColorInfo1.Abgr;
+				_backgroundColorBottomRight = backgroundColor.Start.ColorInfo2.Abgr;
 
-				_backgroundColorTopLeft = backgroundColor.EndInfo1.Abgr;
-				_backgroundColorBottomLeft = backgroundColor.EndInfo2.Abgr;
+				_backgroundColorTopLeft = backgroundColor.End.ColorInfo1.Abgr;
+				_backgroundColorBottomLeft = backgroundColor.End.ColorInfo2.Abgr;
 
-				_foregroundColorTopRight = foregroundColor.StartInfo1.Abgr;
-				_foregroundColorBottomRight = foregroundColor.StartInfo2.Abgr;
+				_foregroundColorTopRight = foregroundColor.Start.ColorInfo1.Abgr;
+				_foregroundColorBottomRight = foregroundColor.Start.ColorInfo2.Abgr;
 
-				_foregroundColorTopLeft = foregroundColor.EndInfo1.Abgr;
-				_foregroundColorBottomLeft = foregroundColor.EndInfo2.Abgr;
+				_foregroundColorTopLeft = foregroundColor.End.ColorInfo1.Abgr;
+				_foregroundColorBottomLeft = foregroundColor.End.ColorInfo2.Abgr;
 				break;
 			case FillDirections.TopToBottom:
-				_backgroundColorTopLeft = backgroundColor.StartInfo1.Abgr;
-				_backgroundColorTopRight = backgroundColor.StartInfo2.Abgr;
+				_backgroundColorTopLeft = backgroundColor.Start.ColorInfo1.Abgr;
+				_backgroundColorTopRight = backgroundColor.Start.ColorInfo2.Abgr;
 
-				_backgroundColorBottomLeft = backgroundColor.EndInfo1.Abgr;
-				_backgroundColorBottomRight = backgroundColor.EndInfo2.Abgr;
+				_backgroundColorBottomLeft = backgroundColor.End.ColorInfo1.Abgr;
+				_backgroundColorBottomRight = backgroundColor.End.ColorInfo2.Abgr;
 
-				_foregroundColorTopLeft = foregroundColor.StartInfo1.Abgr;
-				_foregroundColorTopRight = foregroundColor.StartInfo2.Abgr;
+				_foregroundColorTopLeft = foregroundColor.Start.ColorInfo1.Abgr;
+				_foregroundColorTopRight = foregroundColor.Start.ColorInfo2.Abgr;
 
-				_foregroundColorBottomLeft = foregroundColor.EndInfo1.Abgr;
-				_foregroundColorBottomRight = foregroundColor.EndInfo2.Abgr;
+				_foregroundColorBottomLeft = foregroundColor.End.ColorInfo1.Abgr;
+				_foregroundColorBottomRight = foregroundColor.End.ColorInfo2.Abgr;
 				break;
 			case FillDirections.BottomToTop:
-				_backgroundColorBottomLeft = backgroundColor.StartInfo1.Abgr;
-				_backgroundColorBottomRight = backgroundColor.StartInfo2.Abgr;
+				_backgroundColorBottomLeft = backgroundColor.Start.ColorInfo1.Abgr;
+				_backgroundColorBottomRight = backgroundColor.Start.ColorInfo2.Abgr;
 
-				_backgroundColorTopLeft = backgroundColor.EndInfo1.Abgr;
-				_backgroundColorTopRight = backgroundColor.EndInfo2.Abgr;
+				_backgroundColorTopLeft = backgroundColor.End.ColorInfo1.Abgr;
+				_backgroundColorTopRight = backgroundColor.End.ColorInfo2.Abgr;
 
-				_foregroundColorBottomLeft = foregroundColor.StartInfo1.Abgr;
-				_foregroundColorBottomRight = foregroundColor.StartInfo2.Abgr;
+				_foregroundColorBottomLeft = foregroundColor.Start.ColorInfo1.Abgr;
+				_foregroundColorBottomRight = foregroundColor.Start.ColorInfo2.Abgr;
 
-				_foregroundColorTopLeft = foregroundColor.EndInfo1.Abgr;
-				_foregroundColorTopRight = foregroundColor.EndInfo2.Abgr;
+				_foregroundColorTopLeft = foregroundColor.End.ColorInfo1.Abgr;
+				_foregroundColorTopRight = foregroundColor.End.ColorInfo2.Abgr;
 				break;
 			case FillDirections.LeftToRight:
 			default:
-				_foregroundColorTopLeft = backgroundColor.StartInfo1.Abgr;
-				_foregroundColorBottomLeft = backgroundColor.StartInfo2.Abgr;
+				_foregroundColorTopLeft = backgroundColor.Start.ColorInfo1.Abgr;
+				_foregroundColorBottomLeft = backgroundColor.Start.ColorInfo2.Abgr;
 
-				_foregroundColorTopRight = backgroundColor.EndInfo1.Abgr;
-				_foregroundColorBottomRight = backgroundColor.EndInfo2.Abgr;
+				_foregroundColorTopRight = backgroundColor.End.ColorInfo1.Abgr;
+				_foregroundColorBottomRight = backgroundColor.End.ColorInfo2.Abgr;
 
-				_foregroundColorTopLeft = foregroundColor.StartInfo1.Abgr;
-				_foregroundColorBottomLeft = foregroundColor.StartInfo2.Abgr;
+				_foregroundColorTopLeft = foregroundColor.Start.ColorInfo1.Abgr;
+				_foregroundColorBottomLeft = foregroundColor.Start.ColorInfo2.Abgr;
 
-				_foregroundColorTopRight = foregroundColor.EndInfo1.Abgr;
-				_foregroundColorBottomRight = foregroundColor.EndInfo2.Abgr;
+				_foregroundColorTopRight = foregroundColor.End.ColorInfo1.Abgr;
+				_foregroundColorBottomRight = foregroundColor.End.ColorInfo2.Abgr;
 				break;
 		}
 

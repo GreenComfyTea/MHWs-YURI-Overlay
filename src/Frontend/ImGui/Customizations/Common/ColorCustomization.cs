@@ -4,7 +4,7 @@ using ImGuiNET;
 
 namespace YURI_Overlay;
 
-internal class ColorCustomization : Customization
+internal sealed class ColorCustomization : Customization
 {
 	[JsonIgnore]
 	public ColorInfo ColorInfo = new();

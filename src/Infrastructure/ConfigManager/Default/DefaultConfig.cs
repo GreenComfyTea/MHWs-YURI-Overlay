@@ -77,15 +77,19 @@ internal static class DefaultConfig
 		config.LargeMonsterUI.Dynamic.Health.Bar.Size.Width = 297f;
 		config.LargeMonsterUI.Dynamic.Health.Bar.Size.Height = 12f;
 
-		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Foreground.StartInfo1.Rgba = 0x004D1BCC;
-		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Foreground.StartInfo2.Rgba = 0x004D1BCC;
-		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Foreground.EndInfo1.Rgba = 0x34FF4ECC;
-		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Foreground.EndInfo2.Rgba = 0x34FF4ECC;
+		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x004D1BCC;
+		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x004D1BCC;
+		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0x34FF4ECC;
+		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0x34FF4ECC;
 
-		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Background.StartInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Background.StartInfo2.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Background.EndInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Background.EndInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Health.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
 
 		config.LargeMonsterUI.Dynamic.Health.Bar.Outline.Visible = true;
@@ -130,15 +134,19 @@ internal static class DefaultConfig
 		config.LargeMonsterUI.Dynamic.Stamina.Bar.Size.Width = 128f;
 		config.LargeMonsterUI.Dynamic.Stamina.Bar.Size.Height = 8f;
 
-		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Foreground.StartInfo1.Rgba = 0x403100CC;
-		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Foreground.StartInfo2.Rgba = 0x403100CC;
-		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Foreground.EndInfo1.Rgba = 0xFFDA33CC;
-		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Foreground.EndInfo2.Rgba = 0xFFDA33CC;
+		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x403100CC;
+		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x403100CC;
+		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xFFDA33CC;
+		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xFFDA33CC;
 
-		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Background.StartInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Background.StartInfo2.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Background.EndInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Background.EndInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Stamina.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
 		config.LargeMonsterUI.Dynamic.Stamina.Bar.Outline.Visible = true;
 		config.LargeMonsterUI.Dynamic.Stamina.Bar.Outline.Thickness = 2f;
@@ -164,15 +172,19 @@ internal static class DefaultConfig
 		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Size.Width = 128f;
 		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Size.Height = 8f;
 
-		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Foreground.StartInfo1.Rgba = 0x403100CC;
-		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Foreground.StartInfo2.Rgba = 0x403100CC;
-		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Foreground.EndInfo1.Rgba = 0xFFDA33CC;
-		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Foreground.EndInfo2.Rgba = 0xFFDA33CC;
+		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x403100CC;
+		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x403100CC;
+		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Foreground.End.ColorInfo1.Rgba = 0xFFDA33CC;
+		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Foreground.End.ColorInfo2.Rgba = 0xFFDA33CC;
 
-		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Background.StartInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Background.StartInfo2.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Background.EndInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Background.EndInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Background.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Background.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
 		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Outline.Visible = true;
 		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Outline.Thickness = 2f;
@@ -216,15 +228,19 @@ internal static class DefaultConfig
 		config.LargeMonsterUI.Dynamic.Rage.Bar.Size.Width = 128f;
 		config.LargeMonsterUI.Dynamic.Rage.Bar.Size.Height = 8f;
 
-		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Foreground.StartInfo1.Rgba = 0x40000BCC;
-		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Foreground.StartInfo2.Rgba = 0x40000BCC;
-		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Foreground.EndInfo1.Rgba = 0xFF4242CC;
-		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Foreground.EndInfo2.Rgba = 0xFF4242CC;
+		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x40000BCC;
+		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x40000BCC;
+		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xFF4242CC;
+		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xFF4242CC;
 
-		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Background.StartInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Background.StartInfo2.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Background.EndInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Background.EndInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Rage.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
 		config.LargeMonsterUI.Dynamic.Rage.Bar.Outline.Visible = true;
 		config.LargeMonsterUI.Dynamic.Rage.Bar.Outline.Thickness = 2f;
@@ -251,15 +267,19 @@ internal static class DefaultConfig
 		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Size.Width = 128f;
 		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Size.Height = 8f;
 
-		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Foreground.StartInfo1.Rgba = 0x40000BCC;
-		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Foreground.StartInfo2.Rgba = 0x40000BCC;
-		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Foreground.EndInfo1.Rgba = 0xFF4242CC;
-		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Foreground.EndInfo2.Rgba = 0xFF4242CC;
+		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x40000BCC;
+		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x40000BCC;
+		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Foreground.End.ColorInfo1.Rgba = 0xFF4242CC;
+		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Foreground.End.ColorInfo2.Rgba = 0xFF4242CC;
 
-		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Background.StartInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Background.StartInfo2.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Background.EndInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Background.EndInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Background.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Background.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
 		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Outline.Visible = true;
 		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Outline.Thickness = 2f;
@@ -329,15 +349,19 @@ internal static class DefaultConfig
 		config.LargeMonsterUI.Static.Health.Bar.Size.Width = 297f;
 		config.LargeMonsterUI.Static.Health.Bar.Size.Height = 12f;
 
-		config.LargeMonsterUI.Static.Health.Bar.Colors.Foreground.StartInfo1.Rgba = 0x004016CC;
-		config.LargeMonsterUI.Static.Health.Bar.Colors.Foreground.StartInfo2.Rgba = 0x004016CC;
-		config.LargeMonsterUI.Static.Health.Bar.Colors.Foreground.EndInfo1.Rgba = 0x34FF4ECC;
-		config.LargeMonsterUI.Static.Health.Bar.Colors.Foreground.EndInfo2.Rgba = 0x34FF4ECC;
+		config.LargeMonsterUI.Static.Health.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Health.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x004016CC;
+		config.LargeMonsterUI.Static.Health.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x004016CC;
+		config.LargeMonsterUI.Static.Health.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Health.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0x34FF4ECC;
+		config.LargeMonsterUI.Static.Health.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0x34FF4ECC;
 
-		config.LargeMonsterUI.Static.Health.Bar.Colors.Background.StartInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Static.Health.Bar.Colors.Background.StartInfo2.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Static.Health.Bar.Colors.Background.EndInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Static.Health.Bar.Colors.Background.EndInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Health.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Health.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Health.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Health.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Health.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Health.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
 		config.LargeMonsterUI.Static.Health.Bar.Outline.Visible = true;
 		config.LargeMonsterUI.Static.Health.Bar.Outline.Thickness = 2f;
@@ -381,15 +405,19 @@ internal static class DefaultConfig
 		config.LargeMonsterUI.Static.Stamina.Bar.Size.Width = 94f;
 		config.LargeMonsterUI.Static.Stamina.Bar.Size.Height = 8f;
 
-		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Foreground.StartInfo1.Rgba = 0x403100CC;
-		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Foreground.StartInfo2.Rgba = 0x403100CC;
-		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Foreground.EndInfo1.Rgba = 0xFFDA33CC;
-		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Foreground.EndInfo2.Rgba = 0xFFDA33CC;
+		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x403100CC;
+		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x403100CC;
+		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xFFDA33CC;
+		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xFFDA33CC;
 
-		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Background.StartInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Background.StartInfo2.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Background.EndInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Background.EndInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Stamina.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
 		config.LargeMonsterUI.Static.Stamina.Bar.Outline.Visible = true;
 		config.LargeMonsterUI.Static.Stamina.Bar.Outline.Thickness = 2f;
@@ -415,15 +443,19 @@ internal static class DefaultConfig
 		config.LargeMonsterUI.Static.Stamina.TimerBar.Size.Width = 94f;
 		config.LargeMonsterUI.Static.Stamina.TimerBar.Size.Height = 8f;
 
-		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Foreground.StartInfo1.Rgba = 0x403100CC;
-		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Foreground.StartInfo2.Rgba = 0x403100CC;
-		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Foreground.EndInfo1.Rgba = 0xFFDA33CC;
-		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Foreground.EndInfo2.Rgba = 0xFFDA33CC;
+		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x403100CC;
+		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x403100CC;
+		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Foreground.End.ColorInfo1.Rgba = 0xFFDA33CC;
+		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Foreground.End.ColorInfo2.Rgba = 0xFFDA33CC;
 
-		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Background.StartInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Background.StartInfo2.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Background.EndInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Background.EndInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Background.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Background.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Stamina.TimerBar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
 		config.LargeMonsterUI.Static.Stamina.TimerBar.Outline.Visible = true;
 		config.LargeMonsterUI.Static.Stamina.TimerBar.Outline.Thickness = 2f;
@@ -467,15 +499,19 @@ internal static class DefaultConfig
 		config.LargeMonsterUI.Static.Rage.Bar.Size.Width = 74f;
 		config.LargeMonsterUI.Static.Rage.Bar.Size.Height = 8f;
 
-		config.LargeMonsterUI.Static.Rage.Bar.Colors.Foreground.StartInfo1.Rgba = 0x40000BCC;
-		config.LargeMonsterUI.Static.Rage.Bar.Colors.Foreground.StartInfo2.Rgba = 0x40000BCC;
-		config.LargeMonsterUI.Static.Rage.Bar.Colors.Foreground.EndInfo1.Rgba = 0xFF4242CC;
-		config.LargeMonsterUI.Static.Rage.Bar.Colors.Foreground.EndInfo2.Rgba = 0xFF4242CC;
+		config.LargeMonsterUI.Static.Rage.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Rage.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x40000BCC;
+		config.LargeMonsterUI.Static.Rage.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x40000BCC;
+		config.LargeMonsterUI.Static.Rage.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Rage.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xFF4242CC;
+		config.LargeMonsterUI.Static.Rage.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xFF4242CC;
 
-		config.LargeMonsterUI.Static.Rage.Bar.Colors.Background.StartInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Static.Rage.Bar.Colors.Background.StartInfo2.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Static.Rage.Bar.Colors.Background.EndInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Static.Rage.Bar.Colors.Background.EndInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Rage.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Rage.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Rage.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Rage.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Rage.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Rage.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
 		config.LargeMonsterUI.Static.Rage.Bar.Outline.Visible = true;
 		config.LargeMonsterUI.Static.Rage.Bar.Outline.Thickness = 2f;
@@ -502,15 +538,19 @@ internal static class DefaultConfig
 		config.LargeMonsterUI.Static.Rage.TimerBar.Size.Width = 74f;
 		config.LargeMonsterUI.Static.Rage.TimerBar.Size.Height = 8f;
 
-		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Foreground.StartInfo1.Rgba = 0x40000BCC;
-		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Foreground.StartInfo2.Rgba = 0x40000BCC;
-		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Foreground.EndInfo1.Rgba = 0xFF4242CC;
-		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Foreground.EndInfo2.Rgba = 0xFF4242CC;
+		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x40000BCC;
+		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x40000BCC;
+		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Foreground.End.ColorInfo1.Rgba = 0xFF4242CC;
+		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Foreground.End.ColorInfo2.Rgba = 0xFF4242CC;
 
-		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Background.StartInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Background.StartInfo2.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Background.EndInfo1.Rgba = 0x0000004A;
-		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Background.EndInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Background.Start.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Background.End.SplitIntoTwoColors = false;
+		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		config.LargeMonsterUI.Static.Rage.TimerBar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
 		config.LargeMonsterUI.Static.Rage.TimerBar.Outline.Visible = true;
 		config.LargeMonsterUI.Static.Rage.TimerBar.Outline.Thickness = 2f;
