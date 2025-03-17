@@ -8,7 +8,7 @@ internal sealed class MonsterManager : IDisposable
 
 	public static MonsterManager Instance => Lazy.Value;
 
-	public Dictionary<ManagedObject, LargeMonster> LargeMonsters = [];
+	public Dictionary<app.EnemyCharacter, LargeMonster> LargeMonsters = [];
 
 	private Type Boolean_Type;
 
@@ -59,6 +59,7 @@ internal sealed class MonsterManager : IDisposable
 	{
 		try
 		{
+
 			var EnemyCharacter_TypeDef = TDB.Get().GetType("app.EnemyCharacter");
 
 			doUpdateEnd_Method = EnemyCharacter_TypeDef.GetMethod("doUpdateEnd");
@@ -105,18 +106,18 @@ internal sealed class MonsterManager : IDisposable
 		try
 		{
 			var enemyCharacterPtr = args[1];
-			var enemyCharacter = ManagedObject.ToManagedObject(enemyCharacterPtr);
+			var enemyCharacter = ManagedObject.ToManagedObject(enemyCharacterPtr).As<app.EnemyCharacter>();
 
 
-			var _Context = (ManagedObject) _Context_Field.GetDataBoxed(enemyCharacterPtr, false);
-			if(_Context == null)
+			var context = enemyCharacter._Context;
+			if(context == null)
 			{
 				LogManager.Warn("[MonsterManager.OnPreDoUpdateEnd] No enemy context holder");
 				return PreHookResult.Continue;
 			}
 
-			var _Em = (ManagedObject) _Em_Field.GetDataBoxed((ulong) _Context.Ptr(), false);
-			if(_Em == null)
+			var enemyContext = context._Em;
+			if(enemyContext == null)
 			{
 				LogManager.Warn("[MonsterManager.OnPreDoUpdateEnd] No enemy context");
 				return PreHookResult.Continue;

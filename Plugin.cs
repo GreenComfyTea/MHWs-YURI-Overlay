@@ -49,65 +49,61 @@ public class Plugin
 		{
 			LogManager.Info("Managers: Initializing...");
 
+			var screenManager = ScreenManager.Instance;
 			var configManager = ConfigManager.Instance;
 			var localizationManager = LocalizationManager.Instance;
 			var localizationHelper = LocalizationHelper.Instance;
 			var reframeworkManager = ReframeworkManager.Instance;
+			//var luaFontManager = LuaFontManager.Instance;
 
-			var fontManager = FontManager.Instance;
+			//var fontManager = FontManager.Instance;
 
 			var imGuiManager = ImGuiManager.Instance;
 			var overlayManager = OverlayManager.Instance;
 
-
-
-			var cameraManager = ScreenManager.Instance;
 			var monsterManager = MonsterManager.Instance;
 
+			screenManager.Initialize();
 			configManager.Initialize();
 			localizationManager.Initialize();
 			localizationHelper.Initialize();
 			reframeworkManager.Initialize();
+			//luaFontManager.Initialize();
 
 			//fontManager.Initialize();
 
 			imGuiManager.Initialize();
 			overlayManager.Initialize();
 
-			cameraManager.Initialize();
 			monsterManager.Initialize();
 
 			LogManager.Info("Managers: Initialized!");
 			LogManager.Info("Callbacks: Initializing...");
 
 			REFrameworkNET.Callbacks.ImGuiRender.Post += OnImGuiRender;
-			IsInitialized = true;
-
 
 			LogManager.Info("Callbacks: Initialized!");
+
+			IsInitialized = true;
 		}
 		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
-	}
-
-	private static void OnBeginRendering()
-	{
 	}
 
 	private static void OnImGuiRender()
 	{
 		if(!IsInitialized) return;
 
-		try
-		{
-			ScreenManager.Instance.FrameUpdate();
-		}
-		catch(Exception exception)
-		{
-			LogManager.Error(exception);
-		}
+		//try
+		//{
+		//	LuaFontManager.Instance.FrameUpdate();
+		//}
+		//catch(Exception exception)
+		//{
+		//	LogManager.Error(exception);
+		//}
 
 		try
 		{

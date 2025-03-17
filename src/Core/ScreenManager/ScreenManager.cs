@@ -1,7 +1,5 @@
 ﻿using System.Numerics;
 
-using ImGuiNET;
-
 using REFrameworkNET;
 
 using ValueType = REFrameworkNET.ValueType;
@@ -13,7 +11,7 @@ internal sealed class ScreenManager
 	private static readonly Lazy<ScreenManager> Lazy = new(() => new ScreenManager());
 	public static ScreenManager Instance => Lazy.Value;
 
-	public Vector2 DisplaySize = new(1920f, 1080f);
+	public Vector2 WindowSize = new(1920f, 1080f);
 
 	private ManagedObject PrimaryCamera;
 	private Matrix4x4 _viewProjectionMatrix = Matrix4x4.Identity;
@@ -28,6 +26,7 @@ internal sealed class ScreenManager
 	private Type Camera_Type;
 	private Type mat4_Type;
 	private Type Single_Type;
+	private Type Size_Type;
 
 	private Field m00_Field;
 	private Field m01_Field;
@@ -45,9 +44,12 @@ internal sealed class ScreenManager
 	private Field m31_Field;
 	private Field m32_Field;
 	private Field m33_Field;
+	private Field w_Field;
+	private Field h_Field;
 
 	private Method get_MainView_Method;
 	private Method get_PrimaryCamera_Method;
+	private Method get_WindowSize_Method;
 	private Method get_ViewMatrix_Method;
 	private Method get_ViewProjMatrix_Method;
 
@@ -58,6 +60,8 @@ internal sealed class ScreenManager
 		LogManager.Info("[ScreenManager] Initializing...");
 
 		InitializeTdb();
+
+		Update();
 
 		Timers.SetInterval(Update, 1000);
 
@@ -95,13 +99,13 @@ internal sealed class ScreenManager
 			var normalizedDeviceCoordinatesY = clipSpacePosition.Y / clipSpacePosition.W;
 
 			// Convert NDC to screen coordinates
-			var screenX = (normalizedDeviceCoordinatesX + 1.0f) / 2.0f * DisplaySize.X;
-			var screenY = (1.0f - normalizedDeviceCoordinatesY) / 2.0f * DisplaySize.Y;
+			var screenX = (normalizedDeviceCoordinatesX + 1.0f) / 2.0f * WindowSize.X;
+			var screenY = (1.0f - normalizedDeviceCoordinatesY) / 2.0f * WindowSize.Y;
 
 			if(screenX < -_overheadX) return (null, distance);
-			if(screenX > DisplaySize.X + _overheadX) return (null, distance);
+			if(screenX > WindowSize.X + _overheadX) return (null, distance);
 			if(screenY < -_overheadY) return (null, distance);
-			if(screenY > DisplaySize.Y + _overheadY) return (null, distance);
+			if(screenY > WindowSize.Y + _overheadY) return (null, distance);
 
 			return (new Vector2(screenX, screenY), distance);
 		}
@@ -121,28 +125,23 @@ internal sealed class ScreenManager
 	{
 		try
 		{
-			DisplaySize = ImGui.GetIO().DisplaySize;
-
-			_overheadX = 0.25f * DisplaySize.X;
-			_overheadY = 0.25f * DisplaySize.Y;
-
 			if(PrimaryCamera == null)
 			{
-				//LogManager.Warn("[CameraHelper.FrameUpdate] No primary camera");
+				//LogManager.Warn("[ScreenManager.FrameUpdate] No primary camera");
 				return;
 			}
 
 			var ViewMatrix_ValueType = (ValueType) get_ViewMatrix_Method.InvokeBoxed(mat4_Type, PrimaryCamera, []);
 			if(ViewMatrix_ValueType == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view matrix");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view matrix");
 				return;
 			}
 
 			var ViewProjMatrix_ValueType = (ValueType) get_ViewProjMatrix_Method.InvokeBoxed(mat4_Type, PrimaryCamera, []);
 			if(ViewProjMatrix_ValueType == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view projection matrix");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix");
 				return;
 			}
 
@@ -152,42 +151,42 @@ internal sealed class ScreenManager
 			var viewM20 = (float?) m20_Field.GetDataBoxed(Single_Type, viewMatrixPointer, true);
 			if(viewM20 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view matrix m20");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view matrix m20");
 				return;
 			}
 
 			var viewM21 = (float?) m21_Field.GetDataBoxed(Single_Type, viewMatrixPointer, true);
 			if(viewM21 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view matrix m21");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view matrix m21");
 				return;
 			}
 
 			var viewM22 = (float?) m22_Field.GetDataBoxed(Single_Type, viewMatrixPointer, true);
 			if(viewM22 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view matrix m22");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view matrix m22");
 				return;
 			}
 
 			var viewM30 = (float?) m30_Field.GetDataBoxed(Single_Type, viewMatrixPointer, true);
 			if(viewM30 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view matrix m30");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view matrix m30");
 				return;
 			}
 
 			var viewM31 = (float?) m31_Field.GetDataBoxed(Single_Type, viewMatrixPointer, true);
 			if(viewM31 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view matrix m31");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view matrix m31");
 				return;
 			}
 
 			var viewM32 = (float?) m32_Field.GetDataBoxed(Single_Type, viewMatrixPointer, true);
 			if(viewM32 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view matrix m32");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view matrix m32");
 				return;
 			}
 
@@ -198,112 +197,112 @@ internal sealed class ScreenManager
 			var viewProjM00 = (float?) m00_Field.GetDataBoxed(Single_Type, viewProjectionMatrixPointer, true);
 			if(viewProjM00 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view projection matrix m00");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix m00");
 				return;
 			}
 
 			var viewProjM01 = (float?) m01_Field.GetDataBoxed(Single_Type, viewProjectionMatrixPointer, true);
 			if(viewProjM01 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view projection matrix m01");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix m01");
 				return;
 			}
 
 			var viewProjM02 = (float?) m02_Field.GetDataBoxed(Single_Type, viewProjectionMatrixPointer, true);
 			if(viewProjM02 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view projection matrix m02");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix m02");
 				return;
 			}
 
 			var viewProjM03 = (float?) m03_Field.GetDataBoxed(Single_Type, viewProjectionMatrixPointer, true);
 			if(viewProjM03 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view projection matrix m03");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix m03");
 				return;
 			}
 
 			var viewProjM10 = (float?) m10_Field.GetDataBoxed(Single_Type, viewProjectionMatrixPointer, true);
 			if(viewProjM10 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view projection matrix m10");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix m10");
 				return;
 			}
 
 			var viewProjM11 = (float?) m11_Field.GetDataBoxed(Single_Type, viewProjectionMatrixPointer, true);
 			if(viewProjM11 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view projection matrix m11");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix m11");
 				return;
 			}
 
 			var viewProjM12 = (float?) m12_Field.GetDataBoxed(Single_Type, viewProjectionMatrixPointer, true);
 			if(viewProjM12 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view projection matrix m12");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix m12");
 				return;
 			}
 
 			var viewProjM13 = (float?) m13_Field.GetDataBoxed(Single_Type, viewProjectionMatrixPointer, true);
 			if(viewProjM13 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view projection matrix m13");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix m13");
 				return;
 			}
 
 			var viewProjM20 = (float?) m20_Field.GetDataBoxed(Single_Type, viewProjectionMatrixPointer, true);
 			if(viewProjM20 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view projection matrix m20");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix m20");
 				return;
 			}
 
 			var viewProjM21 = (float?) m21_Field.GetDataBoxed(Single_Type, viewProjectionMatrixPointer, true);
 			if(viewProjM21 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view projection matrix m21");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix m21");
 				return;
 			}
 
 			var viewProjM22 = (float?) m22_Field.GetDataBoxed(Single_Type, viewProjectionMatrixPointer, true);
 			if(viewProjM22 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view projection matrix m22");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix m22");
 				return;
 			}
 
 			var viewProjM23 = (float?) m23_Field.GetDataBoxed(Single_Type, viewProjectionMatrixPointer, true);
 			if(viewProjM23 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view projection matrix m23");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix m23");
 				return;
 			}
 
 			var viewProjM30 = (float?) m30_Field.GetDataBoxed(Single_Type, viewProjectionMatrixPointer, true);
 			if(viewProjM30 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view projection matrix m30");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix m30");
 				return;
 			}
 
 			var viewProjM31 = (float?) m31_Field.GetDataBoxed(Single_Type, viewProjectionMatrixPointer, true);
 			if(viewProjM31 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view projection matrix m31");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix m31");
 				return;
 			}
 
 			var viewProjM32 = (float?) m32_Field.GetDataBoxed(Single_Type, viewProjectionMatrixPointer, true);
 			if(viewProjM32 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view projection matrix m32");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix m32");
 				return;
 			}
 
 			var viewProjM33 = (float?) m33_Field.GetDataBoxed(Single_Type, viewProjectionMatrixPointer, true);
 			if(viewProjM33 == null)
 			{
-				LogManager.Warn("[CameraHelper.FrameUpdate] No view projection matrix m33");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix m33");
 				return;
 			}
 
@@ -342,6 +341,7 @@ internal sealed class ScreenManager
 			SceneView_Type = SceneView_TypeDef.GetType();
 
 			get_PrimaryCamera_Method = SceneView_TypeDef.GetMethod("get_PrimaryCamera");
+			get_WindowSize_Method = SceneView_TypeDef.GetMethod("get_WindowSize");
 
 			var Camera_TypeDef = get_PrimaryCamera_Method.GetReturnType();
 			Camera_Type = Camera_TypeDef.GetType();
@@ -370,6 +370,12 @@ internal sealed class ScreenManager
 			m33_Field = mat4_TypeDef.GetField("m33");
 
 			Single_Type = m00_Field.GetType().GetType();
+
+			var Size_TypeDef = get_WindowSize_Method.GetReturnType();
+			Size_Type = Size_TypeDef.GetType();
+
+			w_Field = Size_TypeDef.GetField("w");
+			h_Field = Size_TypeDef.GetField("h");
 		}
 		catch(Exception exception)
 		{
@@ -377,30 +383,57 @@ internal sealed class ScreenManager
 		}
 	}
 
-	private void Update()
+	private unsafe void Update()
 	{
 		try
 		{
 			var sceneManager = API.GetNativeSingleton("via.SceneManager");
 			if(sceneManager == null)
 			{
-				LogManager.Warn("[CameraHelper.Update] No scene manager");
+				LogManager.Warn("[ScreenManager.Update] No scene manager");
 				return;
 			}
 
 			var MainView = (ManagedObject) get_MainView_Method.InvokeBoxed(SceneView_Type, sceneManager, []);
 			if(MainView == null)
 			{
-				LogManager.Warn("[CameraHelper.Update] No main view");
+				LogManager.Warn("[ScreenManager.Update] No main view");
 				return;
 			}
 
 			PrimaryCamera = (ManagedObject) get_PrimaryCamera_Method.InvokeBoxed(Camera_Type, MainView, []);
 			if(PrimaryCamera == null)
 			{
-				//LogManager.Warn("[CameraHelper.Update] No primary camera");
+				//LogManager.Warn("[ScreenManager.Update] No primary camera");
+				//return;
+			}
+
+			var _WindowSize = (ValueType) get_WindowSize_Method.InvokeBoxed(Size_Type, MainView, []);
+			if(_WindowSize == null)
+			{
+				LogManager.Warn("[ScreenManager.Update] No window size");
 				return;
 			}
+
+			var w = (float?) w_Field.GetDataBoxed(Single_Type, (ulong) _WindowSize.Ptr(), true);
+			if(w == null)
+			{
+				LogManager.Warn("[ScreenManager.Update] No window size w");
+				return;
+			}
+
+			var h = (float?) h_Field.GetDataBoxed(Single_Type, (ulong) _WindowSize.Ptr(), true);
+			if(h == null)
+			{
+				LogManager.Warn("[ScreenManager.Update] No window size h");
+				return;
+			}
+
+			WindowSize.X = (float) w;
+			WindowSize.Y = (float) h;
+
+			_overheadX = 0.25f * WindowSize.X;
+			_overheadY = 0.25f * WindowSize.Y;
 		}
 		catch(Exception exception)
 		{

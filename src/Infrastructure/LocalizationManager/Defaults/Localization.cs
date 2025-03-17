@@ -8,6 +8,12 @@ internal class LocalizationInfo
 	public string Translators = "GreenComfyTea";
 }
 
+internal class FontsInfo
+{
+	public FontInfo MenuFont = new();
+	public FontInfo OverlayFont = new();
+}
+
 internal class FontInfo
 {
 	public string Name { get; set; } = "NotoSans-Bold.ttf";
@@ -156,6 +162,11 @@ internal class ImGuiLocalization
 	public string TimerLabel = "Timer Label";
 	public string Rage = "Rage";
 	public string TimerBar = "Timer Bar";
+
+	public string MenuFont = "Menu Font";
+	public string FontScale = "Font Scale";
+	public string DefinedByLocalization = "Defined by Localization";
+	public string GlobalFonts = "Global Fonts";
 }
 
 internal class Localization
@@ -164,6 +175,9 @@ internal class Localization
 	public string IsoCode = Constants.DefaultLocalization;
 
 	public LocalizationInfo LocalizationInfo = new();
-	public FontInfo FontInfo { get; set; } = new();
+
+	public FontsInfo Fonts { get; set; } = new();
+
+	[JsonPropertyName("Customization")]
 	public ImGuiLocalization ImGui = new();
 }

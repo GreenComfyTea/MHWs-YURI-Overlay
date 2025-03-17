@@ -6,6 +6,7 @@ internal sealed class GlobalSettingsCustomization : Customization
 {
 	public string Localization = Constants.DefaultLocalization;
 
+	public GlobalFontsCustomization GlobalFonts = new();
 	public GlobalScaleCustomization GlobalScale = new();
 	public PerformanceCustomization Performance = new();
 
@@ -21,6 +22,7 @@ internal sealed class GlobalSettingsCustomization : Customization
 		if(ImGui.TreeNode($"{localization.GlobalSettings}##${customizationName}"))
 		{
 			isChanged |= LocalizationManager.Instance.Customization.RenderImGui(customizationName);
+			isChanged |= GlobalFonts.RenderImGui(customizationName);
 			isChanged |= GlobalScale.RenderImGui(customizationName);
 			isChanged |= Performance.RenderImGui(customizationName);
 

@@ -291,9 +291,9 @@ internal static class DefaultConfig
 		config.LargeMonsterUI.Static.Settings.RenderHighlightedMonster = true;
 		config.LargeMonsterUI.Static.Settings.RenderNotHighlightedMonsters = true;
 
-		config.LargeMonsterUI.Static.Position.x = 89f;
-		config.LargeMonsterUI.Static.Position.y = -40f;
-		config.LargeMonsterUI.Static.Position.anchor = Anchors.BottomLeft;
+		config.LargeMonsterUI.Static.Position.X = 89f;
+		config.LargeMonsterUI.Static.Position.Y = -40f;
+		config.LargeMonsterUI.Static.Position.Anchor = Anchors.BottomLeft;
 
 		config.LargeMonsterUI.Static.Spacing.X = 320f;
 		config.LargeMonsterUI.Static.Spacing.Y = 0f;

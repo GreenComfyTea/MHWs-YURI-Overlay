@@ -76,7 +76,6 @@ internal sealed class GradientStartColorCustomization : Customization
 				ImGui.TreePop();
 			}
 
-
 			ImGui.TreePop();
 		}
 

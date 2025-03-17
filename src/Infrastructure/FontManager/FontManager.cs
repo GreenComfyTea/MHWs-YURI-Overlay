@@ -1,224 +1,211 @@
-﻿using ImGuiNET;
-
-using FontObject = (string, ImGuiNET.ImFontPtr?);
-
-namespace YURI_Overlay;
+﻿namespace YURI_Overlay;
 
 internal sealed partial class FontManager
 {
 	private static readonly Lazy<FontManager> Lazy = new(() => new FontManager());
 	public static FontManager Instance => Lazy.Value;
 
-	public bool IsInitialized = false;
-	public FontCustomization Customization;
+	//public bool IsInitialized = false;
+	//public ImGuiFontCustomization Customization;
 
-	private readonly ushort[] FullGlyphRange = [0x0020, ushort.MaxValue, 0];
-	private readonly ushort[] EmojiGlyphRange = [0x2122, 0x2B55, 0];
+	//private readonly ushort[] FullGlyphRange = [0x0020, ushort.MaxValue, 0];
+	//private readonly ushort[] EmojiGlyphRange = [0x2122, 0x2B55, 0];
 
-	public Dictionary<string, FontObject> Fonts = [];
+	//public Dictionary<string, FontObject> Fonts = [];
 
-	private readonly List<string> FontNames = [];
+	//private readonly List<string> FontNames = [];
 
-	public FontObject ActiveFont = (string.Empty, null);
+	//public FontObject ActiveFont = (string.Empty, null);
 
-	public List<ushort[]> GlyphRanges = [];
+	//public List<ushort[]> GlyphRanges = [];
 
 	private FontManager() { }
 
+	//public void Initialize()
+	//{
+	//	LogManager.Info("[FontManager] Initializing...");
 
+	//	GlyphRanges.Add(FullGlyphRange);
+	//	GlyphRanges.Add(EmojiGlyphRange);
 
-	public FontManager Initialize()
-	{
-		LogManager.Info("[FontManager] Initializing...");
+	//	LoadAllFonts();
+	//	SetCurrentFont(LocalizationManager.Instance.ActiveLocalization);
 
-		GlyphRanges.Add(FullGlyphRange);
-		GlyphRanges.Add(EmojiGlyphRange);
+	//	IsInitialized = true;
 
-		LoadAllFonts();
-		SetCurrentFont(LocalizationManager.Instance.ActiveLocalization);
+	//	LogManager.Info("[FontManager] Initialization Done!");
+	//}
 
-		IsInitialized = true;
+	//public void LoadAllFonts()
+	//{
+	//	LogManager.Info("[FontManager] Loading All Fonts...");
 
-		LogManager.Info("[FontManager] Initialization Done!");
+	//	foreach(var localizationPair in LocalizationManager.Instance.Localizations)
+	//	{
+	//		var localizationIsoName = localizationPair.Key;
+	//		var localization = localizationPair.Value;
 
-		return this;
-	}
+	//		if(Fonts.TryGetValue(localizationIsoName, out _)) continue;
 
-	public FontManager LoadAllFonts()
-	{
-		LogManager.Info("[FontManager] Loading All Fonts...");
+	//		Fonts[localizationIsoName] = LoadFont(localization);
+	//	}
 
-		foreach(var localizationPair in LocalizationManager.Instance.Localizations)
-		{
-			var localizationIsoName = localizationPair.Key;
-			var localization = localizationPair.Value;
+	//	ImGui.GetIO().Fonts.Build();
 
-			if(Fonts.TryGetValue(localizationIsoName, out _)) continue;
+	//	LogManager.Info("[FontManager] Loading All Fonts Done!");
+	//}
 
-			Fonts[localizationIsoName] = LoadFont(localization);
-		}
+	//public FontObject LoadFont(JsonDatabase<Localization> localization)
+	//{
+	//	var fontConfigs = ConfigManager.Instance.ActiveConfig.Data.Fonts;
 
-		ImGui.GetIO().Fonts.Build();
+	//	var fontInfo = localization.Data.CustomizationFontInfo;
+	//	var fontName = fontInfo.Name;
 
-		LogManager.Info("[FontManager] Loading All Fonts Done!");
-		return this;
-	}
+	//	LogManager.Info($"[FontManager] {fontName}: Loading...");
 
-	public unsafe FontObject LoadFont(JsonDatabase<Localization> localization)
-	{
-		var fontConfigs = ConfigManager.Instance.ActiveConfig.Data.Fonts;
+	//	if(FontNames.Contains(fontName))
+	//	{
+	//		LogManager.Info($"[FontManager] {fontName}: Already Loaded. Skipping.");
+	//		Fonts.TryGetValue(fontName, out var foundFont);
+	//		return foundFont;
+	//	}
 
-		var fontInfo = localization.Data.FontInfo;
-		var fontName = fontInfo.Name;
+	//	var glyphRanges = GetGlyphRanges(localization);
+	//	GlyphRanges.Add(glyphRanges);
 
-		LogManager.Info($"[FontManager] {fontName}: Loading...");
+	//	var isFound = fontConfigs.TryGetValue(fontName, out var customization);
 
-		if(FontNames.Contains(fontName))
-		{
-			LogManager.Info($"[FontManager] {fontName}: Already Loaded. Skipping.");
-			Fonts.TryGetValue(fontName, out var foundFont);
-			return foundFont;
-		}
+	//	if(!isFound)
+	//	{
+	//		customization = new ImGuiFontCustomization();
+	//		fontConfigs[fontName] = customization;
+	//	}
 
-		var glyphRanges = GetGlyphRanges(localization);
-		GlyphRanges.Add(glyphRanges);
+	//	var newFont = RegisterFont(
+	//		Path.Combine(Constants.FontsPath, fontName),
+	//		customization!.FontSize,
+	//		glyphRanges,
+	//		false,
+	//		customization.VerticalOversample,
+	//		customization.HorizontalOversample
+	//	);
 
-		var isFound = fontConfigs.TryGetValue(fontName, out var customization);
+	//	RegisterFont(
+	//		$"{Constants.FontsPath}{Constants.EmojiFont}",
+	//		customization.FontSize,
+	//		EmojiGlyphRange,
+	//		true,
+	//		customization.VerticalOversample,
+	//		customization.HorizontalOversample
+	//	);
 
-		if(!isFound)
-		{
-			customization = new FontCustomization();
-			fontConfigs[fontName] = customization;
-		}
+	//	FontNames.Add(fontName);
 
-		var newFont = RegisterFont(
-			Path.Combine(Constants.FontsPath, fontName),
-			customization!.FontSize,
-			glyphRanges,
-			false,
-			customization.VerticalOversample,
-			customization.HorizontalOversample
-		);
+	//	LogManager.Info($"[FontManager] {fontName}: Loading Done!");
+	//	return (fontName, newFont);
+	//}
 
-		RegisterFont(
-			$"{Constants.FontsPath}{Constants.EmojiFont}",
-			customization.FontSize,
-			EmojiGlyphRange,
-			true,
-			customization.VerticalOversample,
-			customization.HorizontalOversample
-		);
+	//public void SetCurrentFont(JsonDatabase<Localization> localization)
+	//{
+	//	if(!IsInitialized) return;
 
-		FontNames.Add(fontName);
+	//	Fonts.TryGetValue(localization.Name, out ActiveFont);
 
-		LogManager.Info($"[FontManager] {fontName}: Loading Done!");
-		return (fontName, newFont);
-	}
+	//	ConfigManager.Instance.ActiveConfig.Data.Fonts.TryGetValue(localization.Data.CustomizationFontInfo.Name, out Customization);
+	//}
 
-	public void SetCurrentFont(JsonDatabase<Localization> localization)
-	{
-		Fonts.TryGetValue(localization.Name, out ActiveFont);
+	//public void RecreateFontCustomizations()
+	//{
+	//	var fontConfig = ConfigManager.Instance.ActiveConfig.Data.Fonts;
 
-		if(!IsInitialized) return;
+	//	foreach(var fontName in FontNames)
+	//	{
+	//		fontConfig[fontName] = new ImGuiFontCustomization();
+	//	}
+	//}
 
-		ConfigManager.Instance.ActiveConfig.Data.Fonts.TryGetValue(localization.Data.FontInfo.Name, out Customization);
+	//private static ushort[] GetGlyphRanges(JsonDatabase<Localization> localization)
+	//{
+	//	var glyphRangeStringArray = localization.Data.CustomizationFontInfo.GlyphRanges;
 
-		return;
-	}
+	//	var glyphRanges = new ushort[glyphRangeStringArray.Length + 1];
 
-	public FontManager RecreateFontCustomizations()
-	{
-		var fontConfig = ConfigManager.Instance.ActiveConfig.Data.Fonts;
+	//	for(var i = 0; i < glyphRangeStringArray.Length; i += 2)
+	//	{
+	//		var glyph = Convert.ToUInt16(glyphRangeStringArray[i], 16);
 
-		foreach(var fontName in FontNames)
-		{
-			fontConfig[fontName] = new FontCustomization();
-		}
+	//		glyphRanges[i] = glyph;
+	//	}
 
-		return this;
-	}
+	//	glyphRanges[^1] = 0;
 
-	private static ushort[] GetGlyphRanges(JsonDatabase<Localization> localization)
-	{
-		var glyphRangeStringArray = localization.Data.FontInfo.GlyphRanges;
+	//	return glyphRanges;
+	//}
 
-		var glyphRanges = new ushort[glyphRangeStringArray.Length + 1];
+	//private unsafe ImFontPtr RegisterFont(string filePathName, float fontSize, ushort[] glyphRanges, bool mergeMode = false, int horizontalOversample = 2, int verticalOversample = 2)
+	//{
+	//	try
+	//	{
+	//		LogManager.Info($"[FontManager] Registering Font: {filePathName}");
 
-		for(var i = 0; i < glyphRangeStringArray.Length; i += 2)
-		{
-			var glyph = Convert.ToUInt16(glyphRangeStringArray[i], 16);
+	//		if(string.IsNullOrEmpty(filePathName))
+	//		{
+	//			LogManager.Error("[FontManager] File path is null or empty.");
+	//			return null;
+	//		}
 
-			glyphRanges[i] = glyph;
-		}
+	//		string fullPath = Path.Combine(@"D:\Programs\Steam\steamapps\common\MonsterHunterWilds\", filePathName);
+	//		if(!File.Exists(fullPath))
+	//		{
+	//			LogManager.Error($"[FontManager] Font file not found: {fullPath}");
+	//			return null;
+	//		}
 
-		glyphRanges[^1] = 0;
+	//		if(glyphRanges == null || glyphRanges.Length == 0)
+	//		{
+	//			LogManager.Error("[FontManager] Glyph ranges are null or empty.");
+	//			return null;
+	//		}
 
-		return glyphRanges;
-	}
+	//		fixed(ushort* glyphRangesPointer = glyphRanges)
+	//		{
+	//			LogManager.Info($"[FontManager] Allocating ImFontConfig");
 
-	private unsafe ImFontPtr RegisterFont(string filePathName, float fontSize, ushort[] glyphRanges, bool mergeMode = false, int horizontalOversample = 2, int verticalOversample = 2)
-	{
-		try
-		{
-			LogManager.Info($"[FontManager] Registering Font: {filePathName}");
+	//			ImFontConfig* fontConfig = ImGuiNative.ImFontConfig_ImFontConfig();
+	//			if(fontConfig == null)
+	//			{
+	//				LogManager.Error("[FontManager] ImFontConfig allocation failed.");
+	//				return null;
+	//			}
 
-			if(string.IsNullOrEmpty(filePathName))
-			{
-				LogManager.Error("[FontManager] File path is null or empty.");
-				return null;
-			}
+	//			fontConfig->MergeMode = mergeMode ? (byte) 1 : (byte) 0;
+	//			fontConfig->PixelSnapH = 1;
+	//			fontConfig->GlyphMinAdvanceX = fontSize;
+	//			fontConfig->GlyphRanges = glyphRangesPointer;
 
-			string fullPath = Path.Combine(@"D:\Programs\Steam\steamapps\common\MonsterHunterWilds\", filePathName);
-			if(!File.Exists(fullPath))
-			{
-				LogManager.Error($"[FontManager] Font file not found: {fullPath}");
-				return null;
-			}
+	//			LogManager.Info($"[FontManager] Registering Font at {fullPath} with size {fontSize}");
 
-			if(glyphRanges == null || glyphRanges.Length == 0)
-			{
-				LogManager.Error("[FontManager] Glyph ranges are null or empty.");
-				return null;
-			}
+	//			ImFontPtr font = ImGui.GetIO().Fonts.AddFontFromFileTTF(fullPath, fontSize, fontConfig);
 
-			fixed(ushort* glyphRangesPointer = glyphRanges)
-			{
-				LogManager.Info($"[FontManager] Allocating ImFontConfig");
+	//			if(font.NativePtr == null)
+	//			{
+	//				LogManager.Error("[FontManager] AddFontFromFileTTF returned null.");
+	//				ImGuiNative.ImFontConfig_destroy(fontConfig);
+	//				return null;
+	//			}
 
-				ImFontConfig* fontConfig = ImGuiNative.ImFontConfig_ImFontConfig();
-				if(fontConfig == null)
-				{
-					LogManager.Error("[FontManager] ImFontConfig allocation failed.");
-					return null;
-				}
+	//			LogManager.Info("[FontManager] Font successfully registered.");
 
-				fontConfig->MergeMode = mergeMode ? (byte) 1 : (byte) 0;
-				fontConfig->PixelSnapH = 1;
-				fontConfig->GlyphMinAdvanceX = fontSize;
-				fontConfig->GlyphRanges = glyphRangesPointer;
+	//			ImGuiNative.ImFontConfig_destroy(fontConfig);
 
-				LogManager.Info($"[FontManager] Registering Font at {fullPath} with size {fontSize}");
-
-				ImFontPtr font = ImGui.GetIO().Fonts.AddFontFromFileTTF(fullPath, fontSize, fontConfig);
-
-				if(font.NativePtr == null)
-				{
-					LogManager.Error("[FontManager] AddFontFromFileTTF returned null.");
-					ImGuiNative.ImFontConfig_destroy(fontConfig);
-					return null;
-				}
-
-				LogManager.Info("[FontManager] Font successfully registered.");
-
-				ImGuiNative.ImFontConfig_destroy(fontConfig);
-
-				return font;
-			}
-		}
-		catch(Exception exception)
-		{
-			LogManager.Error(exception);
-			return null;
-		}
-	}
+	//			return font;
+	//		}
+	//	}
+	//	catch(Exception exception)
+	//	{
+	//		LogManager.Error(exception);
+	//		return null;
+	//	}
+	//}
 }

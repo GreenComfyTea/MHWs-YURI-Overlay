@@ -1,4 +1,4 @@
-﻿using ImGuiNET;
+using ImGuiNET;
 
 namespace YURI_Overlay;
 
@@ -41,15 +41,16 @@ internal sealed class ImGuiManager
 			var activeLocalization = localizationManager.ActiveLocalization.Data;
 			var changed = false;
 
-			//var (fontName, fontPtr) = FontManager.Instance.ActiveFont;
-
-			//if(fontPtr != null)
-			//{
-			//	ImGui.PushFont((ImFontPtr) fontPtr);
-			//}
-
 			ImGui.SetNextWindowPos(Constants.DefaultWindowPosition, ImGuiCond.FirstUseEver);
 			ImGui.SetNextWindowSize(Constants.DefaultWindowSize, ImGuiCond.FirstUseEver);
+
+			var menuFont = LuaFontManager.Instance.ActiveMenuFont;
+
+			if(menuFont != null)
+			{
+				//LogManager.Debug($"Will push: {menuFont}");
+				//ImGui.PushFont(menuFont.Value.Item2);
+			}
 
 			ImGui.Begin($"{Constants.ModName} v{Constants.Version}", ref IsOpened);
 
@@ -129,10 +130,10 @@ internal sealed class ImGuiManager
 			changed |= configManager.ActiveConfig.Data.GlobalSettings.RenderImGui("global-settings");
 			changed |= configManager.ActiveConfig.Data.LargeMonsterUI.RenderImGui("large-monster-ui");
 
-			//if(fontPtr != null)
-			//{
-			//	ImGui.PushFont((ImFontPtr) fontPtr);
-			//}
+			if(menuFont != null)
+			{
+				//ImGui.PopFont();
+			}
 
 			ImGui.End();
 

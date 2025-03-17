@@ -28,6 +28,7 @@ internal sealed partial class ConfigManager : IDisposable
 	{
 		LogManager.Info("[ConfigManager] Initializing...");
 
+
 		LoadAllConfigs();
 		LoadCurrentConfig();
 

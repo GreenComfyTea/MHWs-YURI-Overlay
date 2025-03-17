@@ -21,6 +21,9 @@ internal sealed class LocalizationHelper
 	public string[] DefaultAnchors = new string[9];
 	public string[] Anchors = new string[9];
 
+	public string DefaultDefinedByLocalization = "";
+	public string DefinedByLocalization = "";
+
 	public LocalizationHelper() { }
 
 	public void Initialize()
@@ -76,6 +79,8 @@ internal sealed class LocalizationHelper
 			defaultLocalization.BottomRight
 		];
 
+		DefinedByLocalization = defaultLocalization.DefinedByLocalization.Replace(" ", "");
+
 		Update();
 	}
 
@@ -127,6 +132,8 @@ internal sealed class LocalizationHelper
 			localization.BottomCenter,
 			localization.BottomRight
 		];
+
+		DefinedByLocalization = localization.DefinedByLocalization;
 	}
 
 	private void OnActiveLocalizationChanged(object sender, EventArgs e)

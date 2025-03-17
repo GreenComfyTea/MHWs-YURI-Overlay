@@ -23,33 +23,11 @@
   
   <Target Name="MoveDependenciesToSubfolder" AfterTargets="PostBuildEvent">
 	<ItemGroup>
-        <FilesToDelete Include="$(OutputPath)ImGui.NET.dll;
-                                $(OutputPath)ImGui.NET.xml;
-                                $(OutputPath)Microsoft.CodeAnalysis.CSharp.dll;
-                                $(OutputPath)Microsoft.CodeAnalysis.CSharp.xml;
-                                $(OutputPath)Microsoft.CodeAnalysis.dll;
-								$(OutputPath)Microsoft.CodeAnalysis.xml;
-								$(OutputPath)Microsoft.Windows.SDK.NET.dll;
-								$(OutputPath)REFCoreDeps.dll;
-                                $(OutputPath)REFramework.NET.dll;
-								$(OutputPath)REFramework.NET.xml;
-                                $(OutputPath)YURI_Overlay.deps.json" />		  
+        <FilesToDelete Include="$(OutputPath)ImGui.NET.dll;&#xD;&#xA;                                $(OutputPath)ImGui.NET.xml;&#xD;&#xA;                                $(OutputPath)Microsoft.CodeAnalysis.CSharp.dll;&#xD;&#xA;                                $(OutputPath)Microsoft.CodeAnalysis.CSharp.xml;&#xD;&#xA;                                $(OutputPath)Microsoft.CodeAnalysis.dll;&#xD;&#xA;								$(OutputPath)Microsoft.CodeAnalysis.xml;&#xD;&#xA;								$(OutputPath)Microsoft.Windows.SDK.NET.dll;&#xD;&#xA;								$(OutputPath)REFCoreDeps.dll;&#xD;&#xA;                                $(OutputPath)REFramework.NET.dll;&#xD;&#xA;								$(OutputPath)REFramework.NET.xml;&#xD;&#xA;                                $(OutputPath)YURI_Overlay.deps.json" />		  
     </ItemGroup>
   
     <ItemGroup>
-        <Dependencies Include="$(OutputPath)*" Exclude="$(OutputPath)dependencies\**;
-														$(OutputPath)ImGui.NET.dll;
-														$(OutputPath)ImGui.NET.xml;
-														$(OutputPath)Microsoft.CodeAnalysis.CSharp.dll;
-														$(OutputPath)Microsoft.CodeAnalysis.CSharp.xml;
-														$(OutputPath)Microsoft.CodeAnalysis.dll;
-														$(OutputPath)Microsoft.CodeAnalysis.xml;
-														$(OutputPath)Microsoft.Windows.SDK.NET.dll;
-														$(OutputPath)REFCoreDeps.dll;
-														$(OutputPath)REFramework.NET.dll;
-														$(OutputPath)REFramework.NET.xml;
-														$(OutputPath)YURI_Overlay.deps.json;
-														$(OutputPath)YURI_Overlay.dll" />			  
+        <Dependencies Include="$(OutputPath)*" Exclude="$(OutputPath)dependencies\**;&#xD;&#xA;														$(OutputPath)ImGui.NET.dll;&#xD;&#xA;														$(OutputPath)ImGui.NET.xml;&#xD;&#xA;														$(OutputPath)Microsoft.CodeAnalysis.CSharp.dll;&#xD;&#xA;														$(OutputPath)Microsoft.CodeAnalysis.CSharp.xml;&#xD;&#xA;														$(OutputPath)Microsoft.CodeAnalysis.dll;&#xD;&#xA;														$(OutputPath)Microsoft.CodeAnalysis.xml;&#xD;&#xA;														$(OutputPath)Microsoft.Windows.SDK.NET.dll;&#xD;&#xA;														$(OutputPath)REFCoreDeps.dll;&#xD;&#xA;														$(OutputPath)REFramework.NET.dll;&#xD;&#xA;														$(OutputPath)REFramework.NET.xml;&#xD;&#xA;														$(OutputPath)YURI_Overlay.deps.json;&#xD;&#xA;														$(OutputPath)YURI_Overlay.dll" />			  
     </ItemGroup>
 	
 	<ItemGroup>
@@ -60,11 +38,9 @@
 	
 	<Delete Files="@(FilesToDelete)" />
 	
-	<Move SourceFiles="@(PluginDll)" 
-          DestinationFolder="$(OutputPath)reframework\plugins\managed" />
+	<Move SourceFiles="@(PluginDll)" DestinationFolder="$(OutputPath)reframework\plugins\managed" />
     
-    <Move SourceFiles="@(Dependencies)" 
-          DestinationFolder="$(OutputPath)reframework\plugins\managed\dependencies" /> 
+    <Move SourceFiles="@(Dependencies)" DestinationFolder="$(OutputPath)reframework\plugins\managed\dependencies" /> 
   </Target>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -88,13 +64,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<Reference Include="application">
+	  <HintPath>REFramework\plugins\managed\generated\REFramework.NET.application.dll</HintPath>
+	</Reference>
 	<Reference Include="ImGui.NET">
 	  <HintPath>REFramework\plugins\managed\dependencies\ImGui.NET.dll</HintPath>
-	  <Private>True</Private>
 	</Reference>
 	<Reference Include="REFramework.NET">
 	  <HintPath>REFramework\plugins\REFramework.NET.dll</HintPath>
-	  <Private>True</Private>
+	</Reference>
+	<Reference Include="viacore">
+	  <HintPath>REFramework\plugins\managed\generated\REFramework.NET.viacore.dll</HintPath>
+	</Reference>
+	<Reference Include="_System.Private.CoreLib">
+	  <HintPath>REFramework\plugins\managed\generated\REFramework.NET._System.Private.CoreLib.dll</HintPath>
 	</Reference>
   </ItemGroup>
 </Project>
