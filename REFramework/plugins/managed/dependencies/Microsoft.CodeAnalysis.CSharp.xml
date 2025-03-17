@@ -4587,7 +4587,7 @@
         </member>
         <member name="M:Microsoft.CodeAnalysis.CSharp.Symbol.GetDocumentationCommentId">
             <summary>
-            Returns the Documentation Comment Id for the symbol, or null if the symbol doesn't
+            Returns the Documentation Comment ID for the symbol, or null if the symbol doesn't
             support documentation comments.
             </summary>
         </member>
@@ -8071,7 +8071,7 @@
              interface IB { void M(); }
              interface IL : IB {}
              interface IR : IB {}
-             interface Id : IL, IR {}
+             interface ID : IL, IR {}
              ...
              id.M();
             
@@ -8085,8 +8085,8 @@
              interface IL : IB { new void M(); } 
             
              Again, we only want to display one symbol in the method group. The fact that there is a "path"
-             to IB.M from Id via IR is irrelevant; if the symbol IB.M is hidden by IL.M then it is hidden
-             in Id, period.
+             to IB.M from ID via IR is irrelevant; if the symbol IB.M is hidden by IL.M then it is hidden
+             in ID, period.
              </remarks>
         </member>
         <member name="M:Microsoft.CodeAnalysis.CSharp.CSharpSemanticModel.GetNamedArgumentSymbolInfo(Microsoft.CodeAnalysis.CSharp.Syntax.IdentifierNameSyntax,System.Threading.CancellationToken)">
@@ -18831,7 +18831,7 @@
         <member name="M:Microsoft.CodeAnalysis.CSharp.DocumentationCommentCompiler.ToBadCrefString(Microsoft.CodeAnalysis.CSharp.Syntax.CrefSyntax)">
             <summary>
             Given a cref syntax that cannot be resolved, get the string that will be written to
-            the documentation file in place of a documentation comment Id.
+            the documentation file in place of a documentation comment ID.
             </summary>
         </member>
         <member name="M:Microsoft.CodeAnalysis.CSharp.DocumentationCommentCompiler.BindName(Microsoft.CodeAnalysis.CSharp.Syntax.XmlNameAttributeSyntax,Microsoft.CodeAnalysis.CSharp.Binder,Microsoft.CodeAnalysis.CSharp.Symbol,System.Collections.Generic.HashSet{Microsoft.CodeAnalysis.CSharp.Symbols.ParameterSymbol}@,System.Collections.Generic.HashSet{Microsoft.CodeAnalysis.CSharp.Symbols.TypeParameterSymbol}@,Microsoft.CodeAnalysis.CSharp.BindingDiagnosticBag)">
@@ -24653,7 +24653,7 @@
         </member>
         <member name="P:Microsoft.CodeAnalysis.CSharp.StateMachineRewriter.PreserveInitialParameterValuesAndThreadId">
             <summary>
-            True if the initial values of locals in the rewritten method and the initial thread Id need to be preserved. (e.g. enumerable iterator methods and async-enumerable iterator methods)
+            True if the initial values of locals in the rewritten method and the initial thread ID need to be preserved. (e.g. enumerable iterator methods and async-enumerable iterator methods)
             </summary>
         </member>
         <member name="M:Microsoft.CodeAnalysis.CSharp.StateMachineRewriter.GenerateControlFields">

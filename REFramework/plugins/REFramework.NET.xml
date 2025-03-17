@@ -101,9 +101,9 @@ Adds a hook to this method. Additional operations can be performed on the return
         </member>
         <member name="M:REFrameworkNET.Method.GetInvokeID">
             <summary>
-Gets the invoke Id of this method. This is the index into the global invoke wrapper table.
+Gets the invoke ID of this method. This is the index into the global invoke wrapper table.
 </summary>
-            <returns>The invoke Id.</returns>
+            <returns>The invoke ID.</returns>
         </member>
         <member name="M:REFrameworkNET.Method.GetParameters">
             <returns>The parameters of the method.</returns>

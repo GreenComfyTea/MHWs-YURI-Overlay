@@ -4494,7 +4494,7 @@
               3. Set of all effective severities for the diagnostic Id, configured through options
                  from editorconfig, ruleset, command line options, etc. for either part of the compilation
                  or the entire compilation.
-              4. A boolean value "HasAnyExternalSuppression" indicating if the diagnostic Id has any
+              4. A boolean value "HasAnyExternalSuppression" indicating if the diagnostic ID has any
                  external non-source suppression from editorconfig, ruleset, command line options, etc.,
                  which disables the descriptor for either part of the compilation or the entire compilation.
                  Note that this flag doesn't account for source suppressions from pragma directives,
@@ -4511,7 +4511,7 @@
               3. Set of all effective severities for the diagnostic Id, configured through options
                  from editorconfig, ruleset, command line options, etc. for either part of the compilation
                  or the entire compilation.
-              4. A boolean value "HasAnyExternalSuppression" indicating if the diagnostic Id has any
+              4. A boolean value "HasAnyExternalSuppression" indicating if the diagnostic ID has any
                  external non-source suppression from editorconfig, ruleset, command line options, etc.,
                  which disables the descriptor for either part of the compilation or the entire compilation.
                  Note that this flag doesn't account for source suppressions from pragma directives,
@@ -4586,7 +4586,7 @@
              to distinguish them.
             
              The first <see cref="T:Microsoft.CodeAnalysis.DiagnosticDescriptor"/> added with a given <see cref="P:Microsoft.CodeAnalysis.DiagnosticDescriptor.Id"/>
-             value is given that value as its unique key. Subsequent adds with the same Id will have .NNN
+             value is given that value as its unique key. Subsequent adds with the same ID will have .NNN
              appended to their with an auto-incremented numeric value.
              </summary>
         </member>
@@ -14658,7 +14658,7 @@
             <remarks>
             Should not be null.
             Note that this and <see cref="P:Microsoft.CodeAnalysis.Diagnostics.AnalyzerReference.FullPath"/> serve different purposes. An analyzer reference may not
-            have a path, but it always has an Id. Further, two analyzer references with different paths may
+            have a path, but it always has an ID. Further, two analyzer references with different paths may
             represent two copies of the same analyzer, in which case the IDs should also be the same.
             </remarks>
         </member>
@@ -17474,7 +17474,7 @@
             An unique identifier for the diagnostic.
             </summary>
             <remarks>
-            <a href="/dotnet/csharp/roslyn-sdk/choosing-diagnostic-ids">Choose an appropriate diagnostic Id</a> such that it is unique.
+            <a href="/dotnet/csharp/roslyn-sdk/choosing-diagnostic-ids">Choose an appropriate diagnostic ID</a> such that it is unique.
             </remarks>
         </member>
         <member name="P:Microsoft.CodeAnalysis.DiagnosticDescriptor.Title">
@@ -17524,7 +17524,7 @@
             NOTE: For localizable <paramref name="title"/>, <paramref name="description"/> and/or <paramref name="messageFormat"/>,
             use constructor overload <see cref="M:Microsoft.CodeAnalysis.DiagnosticDescriptor.#ctor(System.String,Microsoft.CodeAnalysis.LocalizableString,Microsoft.CodeAnalysis.LocalizableString,System.String,Microsoft.CodeAnalysis.DiagnosticSeverity,System.Boolean,Microsoft.CodeAnalysis.LocalizableString,System.String,System.String[])"/>.
             </summary>
-            <param name="id">A unique identifier for the diagnostic. For example, code analysis diagnostic Id "CA1001".</param>
+            <param name="id">A unique identifier for the diagnostic. For example, code analysis diagnostic ID "CA1001".</param>
             <param name="title">A short title describing the diagnostic. For example, for CA1001: "Types that own disposable fields should be disposable".</param>
             <param name="messageFormat">A format message string, which can be passed as the first argument to <see cref="M:System.String.Format(System.String,System.Object[])"/> when creating the diagnostic message with this descriptor.
             For example, for CA1001: "Implement IDisposable on '{0}' because it creates members of the following IDisposable types: '{1}'."</param>
@@ -17535,14 +17535,14 @@
             <param name="helpLinkUri">An optional hyperlink that provides a more detailed description regarding the diagnostic.</param>
             <param name="customTags">Optional custom tags for the diagnostic. See <see cref="T:Microsoft.CodeAnalysis.WellKnownDiagnosticTags"/> for some well known tags.</param>
             <remarks>
-            <a href="/dotnet/csharp/roslyn-sdk/choosing-diagnostic-ids">Choose an appropriate diagnostic Id</a> such that it is unique.
+            <a href="/dotnet/csharp/roslyn-sdk/choosing-diagnostic-ids">Choose an appropriate diagnostic ID</a> such that it is unique.
             </remarks>
         </member>
         <member name="M:Microsoft.CodeAnalysis.DiagnosticDescriptor.#ctor(System.String,Microsoft.CodeAnalysis.LocalizableString,Microsoft.CodeAnalysis.LocalizableString,System.String,Microsoft.CodeAnalysis.DiagnosticSeverity,System.Boolean,Microsoft.CodeAnalysis.LocalizableString,System.String,System.String[])">
             <summary>
             Create a DiagnosticDescriptor, which provides description about a <see cref="T:Microsoft.CodeAnalysis.Diagnostic"/>.
             </summary>
-            <param name="id">A unique identifier for the diagnostic. For example, code analysis diagnostic Id "CA1001".</param>
+            <param name="id">A unique identifier for the diagnostic. For example, code analysis diagnostic ID "CA1001".</param>
             <param name="title">A short localizable title describing the diagnostic. For example, for CA1001: "Types that own disposable fields should be disposable".</param>
             <param name="messageFormat">A localizable format message string, which can be passed as the first argument to <see cref="M:System.String.Format(System.String,System.Object[])"/> when creating the diagnostic message with this descriptor.
             For example, for CA1001: "Implement IDisposable on '{0}' because it creates members of the following IDisposable types: '{1}'."</param>
@@ -17564,7 +17564,7 @@
                     helpLinkUri: "http://msdn.microsoft.com/library/ms182172.aspx",
                     customTags: DiagnosticCustomTags.Microsoft);
             </code>
-            <a href="/dotnet/csharp/roslyn-sdk/choosing-diagnostic-ids">Choose an appropriate diagnostic Id</a> such that it is unique.
+            <a href="/dotnet/csharp/roslyn-sdk/choosing-diagnostic-ids">Choose an appropriate diagnostic ID</a> such that it is unique.
             </remarks>
         </member>
         <member name="M:Microsoft.CodeAnalysis.DiagnosticDescriptor.GetEffectiveSeverity(Microsoft.CodeAnalysis.CompilationOptions)">
@@ -18110,7 +18110,7 @@
             NOTE: For localizable <paramref name="justification"/>,
             use constructor overload <see cref="M:Microsoft.CodeAnalysis.SuppressionDescriptor.#ctor(System.String,System.String,Microsoft.CodeAnalysis.LocalizableString)"/>.
             </summary>
-            <param name="id">A unique identifier for the suppression. For example, suppression Id "SP1001".</param>
+            <param name="id">A unique identifier for the suppression. For example, suppression ID "SP1001".</param>
             <param name="suppressedDiagnosticId">Identifier of the suppressed diagnostic, i.e. <see cref="P:Microsoft.CodeAnalysis.Diagnostic.Id"/>. For example, compiler warning Id "CS0649".</param>
             <param name="justification">Justification for the suppression. For example: "Suppress CS0649 on fields marked with YYY attribute as they are implicitly assigned.".</param>
         </member>
@@ -18118,7 +18118,7 @@
             <summary>
             Create a SuppressionDescriptor, which provides a localizable justification about a programmatic suppression of a <see cref="T:Microsoft.CodeAnalysis.Diagnostic"/>.
             </summary>
-            <param name="id">A unique identifier for the suppression. For example, suppression Id "SP1001".</param>
+            <param name="id">A unique identifier for the suppression. For example, suppression ID "SP1001".</param>
             <param name="suppressedDiagnosticId">Identifier of the suppressed diagnostic, i.e. <see cref="P:Microsoft.CodeAnalysis.Diagnostic.Id"/>. For example, compiler warning Id "CS0649".</param>
             <param name="justification">Justification for the suppression. For example: "Suppress CS0649 on fields marked with YYY attribute as they are implicitly assigned.".</param>
         </member>
@@ -18177,7 +18177,7 @@
         </member>
         <member name="F:Microsoft.CodeAnalysis.WellKnownDiagnosticTags.CustomObsolete">
             <summary>
-            Indicates that the diagnostic is an obsolete diagnostic with a custom Id
+            Indicates that the diagnostic is an obsolete diagnostic with a custom ID
             specified by the 'DiagnosticId' property on 'ObsoleteAttribute'.
             </summary>
         </member>
@@ -18260,9 +18260,9 @@
         </member>
         <member name="M:Microsoft.CodeAnalysis.DocumentationProvider.GetDocumentationForSymbol(System.String,System.Globalization.CultureInfo,System.Threading.CancellationToken)">
             <summary>
-            Fetches a documentation comment for the given member Id.
+            Fetches a documentation comment for the given member ID.
             </summary>
-            <param name="documentationMemberID">The documentation member Id of the item to fetch.</param>
+            <param name="documentationMemberID">The documentation member ID of the item to fetch.</param>
             <param name="preferredCulture">The preferred culture to receive a comment in. Null if
             there is no preference. This is a preference only, and providers may choose to provide
             results from another culture if the preferred culture was unavailable.</param>
@@ -24460,7 +24460,7 @@
         <member name="M:Microsoft.CodeAnalysis.RuleSet.GetDiagnosticOptionsFromRulesetFile(System.String,System.Collections.Generic.Dictionary{System.String,Microsoft.CodeAnalysis.ReportDiagnostic}@)">
             <summary>
             Parses the ruleset file at the given <paramref name="rulesetFileFullPath"/> and returns the following diagnostic options from the parsed file:
-            1) A map of <paramref name="specificDiagnosticOptions"/> from rule Id to <see cref="T:Microsoft.CodeAnalysis.ReportDiagnostic"/> option.
+            1) A map of <paramref name="specificDiagnosticOptions"/> from rule ID to <see cref="T:Microsoft.CodeAnalysis.ReportDiagnostic"/> option.
             2) A global <see cref="T:Microsoft.CodeAnalysis.ReportDiagnostic"/> option for all rules in the ruleset file.
             </summary>
         </member>
@@ -27940,7 +27940,7 @@
         </member>
         <member name="F:Microsoft.CodeAnalysis.ObsoleteAttributeData.DiagnosticId">
             <summary>
-            The custom diagnostic Id to use for obsolete diagnostics.
+            The custom diagnostic ID to use for obsolete diagnostics.
             If null, diagnostics are produced using the compiler default diagnostic IDs.
             </summary>
         </member>
@@ -29537,7 +29537,7 @@
         </member>
         <member name="M:Microsoft.CodeAnalysis.ISymbol.GetDocumentationCommentId">
             <summary>
-            Returns the Documentation Comment Id for the symbol, or null if the symbol doesn't
+            Returns the Documentation Comment ID for the symbol, or null if the symbol doesn't
             support documentation comments.
             </summary>
         </member>
@@ -33915,8 +33915,8 @@
             Option to specify custom behavior for each warning in this tree.
             </summary>
             <returns>
-            A map from diagnostic Id to diagnostic reporting level. The diagnostic
-            Id string may be case insensitive depending on the language.
+            A map from diagnostic ID to diagnostic reporting level. The diagnostic
+            ID string may be case insensitive depending on the language.
             </returns>
         </member>
         <member name="P:Microsoft.CodeAnalysis.SyntaxTree.Length">
@@ -34181,7 +34181,7 @@
             from the current tree.
             </summary>
             <param name="options">
-            A mapping from diagnostic id to diagnostic reporting level. The diagnostic Id may be case-sensitive depending
+            A mapping from diagnostic id to diagnostic reporting level. The diagnostic ID may be case-sensitive depending
             on the language.
             </param>
         </member>
@@ -35968,19 +35968,19 @@
             <summary>Argument cannot have a null element.</summary>
         </member>
         <member name="P:Microsoft.CodeAnalysis.CodeAnalysisResources.UnsupportedDiagnosticReported">
-            <summary>Reported diagnostic with Id '{0}' is not supported by the analyzer.</summary>
+            <summary>Reported diagnostic with ID '{0}' is not supported by the analyzer.</summary>
         </member>
         <member name="P:Microsoft.CodeAnalysis.CodeAnalysisResources.UnsupportedSuppressionReported">
-            <summary>Reported suppression with Id '{0}' is not supported by the suppressor.</summary>
+            <summary>Reported suppression with ID '{0}' is not supported by the suppressor.</summary>
         </member>
         <member name="P:Microsoft.CodeAnalysis.CodeAnalysisResources.InvalidDiagnosticSuppressionReported">
-            <summary>Suppressed diagnostic Id '{0}' does not match suppressable Id '{1}' for the given suppression descriptor.</summary>
+            <summary>Suppressed diagnostic ID '{0}' does not match suppressable ID '{1}' for the given suppression descriptor.</summary>
         </member>
         <member name="P:Microsoft.CodeAnalysis.CodeAnalysisResources.NonReportedDiagnosticCannotBeSuppressed">
-            <summary>Non-reported diagnostic with Id '{0}' cannot be suppressed.</summary>
+            <summary>Non-reported diagnostic with ID '{0}' cannot be suppressed.</summary>
         </member>
         <member name="P:Microsoft.CodeAnalysis.CodeAnalysisResources.InvalidDiagnosticIdReported">
-            <summary>Reported diagnostic has an Id '{0}', which is not a valid identifier.</summary>
+            <summary>Reported diagnostic has an ID '{0}', which is not a valid identifier.</summary>
         </member>
         <member name="P:Microsoft.CodeAnalysis.CodeAnalysisResources.InvalidDiagnosticLocationReported">
             <summary>Reported diagnostic '{0}' has a source location in file '{1}', which is not part of the compilation being analyzed.</summary>
@@ -36194,7 +36194,7 @@
             <summary>Programmatic suppression of an analyzer diagnostic</summary>
         </member>
         <member name="P:Microsoft.CodeAnalysis.CodeAnalysisResources.SuppressionDiagnosticDescriptorMessage">
-            <summary>Diagnostic '{0}: {1}' was programmatically suppressed by a DiagnosticSuppressor with suppression Id '{2}' and justification '{3}'</summary>
+            <summary>Diagnostic '{0}: {1}' was programmatically suppressed by a DiagnosticSuppressor with suppression ID '{2}' and justification '{3}'</summary>
         </member>
         <member name="P:Microsoft.CodeAnalysis.CodeAnalysisResources.ModuleHasInvalidAttributes">
             <summary>Module has invalid attributes.</summary>
@@ -36859,7 +36859,7 @@
         </member>
         <member name="F:Microsoft.Cci.DebugSourceInfo.ChecksumAlgorithmId">
             <summary>
-            The Id of the hash algorithm used.
+            The ID of the hash algorithm used.
             </summary>
         </member>
         <member name="F:Microsoft.Cci.DebugSourceInfo.Checksum">
@@ -39255,7 +39255,7 @@
         </member>
         <member name="M:Roslyn.Utilities.AssemblyUtilities.ReadMvid(System.String)">
             <summary>
-            Given a path to an assembly, returns its MVID (Module Version Id).
+            Given a path to an assembly, returns its MVID (Module Version ID).
             May throw.
             </summary>
             <exception cref="T:System.IO.IOException">If the file at <paramref name="filePath"/> does not exist or cannot be accessed.</exception>

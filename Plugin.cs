@@ -34,7 +34,6 @@ public class Plugin
 		ConfigManager.Instance.Dispose();
 		LocalizationManager.Instance.Dispose();
 		ReframeworkManager.Instance.Dispose();
-		MonsterManager.Instance.Dispose();
 
 		API.LocalFrameGC();
 
