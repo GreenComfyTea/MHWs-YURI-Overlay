@@ -1,6 +1,9 @@
 ﻿using System.Numerics;
+using System.Runtime.CompilerServices;
 
 using REFrameworkNET;
+
+
 
 namespace YURI_Overlay;
 
@@ -196,9 +199,8 @@ internal sealed class LargeMonster
 				return;
 			}
 
-			var basicPointer = (ulong) ((ManagedObject) basicModule).Ptr();
-
-			var enemyId = basicModule.EmID;
+			var ptr = Unsafe.AsPointer(ref basicModule);
+			var basicPointer = (ulong) ptr;
 
 			// isValueType = false is intentional, otherwise, value is wrong
 			var EmID = (int?) EmID_Field.GetDataBoxed(basicPointer, false);

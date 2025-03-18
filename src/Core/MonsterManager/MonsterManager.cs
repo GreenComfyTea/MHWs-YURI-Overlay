@@ -20,7 +20,7 @@ internal sealed class MonsterManager
 	}
 
 	[MethodHook(typeof(app.EnemyCharacter), nameof(app.EnemyCharacter.doUpdateEnd), MethodHookType.Pre)]
-	private PreHookResult OnPreDoUpdateEnd(Span<ulong> args)
+	public static PreHookResult OnPreDoUpdateEnd(Span<ulong> args)
 	{
 		try
 		{
@@ -45,15 +45,15 @@ internal sealed class MonsterManager
 
 			if(isBoss)
 			{
-				var isFound = LargeMonsters.ContainsKey(enemyCharacter);
+				var isFound = Instance.LargeMonsters.ContainsKey(enemyCharacter);
 				if(!isFound)
 				{
 					LargeMonster largeMonster = new(enemyCharacter, enemyContext);
-					LargeMonsters.Add(enemyCharacter, largeMonster);
+					Instance.LargeMonsters.Add(enemyCharacter, largeMonster);
 				}
 				else
 				{
-					LargeMonsters[enemyCharacter].Update();
+					Instance.LargeMonsters[enemyCharacter].Update();
 				}
 			}
 
@@ -67,7 +67,7 @@ internal sealed class MonsterManager
 	}
 
 	[MethodHook(typeof(app.EnemyCharacter), nameof(app.EnemyCharacter.doOnDestroy), MethodHookType.Pre)]
-	private PreHookResult OnPreDoDestroy(Span<ulong> args)
+	public static PreHookResult OnPreDoOnDestroy(Span<ulong> args)
 	{
 		try
 		{
@@ -75,11 +75,11 @@ internal sealed class MonsterManager
 			var enemyCharacter = ManagedObject.ToManagedObject(enemyCharacterPtr).As<app.EnemyCharacter>();
 
 
-			var isFound = LargeMonsters.TryGetValue(enemyCharacter, out var largeMonster);
+			var isFound = Instance.LargeMonsters.TryGetValue(enemyCharacter, out var largeMonster);
 			if(isFound)
 			{
 				LogManager.Info($"[LargeMonster] Destroyed {largeMonster!.Name}");
-				LargeMonsters.Remove(enemyCharacter);
+				Instance.LargeMonsters.Remove(enemyCharacter);
 			}
 
 			return PreHookResult.Continue;

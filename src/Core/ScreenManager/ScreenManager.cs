@@ -2,8 +2,6 @@
 
 using REFrameworkNET;
 
-using WinRT;
-
 namespace YURI_Overlay;
 
 internal sealed class ScreenManager
@@ -176,30 +174,40 @@ internal sealed class ScreenManager
 		}
 	}
 
-	private void Update()
+	private unsafe void Update()
 	{
 		try
 		{
-			var sceneManager = API.GetNativeSingleton("via.SceneManager")?.As<via.SceneManager>();
+			var sceneManager = API.GetNativeSingleton("via.SceneManager");
 			if(sceneManager == null)
 			{
 				LogManager.Warn("[ScreenManager.Update] No scene manager");
 				return;
 			}
 
-			var mainView = get_MainView_Method.InvokeBoxed(SceneView_Type, sceneManager, [])?.As<via.SceneView>();
+			var mainViewObject = (ManagedObject) get_MainView_Method.InvokeBoxed(SceneView_Type, sceneManager, []);
+			if(mainViewObject == null)
+			{
+				LogManager.Warn("[ScreenManager.Update] No main view");
+				return;
+			}
+
+			var mainViewPtr = (ulong) mainViewObject.Ptr();
+			var mainView = ManagedObject.ToManagedObject(mainViewPtr).As<via.SceneView>();
 			if(mainView == null)
 			{
 				LogManager.Warn("[ScreenManager.Update] No main view");
 				return;
 			}
 
-			_primaryCamera = get_PrimaryCamera_Method.InvokeBoxed(Camera_Type, mainView, [])?.As<via.Camera>();
+			_primaryCamera = mainView.PrimaryCamera;
 			if(_primaryCamera == null)
 			{
 				//LogManager.Warn("[ScreenManager.Update] No primary camera");
 				return;
 			}
+
+
 			var windowSize = mainView.WindowSize;
 			if(windowSize == null)
 			{
