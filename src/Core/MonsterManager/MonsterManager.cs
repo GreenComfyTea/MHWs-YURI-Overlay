@@ -25,7 +25,14 @@ internal sealed class MonsterManager
 		try
 		{
 			var enemyCharacterPtr = args[1];
-			var enemyCharacter = ManagedObject.ToManagedObject(enemyCharacterPtr).As<app.EnemyCharacter>();
+			var enemyCharacterManagedObject = ManagedObject.ToManagedObject(enemyCharacterPtr);
+			if(enemyCharacterManagedObject == null)
+			{
+				LogManager.Warn("[MonsterManager.OnPreDoUpdateEnd] No enemy character");
+				return PreHookResult.Continue;
+			}
+
+			var enemyCharacter = enemyCharacterManagedObject.As<app.EnemyCharacter>();
 
 			var context = enemyCharacter._Context;
 			if(context == null)
@@ -42,13 +49,12 @@ internal sealed class MonsterManager
 			}
 
 			var isBoss = enemyContext.IsBoss;
-
 			if(isBoss)
 			{
 				var isFound = Instance.LargeMonsters.ContainsKey(enemyCharacter);
 				if(!isFound)
 				{
-					LargeMonster largeMonster = new(enemyCharacter, enemyContext);
+					LargeMonster largeMonster = new(enemyCharacter, enemyContext, enemyCharacterManagedObject);
 					Instance.LargeMonsters.Add(enemyCharacter, largeMonster);
 				}
 				else
