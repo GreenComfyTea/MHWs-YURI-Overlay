@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+using System.Numerics;
 
 using REFrameworkNET;
 
@@ -106,26 +106,22 @@ internal sealed class ScreenManager
 			var viewMatrix = _primaryCamera.ViewMatrix;
 			if(viewMatrix == null)
 			{
-				LogManager.Warn("[ScreenManager.FrameUpdate] No view matrix");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No primary camera view matrix");
 				return;
 			}
 
 			var viewProjectionMatrix = _primaryCamera.ViewProjMatrix;
 			if(viewProjectionMatrix == null)
 			{
-				LogManager.Warn("[ScreenManager.FrameUpdate] No view projection matrix");
+				LogManager.Warn("[ScreenManager.FrameUpdate] No primary camera view projection matrix");
 				return;
 			}
 
 			var viewM20 = viewMatrix.m20;
 			var viewM21 = viewMatrix.m21;
 			var viewM22 = viewMatrix.m22;
-			var viewM30 = viewMatrix.m30;
-			var viewM31 = viewMatrix.m31;
-			var viewM32 = viewMatrix.m32;
 
-			// Extract camera position and forward vector from view matrix
-			_cameraPosition = new Vector3(viewM30, viewM31, viewM32);
+			// Extract camera forward vector from view matrix
 			_cameraForward = new Vector3(-viewM20, -viewM21, -viewM22);
 
 			_viewProjectionMatrix.M11 = viewProjectionMatrix.m00;
@@ -144,6 +140,31 @@ internal sealed class ScreenManager
 			_viewProjectionMatrix.M42 = viewProjectionMatrix.m31;
 			_viewProjectionMatrix.M43 = viewProjectionMatrix.m32;
 			_viewProjectionMatrix.M44 = viewProjectionMatrix.m33;
+
+			var primaryCameraGameObject = _primaryCamera.GameObject;
+			if(primaryCameraGameObject == null)
+			{
+				LogManager.Warn("[ScreenManager.FrameUpdate] No primary camera game object");
+				return;
+			}
+
+			var primaryCameraTransform = primaryCameraGameObject.Transform;
+			if(primaryCameraTransform == null)
+			{
+				LogManager.Warn("[ScreenManager.FrameUpdate] No primary camera transform");
+				return;
+			}
+
+			var primaryCameraPosition = primaryCameraTransform.Position;
+			if(primaryCameraPosition == null)
+			{
+				LogManager.Warn("[ScreenManager.FrameUpdate] No primary camera position");
+				return;
+			}
+
+			_cameraPosition.X = primaryCameraPosition.x;
+			_cameraPosition.Y = primaryCameraPosition.y;
+			_cameraPosition.Z = primaryCameraPosition.z;
 		}
 		catch(Exception exception)
 		{
