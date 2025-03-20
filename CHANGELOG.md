@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.2.0](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.1.1...v1.2.0) (2025-03-20)
+
+
+### Features
+
+* Added Large Monster Stamina and Rage ([d458b49](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/d458b49404d512b1500f0e661ce1bdb77b7a7d60))
+* Added Split into Two Colors option for bars ([fb10ae2](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/fb10ae2e6e85642575319e2c5a8ad549a6f2b32c))
+* Optimized Large Monster data update ([0ca1e97](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/0ca1e979da79083d6616dde0f08a80c3c10465da))
+* Properly connected customization menu to REFramework window ([08b15a4](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/08b15a4296607f19fe876a33e5676a204750853b))
+
+
+### Bug Fixes
+
+* Fixed camera position being incorrect ([5fdf389](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/5fdf389470e96e570771631101689e583b40b42d))
+* Fixed monster ids and names being incorrect ([c1a470f](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/c1a470f22b63513fa7c19c90354655e2225ae834))
+* Fixed outline thickness not scaling with global size modifier ([229823d](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/229823db5b3a12210217fd0e6743177d874cd6cb))
+
 ## [1.1.1](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.1.0...v1.1.1) (2025-03-11)
 
 
