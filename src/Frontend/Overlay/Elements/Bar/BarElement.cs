@@ -77,8 +77,10 @@ internal sealed class BarElement
 
 		progress = Math.Clamp(progress, 0f, 1f);
 
+		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier;
+
 		var outline = customization.Outline;
-		var outlineThickness = outline.Thickness;
+		var outlineThickness = outline.Thickness * sizeScaleModifier;
 
 		UpdateByPosition1(position);
 		UpdateByProgress2(progress);
