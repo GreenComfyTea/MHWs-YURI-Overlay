@@ -187,7 +187,7 @@ The mod has support for localizations. If you wish to translate the mod, follow 
 11. [ ] Large Monster UI Body Parts + Weak points;
 12. [ ] Large Monster UI Ailments;
 13. [ ] Stats UI;
-14. [ ]Player Buffs UI (Buffs, Debuffs, Song Timers).
+14. [ ] Player Buffs UI (Buffs, Debuffs, Song Timers).
 
 ***
 ## Support
