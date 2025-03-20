@@ -180,7 +180,7 @@ The mod has support for localizations. If you wish to translate the mod, follow 
 4. [ ] Small Monster UI (Dynamic);
 5. [ ] Large Monster Map Pin + Camera Target UIs;
 6. [ ] Font Management;
-7. [ ] Unicode Support;
+7. [ ] Unicode Support ([x] Partial by REFramework);
 8. [ ] Damage Meter UI;
 9. [ ] Image Support, Monster Icons, Weapon Icons, Crown Icons;
 10. [ ] Endemic Life UI;
