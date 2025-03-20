@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 
 using REFrameworkNET;
 using REFrameworkNET.Attributes;
@@ -38,7 +38,6 @@ public class Plugin
 		API.LocalFrameGC();
 
 		LogManager.Info("Disposed!");
-
 		LogManager.Info("I permitted it to pass over me and through me. When it had gone past I turned the inner eye to see its path. Where the fear had gone, there was nothing. Only I remained...");
 	}
 
@@ -48,7 +47,6 @@ public class Plugin
 		{
 			LogManager.Info("Managers: Initializing...");
 
-			var screenManager = ScreenManager.Instance;
 			var configManager = ConfigManager.Instance;
 			var localizationManager = LocalizationManager.Instance;
 			var localizationHelper = LocalizationHelper.Instance;
@@ -60,9 +58,11 @@ public class Plugin
 			var imGuiManager = ImGuiManager.Instance;
 			var overlayManager = OverlayManager.Instance;
 
+			var screenManager = ScreenManager.Instance;
+			var playerManager = PlayerManager.Instance;
+
 			var monsterManager = MonsterManager.Instance;
 
-			screenManager.Initialize();
 			configManager.Initialize();
 			localizationManager.Initialize();
 			localizationHelper.Initialize();
@@ -74,14 +74,15 @@ public class Plugin
 			imGuiManager.Initialize();
 			overlayManager.Initialize();
 
+			screenManager.Initialize();
+			playerManager.Initialize();
+
 			monsterManager.Initialize();
 
 			LogManager.Info("Managers: Initialized!");
 			LogManager.Info("Callbacks: Initializing...");
 
 			REFrameworkNET.Callbacks.ImGuiRender.Post += OnImGuiRender;
-
-			LogManager.Info("Callbacks: Initialized!");
 
 			IsInitialized = true;
 		}
@@ -95,14 +96,23 @@ public class Plugin
 	{
 		if(!IsInitialized) return;
 
-		//try
-		//{
-		//	LuaFontManager.Instance.FrameUpdate();
-		//}
-		//catch(Exception exception)
-		//{
-		//	LogManager.Error(exception);
-		//}
+		try
+		{
+			LuaFontManager.Instance.FrameUpdate();
+		}
+		catch(Exception exception)
+		{
+			LogManager.Error(exception);
+		}
+
+		try
+		{
+			PlayerManager.Instance.FrameUpdate();
+		}
+		catch(Exception exception)
+		{
+			LogManager.Error(exception);
+		}
 
 		try
 		{
@@ -119,6 +129,15 @@ public class Plugin
 			{
 				ImGuiManager.Instance.Draw();
 			}
+		}
+		catch(Exception exception)
+		{
+			LogManager.Error(exception);
+		}
+
+		try
+		{
+			MonsterManager.Instance.FrameUpdate();
 		}
 		catch(Exception exception)
 		{

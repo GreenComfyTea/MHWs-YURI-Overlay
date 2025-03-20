@@ -10,21 +10,19 @@ internal sealed class ScreenManager
 	public static ScreenManager Instance => Lazy.Value;
 
 	public Vector2 WindowSize = new(1920f, 1080f);
+	public Vector3 CameraPosition = Vector3.Zero;
 
 	private via.Camera _primaryCamera;
 	private Matrix4x4 _viewProjectionMatrix = Matrix4x4.Identity;
 
-	private Vector3 _cameraPosition = Vector3.Zero;
 	private Vector3 _cameraForward = Vector3.Zero;
 
 	private float _overheadX = 0.25f * 1920f;
 	private float _overheadY = 0.25f * 1080f;
 
 	private Type SceneView_Type;
-	private Type Camera_Type;
 
 	private Method get_MainView_Method;
-	private Method get_PrimaryCamera_Method;
 
 	private ScreenManager() { }
 
@@ -41,20 +39,17 @@ internal sealed class ScreenManager
 	}
 
 	// worldPos2ScreenPos returns gibberish for some reason :(
-	public (Vector2?, float) ConvertWorldPositionToScreenPosition(Vector3 worldPosition)
+	public Vector2? ConvertWorldPositionToScreenPosition(Vector3 worldPosition)
 	{
 		try
 		{
-			// Calculate distance
-			var distance = Vector3.Distance(_cameraPosition, worldPosition);
-
 			// Calculate vector from camera to world position
-			var cameraToWorld = worldPosition - _cameraPosition;
+			var cameraToWorld = worldPosition - CameraPosition;
 
 			// Check if world position is behind the camera
-			if(Vector3.Dot(_cameraForward, cameraToWorld) < 0)
+			if(Vector3.Dot(cameraToWorld, -_cameraForward) <= 0f)
 			{
-				return (null, distance);
+				return null;
 			}
 
 			var worldPosition4 = new Vector4(worldPosition, 1.0f);
@@ -63,7 +58,7 @@ internal sealed class ScreenManager
 
 			if(Utils.IsApproximatelyEqual(clipSpacePosition.W, 0f))
 			{
-				return (null, distance);
+				return null;
 			}
 
 			// Perform perspective division to get NDC
@@ -74,23 +69,23 @@ internal sealed class ScreenManager
 			var screenX = (normalizedDeviceCoordinatesX + 1.0f) / 2.0f * WindowSize.X;
 			var screenY = (1.0f - normalizedDeviceCoordinatesY) / 2.0f * WindowSize.Y;
 
-			if(screenX < -_overheadX) return (null, distance);
-			if(screenX > WindowSize.X + _overheadX) return (null, distance);
-			if(screenY < -_overheadY) return (null, distance);
-			if(screenY > WindowSize.Y + _overheadY) return (null, distance);
+			if(screenX < -_overheadX) return null;
+			if(screenX > WindowSize.X + _overheadX) return null;
+			if(screenY < -_overheadY) return null;
+			if(screenY > WindowSize.Y + _overheadY) return null;
 
-			return (new Vector2(screenX, screenY), distance);
+			return new Vector2(screenX, screenY);
 		}
 		catch(Exception exception)
 		{
 			LogManager.Error(exception);
-			return (null, 0f);
+			return null;
 		}
 	}
 
 	public float GetWorldPositionToCameraDistance(Vector3 worldPosition)
 	{
-		return Vector3.Distance(_cameraPosition, worldPosition);
+		return Vector3.Distance(CameraPosition, worldPosition);
 	}
 
 	public void FrameUpdate()
@@ -103,26 +98,12 @@ internal sealed class ScreenManager
 				return;
 			}
 
-			var viewMatrix = _primaryCamera.ViewMatrix;
-			if(viewMatrix == null)
-			{
-				LogManager.Warn("[ScreenManager.FrameUpdate] No primary camera view matrix");
-				return;
-			}
-
 			var viewProjectionMatrix = _primaryCamera.ViewProjMatrix;
 			if(viewProjectionMatrix == null)
 			{
 				LogManager.Warn("[ScreenManager.FrameUpdate] No primary camera view projection matrix");
 				return;
 			}
-
-			var viewM20 = viewMatrix.m20;
-			var viewM21 = viewMatrix.m21;
-			var viewM22 = viewMatrix.m22;
-
-			// Extract camera forward vector from view matrix
-			_cameraForward = new Vector3(-viewM20, -viewM21, -viewM22);
 
 			_viewProjectionMatrix.M11 = viewProjectionMatrix.m00;
 			_viewProjectionMatrix.M12 = viewProjectionMatrix.m01;
@@ -162,32 +143,20 @@ internal sealed class ScreenManager
 				return;
 			}
 
-			_cameraPosition.X = primaryCameraPosition.x;
-			_cameraPosition.Y = primaryCameraPosition.y;
-			_cameraPosition.Z = primaryCameraPosition.z;
-		}
-		catch(Exception exception)
-		{
-			LogManager.Error(exception);
-		}
-	}
+			CameraPosition.X = primaryCameraPosition.x;
+			CameraPosition.Y = primaryCameraPosition.y;
+			CameraPosition.Z = primaryCameraPosition.z;
 
-	private void InitializeTdb()
-	{
-		try
-		{
-			var sceneManager_TypeDef = via.SceneManager.REFType;
+			var primaryCameraForward = primaryCameraTransform.AxisZ;
+			if(primaryCameraForward == null)
+			{
+				LogManager.Warn("[ScreenManager.FrameUpdate] No primary camera forward");
+				return;
+			}
 
-			get_MainView_Method = sceneManager_TypeDef.GetMethod("get_MainView");
-
-			var SceneView_TypeDef = get_MainView_Method.GetReturnType();
-			SceneView_Type = SceneView_TypeDef.GetType();
-
-			get_PrimaryCamera_Method = SceneView_TypeDef.GetMethod("get_PrimaryCamera");
-
-			var Camera_TypeDef = get_PrimaryCamera_Method.GetReturnType();
-			Camera_Type = Camera_TypeDef.GetType();
-
+			_cameraForward.X = primaryCameraForward.x;
+			_cameraForward.Y = primaryCameraForward.y;
+			_cameraForward.Z = primaryCameraForward.z;
 		}
 		catch(Exception exception)
 		{
@@ -241,6 +210,23 @@ internal sealed class ScreenManager
 
 			_overheadX = 0.25f * WindowSize.X;
 			_overheadY = 0.25f * WindowSize.Y;
+		}
+		catch(Exception exception)
+		{
+			LogManager.Error(exception);
+		}
+	}
+
+	private void InitializeTdb()
+	{
+		try
+		{
+			var sceneManager_TypeDef = via.SceneManager.REFType;
+
+			get_MainView_Method = sceneManager_TypeDef.GetMethod("get_MainView");
+
+			var SceneView_TypeDef = get_MainView_Method.GetReturnType();
+			SceneView_Type = SceneView_TypeDef.GetType();
 		}
 		catch(Exception exception)
 		{

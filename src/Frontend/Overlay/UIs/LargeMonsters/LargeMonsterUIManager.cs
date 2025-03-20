@@ -22,11 +22,11 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 	public void Initialize()
 	{
-		LogManager.Info("[LargeMonsterUIManager] Initializing...");
+		LogManager.Info("[LargeMonsterUiManager] Initializing...");
 
 		_updateTimer = Timers.SetInterval(Update, 100);
 
-		LogManager.Info("[LargeMonsterUIManager] Initialized!");
+		LogManager.Info("[LargeMonsterUiManager] Initialized!");
 	}
 
 	public void Update()
@@ -37,32 +37,27 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 	public void Draw(ImDrawListPtr backgroundDrawList)
 	{
-		//UpdateAllDistances();
 		DrawDynamicUi(backgroundDrawList);
 		DrawStaticUi(backgroundDrawList);
 	}
 
 	public void Dispose()
 	{
-		LogManager.Info($"[LargeMonsterUIManager] Disposing...");
+		LogManager.Info($"[LargeMonsterUiManager] Disposing...");
 		_updateTimer.Dispose();
-		LogManager.Info($"[LargeMonsterUIManager] Disposed!");
+		LogManager.Info($"[LargeMonsterUiManager] Disposed!");
 	}
-
-	//private void UpdateAllDistances()
-	//{
-	//	foreach(var largeMonsterPair in MonsterManager.Instance.LargeMonsters)
-	//	{
-	//		var largeMonster = largeMonsterPair.Value;
-
-	//		largeMonster.UpdateDistance();
-	//	}
-	//}
 
 	private void UpdateDynamic()
 	{
-		var config = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI.Dynamic;
-		var settings = config.Settings;
+		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI.Dynamic;
+		var settings = customization.Settings;
+
+		if(!customization.Enabled)
+		{
+			_dynamicLargeMonsters = [];
+			return;
+		}
 
 		List<LargeMonster> newLargeMonsters = [];
 
@@ -73,11 +68,6 @@ internal sealed class LargeMonsterUiManager : IDisposable
 			var largeMonster = largeMonsterPair.Value;
 
 			if(!settings.RenderDeadOrCaptured && !largeMonster.IsAlive)
-			{
-				continue;
-			}
-
-			if(settings.MaxDistance > 0f && largeMonster.Distance > settings.MaxDistance)
 			{
 				continue;
 			}
@@ -94,7 +84,13 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 	private void UpdateStatic()
 	{
-		var config = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI.Static;
+		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI.Static;
+
+		if(!customization.Enabled)
+		{
+			_staticLargeMonsters = [];
+			return;
+		}
 
 		List<LargeMonster> newLargeMonsters = [];
 
@@ -104,7 +100,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		{
 			var largeMonster = largeMonsterPair.Value;
 
-			if(!config.Settings.RenderDeadOrCaptured && !largeMonster.IsAlive)
+			if(!customization.Settings.RenderDeadOrCaptured && !largeMonster.IsAlive)
 			{
 				continue;
 			}
@@ -114,9 +110,9 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 		// Sort
 
-		if(config.Sorting.ReversedOrder)
+		if(customization.Sorting.ReversedOrder)
 		{
-			switch(config.Sorting.Type)
+			switch(customization.Sorting.Type)
 			{
 				case Sortings.Id:
 					newLargeMonsters.Sort(LargeMonsterSorting.CompareByIdReversed);
@@ -141,7 +137,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		}
 		else
 		{
-			switch(config.Sorting.Type)
+			switch(customization.Sorting.Type)
 			{
 				case Sortings.Id:
 					newLargeMonsters.Sort(LargeMonsterSorting.CompareById);

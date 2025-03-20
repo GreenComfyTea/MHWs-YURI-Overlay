@@ -81,66 +81,66 @@ internal sealed class LuaFontManager
 	{
 		try
 		{
-			var selectedMenuFontOption = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalFonts.MenuFont.FontName;
+			//var selectedMenuFontOption = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalFonts.MenuFont.FontName;
 
-			var localization = LocalizationManager.Instance.ActiveLocalization.Data;
+			//var localization = LocalizationManager.Instance.ActiveLocalization.Data;
 
-			LogManager.Debug($"selectedMenuFontOption: {selectedMenuFontOption}");
+			//LogManager.Debug($"selectedMenuFontOption: {selectedMenuFontOption}");
 
-			if(selectedMenuFontOption == LocalizationHelper.Instance.DefaultDefinedByLocalization)
-			{
-				var localizationMenuFontName = localization.Fonts.MenuFont.Name;
+			//if(selectedMenuFontOption == LocalizationHelper.Instance.DefaultDefinedByLocalization)
+			//{
+			//	var localizationMenuFontName = localization.Fonts.MenuFont.Name;
 
-				LogManager.Debug($"1 localizationMenuFontName: {localizationMenuFontName}");
+			//	LogManager.Debug($"1 localizationMenuFontName: {localizationMenuFontName}");
 
-				if(Fonts.TryGetValue($"{localizationMenuFontName}, 32px", out var localizationMenuFont))
-				{
-					ActiveMenuFont = (selectedMenuFontOption, localizationMenuFont);
-					LogManager.Debug($"11 Active Menu Font: {selectedMenuFontOption}");
-				}
-				else
-				{
-					var foundIndex = FontNames.FindIndex((iteratedFontName) => iteratedFontName.Contains(localizationMenuFontName));
+			//	if(Fonts.TryGetValue($"{localizationMenuFontName}, 32px", out var localizationMenuFont))
+			//	{
+			//		ActiveMenuFont = (selectedMenuFontOption, localizationMenuFont);
+			//		LogManager.Debug($"11 Active Menu Font: {selectedMenuFontOption}");
+			//	}
+			//	else
+			//	{
+			//		var foundIndex = FontNames.FindIndex((iteratedFontName) => iteratedFontName.Contains(localizationMenuFontName));
 
-					if(foundIndex == -1)
-					{
-						ActiveMenuFont = null;
-						LogManager.Debug($"12 Active Menu Font: null");
-					}
-					else
-					{
-						var foundFontName = FontNames[foundIndex];
-						var foundFont = Fonts[foundFontName];
-						ActiveMenuFont = (foundFontName, foundFont);
-						LogManager.Debug($"13 Active Menu Font: {selectedMenuFontOption}");
-					}
-				}
-			}
-			else
-			{
-				if(Fonts.TryGetValue($"{selectedMenuFontOption}, 32px", out var menuFont))
-				{
-					ActiveMenuFont = (selectedMenuFontOption, menuFont);
-					LogManager.Debug($"21 Active Menu Font: {selectedMenuFontOption}");
-				}
-				else
-				{
-					var foundIndex = FontNames.FindIndex((iteratedFontName) => iteratedFontName.Contains(selectedMenuFontOption));
+			//		if(foundIndex == -1)
+			//		{
+			//			ActiveMenuFont = null;
+			//			LogManager.Debug($"12 Active Menu Font: null");
+			//		}
+			//		else
+			//		{
+			//			var foundFontName = FontNames[foundIndex];
+			//			var foundFont = Fonts[foundFontName];
+			//			ActiveMenuFont = (foundFontName, foundFont);
+			//			LogManager.Debug($"13 Active Menu Font: {selectedMenuFontOption}");
+			//		}
+			//	}
+			//}
+			//else
+			//{
+			//	if(Fonts.TryGetValue($"{selectedMenuFontOption}, 32px", out var menuFont))
+			//	{
+			//		ActiveMenuFont = (selectedMenuFontOption, menuFont);
+			//		LogManager.Debug($"21 Active Menu Font: {selectedMenuFontOption}");
+			//	}
+			//	else
+			//	{
+			//		var foundIndex = FontNames.FindIndex((iteratedFontName) => iteratedFontName.Contains(selectedMenuFontOption));
 
-					if(foundIndex == -1)
-					{
-						ActiveMenuFont = null;
-						LogManager.Debug($"22 Active Menu Font: null");
-					}
-					else
-					{
-						var foundFontName = FontNames[foundIndex];
-						var foundFont = Fonts[foundFontName];
-						ActiveMenuFont = (foundFontName, foundFont);
-						LogManager.Debug($"23 Active Menu Font: {selectedMenuFontOption}");
-					}
-				}
-			}
+			//		if(foundIndex == -1)
+			//		{
+			//			ActiveMenuFont = null;
+			//			LogManager.Debug($"22 Active Menu Font: null");
+			//		}
+			//		else
+			//		{
+			//			var foundFontName = FontNames[foundIndex];
+			//			var foundFont = Fonts[foundFontName];
+			//			ActiveMenuFont = (foundFontName, foundFont);
+			//			LogManager.Debug($"23 Active Menu Font: {selectedMenuFontOption}");
+			//		}
+			//	}
+			//}
 		}
 		catch(Exception e)
 		{

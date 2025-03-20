@@ -19,6 +19,14 @@ internal sealed class MonsterManager
 		LogManager.Info("[MonsterManager] Initialized!");
 	}
 
+	public void FrameUpdate()
+	{
+		foreach(var largeMonster in LargeMonsters.Values)
+		{
+			largeMonster.FrameUpdate();
+		}
+	}
+
 	[MethodHook(typeof(app.EnemyCharacter), nameof(app.EnemyCharacter.doUpdateEnd), MethodHookType.Pre)]
 	public static PreHookResult OnPreDoUpdateEnd(Span<ulong> args)
 	{

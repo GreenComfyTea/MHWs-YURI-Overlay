@@ -102,11 +102,22 @@ internal sealed class LargeMonster
 		}
 	}
 
-	public void Update()
+	public void FrameUpdate()
 	{
 		try
 		{
 			UpdatePosition();
+		}
+		catch(Exception exception)
+		{
+			LogManager.Error(exception);
+		}
+	}
+
+	public void Update()
+	{
+		try
+		{
 			UpdateDistance();
 
 			UpdateName();
@@ -189,8 +200,7 @@ internal sealed class LargeMonster
 
 	private void UpdateDistance()
 	{
-		Distance = ScreenManager.Instance.GetWorldPositionToCameraDistance(Position);
-
+		Distance = Vector3.Distance(Position, PlayerManager.Instance.Position);
 	}
 
 	private unsafe void UpdateIds()

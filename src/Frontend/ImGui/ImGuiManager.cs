@@ -17,11 +17,11 @@ internal sealed class ImGuiManager
 
 	public ImGuiManager Initialize()
 	{
-		LogManager.Info("ImGuiManager: Initializing...");
+		LogManager.Info("[ImGuiManager] Initializing...");
 
 		IsOpened = ReframeworkManager.Instance.IsReframeworkMenuOpen;
 
-		LogManager.Info("ImGuiManager: Initialized!");
+		LogManager.Info("[ImGuiManager] Initialized!");
 
 		return this;
 	}

@@ -49,7 +49,9 @@ internal sealed class LargeMonsterDynamicUi
 			targetWorldPosition.Y += _largeMonster.ModelRadius;
 		}
 
-		var (maybeScreenPosition, _) = ScreenManager.Instance.ConvertWorldPositionToScreenPosition(targetWorldPosition);
+		var maybeScreenPosition = ScreenManager.Instance.ConvertWorldPositionToScreenPosition(targetWorldPosition);
+
+		LogManager.Info($"{_largeMonster.Name}: {maybeScreenPosition == null} {_largeMonster.Distance}/{settings.MaxDistance}");
 
 		// Not on screen
 		if(maybeScreenPosition == null)
@@ -59,8 +61,13 @@ internal sealed class LargeMonsterDynamicUi
 
 		var opacityScale =
 			settings.OpacityFalloff && settings.MaxDistance > 0f
-			? (settings.MaxDistance - _largeMonster.Distance) / settings.MaxDistance
+			? float.Clamp((settings.MaxDistance - _largeMonster.Distance) / settings.MaxDistance, 0f, 1f)
 			: 1f;
+
+		if(Utils.IsApproximatelyEqual(opacityScale, 0f))
+		{
+			return;
+		}
 
 		var screenPosition = (Vector2) maybeScreenPosition;
 
