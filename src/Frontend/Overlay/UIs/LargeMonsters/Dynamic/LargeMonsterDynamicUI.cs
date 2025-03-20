@@ -51,8 +51,6 @@ internal sealed class LargeMonsterDynamicUi
 
 		var maybeScreenPosition = ScreenManager.Instance.ConvertWorldPositionToScreenPosition(targetWorldPosition);
 
-		LogManager.Info($"{_largeMonster.Name}: {maybeScreenPosition == null} {_largeMonster.Distance}/{settings.MaxDistance}");
-
 		// Not on screen
 		if(maybeScreenPosition == null)
 		{
