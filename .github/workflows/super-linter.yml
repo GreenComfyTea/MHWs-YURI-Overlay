@@ -7,22 +7,25 @@ on:
   pull_request:
     branches: [ "main" ]
 permissions:
+      actions: write
+      attestations: write
+      checks: write
       contents: write
+      deployments: write
+      id-token: write
+      issues: write
+      discussions: write
       packages: write
-      workflows: write
-      # To report GitHub Actions status checks
+      pages: write
+      pull-requests: write
+      repository-projects: write
+      security-events: write
       statuses: write
 
 jobs:
   build:
     name: Lint
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
-      packages: write
-      # To report GitHub Actions status checks
-      statuses: write
 
     steps:
       - name: Checkout code
