@@ -26,21 +26,6 @@ jobs:
   build:
     name: Lint
     runs-on: ubuntu-latest
-    permissions:
-      actions: write
-      attestations: write
-      checks: write
-      contents: write
-      deployments: write
-      id-token: write
-      issues: write
-      discussions: write
-      packages: write
-      pages: write
-      pull-requests: write
-      repository-projects: write
-      security-events: write
-      statuses: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -48,9 +33,12 @@ jobs:
           # super-linter needs the full git history to get the
           # list of files that changed across commits
           fetch-depth: 0
+          token: ${{ secrets.SUPER_LINTER_TOKEN }}
 
       - name: Super-linter
         uses: super-linter/super-linter@v7.3.0 # x-release-please-version
+        with:
+          token: ${{ secrets.SUPER_LINTER_TOKEN }}
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -116,6 +104,7 @@ jobs:
           github.ref_name != github.event.repository.default_branch
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
+          token: ${{ secrets.SUPER_LINTER_TOKEN }}
           branch: ${{ github.event.pull_request.head.ref || github.head_ref || github.ref }}
           commit_message: "chore: fix linting issues"
           commit_user_name: super-linter
