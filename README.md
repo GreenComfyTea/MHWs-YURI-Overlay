@@ -150,23 +150,44 @@
 	>**:pushpin: NOTE:** Nightly builds are available **[here](https://github.com/GreenComfyTea/MHWs-YURI-Overlay-Nightly)** and can contain broken functionality, debugging info on screen, bugs and might require the latest **[nightly build](https://github.com/GreenComfyTea/REFramework/releases/)** of **REFramework.NET**. Use with caution!
 4. Extract the mod from the archive and place it in `/MonsterHunterWilds/` folder.
 
+# For Translators
+The mod has support for localizations. If you wish to translate the mod, follow these steps:
+2. Go to `\MonsterHunterWilds\reframework\data\YURI_Overlay\localizations\` folder. There should be `en-US.json` file. If not, launch the game once, the file will be regenerated;
+3. Copy-paste the file and give it a new name. Any format is supported but I expect it to be `ISO language code` for uniformity reasons;
+4. Open the file with any text editor and translate the strings;
+5. Specify Menu Font and Overlay Font (both are currently unused) and their respective Unicode glyph ranges.
+6. Make an issue/pull request, or dm me on **[Twitter](https://twitter.com/GreenComfyTea)**, to submit your localization. I will check it and include it in the next release.
+
+> [!IMPORTANT]
+> Each localization must provide unicode glyph ranges for fonts to load. You can take the ranges **[here](https://github.com/Fexty12573/SharpPluginLoader/blob/master/SharpPluginLoader.Core/Rendering/GlyphRangeFactory.cs)** and **[here](https://jrgraphix.net/r/Unicode/)**.
+
+> [!IMPORTANT]
+> Put the font you want to use in `\MonsterHunterWilds\reframework\fonts\` folder. The font must be `static`. Only `.OTF` and `.TTF` fonts are supported.
+
+> [!IMPORTANT]
+> **Font hot-reloading is not supported. So adding/changing a font will require game restart.**
+
+
 ## Credits
 **[GreenComfyTea](https://github.com/GreenComfyTea)** - creator of the mod and it's main contributor.  
 **[cursey](https://github.com/cursey)** - creator of [REFramework.NET](https://GreenComfyTeanexusmods.com/monsterhunterrise/mods/26).  
 **[praydog](https://github.com/praydog)** - contributor of [REFramework](https://GreenComfyTeanexusmods.com/monsterhunterrise/mods/26).
 
 ## Roadmap
-1. `vx.0.x` - Large Monster Static UI
-2. `vx.1.x` - Large Monster Dynamic UI
-3. `vx.2.x` - Large Monster Stamina, Large Monster Rage, Small Monster UI (Dynamic)
-4. `vx.3.x` - Large Monster Highlighted UI, Font Management + Unicode Support
-5. `vx.4.x` - Damage Meter UI
-1. `vx.5.x` - Image Support, Monster Icons, Weapon Icons, Crown Icons
-1. `vx.6.x` - Endemic Life UI
-1. `vx.7.x` - Large Monster UI Body Parts + Weak points
-1. `vx.8.x` - Large Monster UI Ailments
-1. `vx.9.x` - Stats UI
-1. `vx.10.x` - Player Buffs UI (Buffs, Debuffs, Song Timers)
+1. [x] - Large Monster Static UI;
+2. [x] - Large Monster Dynamic UI;
+3. [x] Large Monster Stamina and Rage;
+4. [ ] Small Monster UI (Dynamic);
+5. [ ] Large Monster Map Pin + Camera Target UIs;
+6. [ ] Font Management;
+7. [ ] Unicode Support;
+8. [ ] Damage Meter UI;
+9. [ ] Image Support, Monster Icons, Weapon Icons, Crown Icons;
+10. [ ] Endemic Life UI;
+11. [ ] Large Monster UI Body Parts + Weak points;
+12. [ ] Large Monster UI Ailments;
+13. [ ] Stats UI;
+14. [ ]Player Buffs UI (Buffs, Debuffs, Song Timers).
 
 ***
 ## Support
