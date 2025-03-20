@@ -33,7 +33,6 @@ public class Plugin
 
 		ConfigManager.Instance.Dispose();
 		LocalizationManager.Instance.Dispose();
-		ReframeworkManager.Instance.Dispose();
 
 		API.LocalFrameGC();
 
@@ -50,7 +49,6 @@ public class Plugin
 			var configManager = ConfigManager.Instance;
 			var localizationManager = LocalizationManager.Instance;
 			var localizationHelper = LocalizationHelper.Instance;
-			var reframeworkManager = ReframeworkManager.Instance;
 			//var luaFontManager = LuaFontManager.Instance;
 
 			//var fontManager = FontManager.Instance;
@@ -66,7 +64,6 @@ public class Plugin
 			configManager.Initialize();
 			localizationManager.Initialize();
 			localizationHelper.Initialize();
-			reframeworkManager.Initialize();
 			//luaFontManager.Initialize();
 
 			//fontManager.Initialize();
@@ -82,9 +79,25 @@ public class Plugin
 			LogManager.Info("Managers: Initialized!");
 			LogManager.Info("Callbacks: Initializing...");
 
+			REFrameworkNET.Callbacks.ImGuiDrawUI.Post += OnImGuiDrawUI;
 			REFrameworkNET.Callbacks.ImGuiRender.Post += OnImGuiRender;
 
+
 			IsInitialized = true;
+		}
+		catch(Exception exception)
+		{
+			LogManager.Error(exception);
+		}
+	}
+
+	private static void OnImGuiDrawUI()
+	{
+		if(!IsInitialized) return;
+
+		try
+		{
+			ImGuiManager.Instance.Draw();
 		}
 		catch(Exception exception)
 		{
@@ -96,23 +109,14 @@ public class Plugin
 	{
 		if(!IsInitialized) return;
 
-		try
-		{
-			LuaFontManager.Instance.FrameUpdate();
-		}
-		catch(Exception exception)
-		{
-			LogManager.Error(exception);
-		}
-
-		try
-		{
-			PlayerManager.Instance.FrameUpdate();
-		}
-		catch(Exception exception)
-		{
-			LogManager.Error(exception);
-		}
+		//try
+		//{
+		//	LuaFontManager.Instance.FrameUpdate();
+		//}
+		//catch(Exception exception)
+		//{
+		//	LogManager.Error(exception);
+		//}
 
 		try
 		{
@@ -125,10 +129,7 @@ public class Plugin
 
 		try
 		{
-			if(ReframeworkManager.Instance.IsReframeworkMenuOpen)
-			{
-				ImGuiManager.Instance.Draw();
-			}
+			PlayerManager.Instance.FrameUpdate();
 		}
 		catch(Exception exception)
 		{

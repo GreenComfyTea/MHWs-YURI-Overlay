@@ -20,6 +20,7 @@ internal sealed class OverlayManager
 
 	public void Draw()
 	{
+
 		ImGui.Begin("YURI Overlay",
 			ImGuiWindowFlags.NoMove
 			| ImGuiWindowFlags.NoBackground
