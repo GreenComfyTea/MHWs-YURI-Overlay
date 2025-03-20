@@ -48,7 +48,7 @@ internal sealed class PlayerManager
 
 		if(_masterPlayerCharacter == null)
 		{
-			LogManager.Warn("[PlayerManager.FrameUpdate] No master player character");
+			//LogManager.Warn("[PlayerManager.FrameUpdate] No master player character");
 			return;
 		}
 
@@ -83,7 +83,7 @@ internal sealed class PlayerManager
 		var masterPlayerCharacter = masterPlayer.Character;
 		if(masterPlayerCharacter == null)
 		{
-			LogManager.Warn("[PlayerManager.Update] No master player character");
+			//LogManager.Warn("[PlayerManager.Update] No master player character");
 			return;
 		}
 

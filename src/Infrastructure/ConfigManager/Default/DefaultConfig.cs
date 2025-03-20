@@ -14,9 +14,9 @@ internal static class DefaultConfig
 		config.GlobalSettings.Performance.UpdateDelay = 0.1f;
 		config.GlobalSettings.Performance.CalculationCaching = true;
 
-		config.LargeMonsterUI.Dynamic.Settings.RenderDeadOrCaptured = false;
+		config.LargeMonsterUI.Dynamic.Settings.RenderDeadMonsters = false;
 		config.LargeMonsterUI.Dynamic.Settings.RenderHighlightedMonster = true;
-		config.LargeMonsterUI.Dynamic.Settings.RenderNotHighlightedMonsters = true;
+		config.LargeMonsterUI.Dynamic.Settings.RenderNonHighlightedMonsters = true;
 		config.LargeMonsterUI.Dynamic.Settings.AddMissionBeaconOffsetToWorldOffset = false;
 		config.LargeMonsterUI.Dynamic.Settings.AddModelRadiusToWorldOffsetY = true;
 		config.LargeMonsterUI.Dynamic.Settings.OpacityFalloff = true;
@@ -287,9 +287,9 @@ internal static class DefaultConfig
 		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Outline.Style = OutlineStyles.Inside;
 		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Outline.Color.ColorInfo.Rgba = 0xFF000080;
 
-		config.LargeMonsterUI.Static.Settings.RenderDeadOrCaptured = false;
+		config.LargeMonsterUI.Static.Settings.RenderDeadMonsters = false;
 		config.LargeMonsterUI.Static.Settings.RenderHighlightedMonster = true;
-		config.LargeMonsterUI.Static.Settings.RenderNotHighlightedMonsters = true;
+		config.LargeMonsterUI.Static.Settings.RenderNonHighlightedMonsters = true;
 
 		config.LargeMonsterUI.Static.Position.X = 89f;
 		config.LargeMonsterUI.Static.Position.Y = -40f;

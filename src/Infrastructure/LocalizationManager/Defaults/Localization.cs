@@ -104,9 +104,9 @@ internal class ImGuiLocalization
 	public string Position = "Position";
 
 	public string Enabled = "Enabled";
-	public string RenderDeadOrCaptured = "Render Dead or Captured";
+	public string RenderDeadMonsters = "Render Dead Monsters";
 	public string RenderHighlightedMonster = "Render Highlighted Monster";
-	public string RenderNotHighlightedMonsters = "Render Non-highlighted Monsters";
+	public string RenderNonHighlightedMonsters = "Render Non-highlighted Monsters";
 	public string AddMissionBeaconOffsetToWorldOffset = "Add Mission Beacon Offset to World Offset";
 	public string AddModelRadiusToWorldOffsetY = "Add Model Radius to World Offset Y";
 	public string OpacityFalloff = "Opacity Falloff";

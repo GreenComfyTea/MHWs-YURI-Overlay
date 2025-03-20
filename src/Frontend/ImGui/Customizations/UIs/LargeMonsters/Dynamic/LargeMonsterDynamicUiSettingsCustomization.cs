@@ -4,9 +4,9 @@ namespace YURI_Overlay;
 
 internal class LargeMonsterDynamicUiSettingsCustomization : Customization
 {
-	public bool RenderDeadOrCaptured = false;
+	public bool RenderDeadMonsters = false;
 	public bool RenderHighlightedMonster = true;
-	public bool RenderNotHighlightedMonsters = true;
+	public bool RenderNonHighlightedMonsters = true;
 
 	public bool AddMissionBeaconOffsetToWorldOffset = false;
 	public bool AddModelRadiusToWorldOffsetY = true;
@@ -25,9 +25,9 @@ internal class LargeMonsterDynamicUiSettingsCustomization : Customization
 
 		if(ImGui.TreeNode($"{localization.Settings}##{customizationName}"))
 		{
-			isChanged |= ImGui.Checkbox($"{localization.RenderDeadOrCaptured}##{customizationName}", ref RenderDeadOrCaptured);
-			isChanged |= ImGui.Checkbox($"{localization.RenderHighlightedMonster}##{customizationName}", ref RenderHighlightedMonster);
-			isChanged |= ImGui.Checkbox($"{localization.RenderNotHighlightedMonsters}##{customizationName}", ref RenderNotHighlightedMonsters);
+			isChanged |= ImGui.Checkbox($"{localization.RenderDeadMonsters}##{customizationName}", ref RenderDeadMonsters);
+			//isChanged |= ImGui.Checkbox($"{localization.RenderHighlightedMonster}##{customizationName}", ref RenderHighlightedMonster);
+			//isChanged |= ImGui.Checkbox($"{localization.RenderNonHighlightedMonsters}##{customizationName}", ref RenderNonHighlightedMonsters);
 			isChanged |= ImGui.Checkbox($"{localization.AddMissionBeaconOffsetToWorldOffset}##{customizationName}", ref AddMissionBeaconOffsetToWorldOffset);
 			isChanged |= ImGui.Checkbox($"{localization.AddModelRadiusToWorldOffsetY}##{customizationName}", ref AddModelRadiusToWorldOffsetY);
 			isChanged |= ImGui.Checkbox($"{localization.OpacityFalloff}##{customizationName}", ref OpacityFalloff);

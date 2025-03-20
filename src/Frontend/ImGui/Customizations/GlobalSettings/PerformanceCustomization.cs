@@ -18,7 +18,7 @@ internal sealed class PerformanceCustomization : Customization
 
 		if(ImGui.TreeNode($"{localization.Performance}##${customizationName}"))
 		{
-			isChanged |= ImGui.DragFloat($"{localization.UpdateDelaySeconds}##{customizationName}", ref UpdateDelay, 0.001f, 0.001f, 10f, "%.3f");
+			//isChanged |= ImGui.DragFloat($"{localization.UpdateDelaySeconds}##{customizationName}", ref UpdateDelay, 0.001f, 0.001f, 10f, "%.3f");
 			isChanged |= ImGui.Checkbox($"{localization.CalculationCaching}##{customizationName}", ref CalculationCaching);
 
 			ImGui.TreePop();

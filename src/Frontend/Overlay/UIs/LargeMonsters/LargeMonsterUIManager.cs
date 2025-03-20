@@ -67,7 +67,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		{
 			var largeMonster = largeMonsterPair.Value;
 
-			if(!settings.RenderDeadOrCaptured && !largeMonster.IsAlive)
+			if(!settings.RenderDeadMonsters && !largeMonster.IsAlive)
 			{
 				continue;
 			}
@@ -100,7 +100,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		{
 			var largeMonster = largeMonsterPair.Value;
 
-			if(!customization.Settings.RenderDeadOrCaptured && !largeMonster.IsAlive)
+			if(!customization.Settings.RenderDeadMonsters && !largeMonster.IsAlive)
 			{
 				continue;
 			}

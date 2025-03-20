@@ -4,9 +4,9 @@ namespace YURI_Overlay;
 
 internal class LargeMonsterStaticUiSettingsCustomization : Customization
 {
-	public bool RenderDeadOrCaptured = false;
+	public bool RenderDeadMonsters = false;
 	public bool RenderHighlightedMonster = true;
-	public bool RenderNotHighlightedMonsters = true;
+	public bool RenderNonHighlightedMonsters = true;
 
 
 	public LargeMonsterStaticUiSettingsCustomization() { }
@@ -21,9 +21,9 @@ internal class LargeMonsterStaticUiSettingsCustomization : Customization
 
 		if(ImGui.TreeNode($"{localization.Settings}##{customizationName}"))
 		{
-			isChanged |= ImGui.Checkbox($"{localization.RenderDeadOrCaptured}##{customizationName}", ref RenderDeadOrCaptured);
+			isChanged |= ImGui.Checkbox($"{localization.RenderDeadMonsters}##{customizationName}", ref RenderDeadMonsters);
 			//isChanged |= ImGui.Checkbox($"{localization.renderHighlightedMonster}##{customizationName}", ref renderHighlightedMonster);
-			//isChanged |= ImGui.Checkbox($"{localization.renderNotHighlightedMonsters}##{customizationName}", ref renderNotHighlightedMonsters);
+			//isChanged |= ImGui.Checkbox($"{localization.RenderNonHighlightedMonsters}##{customizationName}", ref RenderNonHighlightedMonsters);
 
 			//isChanged |= ImGui.Combo($"{localization.highlightedMonsterLocation}##{customizationName}", ref _highlightedMonsterLocationIndex, localizationHelper.SortingLocations, localizationHelper.SortingLocations.Length);
 
