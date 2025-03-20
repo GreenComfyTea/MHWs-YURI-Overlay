@@ -174,8 +174,8 @@ The mod has support for localizations. If you wish to translate the mod, follow 
 **[praydog](https://github.com/praydog)** - contributor of [REFramework](https://GreenComfyTeanexusmods.com/monsterhunterrise/mods/26).
 
 ## Roadmap
-1. [x] - Large Monster Static UI;
-2. [x] - Large Monster Dynamic UI;
+1. [x] Large Monster Static UI;
+2. [x] Large Monster Dynamic UI;
 3. [x] Large Monster Stamina and Rage;
 4. [ ] Small Monster UI (Dynamic);
 5. [ ] Large Monster Map Pin + Camera Target UIs;
