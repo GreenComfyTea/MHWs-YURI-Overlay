@@ -151,12 +151,12 @@
 4. Extract the mod from the archive and place it in `/MonsterHunterWilds/` folder.
 
 # For Translators
-The mod has support for localizations. If you wish to translate the mod, follow these steps:
-2. Go to `\MonsterHunterWilds\reframework\data\YURI_Overlay\localizations\` folder. There should be `en-US.json` file. If not, launch the game once, the file will be regenerated;
-3. Copy-paste the file and give it a new name. Any format is supported but I expect it to be `ISO language code` for uniformity reasons;
-4. Open the file with any text editor and translate the strings;
-5. Specify Menu Font and Overlay Font (both are currently unused) and their respective Unicode glyph ranges.
-6. Make an issue/pull request, or dm me on **[Twitter](https://twitter.com/GreenComfyTea)**, to submit your localization. I will check it and include it in the next release.
+The mod has support for localizations. If you wish to translate the mod, follow these steps:  
+1. Go to `\MonsterHunterWilds\reframework\data\YURI_Overlay\localizations\` folder. There should be `en-US.json` file. If not, launch the game once, the file will be regenerated;  
+2. Copy-paste the file and give it a new name. Any format is supported but I expect it to be `ISO language code` for uniformity reasons;  
+3. Open the file with any text editor and translate the strings;  
+4. Specify Menu Font and Overlay Font (both are currently unused) and their respective Unicode glyph ranges.  
+5. Make an issue/pull request, or dm me on nexus or **[Twitter](https://twitter.com/GreenComfyTea)**, to submit your localization. I will check it and include it in the next release.  
 
 > [!IMPORTANT]
 > Each localization must provide unicode glyph ranges for fonts to load. You can take the ranges **[here](https://github.com/Fexty12573/SharpPluginLoader/blob/master/SharpPluginLoader.Core/Rendering/GlyphRangeFactory.cs)** and **[here](https://jrgraphix.net/r/Unicode/)**.
