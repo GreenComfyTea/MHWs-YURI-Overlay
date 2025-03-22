@@ -4,6 +4,8 @@ using System.Text.Json;
 
 using ImGuiNET;
 
+using REFrameworkNET;
+
 namespace YURI_Overlay;
 
 internal static class Utils
@@ -136,5 +138,12 @@ internal static class Utils
 		var minutes = totalSeconds / 60;
 		var remainingSeconds = totalSeconds % 60;
 		return $"{minutes}:{remainingSeconds:F2}";
+	}
+
+	public static ManagedObject ProxyToManagedObject(object proxyObject)
+	{
+		if(proxyObject == null) return null;
+
+		return (proxyObject as IProxy)!.GetInstance() as ManagedObject;
 	}
 }

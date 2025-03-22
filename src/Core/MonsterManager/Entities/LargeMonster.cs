@@ -64,9 +64,9 @@ internal sealed class LargeMonster
 
 	private Type String_Type;
 
-	private Field _Context_Field;
-	private Field _Em_Field;
-	private Field Basic_Field;
+	private readonly Field _Context_Field;
+	private readonly Field _Em_Field;
+	private readonly Field Basic_Field;
 	private Field EmID_Field;
 	private Field RoleID_Field;
 	private Field LegendaryID_Field;
@@ -207,28 +207,21 @@ internal sealed class LargeMonster
 	{
 		try
 		{
-			var _Context = (ManagedObject) _Context_Field.GetDataBoxed((ulong) EnemyCharacterManagedObject.Ptr(), false);
-			if(_Context == null)
-			{
-				LogManager.Warn("[LargeMonster.UpdateIds] No enemy context holder");
-				return;
-			}
-
-			var _Em = (ManagedObject) _Em_Field.GetDataBoxed((ulong) _Context.Ptr(), false);
-			if(_Em == null)
-			{
-				LogManager.Warn("[LargeMonster.UpdateIds] No enemy context");
-				return;
-			}
-
-			var Basic = (ManagedObject) Basic_Field.GetDataBoxed((ulong) _Em.Ptr(), false);
-			if(Basic == null)
+			var basicModule = EnemyContext.Basic;
+			if(basicModule == null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateIds] No enemy basic module");
 				return;
 			}
 
-			var basicPointer = (ulong) Basic.Ptr();
+			var basicModuleManagedObject = Utils.ProxyToManagedObject(basicModule);
+			if(basicModuleManagedObject == null)
+			{
+				LogManager.Warn("[LargeMonster.UpdateIds] No enemy basic module managed object");
+				return;
+			}
+
+			var basicPointer = (ulong) basicModuleManagedObject!.Ptr();
 
 			// isValueType = false is intentional, otherwise, value is wrong
 			var EmID = (int?) EmID_Field.GetDataBoxed(basicPointer, false);
@@ -476,15 +469,6 @@ internal sealed class LargeMonster
 	{
 		try
 		{
-			var EnemyCharacter_TypeDef = app.EnemyCharacter.REFType;
-
-			_Context_Field = EnemyCharacter_TypeDef.GetField("_Context");
-			_Em_Field = _Context_Field.GetType().GetField("_Em");
-
-			var enemyContext_TypeDef = _Em_Field.GetType();
-
-			Basic_Field = enemyContext_TypeDef.GetField("Basic");
-
 			var cEmModuleBasic_TypeDef = app.cEmModuleBasic.REFType;
 
 			EmID_Field = cEmModuleBasic_TypeDef.GetField("EmID");
