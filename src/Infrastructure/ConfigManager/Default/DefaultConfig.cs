@@ -159,6 +159,7 @@ internal static class DefaultConfig
 		config.LargeMonsterUI.Dynamic.Stamina.TimerLabel.Settings.RightAlignmentShift = 4;
 		config.LargeMonsterUI.Dynamic.Stamina.TimerLabel.Offset.X = 87f;
 		config.LargeMonsterUI.Dynamic.Stamina.TimerLabel.Offset.Y = 5f;
+		config.LargeMonsterUI.Dynamic.Stamina.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
 		config.LargeMonsterUI.Dynamic.Stamina.TimerLabel.Shadow.Visible = true;
 		config.LargeMonsterUI.Dynamic.Stamina.TimerLabel.Shadow.Offset.X = 2f;
@@ -430,6 +431,7 @@ internal static class DefaultConfig
 		config.LargeMonsterUI.Static.Stamina.TimerLabel.Settings.RightAlignmentShift = 4;
 		config.LargeMonsterUI.Static.Stamina.TimerLabel.Offset.X = 54f;
 		config.LargeMonsterUI.Static.Stamina.TimerLabel.Offset.Y = 5f;
+		config.LargeMonsterUI.Static.Stamina.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
 		config.LargeMonsterUI.Static.Stamina.TimerLabel.Shadow.Visible = true;
 		config.LargeMonsterUI.Static.Stamina.TimerLabel.Shadow.Offset.X = 2f;
