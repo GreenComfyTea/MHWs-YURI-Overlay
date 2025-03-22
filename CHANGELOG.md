@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.2.0...v1.2.1) (2025-03-22)
+
+
+### Bug Fixes
+
+* Added missing default color for stamina timer label ([9c034d4](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/9c034d49399fc35662e99de77932fcc6fd413413))
+
 ## [1.2.0](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.1.1...v1.2.0) (2025-03-20)
 
 
