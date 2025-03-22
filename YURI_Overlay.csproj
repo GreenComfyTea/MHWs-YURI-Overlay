@@ -92,7 +92,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<Reference Include="application">
+	<Reference Include="AssemblyGenerator">
+	  <HintPath>REFramework\plugins\managed\dependencies\AssemblyGenerator.dll</HintPath>
+	</Reference>
+	<Reference Include="Microsoft.CodeAnalysis">
+	  <HintPath>REFramework\plugins\managed\dependencies\Microsoft.CodeAnalysis.dll</HintPath>
+	</Reference>
+	<Reference Include="Microsoft.CodeAnalysis.CSharp">
+	  <HintPath>REFramework\plugins\managed\dependencies\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+	</Reference>
+	<Reference Include="REFCoreDeps">
+	  <HintPath>REFramework\plugins\managed\dependencies\REFCoreDeps.dll</HintPath>
+	</Reference>
+	<Reference Include="REFramework.NET.application">
 	  <HintPath>REFramework\plugins\managed\generated\REFramework.NET.application.dll</HintPath>
 	</Reference>
 	<Reference Include="ImGui.NET">
@@ -101,10 +113,10 @@
 	<Reference Include="REFramework.NET">
 	  <HintPath>REFramework\plugins\REFramework.NET.dll</HintPath>
 	</Reference>
-	<Reference Include="viacore">
+	<Reference Include="REFramework.NET.viacore">
 	  <HintPath>REFramework\plugins\managed\generated\REFramework.NET.viacore.dll</HintPath>
 	</Reference>
-	<Reference Include="_System.Private.CoreLib">
+	<Reference Include="REFramework.NET._System.Private.CoreLib">
 	  <HintPath>REFramework\plugins\managed\generated\REFramework.NET._System.Private.CoreLib.dll</HintPath>
 	</Reference>
   </ItemGroup>
