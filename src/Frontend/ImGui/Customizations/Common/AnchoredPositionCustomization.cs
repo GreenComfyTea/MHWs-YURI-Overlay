@@ -31,7 +31,7 @@ internal sealed class AnchoredPositionCustomization : Customization
 			isChanged |= ImGui.DragFloat($"{localization.X}##${customizationName}", ref X, 0.1f, -8192f, 8192f, "%.1f");
 			isChanged |= ImGui.DragFloat($"{localization.Y}##${customizationName}", ref Y, 0.1f, -8192f, 8192f, "%.1f");
 
-			isChanged |= ImGui.Combo($"{localization.Anchor}##{customizationName}", ref _anchorIndex, localizationHelper.Anchors, localizationHelper.Anchors.Length);
+			isChanged |= ImGuiHelper.Combo($"{localization.Anchor}##{customizationName}", ref _anchorIndex, localizationHelper.Anchors);
 
 			ImGui.TreePop();
 		}

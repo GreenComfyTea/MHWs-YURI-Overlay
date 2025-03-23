@@ -25,7 +25,7 @@ internal class LargeMonsterStaticUiSettingsCustomization : Customization
 			//isChanged |= ImGui.Checkbox($"{localization.renderHighlightedMonster}##{customizationName}", ref renderHighlightedMonster);
 			//isChanged |= ImGui.Checkbox($"{localization.RenderNonHighlightedMonsters}##{customizationName}", ref RenderNonHighlightedMonsters);
 
-			//isChanged |= ImGui.Combo($"{localization.highlightedMonsterLocation}##{customizationName}", ref _highlightedMonsterLocationIndex, localizationHelper.SortingLocations, localizationHelper.SortingLocations.Length);
+			//isChanged |= ImGuiHelper.Combo($"{localization.highlightedMonsterLocation}##{customizationName}", ref _highlightedMonsterLocationIndex, localizationHelper.SortingLocations, localizationHelper.SortingLocations.Length);
 
 			ImGui.TreePop();
 		}

@@ -27,8 +27,10 @@ internal sealed class MonsterManager
 		}
 	}
 
+	private static readonly bool _isBenchmarked = false;
+
 	[MethodHook(typeof(app.EnemyCharacter), nameof(app.EnemyCharacter.doUpdateEnd), MethodHookType.Pre)]
-	public static PreHookResult OnPreDoUpdateEnd(Span<ulong> args)
+	public static unsafe PreHookResult OnPreDoUpdateEnd(Span<ulong> args)
 	{
 		try
 		{
@@ -87,7 +89,6 @@ internal sealed class MonsterManager
 		{
 			var enemyCharacterPtr = args[1];
 			var enemyCharacter = ManagedObject.ToManagedObject(enemyCharacterPtr).As<app.EnemyCharacter>();
-
 
 			var isFound = Instance.LargeMonsters.TryGetValue(enemyCharacter, out var largeMonster);
 			if(isFound)

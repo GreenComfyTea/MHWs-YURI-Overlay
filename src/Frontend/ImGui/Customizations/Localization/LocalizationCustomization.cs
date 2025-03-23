@@ -1,6 +1,4 @@
-﻿using ImGuiNET;
-
-namespace YURI_Overlay;
+﻿namespace YURI_Overlay;
 
 internal sealed class LocalizationCustomization : Customization
 {
@@ -30,7 +28,7 @@ internal sealed class LocalizationCustomization : Customization
 
 		var isChanged = false;
 
-		var isActiveConfigChanged = ImGui.Combo(localization.Language, ref _activeLocalizationIndex, _localizationNames, _localizationNames.Length);
+		var isActiveConfigChanged = ImGuiHelper.Combo(localization.Language, ref _activeLocalizationIndex, _localizationNames);
 		if(isActiveConfigChanged)
 		{
 			isChanged |= isActiveConfigChanged;

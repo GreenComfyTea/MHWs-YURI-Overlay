@@ -21,7 +21,7 @@ internal sealed class BarElementSettingsCustomization : Customization
 
 		if(ImGui.TreeNode($"{localization.Settings}##{customizationName}"))
 		{
-			isChanged |= ImGui.Combo($"{localization.FillDirection}##{customizationName}", ref _fillDirectionIndex, localizationHelper.FillDirections, localizationHelper.FillDirections.Length);
+			isChanged |= ImGuiHelper.Combo($"{localization.FillDirection}##{customizationName}", ref _fillDirectionIndex, localizationHelper.FillDirections);
 
 			ImGui.TreePop();
 		}

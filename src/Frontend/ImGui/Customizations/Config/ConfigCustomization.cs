@@ -28,7 +28,7 @@ internal sealed class ConfigCustomization : Customization
 
 		if(ImGui.TreeNode($"{localization.Config}##{parentName}"))
 		{
-			var isActiveConfigChanged = ImGui.Combo(localization.ActiveConfig, ref _activeConfigIndex, _configNames, _configNames.Length);
+			var isActiveConfigChanged = ImGuiHelper.Combo(localization.ActiveConfig, ref _activeConfigIndex, _configNames);
 			if(isActiveConfigChanged)
 			{
 				isChanged |= isActiveConfigChanged;

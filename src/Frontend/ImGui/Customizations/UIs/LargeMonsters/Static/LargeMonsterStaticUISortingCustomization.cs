@@ -24,7 +24,7 @@ internal class LargeMonsterStaticUiSortingCustomization : Customization
 
 		if(ImGui.TreeNode($"{localization.Sorting}##{customizationName}"))
 		{
-			isChanged |= ImGui.Combo($"{localization.Type}##{customizationName}", ref _typeIndex, localizationHelper.Sortings, localizationHelper.Sortings.Length);
+			isChanged |= ImGuiHelper.Combo($"{localization.Type}##{customizationName}", ref _typeIndex, localizationHelper.Sortings);
 
 			isChanged |= ImGui.Checkbox($"{localization.ReversedOrder}##{customizationName}", ref ReversedOrder);
 

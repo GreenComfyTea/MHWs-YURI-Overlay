@@ -29,7 +29,7 @@ internal sealed class BarElementOutlineCustomization : Customization
 			isChanged |= ImGui.DragFloat($"{localization.Thickness}##{customizationName}", ref Thickness, 0.1f, 0, 1024f, "%.1f");
 			isChanged |= ImGui.DragFloat($"{localization.Offset}##{customizationName}", ref Offset, 0.1f, -1024f, 1024f, "%.1f");
 
-			isChanged |= ImGui.Combo($"{localization.Style}##{customizationName}", ref _styleIndex, localizationHelper.OutlineStyles, localizationHelper.FillDirections.Length);
+			isChanged |= ImGuiHelper.Combo($"{localization.Style}##{customizationName}", ref _styleIndex, localizationHelper.OutlineStyles);
 
 			isChanged |= Color.RenderImGui(customizationName);
 

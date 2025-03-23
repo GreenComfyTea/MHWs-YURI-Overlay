@@ -25,7 +25,7 @@ internal sealed class MenuFontCustomization : Customization
 
 		if(ImGui.TreeNode($"{localization.MenuFont}##{customizationName}"))
 		{
-			var isFontChanged = ImGui.Combo(localization.Font, ref _activeFontIndex, _fontNames, _fontNames.Length);
+			var isFontChanged = ImGuiHelper.Combo(localization.Font, ref _activeFontIndex, _fontNames);
 			isChanged |= isFontChanged;
 
 			if(isFontChanged)
