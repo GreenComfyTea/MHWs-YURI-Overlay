@@ -58,8 +58,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag: ${{ format('00000{0}', github.run_number)[-5:] }}-${{ env.GIT_COMMIT_SHORT_SHA }}
-        name: Build ${{ format('00000{0}', github.run_number)[-5:] }} (${{ env.GIT_COMMIT_SHORT_SHA }})
+        tag: ${{ github.run_number < 10 && '0000' || github.run_number < 100 && '000' || github.run_number < 1000 && '00' || github.run_number < 10000 && '0' || '' }}${{ github.run_number }}-${{ env.GIT_COMMIT_SHORT_SHA }}
+        name: Build ${{ github.run_number < 10 && '0000' || github.run_number < 100 && '000' || github.run_number < 1000 && '00' || github.run_number < 10000 && '0' || '' }}${{ github.run_number }} (${{ env.GIT_COMMIT_SHORT_SHA }})
         draft: false
         prerelease: true
         body: '## [Main Repo](https://github.com/GreenComfyTea/MHWs-YURI-Overlay) | [Commit Files](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/tree/${{ env.GIT_COMMIT_SHA }})'
@@ -74,7 +74,7 @@ jobs:
       with:
         upload_url: ${{ steps.create-build-release.outputs.upload_url }}
         asset_path: /home/runner/work/MHWs-YURI-Overlay/MHWs-YURI-Overlay/bin/YURI_Overlay.zip
-        asset_name: YURI_Overlay_${{ format('00000{0}', github.run_number)[-5:] }}_${{ env.GIT_COMMIT_SHORT_SHA }}.zip
+        asset_name: YURI_Overlay_${{ github.run_number < 10 && '0000' || github.run_number < 100 && '000' || github.run_number < 1000 && '00' || github.run_number < 10000 && '0' || '' }}${{ github.run_number }}_${{ env.GIT_COMMIT_SHORT_SHA }}.zip
         asset_content_type: application/zip
         
     - name: Update Latest Release
@@ -84,7 +84,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag: latest
-        name: Nightly ${{ format('00000{0}', github.run_number)[-5:] }} (${{ env.GIT_COMMIT_SHORT_SHA }})
+        name: Nightly ${{ github.run_number < 10 && '0000' || github.run_number < 100 && '000' || github.run_number < 1000 && '00' || github.run_number < 10000 && '0' || '' }}${{ github.run_number }} (${{ env.GIT_COMMIT_SHORT_SHA }})
         draft: false
         allowUpdates: true
         removeArtifacts: true
@@ -100,5 +100,5 @@ jobs:
       with:
         upload_url: ${{ steps.update-latest-release.outputs.upload_url }}
         asset_path: /home/runner/work/MHWs-YURI-Overlay/MHWs-YURI-Overlay/bin/YURI_Overlay.zip
-        asset_name: YURI_Overlay_${{ format('00000{0}', github.run_number)[-5:] }}_${{ env.GIT_COMMIT_SHORT_SHA }}.zip
+        asset_name: YURI_Overlay_${{ github.run_number < 10 && '0000' || github.run_number < 100 && '000' || github.run_number < 1000 && '00' || github.run_number < 10000 && '0' || '' }}${{ github.run_number }}_${{ env.GIT_COMMIT_SHORT_SHA }}.zip
         asset_content_type: application/zip
