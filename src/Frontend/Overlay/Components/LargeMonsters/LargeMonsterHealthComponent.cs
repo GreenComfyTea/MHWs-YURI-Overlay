@@ -12,13 +12,13 @@ internal class LargeMonsterHealthComponent
 	private readonly LabelElement _healthPercentageLabelElement;
 	private readonly BarElement _healthBarElement;
 
-	private readonly Func<LargeMonsterHealthComponentCustomization> customizationAccessor;
+	private readonly Func<LargeMonsterHealthComponentCustomization> _customizationAccessor;
 
 	public LargeMonsterHealthComponent(LargeMonster largeMonster, Func<LargeMonsterHealthComponentCustomization> customizationAccessor)
 	{
 		_largeMonster = largeMonster;
 
-		this.customizationAccessor = customizationAccessor;
+		_customizationAccessor = customizationAccessor;
 
 		_healthValueLabelElement = new LabelElement(() => customizationAccessor().ValueLabel);
 		_healthPercentageLabelElement = new LabelElement(() => customizationAccessor().PercentageLabel);
@@ -29,7 +29,7 @@ internal class LargeMonsterHealthComponent
 	{
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier;
 
-		var offset = customizationAccessor().Offset;
+		var offset = _customizationAccessor().Offset;
 		var offsetPosition = new Vector2(position.X + (sizeScaleModifier * offset.X), position.Y + (sizeScaleModifier * offset.Y));
 
 		_healthBarElement.Draw(backgroundDrawList, offsetPosition, _largeMonster.HealthPercentage, opacityScale);

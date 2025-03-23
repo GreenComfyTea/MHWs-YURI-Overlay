@@ -14,13 +14,13 @@ internal sealed class LargeMonsterStaminaComponent
 	private readonly LabelElement _staminaTimerLabelElement;
 	private readonly BarElement _staminaTimerBarElement;
 
-	private readonly Func<LargeMonsterStaminaComponentCustomization> customizationAccessor;
+	private readonly Func<LargeMonsterStaminaComponentCustomization> _customizationAccessor;
 
 	public LargeMonsterStaminaComponent(LargeMonster largeMonster, Func<LargeMonsterStaminaComponentCustomization> customizationAccessor)
 	{
 		_largeMonster = largeMonster;
 
-		this.customizationAccessor = customizationAccessor;
+		this._customizationAccessor = customizationAccessor;
 
 		_staminaValueLabelElement = new LabelElement(() => customizationAccessor().ValueLabel);
 		_staminaPercentageLabelElement = new LabelElement(() => customizationAccessor().PercentageLabel);
@@ -35,7 +35,7 @@ internal sealed class LargeMonsterStaminaComponent
 
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier;
 
-		var offset = customizationAccessor().Offset;
+		var offset = _customizationAccessor().Offset;
 		var offsetPosition = new Vector2(position.X + (sizeScaleModifier * offset.X), position.Y + (sizeScaleModifier * offset.Y));
 
 		if(_largeMonster.IsTired)

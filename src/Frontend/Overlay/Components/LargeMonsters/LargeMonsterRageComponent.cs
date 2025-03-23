@@ -14,13 +14,13 @@ internal sealed class LargeMonsterRageComponent
 	private readonly LabelElement _rageTimerLabelElement;
 	private readonly BarElement _rageTimerBarElement;
 
-	private readonly Func<LargeMonsterRageComponentCustomization> customizationAccessor;
+	private readonly Func<LargeMonsterRageComponentCustomization> _customizationAccessor;
 
 	public LargeMonsterRageComponent(LargeMonster largeMonster, Func<LargeMonsterRageComponentCustomization> customizationAccessor)
 	{
 		_largeMonster = largeMonster;
 
-		this.customizationAccessor = customizationAccessor;
+		this._customizationAccessor = customizationAccessor;
 
 		_rageValueLabelElement = new LabelElement(() => customizationAccessor().ValueLabel);
 		_ragePercentageLabelElement = new LabelElement(() => customizationAccessor().PercentageLabel);
@@ -31,11 +31,11 @@ internal sealed class LargeMonsterRageComponent
 
 	public void Draw(ImDrawListPtr backgroundDrawList, Vector2 position, float opacityScale = 1f)
 	{
-		if (!_largeMonster.IsRageValid) return;
+		if(!_largeMonster.IsRageValid) return;
 
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier;
 
-		var offset = customizationAccessor().Offset;
+		var offset = _customizationAccessor().Offset;
 		var offsetPosition = new Vector2(position.X + (sizeScaleModifier * offset.X), position.Y + (sizeScaleModifier * offset.Y));
 
 		if(_largeMonster.IsEnraged)

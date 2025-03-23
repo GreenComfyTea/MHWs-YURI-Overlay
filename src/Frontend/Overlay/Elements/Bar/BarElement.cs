@@ -316,11 +316,11 @@ internal sealed class BarElement
 				break;
 			case FillDirections.LeftToRight:
 			default:
-				_foregroundColorTopLeft = backgroundColor.Start.ColorInfo1.Abgr;
-				_foregroundColorBottomLeft = backgroundColor.Start.ColorInfo2.Abgr;
+				_backgroundColorTopLeft = backgroundColor.Start.ColorInfo1.Abgr;
+				_backgroundColorBottomLeft = backgroundColor.Start.ColorInfo2.Abgr;
 
-				_foregroundColorTopRight = backgroundColor.End.ColorInfo1.Abgr;
-				_foregroundColorBottomRight = backgroundColor.End.ColorInfo2.Abgr;
+				_backgroundColorTopRight = backgroundColor.End.ColorInfo1.Abgr;
+				_backgroundColorBottomRight = backgroundColor.End.ColorInfo2.Abgr;
 
 				_foregroundColorTopLeft = foregroundColor.Start.ColorInfo1.Abgr;
 				_foregroundColorBottomLeft = foregroundColor.Start.ColorInfo2.Abgr;
