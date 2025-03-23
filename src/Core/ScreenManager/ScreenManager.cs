@@ -88,20 +88,20 @@ internal sealed class ScreenManager
 		return Vector3.Distance(CameraPosition, worldPosition);
 	}
 
-	public void FrameUpdate()
+	public void GameUpdate()
 	{
 		try
 		{
 			if(_primaryCamera == null)
 			{
-				//LogManager.Warn("[ScreenManager.FrameUpdate] No primary camera");
+				//LogManager.Warn("[ScreenManager.GameUpdate] No primary camera");
 				return;
 			}
 
 			var viewProjectionMatrix = _primaryCamera.ViewProjMatrix;
 			if(viewProjectionMatrix == null)
 			{
-				LogManager.Warn("[ScreenManager.FrameUpdate] No primary camera view projection matrix");
+				LogManager.Warn("[ScreenManager.GameUpdate] No primary camera view projection matrix");
 				return;
 			}
 
@@ -125,21 +125,21 @@ internal sealed class ScreenManager
 			var primaryCameraGameObject = _primaryCamera.GameObject;
 			if(primaryCameraGameObject == null)
 			{
-				LogManager.Warn("[ScreenManager.FrameUpdate] No primary camera game object");
+				LogManager.Warn("[ScreenManager.GameUpdate] No primary camera game object");
 				return;
 			}
 
 			var primaryCameraTransform = primaryCameraGameObject.Transform;
 			if(primaryCameraTransform == null)
 			{
-				LogManager.Warn("[ScreenManager.FrameUpdate] No primary camera transform");
+				LogManager.Warn("[ScreenManager.GameUpdate] No primary camera transform");
 				return;
 			}
 
 			var primaryCameraPosition = primaryCameraTransform.Position;
 			if(primaryCameraPosition == null)
 			{
-				LogManager.Warn("[ScreenManager.FrameUpdate] No primary camera position");
+				LogManager.Warn("[ScreenManager.GameUpdate] No primary camera position");
 				return;
 			}
 
@@ -150,7 +150,7 @@ internal sealed class ScreenManager
 			var primaryCameraForward = primaryCameraTransform.AxisZ;
 			if(primaryCameraForward == null)
 			{
-				LogManager.Warn("[ScreenManager.FrameUpdate] No primary camera forward");
+				LogManager.Warn("[ScreenManager.GameUpdate] No primary camera forward");
 				return;
 			}
 

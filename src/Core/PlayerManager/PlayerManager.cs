@@ -33,7 +33,7 @@ internal sealed class PlayerManager
 		LogManager.Info("[PlayerManager] Initialized!");
 	}
 
-	public void FrameUpdate()
+	public void GameUpdate()
 	{
 		if(!_isTimeoutElapsed)
 		{
@@ -48,14 +48,14 @@ internal sealed class PlayerManager
 
 		if(_masterPlayerCharacter == null)
 		{
-			//LogManager.Warn("[PlayerManager.FrameUpdate] No master player character");
+			//LogManager.Warn("[PlayerManager.GameUpdate] No master player character");
 			return;
 		}
 
 		var position = _masterPlayerCharacter.Pos;
 		if(position == null)
 		{
-			LogManager.Warn("[PlayerManager.FrameUpdate] No master player position");
+			LogManager.Warn("[PlayerManager.GameUpdate] No master player position");
 			return;
 		}
 

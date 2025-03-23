@@ -19,11 +19,11 @@ internal sealed class MonsterManager
 		LogManager.Info("[MonsterManager] Initialized!");
 	}
 
-	public void FrameUpdate()
+	public void GameUpdate()
 	{
 		foreach(var largeMonster in LargeMonsters.Values)
 		{
-			largeMonster.FrameUpdate();
+			largeMonster.GameUpdate();
 		}
 	}
 

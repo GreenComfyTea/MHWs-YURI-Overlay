@@ -16,7 +16,7 @@ internal sealed class LuaFontManager
 	public (string, ImFontPtr)? ActiveMenuFont = null;
 	public (string, ImFontPtr)? ActiveGlobalOverlayFont = null;
 
-	private bool _isFrameUpdatePending = true;
+	private bool _isGameUpdatePending = true;
 
 	private LuaFontManager() { }
 
@@ -24,19 +24,19 @@ internal sealed class LuaFontManager
 	{
 		LogManager.Info("[LuaFontManager] Initializing...");
 
-		Timers.SetInterval(SetFrameUpdatePending, 1000);
+		Timers.SetInterval(SetGameUpdatePending, 1000);
 
 		ConfigManager.Instance.AnyConfigChanged = OnAnyConfigChanged;
 
 		LogManager.Info("[LuaFontManager] Initialized!");
 	}
 
-	public void FrameUpdate()
+	public void GameUpdate()
 	{
 		try
 		{
-			if(!_isFrameUpdatePending) return;
-			_isFrameUpdatePending = false;
+			if(!_isGameUpdatePending) return;
+			_isGameUpdatePending = false;
 
 			// Update all fonts list
 
@@ -148,9 +148,9 @@ internal sealed class LuaFontManager
 		}
 	}
 
-	private void SetFrameUpdatePending()
+	private void SetGameUpdatePending()
 	{
-		_isFrameUpdatePending = true;
+		_isGameUpdatePending = true;
 	}
 
 	private void OnAnyConfigChanged(object sender, EventArgs args)

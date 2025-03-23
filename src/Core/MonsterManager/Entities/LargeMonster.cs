@@ -102,7 +102,7 @@ internal sealed class LargeMonster
 		}
 	}
 
-	public void FrameUpdate()
+	public void GameUpdate()
 	{
 		try
 		{

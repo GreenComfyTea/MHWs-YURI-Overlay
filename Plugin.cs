@@ -79,11 +79,50 @@ public class Plugin
 			LogManager.Info("Managers: Initialized!");
 			LogManager.Info("Callbacks: Initializing...");
 
+			REFrameworkNET.Callbacks.Update.Post += OnUpdate;
 			REFrameworkNET.Callbacks.ImGuiDrawUI.Post += OnImGuiDrawUI;
 			REFrameworkNET.Callbacks.ImGuiRender.Post += OnImGuiRender;
 
-
 			IsInitialized = true;
+		}
+		catch(Exception exception)
+		{
+			LogManager.Error(exception);
+		}
+	}
+
+	private static void OnUpdate()
+	{
+		//try
+		//{
+		//	LuaFontManager.Instance.GameUpdate();
+		//}
+		//catch(Exception exception)
+		//{
+		//	LogManager.Error(exception);
+		//}
+
+		try
+		{
+			ScreenManager.Instance.GameUpdate();
+		}
+		catch(Exception exception)
+		{
+			LogManager.Error(exception);
+		}
+
+		try
+		{
+			PlayerManager.Instance.GameUpdate();
+		}
+		catch(Exception exception)
+		{
+			LogManager.Error(exception);
+		}
+
+		try
+		{
+			MonsterManager.Instance.GameUpdate();
 		}
 		catch(Exception exception)
 		{
@@ -108,42 +147,6 @@ public class Plugin
 	private static void OnImGuiRender()
 	{
 		if(!IsInitialized) return;
-
-		//try
-		//{
-		//	LuaFontManager.Instance.FrameUpdate();
-		//}
-		//catch(Exception exception)
-		//{
-		//	LogManager.Error(exception);
-		//}
-
-		try
-		{
-			ScreenManager.Instance.FrameUpdate();
-		}
-		catch(Exception exception)
-		{
-			LogManager.Error(exception);
-		}
-
-		try
-		{
-			PlayerManager.Instance.FrameUpdate();
-		}
-		catch(Exception exception)
-		{
-			LogManager.Error(exception);
-		}
-
-		try
-		{
-			MonsterManager.Instance.FrameUpdate();
-		}
-		catch(Exception exception)
-		{
-			LogManager.Error(exception);
-		}
 
 		try
 		{
