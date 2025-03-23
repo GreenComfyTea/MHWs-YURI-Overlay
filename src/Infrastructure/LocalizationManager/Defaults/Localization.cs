@@ -73,7 +73,7 @@ internal class ImGuiLocalization
 	public string Outline = "Outline";
 	public string Thickness = "Thickness";
 	public string Style = "Style";
-	public string Inside = "inside";
+	public string Inside = "Inside";
 	public string Center = "Center";
 	public string Outside = "Outside";
 	public string Colors = "Colors";
