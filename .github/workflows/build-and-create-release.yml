@@ -32,7 +32,8 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Unzip REFramework.NET.application.dll
-      run: unzip /REFramework/plugins/managed/generated/REFramework.NET.application.zip -d /home/runner/work/MHWs-YURI-Overlay/MHWs-YURI-Overlay/bin/
+      run: unzip REFramework/plugins/managed/generated/REFramework.NET.application.zip
+
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
