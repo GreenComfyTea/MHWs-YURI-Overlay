@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.2.2](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.2.1...v1.2.2) (2025-03-24)
+
+
+### Bug Fixes
+
+* Fixed a crash due to screen manager protected memory read (maybe) ([1796ab2](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/1796ab2398e8202e772187cf899c739b21fe7b32))
+* Fixed bar background color not working ([b2862ad](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/b2862ad4d621c765022de2b0cb50f833bf4f4442))
+* Fixed bar outline style combobox having 1 extra item ([9bd8bea](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/9bd8beaa158208642259723a076f4bcde302ddec))
+* Fixed bar outline style inside being in lower case ([318db9c](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/318db9cfdff83b036f245aa6a3f617faad067b81))
+
 ## [1.2.1](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.2.0...v1.2.1) (2025-03-23)
 
 
