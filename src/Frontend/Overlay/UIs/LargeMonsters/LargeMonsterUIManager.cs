@@ -44,7 +44,9 @@ internal sealed class LargeMonsterUiManager : IDisposable
 	public void Dispose()
 	{
 		LogManager.Info($"[LargeMonsterUiManager] Disposing...");
+
 		_updateTimer.Dispose();
+
 		LogManager.Info($"[LargeMonsterUiManager] Disposed!");
 	}
 
@@ -173,10 +175,8 @@ internal sealed class LargeMonsterUiManager : IDisposable
 			return;
 		}
 
-		for(var locationIndex = 0; locationIndex < _dynamicLargeMonsters.Count; locationIndex++)
+		foreach(var largeMonster in _dynamicLargeMonsters)
 		{
-			var largeMonster = _staticLargeMonsters[locationIndex];
-
 			largeMonster.DynamicUi.Draw(backgroundDrawList);
 		}
 	}
