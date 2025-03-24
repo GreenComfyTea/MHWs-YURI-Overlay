@@ -8,33 +8,39 @@ internal sealed class OverlayManager
 
 	public static OverlayManager Instance => Lazy.Value;
 
-	private LargeMonsterUiManager _LargeMonsterUiManager;
+	private LargeMonsterUiManager _largeMonsterUiManager;
 
 
 	private OverlayManager() { }
 
 	public void Initialize()
 	{
-		_LargeMonsterUiManager = new LargeMonsterUiManager();
+		_largeMonsterUiManager = new LargeMonsterUiManager();
 	}
 
 	public void Draw()
 	{
+		try
+		{
+			ImGui.Begin("YURI Overlay",
+				ImGuiWindowFlags.NoMove
+				| ImGuiWindowFlags.NoBackground
+				| ImGuiWindowFlags.NoCollapse
+				| ImGuiWindowFlags.NoResize
+				| ImGuiWindowFlags.NoTitleBar
+				| ImGuiWindowFlags.NoSavedSettings
+				| ImGuiWindowFlags.NoScrollbar
+			);
 
-		ImGui.Begin("YURI Overlay",
-			ImGuiWindowFlags.NoMove
-			| ImGuiWindowFlags.NoBackground
-			| ImGuiWindowFlags.NoCollapse
-			| ImGuiWindowFlags.NoResize
-			| ImGuiWindowFlags.NoTitleBar
-			| ImGuiWindowFlags.NoSavedSettings
-			| ImGuiWindowFlags.NoScrollbar
-		);
+			var backgroundDrawList = ImGui.GetBackgroundDrawList();
 
-		var backgroundDrawList = ImGui.GetBackgroundDrawList();
+			_largeMonsterUiManager.Draw(backgroundDrawList);
 
-		_LargeMonsterUiManager.Draw(backgroundDrawList);
-
-		ImGui.End();
+			ImGui.End();
+		}
+		catch(Exception exception)
+		{
+			LogManager.Error(exception);
+		}
 	}
 }

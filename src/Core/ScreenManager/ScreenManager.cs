@@ -4,7 +4,7 @@ using REFrameworkNET;
 
 namespace YURI_Overlay;
 
-internal sealed class ScreenManager
+internal sealed class ScreenManager : IDisposable
 {
 	private static readonly Lazy<ScreenManager> Lazy = new(() => new ScreenManager());
 	public static ScreenManager Instance => Lazy.Value;
@@ -20,6 +20,9 @@ internal sealed class ScreenManager
 	private float _overheadX = 0.25f * 1920f;
 	private float _overheadY = 0.25f * 1080f;
 
+	private bool _isUpdatePending = true;
+	private System.Timers.Timer _updateTimer;
+
 	private Type SceneView_Type;
 
 	private Method get_MainView_Method;
@@ -31,9 +34,10 @@ internal sealed class ScreenManager
 		LogManager.Info("[ScreenManager] Initializing...");
 
 		InitializeTdb();
-		Update();
 
-		Timers.SetInterval(Update, 1000);
+		GameUpdate();
+
+		_updateTimer = Timers.SetInterval(SetIsUpdatePending, 1000);
 
 		LogManager.Info("[ScreenManager] Initialized!");
 	}
@@ -92,6 +96,8 @@ internal sealed class ScreenManager
 	{
 		try
 		{
+			Update();
+
 			if(_primaryCamera == null)
 			{
 				//LogManager.Warn("[ScreenManager.GameUpdate] No primary camera");
@@ -164,10 +170,27 @@ internal sealed class ScreenManager
 		}
 	}
 
+	public void Dispose()
+	{
+		LogManager.Info("[ScreenManager] Disposing...");
+
+		_updateTimer.Dispose();
+
+		LogManager.Info("[ScreenManager] Disposed!");
+	}
+
+	private void SetIsUpdatePending()
+	{
+		_isUpdatePending = true;
+	}
+
 	private unsafe void Update()
 	{
 		try
 		{
+			if(!_isUpdatePending) return;
+			_isUpdatePending = false;
+
 			var sceneManager = API.GetNativeSingleton("via.SceneManager");
 			if(sceneManager == null)
 			{
@@ -233,4 +256,5 @@ internal sealed class ScreenManager
 			LogManager.Error(exception);
 		}
 	}
+
 }

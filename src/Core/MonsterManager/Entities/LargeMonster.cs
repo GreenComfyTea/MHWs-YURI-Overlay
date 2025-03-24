@@ -6,7 +6,7 @@ using REFrameworkNET;
 
 namespace YURI_Overlay;
 
-internal sealed class LargeMonster
+internal sealed class LargeMonster : IDisposable
 {
 	public app.EnemyCharacter EnemyCharacter;
 	public app.cEnemyContext EnemyContext;
@@ -54,7 +54,6 @@ internal sealed class LargeMonster
 	public LargeMonsterDynamicUi DynamicUi;
 	public LargeMonsterStaticUi StaticUi;
 
-
 	private bool _isUpdateNamePending = true;
 	private bool _isUpdateMissionBeaconOffsetPending = true;
 	private bool _isUpdateModelRadiusPending = true;
@@ -62,11 +61,10 @@ internal sealed class LargeMonster
 	private bool _isUpdateStaminaPending = true;
 	private bool _isUpdateRagePending = true;
 
+	private readonly List<System.Timers.Timer> _timers = [];
+
 	private Type String_Type;
 
-	private readonly Field _Context_Field;
-	private readonly Field _Em_Field;
-	private readonly Field Basic_Field;
 	private Field EmID_Field;
 	private Field RoleID_Field;
 	private Field LegendaryID_Field;
@@ -87,26 +85,14 @@ internal sealed class LargeMonster
 			DynamicUi = new LargeMonsterDynamicUi(this);
 			StaticUi = new LargeMonsterStaticUi(this);
 
-			Timers.SetInterval(SetUpdateNamePending, 1000);
-			Timers.SetInterval(SetUpdateMissionBeaconOffset, 1000);
-			Timers.SetInterval(SetUpdateModelRadius, 1000);
-			Timers.SetInterval(SetUpdateHealthPending, 100);
-			Timers.SetInterval(SetUpdateStaminaPending, 250);
-			Timers.SetInterval(SetUpdateRagePending, 250);
+			_timers.Add(Timers.SetInterval(SetUpdateNamePending, 1000));
+			_timers.Add(Timers.SetInterval(SetUpdateMissionBeaconOffset, 1000));
+			_timers.Add(Timers.SetInterval(SetUpdateModelRadius, 1000));
+			_timers.Add(Timers.SetInterval(SetUpdateHealthPending, 100));
+			_timers.Add(Timers.SetInterval(SetUpdateStaminaPending, 250));
+			_timers.Add(Timers.SetInterval(SetUpdateRagePending, 250));
 
 			LogManager.Info($"[LargeMonster] Initialized {Name}");
-		}
-		catch(Exception exception)
-		{
-			LogManager.Error(exception);
-		}
-	}
-
-	public void GameUpdate()
-	{
-		try
-		{
-			UpdatePosition();
 		}
 		catch(Exception exception)
 		{
@@ -118,6 +104,7 @@ internal sealed class LargeMonster
 	{
 		try
 		{
+			UpdatePosition();
 			UpdateDistance();
 
 			UpdateName();
@@ -132,6 +119,18 @@ internal sealed class LargeMonster
 		{
 			LogManager.Error(exception);
 		}
+	}
+
+	public void Dispose()
+	{
+		LogManager.Info($"[LargeMonster] Disposing {Name}...");
+
+		foreach(var timer in _timers)
+		{
+			timer.Dispose();
+		}
+
+		LogManager.Info($"[LargeMonster] {Name} Disposed!");
 	}
 
 	private void Initialize()

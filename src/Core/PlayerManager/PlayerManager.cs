@@ -1,10 +1,11 @@
 ﻿using System.Numerics;
 
 using REFrameworkNET;
+using REFrameworkNET.Attributes;
 
 namespace YURI_Overlay;
 
-internal sealed class PlayerManager
+internal sealed class PlayerManager : IDisposable
 {
 	private static readonly Lazy<PlayerManager> Lazy = new(() => new PlayerManager());
 	public static PlayerManager Instance => Lazy.Value;
@@ -13,7 +14,8 @@ internal sealed class PlayerManager
 
 	private app.HunterCharacter _masterPlayerCharacter;
 
-	private bool _isTimeoutElapsed = false;
+	private bool _isUpdatePending = true;
+	private System.Timers.Timer _updateTimer;
 
 	private PlayerManager() { }
 
@@ -21,72 +23,96 @@ internal sealed class PlayerManager
 	{
 		LogManager.Info("[PlayerManager] Initializing...");
 
-		// Doing stuff with the player manager right after the game starts leads to a crash
-		// So we wait for a bit, 5 minutes should be enough to assume player manager is safe
-		// It's a temporary solution, we should find a better way to handle this, detect if save is loaded, perhaps
-		Timers.SetTimeout(() =>
-		{
-			_isTimeoutElapsed = true;
-			Timers.SetInterval(Update, 1000);
-		}, 5 * 60 * 1000);
+		GameUpdate();
+
+		_updateTimer = Timers.SetInterval(SetIsUpdatePending, 1000);
 
 		LogManager.Info("[PlayerManager] Initialized!");
 	}
 
-	public void GameUpdate()
+	public void Dispose()
 	{
-		if(!_isTimeoutElapsed)
+		LogManager.Info("[PlayerManager] Disposing...");
+
+		_updateTimer.Dispose();
+
+		LogManager.Info("[PlayerManager] Disposed!");
+	}
+
+	private void SetIsUpdatePending()
+	{
+		_isUpdatePending = true;
+	}
+
+	private void GameUpdate()
+	{
+		try
 		{
-			var cameraPosition = ScreenManager.Instance.CameraPosition;
+			Update();
 
-			Position.X = cameraPosition.X;
-			Position.Y = cameraPosition.Y;
-			Position.Z = cameraPosition.Z;
+			if(_masterPlayerCharacter == null)
+			{
+				//LogManager.Warn("[PlayerManager.GameUpdate] No master player character");
+				return;
+			}
 
-			return;
+			var position = _masterPlayerCharacter.Pos;
+			if(position == null)
+			{
+				LogManager.Warn("[PlayerManager.GameUpdate] No master player position");
+				return;
+			}
+
+			Position.X = position.x;
+			Position.Y = position.y;
+			Position.Z = position.z;
+		}
+		catch(Exception exception)
+		{
+			LogManager.Error(exception);
 		}
 
-		if(_masterPlayerCharacter == null)
-		{
-			//LogManager.Warn("[PlayerManager.GameUpdate] No master player character");
-			return;
-		}
-
-		var position = _masterPlayerCharacter.Pos;
-		if(position == null)
-		{
-			LogManager.Warn("[PlayerManager.GameUpdate] No master player position");
-			return;
-		}
-
-		Position.X = position.x;
-		Position.Y = position.y;
-		Position.Z = position.z;
 	}
 
 	private void Update()
 	{
-		var playerManager = API.GetManagedSingletonT<app.PlayerManager>();
-		if(playerManager == null)
+		try
 		{
-			LogManager.Warn("[PlayerManager.Update] No player manager");
-			return;
-		}
+			if(!_isUpdatePending) return;
+			_isUpdatePending = false;
 
-		var masterPlayer = playerManager.getMasterPlayer();
-		if(masterPlayer == null)
+			var playerManager = API.GetManagedSingletonT<app.PlayerManager>();
+			if(playerManager == null)
+			{
+				LogManager.Warn("[PlayerManager.Update] No player manager");
+				return;
+			}
+
+			var masterPlayer = playerManager.getMasterPlayer();
+			if(masterPlayer == null)
+			{
+				//LogManager.Warn("[PlayerManager.Update] No master player");
+				return;
+			}
+
+			var masterPlayerCharacter = masterPlayer.Character;
+			if(masterPlayerCharacter == null)
+			{
+				//LogManager.Warn("[PlayerManager.Update] No master player character");
+				return;
+			}
+
+			_masterPlayerCharacter = masterPlayerCharacter;
+		}
+		catch(Exception exception)
 		{
-			//LogManager.Warn("[PlayerManager.Update] No master player");
-			return;
+			LogManager.Error(exception);
 		}
+	}
 
-		var masterPlayerCharacter = masterPlayer.Character;
-		if(masterPlayerCharacter == null)
-		{
-			//LogManager.Warn("[PlayerManager.Update] No master player character");
-			return;
-		}
-
-		_masterPlayerCharacter = masterPlayerCharacter;
+	[MethodHook(typeof(app.PlayerManager), nameof(app.PlayerManager.update), MethodHookType.Post)]
+	private static void OnPostUpdate(ref ulong returnValue)
+	{
+		Instance.GameUpdate();
 	}
 }

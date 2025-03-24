@@ -31,8 +31,11 @@ public class Plugin
 	{
 		LogManager.Info("Disposing...");
 
-		ConfigManager.Instance.Dispose();
+		PlayerManager.Instance.Dispose();
+		ScreenManager.Instance.Dispose();
+
 		LocalizationManager.Instance.Dispose();
+		ConfigManager.Instance.Dispose();
 
 		API.LocalFrameGC();
 
@@ -79,7 +82,7 @@ public class Plugin
 			LogManager.Info("Managers: Initialized!");
 			LogManager.Info("Callbacks: Initializing...");
 
-			REFrameworkNET.Callbacks.Update.Post += OnUpdate;
+			REFrameworkNET.Callbacks.UpdateBehavior.Post += OnUpdate;
 			REFrameworkNET.Callbacks.ImGuiDrawUI.Post += OnImGuiDrawUI;
 			REFrameworkNET.Callbacks.ImGuiRender.Post += OnImGuiRender;
 
@@ -102,59 +105,21 @@ public class Plugin
 		//	LogManager.Error(exception);
 		//}
 
-		try
-		{
-			ScreenManager.Instance.GameUpdate();
-		}
-		catch(Exception exception)
-		{
-			LogManager.Error(exception);
-		}
-
-		try
-		{
-			PlayerManager.Instance.GameUpdate();
-		}
-		catch(Exception exception)
-		{
-			LogManager.Error(exception);
-		}
-
-		try
-		{
-			MonsterManager.Instance.GameUpdate();
-		}
-		catch(Exception exception)
-		{
-			LogManager.Error(exception);
-		}
+		ScreenManager.Instance.GameUpdate();
 	}
 
 	private static void OnImGuiDrawUI()
 	{
 		if(!IsInitialized) return;
 
-		try
-		{
-			ImGuiManager.Instance.Draw();
-		}
-		catch(Exception exception)
-		{
-			LogManager.Error(exception);
-		}
+		ImGuiManager.Instance.Draw();
 	}
 
 	private static void OnImGuiRender()
 	{
 		if(!IsInitialized) return;
 
-		try
-		{
-			OverlayManager.Instance.Draw();
-		}
-		catch(Exception exception)
-		{
-			LogManager.Error(exception);
-		}
+		OverlayManager.Instance.Draw();
+
 	}
 }

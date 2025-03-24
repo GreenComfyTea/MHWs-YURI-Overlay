@@ -3,7 +3,7 @@ using REFrameworkNET.Attributes;
 
 namespace YURI_Overlay;
 
-internal sealed class MonsterManager
+internal sealed class MonsterManager : IDisposable
 {
 	private static readonly Lazy<MonsterManager> Lazy = new(() => new MonsterManager());
 
@@ -18,16 +18,6 @@ internal sealed class MonsterManager
 		LogManager.Info("[MonsterManager] Initializing...");
 		LogManager.Info("[MonsterManager] Initialized!");
 	}
-
-	public void GameUpdate()
-	{
-		foreach(var largeMonster in LargeMonsters.Values)
-		{
-			largeMonster.GameUpdate();
-		}
-	}
-
-	private static readonly bool _isBenchmarked = false;
 
 	[MethodHook(typeof(app.EnemyCharacter), nameof(app.EnemyCharacter.doUpdateEnd), MethodHookType.Pre)]
 	public static unsafe PreHookResult OnPreDoUpdateEnd(Span<ulong> args)
@@ -94,6 +84,7 @@ internal sealed class MonsterManager
 			if(isFound)
 			{
 				LogManager.Info($"[LargeMonster] Destroyed {largeMonster!.Name}");
+				Instance.LargeMonsters[enemyCharacter].Dispose();
 				Instance.LargeMonsters.Remove(enemyCharacter);
 			}
 
@@ -104,5 +95,17 @@ internal sealed class MonsterManager
 			LogManager.Error(exception);
 			return PreHookResult.Continue;
 		}
+	}
+
+	public void Dispose()
+	{
+		LogManager.Info($"[LargeMonster] Disposing...");
+
+		foreach(var largeMonster in LargeMonsters.Values)
+		{
+			largeMonster.Dispose();
+		}
+
+		LogManager.Info($"[LargeMonster] Disposed!");
 	}
 }
