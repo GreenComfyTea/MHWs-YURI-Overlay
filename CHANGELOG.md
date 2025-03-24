@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.3](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.2.2...v1.2.3) (2025-03-24)
+
+
+### Bug Fixes
+
+* Fixed dynamic UI not working when static UI is disabled ([014189f](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/014189f218ad56c7440a5bbdedaf5a7444a052fd))
+* Fixed monster and camera positions not being updated ([248a791](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/248a79129e41466c2f721c2bbd0eb32dd8f50f77))
+
 ## [1.2.2](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.2.1...v1.2.2) (2025-03-24)
 
 
