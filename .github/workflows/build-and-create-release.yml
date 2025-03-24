@@ -53,6 +53,7 @@ jobs:
       uses: rlespinasse/git-commit-data-action@v1
         
     - name: Create Build Release
+      if: github.event_name != 'pull_request'
       id: create-build-release
       uses: ncipollo/release-action@v1.14.0
       env:
@@ -67,6 +68,7 @@ jobs:
         repo: MHWs-YURI-Overlay-Nightly
         
     - name: Upload Assets to Build Release
+      if: github.event_name != 'pull_request'
       id: upload-assets-to-build-release
       uses: actions/upload-release-asset@v1
       env:
@@ -78,6 +80,7 @@ jobs:
         asset_content_type: application/zip
         
     - name: Update Latest Release
+      if: github.event_name != 'pull_request'
       id: update-latest-release
       uses: ncipollo/release-action@v1.14.0
       env:
@@ -93,6 +96,7 @@ jobs:
         repo: MHWs-YURI-Overlay-Nightly
 
     - name: Upload Assets to Latest Release
+      if: github.event_name != 'pull_request'
       id: upload-assets-to-latest-release
       uses: actions/upload-release-asset@v1
       env:
