@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.0](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.2.3...v1.3.0) (2025-03-25)
+
+
+### Features
+
+* Added update delay customization in performance global settings ([4d2aab2](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/4d2aab29595f5a2085ad859444d1778fdabb4883))
+* Debounced config changes ([4fd0475](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/4fd0475c5b0546e09aced33e7a192a5ecc6d24bb))
+* Optimized null check ([d96a60a](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/d96a60adbe449a13492c597d75fdb77ac302ab8d))
+
 ## [1.2.3](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.2.2...v1.2.3) (2025-03-24)
 
 
