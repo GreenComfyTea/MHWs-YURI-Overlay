@@ -98,14 +98,14 @@ internal sealed class ScreenManager : IDisposable
 		{
 			Update();
 
-			if(_primaryCamera == null)
+			if(_primaryCamera is null)
 			{
 				//LogManager.Warn("[ScreenManager.GameUpdate] No primary camera");
 				return;
 			}
 
 			var viewProjectionMatrix = _primaryCamera.ViewProjMatrix;
-			if(viewProjectionMatrix == null)
+			if(viewProjectionMatrix is null)
 			{
 				LogManager.Warn("[ScreenManager.GameUpdate] No primary camera view projection matrix");
 				return;
@@ -129,21 +129,21 @@ internal sealed class ScreenManager : IDisposable
 			_viewProjectionMatrix.M44 = viewProjectionMatrix.m33;
 
 			var primaryCameraGameObject = _primaryCamera.GameObject;
-			if(primaryCameraGameObject == null)
+			if(primaryCameraGameObject is null)
 			{
 				LogManager.Warn("[ScreenManager.GameUpdate] No primary camera game object");
 				return;
 			}
 
 			var primaryCameraTransform = primaryCameraGameObject.Transform;
-			if(primaryCameraTransform == null)
+			if(primaryCameraTransform is null)
 			{
 				LogManager.Warn("[ScreenManager.GameUpdate] No primary camera transform");
 				return;
 			}
 
 			var primaryCameraPosition = primaryCameraTransform.Position;
-			if(primaryCameraPosition == null)
+			if(primaryCameraPosition is null)
 			{
 				LogManager.Warn("[ScreenManager.GameUpdate] No primary camera position");
 				return;
@@ -154,7 +154,7 @@ internal sealed class ScreenManager : IDisposable
 			CameraPosition.Z = primaryCameraPosition.z;
 
 			var primaryCameraForward = primaryCameraTransform.AxisZ;
-			if(primaryCameraForward == null)
+			if(primaryCameraForward is null)
 			{
 				LogManager.Warn("[ScreenManager.GameUpdate] No primary camera forward");
 				return;
@@ -192,14 +192,14 @@ internal sealed class ScreenManager : IDisposable
 			_isUpdatePending = false;
 
 			var sceneManager = API.GetNativeSingleton("via.SceneManager");
-			if(sceneManager == null)
+			if(sceneManager is null)
 			{
 				LogManager.Warn("[ScreenManager.Update] No scene manager");
 				return;
 			}
 
 			var mainViewObject = (ManagedObject) get_MainView_Method.InvokeBoxed(SceneView_Type, sceneManager, []);
-			if(mainViewObject == null)
+			if(mainViewObject is null)
 			{
 				LogManager.Warn("[ScreenManager.Update] No main view");
 				return;
@@ -207,14 +207,14 @@ internal sealed class ScreenManager : IDisposable
 
 			var mainViewPtr = (ulong) mainViewObject.Ptr();
 			var mainView = ManagedObject.ToManagedObject(mainViewPtr).As<via.SceneView>();
-			if(mainView == null)
+			if(mainView is null)
 			{
 				LogManager.Warn("[ScreenManager.Update] No main view");
 				return;
 			}
 
 			_primaryCamera = mainView.PrimaryCamera;
-			if(_primaryCamera == null)
+			if(_primaryCamera is null)
 			{
 				//LogManager.Warn("[ScreenManager.Update] No primary camera");
 				return;
@@ -222,7 +222,7 @@ internal sealed class ScreenManager : IDisposable
 
 
 			var windowSize = mainView.WindowSize;
-			if(windowSize == null)
+			if(windowSize is null)
 			{
 				LogManager.Warn("[ScreenManager.Update] No window size");
 				return;

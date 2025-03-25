@@ -162,7 +162,7 @@ internal sealed partial class FontManager
 	//			return null;
 	//		}
 
-	//		if(glyphRanges == null || glyphRanges.Length == 0)
+	//		if(glyphRanges is null || glyphRanges.Length == 0)
 	//		{
 	//			LogManager.Error("[FontManager] Glyph ranges are null or empty.");
 	//			return null;
@@ -173,7 +173,7 @@ internal sealed partial class FontManager
 	//			LogManager.Info($"[FontManager] Allocating ImFontConfig");
 
 	//			ImFontConfig* fontConfig = ImGuiNative.ImFontConfig_ImFontConfig();
-	//			if(fontConfig == null)
+	//			if(fontConfig is null)
 	//			{
 	//				LogManager.Error("[FontManager] ImFontConfig allocation failed.");
 	//				return null;
@@ -188,7 +188,7 @@ internal sealed partial class FontManager
 
 	//			ImFontPtr font = ImGui.GetIO().Fonts.AddFontFromFileTTF(fullPath, fontSize, fontConfig);
 
-	//			if(font.NativePtr == null)
+	//			if(font.NativePtr is null)
 	//			{
 	//				LogManager.Error("[FontManager] AddFontFromFileTTF returned null.");
 	//				ImGuiNative.ImFontConfig_destroy(fontConfig);

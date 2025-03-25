@@ -2382,7 +2382,7 @@
             Returns if a given by-ref to type <typeparamref name="T"/> is a null reference.
             </summary>
             <remarks>
-            This check is conceptually similar to <c>(void*)(&amp;source) == nullptr</c>.
+            This check is conceptually similar to <c>(void*)(&amp;source) is nullptr</c>.
             </remarks>
         </member>
         <member name="M:Microsoft.CodeAnalysis.Collections.Internal.SegmentedArrayHelper.CalculateSegmentSize(System.Int32)">
@@ -31748,7 +31748,7 @@
         </member>
         <member name="M:Microsoft.CodeAnalysis.SyntaxNode.#ctor(Microsoft.CodeAnalysis.GreenNode,System.Int32,Microsoft.CodeAnalysis.SyntaxTree)">
             <summary>
-            Used by structured trivia which has "parent == null", and therefore must know its
+            Used by structured trivia which has "parent is null", and therefore must know its
             SyntaxTree explicitly when created.
             </summary>
         </member>

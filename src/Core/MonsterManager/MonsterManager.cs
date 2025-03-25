@@ -26,7 +26,7 @@ internal sealed class MonsterManager : IDisposable
 		{
 			var enemyCharacterPtr = args[1];
 			var enemyCharacterManagedObject = ManagedObject.ToManagedObject(enemyCharacterPtr);
-			if(enemyCharacterManagedObject == null)
+			if(enemyCharacterManagedObject is null)
 			{
 				LogManager.Warn("[MonsterManager.OnPreDoUpdateEnd] No enemy character");
 				return PreHookResult.Continue;
@@ -35,14 +35,14 @@ internal sealed class MonsterManager : IDisposable
 			var enemyCharacter = enemyCharacterManagedObject.As<app.EnemyCharacter>();
 
 			var context = enemyCharacter._Context;
-			if(context == null)
+			if(context is null)
 			{
 				LogManager.Warn("[MonsterManager.OnPreDoUpdateEnd] No enemy context holder");
 				return PreHookResult.Continue;
 			}
 
 			var enemyContext = context._Em;
-			if(enemyContext == null)
+			if(enemyContext is null)
 			{
 				LogManager.Warn("[MonsterManager.OnPreDoUpdateEnd] No enemy context");
 				return PreHookResult.Continue;

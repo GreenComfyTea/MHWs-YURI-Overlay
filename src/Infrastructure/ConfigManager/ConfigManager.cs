@@ -93,7 +93,7 @@ internal sealed partial class ConfigManager : IDisposable
 		LogManager.Info($"[ConfigManager] Initializing config \"{name}\"...");
 
 		JsonDatabase<Config> config = new(Constants.ConfigsPath, name, configToClone);
-		//if(configToClone == null) DefaultConfig.ResetTo(config.data);
+		//if(configToClone is null) DefaultConfig.ResetTo(config.data);
 		config.Save();
 
 		config.Changed += OnConfigFileChanged;

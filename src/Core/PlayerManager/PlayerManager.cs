@@ -50,14 +50,14 @@ internal sealed class PlayerManager : IDisposable
 		{
 			Update();
 
-			if(_masterPlayerCharacter == null)
+			if(_masterPlayerCharacter is null)
 			{
 				//LogManager.Warn("[PlayerManager.GameUpdate] No master player character");
 				return;
 			}
 
 			var position = _masterPlayerCharacter.Pos;
-			if(position == null)
+			if(position is null)
 			{
 				LogManager.Warn("[PlayerManager.GameUpdate] No master player position");
 				return;
@@ -82,21 +82,21 @@ internal sealed class PlayerManager : IDisposable
 			_isUpdatePending = false;
 
 			var playerManager = API.GetManagedSingletonT<app.PlayerManager>();
-			if(playerManager == null)
+			if(playerManager is null)
 			{
 				LogManager.Warn("[PlayerManager.Update] No player manager");
 				return;
 			}
 
 			var masterPlayer = playerManager.getMasterPlayer();
-			if(masterPlayer == null)
+			if(masterPlayer is null)
 			{
 				//LogManager.Warn("[PlayerManager.Update] No master player");
 				return;
 			}
 
 			var masterPlayerCharacter = masterPlayer.Character;
-			if(masterPlayerCharacter == null)
+			if(masterPlayerCharacter is null)
 			{
 				//LogManager.Warn("[PlayerManager.Update] No master player character");
 				return;

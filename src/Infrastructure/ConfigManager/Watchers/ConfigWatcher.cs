@@ -93,7 +93,7 @@ internal partial class ConfigWatcher : IDisposable
 
 			var name = Path.GetFileNameWithoutExtension(e.Name);
 
-			if(name == null)
+			if(name is null)
 			{
 				return;
 			}

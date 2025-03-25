@@ -142,7 +142,7 @@ internal static class Utils
 
 	public static ManagedObject ProxyToManagedObject(object proxyObject)
 	{
-		if(proxyObject == null) return null;
+		if(proxyObject is null) return null;
 
 		return (proxyObject as IProxy)!.GetInstance() as ManagedObject;
 	}

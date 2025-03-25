@@ -88,7 +88,7 @@ internal partial class LocalizationWatcher : IDisposable
 			if(_disabled) return;
 
 			var name = Path.GetFileNameWithoutExtension(e.Name);
-			if(name == null)
+			if(name is null)
 			{
 				return;
 			}

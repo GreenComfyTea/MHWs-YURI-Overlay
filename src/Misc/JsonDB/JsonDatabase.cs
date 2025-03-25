@@ -50,7 +50,7 @@ internal partial class JsonDatabase<T> : IDisposable where T : class, new()
 			JsonWatcherInstance?.Disable();
 			LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Loading... ${data}");
 
-			var json = data == null ? FileSyncInstance.Read() : JsonSerializer.Serialize(data, Constants.JsonSerializerOptionsInstance);
+			var json = data is null ? FileSyncInstance.Read() : JsonSerializer.Serialize(data, Constants.JsonSerializerOptionsInstance);
 
 			Data = JsonSerializer.Deserialize<T>(json, Constants.JsonSerializerOptionsInstance);
 			FileSyncInstance.Write(json);

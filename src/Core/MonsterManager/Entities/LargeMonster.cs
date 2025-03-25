@@ -181,7 +181,7 @@ internal sealed class LargeMonster : IDisposable
 		try
 		{
 			var position = EnemyCharacter.Pos;
-			if(position == null)
+			if(position is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdatePositionAndDistance] No enemy pos");
 				return;
@@ -207,14 +207,14 @@ internal sealed class LargeMonster : IDisposable
 		try
 		{
 			var basicModule = EnemyContext.Basic;
-			if(basicModule == null)
+			if(basicModule is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateIds] No enemy basic module");
 				return;
 			}
 
 			var basicModuleManagedObject = Utils.ProxyToManagedObject(basicModule);
-			if(basicModuleManagedObject == null)
+			if(basicModuleManagedObject is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateIds] No enemy basic module managed object");
 				return;
@@ -224,7 +224,7 @@ internal sealed class LargeMonster : IDisposable
 
 			// isValueType = false is intentional, otherwise, value is wrong
 			var EmID = (int?) EmID_Field.GetDataBoxed(basicPointer, false);
-			if(EmID == null)
+			if(EmID is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateIds] No enemy Id");
 				return;
@@ -232,7 +232,7 @@ internal sealed class LargeMonster : IDisposable
 
 			// isValueType = false is intentional, otherwise, value is wrong
 			var RoleID = (int?) RoleID_Field.GetDataBoxed(basicPointer, false);
-			if(RoleID == null)
+			if(RoleID is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateIds] No enemy role Id");
 				return;
@@ -240,7 +240,7 @@ internal sealed class LargeMonster : IDisposable
 
 			// isValueType = false is intentional, otherwise, value is wrong
 			var LegendaryID = (int?) LegendaryID_Field.GetDataBoxed(basicPointer, false);
-			if(LegendaryID == null)
+			if(LegendaryID is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateIds] No enemy legendary Id");
 				return;
@@ -264,7 +264,7 @@ internal sealed class LargeMonster : IDisposable
 			_isUpdateNamePending = false;
 
 			var name = (string) NameString_Method.InvokeBoxed(String_Type, null, [Id, RoleId, LegendaryId]);
-			if(name == null)
+			if(name is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateName] No enemy name");
 				return;
@@ -286,7 +286,7 @@ internal sealed class LargeMonster : IDisposable
 			_isUpdateMissionBeaconOffsetPending = false;
 
 			var missionBeaconOffset = EnemyContext.MissionBeaconOffset;
-			if(missionBeaconOffset == null)
+			if(missionBeaconOffset is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateMissionBeaconOffset] No enemy mission beacon offset");
 				return;
@@ -326,7 +326,7 @@ internal sealed class LargeMonster : IDisposable
 			_isUpdateHealthPending = false;
 
 			var healthManager = EnemyCharacter.HealthMgr;
-			if(healthManager == null)
+			if(healthManager is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateHealth] No health manager");
 				return;
@@ -352,14 +352,14 @@ internal sealed class LargeMonster : IDisposable
 			_isUpdateStaminaPending = false;
 
 			var conditionsModule = EnemyContext.Conditions;
-			if(conditionsModule == null)
+			if(conditionsModule is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateStamina] No enemy conditions module");
 				return null;
 			}
 
 			var tiredCondition = conditionsModule.Tired;
-			if(tiredCondition == null)
+			if(tiredCondition is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateStamina] No enemy tired condition");
 				return conditionsModule;
@@ -411,10 +411,10 @@ internal sealed class LargeMonster : IDisposable
 			if(!_isUpdateRagePending) return;
 			_isUpdateRagePending = false;
 
-			if(conditionsModule == null)
+			if(conditionsModule is null)
 			{
 				conditionsModule = EnemyContext.Conditions;
-				if(conditionsModule == null)
+				if(conditionsModule is null)
 				{
 					LogManager.Warn("[LargeMonster.UpdateStamina] No enemy conditions module");
 					return;
@@ -422,7 +422,7 @@ internal sealed class LargeMonster : IDisposable
 			}
 
 			var angryCondition = conditionsModule.Angry;
-			if(angryCondition == null)
+			if(angryCondition is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateStamina] No enemy angry condition");
 				return;

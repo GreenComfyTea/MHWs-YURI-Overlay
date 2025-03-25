@@ -52,7 +52,7 @@ internal sealed class LargeMonsterDynamicUi
 		var maybeScreenPosition = ScreenManager.Instance.ConvertWorldPositionToScreenPosition(targetWorldPosition);
 
 		// Not on screen
-		if(maybeScreenPosition == null)
+		if(maybeScreenPosition is null)
 		{
 			return;
 		}
