@@ -165,6 +165,10 @@ internal sealed partial class ConfigManager : IDisposable
 
 		LogManager.Info("[ConfigManager] Disposed!");
 	}
+	public void EmitAnyConfigChanged()
+	{
+		Utils.EmitEvents(this, AnyConfigChanged);
+	}
 
 	private void LoadCurrentConfig()
 	{
@@ -213,7 +217,6 @@ internal sealed partial class ConfigManager : IDisposable
 			LogManager.Error(exception);
 		}
 	}
-
 	private void OnCurrentConfigChanged(object sender, EventArgs eventArgs)
 	{
 		LogManager.Info("[ConfigManager] Current config file changed.");
@@ -290,10 +293,5 @@ internal sealed partial class ConfigManager : IDisposable
 	private void EmitActiveConfigChanged()
 	{
 		Utils.EmitEvents(this, ActiveConfigChanged);
-	}
-
-	private void EmitAnyConfigChanged()
-	{
-		Utils.EmitEvents(this, AnyConfigChanged);
 	}
 }

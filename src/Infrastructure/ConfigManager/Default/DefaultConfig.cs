@@ -11,8 +11,14 @@ internal static class DefaultConfig
 		config.GlobalSettings.GlobalScale.PositionScaleModifier = 1f;
 		config.GlobalSettings.GlobalScale.SizeScaleModifier = 1f;
 
-		config.GlobalSettings.Performance.UpdateDelay = 0.1f;
 		config.GlobalSettings.Performance.CalculationCaching = true;
+
+		config.GlobalSettings.Performance.UpdateDelays.LargeMonsters.Name = 1f;
+		config.GlobalSettings.Performance.UpdateDelays.LargeMonsters.MissionBeaconOffset = 1f;
+		config.GlobalSettings.Performance.UpdateDelays.LargeMonsters.ModelRadius = 1f;
+		config.GlobalSettings.Performance.UpdateDelays.LargeMonsters.Health = 0.1f;
+		config.GlobalSettings.Performance.UpdateDelays.LargeMonsters.Stamina = 0.25f;
+		config.GlobalSettings.Performance.UpdateDelays.LargeMonsters.Rage = 0.25f;
 
 		config.LargeMonsterUI.Dynamic.Settings.RenderDeadMonsters = false;
 		config.LargeMonsterUI.Dynamic.Settings.RenderHighlightedMonster = true;

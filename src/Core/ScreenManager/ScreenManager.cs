@@ -21,7 +21,8 @@ internal sealed class ScreenManager : IDisposable
 	private float _overheadY = 0.25f * 1080f;
 
 	private bool _isUpdatePending = true;
-	private System.Timers.Timer _updateTimer;
+
+	private readonly List<System.Timers.Timer> _timers = [];
 
 	private Type SceneView_Type;
 
@@ -34,10 +35,8 @@ internal sealed class ScreenManager : IDisposable
 		LogManager.Info("[ScreenManager] Initializing...");
 
 		InitializeTdb();
-
 		GameUpdate();
-
-		_updateTimer = Timers.SetInterval(SetIsUpdatePending, 1000);
+		InitializeTimers();
 
 		LogManager.Info("[ScreenManager] Initialized!");
 	}
@@ -174,9 +173,28 @@ internal sealed class ScreenManager : IDisposable
 	{
 		LogManager.Info("[ScreenManager] Disposing...");
 
-		_updateTimer.Dispose();
+		foreach(var timer in _timers)
+		{
+			timer.Dispose();
+		}
+
+		_timers.Clear();
 
 		LogManager.Info("[ScreenManager] Disposed!");
+	}
+
+	private void InitializeTimers()
+	{
+		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.ScreenManager;
+
+		foreach(var timer in _timers)
+		{
+			timer.Dispose();
+		}
+
+		_timers.Clear();
+
+		_timers.Add(Timers.SetInterval(SetIsUpdatePending, Utils.SecondsToMilliseconds(updateDelays.Update)));
 	}
 
 	private void SetIsUpdatePending()
@@ -257,4 +275,8 @@ internal sealed class ScreenManager : IDisposable
 		}
 	}
 
+	private void OnAnyConfigChanged(object sender, EventArgs e)
+	{
+		InitializeTimers();
+	}
 }

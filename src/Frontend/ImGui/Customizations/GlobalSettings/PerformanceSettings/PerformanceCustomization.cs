@@ -4,8 +4,8 @@ namespace YURI_Overlay;
 
 internal sealed class PerformanceCustomization : Customization
 {
-	public float UpdateDelay = 0.1f;
 	public bool CalculationCaching = true;
+	public UpdateDelaysCustomization UpdateDelays = new();
 
 	public PerformanceCustomization() { }
 
@@ -18,8 +18,8 @@ internal sealed class PerformanceCustomization : Customization
 
 		if(ImGui.TreeNode($"{localization.Performance}##${customizationName}"))
 		{
-			//isChanged |= ImGui.DragFloat($"{localization.UpdateDelaySeconds}##{customizationName}", ref UpdateDelay, 0.001f, 0.001f, 10f, "%.3f");
 			isChanged |= ImGui.Checkbox($"{localization.CalculationCaching}##{customizationName}", ref CalculationCaching);
+			isChanged |= UpdateDelays.RenderImGui(customizationName);
 
 			ImGui.TreePop();
 		}

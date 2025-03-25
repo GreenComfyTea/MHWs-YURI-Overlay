@@ -85,12 +85,7 @@ internal sealed class LargeMonster : IDisposable
 			DynamicUi = new LargeMonsterDynamicUi(this);
 			StaticUi = new LargeMonsterStaticUi(this);
 
-			_timers.Add(Timers.SetInterval(SetUpdateNamePending, 1000));
-			_timers.Add(Timers.SetInterval(SetUpdateMissionBeaconOffset, 1000));
-			_timers.Add(Timers.SetInterval(SetUpdateModelRadius, 1000));
-			_timers.Add(Timers.SetInterval(SetUpdateHealthPending, 100));
-			_timers.Add(Timers.SetInterval(SetUpdateStaminaPending, 250));
-			_timers.Add(Timers.SetInterval(SetUpdateRagePending, 250));
+			ConfigManager.Instance.AnyConfigChanged += OnAnyConfigChanged;
 
 			LogManager.Info($"[LargeMonster] Initialized {Name}");
 		}
@@ -130,6 +125,8 @@ internal sealed class LargeMonster : IDisposable
 			timer.Dispose();
 		}
 
+		_timers.Clear();
+
 		LogManager.Info($"[LargeMonster] {Name} Disposed!");
 	}
 
@@ -137,6 +134,7 @@ internal sealed class LargeMonster : IDisposable
 	{
 		try
 		{
+			InitializeTimers();
 			UpdateIds();
 			Update();
 		}
@@ -144,6 +142,25 @@ internal sealed class LargeMonster : IDisposable
 		{
 			LogManager.Error(exception);
 		}
+	}
+
+	private void InitializeTimers()
+	{
+		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.LargeMonsters;
+
+		foreach(var timer in _timers)
+		{
+			timer.Dispose();
+		}
+
+		_timers.Clear();
+
+		_timers.Add(Timers.SetInterval(SetUpdateNamePending, Utils.SecondsToMilliseconds(updateDelays.Name)));
+		_timers.Add(Timers.SetInterval(SetUpdateMissionBeaconOffset, Utils.SecondsToMilliseconds(updateDelays.MissionBeaconOffset)));
+		_timers.Add(Timers.SetInterval(SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays.ModelRadius)));
+		_timers.Add(Timers.SetInterval(SetUpdateHealthPending, Utils.SecondsToMilliseconds(updateDelays.Health)));
+		_timers.Add(Timers.SetInterval(SetUpdateStaminaPending, Utils.SecondsToMilliseconds(updateDelays.Stamina)));
+		_timers.Add(Timers.SetInterval(SetUpdateRagePending, Utils.SecondsToMilliseconds(updateDelays.Name)));
 	}
 
 	private void SetUpdateNamePending()
@@ -484,5 +501,10 @@ internal sealed class LargeMonster : IDisposable
 		{
 			LogManager.Error(exception);
 		}
+	}
+
+	private void OnAnyConfigChanged(object sender, EventArgs e)
+	{
+		InitializeTimers();
 	}
 }

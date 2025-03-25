@@ -146,4 +146,9 @@ internal static class Utils
 
 		return (proxyObject as IProxy)!.GetInstance() as ManagedObject;
 	}
+
+	public static int SecondsToMilliseconds(float seconds)
+	{
+		return (int) Math.Round(1000f * seconds);
+	}
 }

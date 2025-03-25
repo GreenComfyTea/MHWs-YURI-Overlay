@@ -20,7 +20,7 @@ internal sealed class MonsterManager : IDisposable
 	}
 
 	[MethodHook(typeof(app.EnemyCharacter), nameof(app.EnemyCharacter.doUpdateEnd), MethodHookType.Pre)]
-	public static unsafe PreHookResult OnPreDoUpdateEnd(Span<ulong> args)
+	public static PreHookResult OnPreDoUpdateEnd(Span<ulong> args)
 	{
 		try
 		{

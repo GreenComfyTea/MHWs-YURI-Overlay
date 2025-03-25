@@ -15,7 +15,8 @@ internal sealed class PlayerManager : IDisposable
 	private app.HunterCharacter _masterPlayerCharacter;
 
 	private bool _isUpdatePending = true;
-	private System.Timers.Timer _updateTimer;
+
+	private readonly List<System.Timers.Timer> _timers = [];
 
 	private PlayerManager() { }
 
@@ -24,8 +25,9 @@ internal sealed class PlayerManager : IDisposable
 		LogManager.Info("[PlayerManager] Initializing...");
 
 		GameUpdate();
+		InitializeTimers();
 
-		_updateTimer = Timers.SetInterval(SetIsUpdatePending, 1000);
+		ConfigManager.Instance.AnyConfigChanged += OnAnyConfigChanged;
 
 		LogManager.Info("[PlayerManager] Initialized!");
 	}
@@ -34,9 +36,28 @@ internal sealed class PlayerManager : IDisposable
 	{
 		LogManager.Info("[PlayerManager] Disposing...");
 
-		_updateTimer.Dispose();
+		foreach(var timer in _timers)
+		{
+			timer.Dispose();
+		}
+
+		_timers.Clear();
 
 		LogManager.Info("[PlayerManager] Disposed!");
+	}
+
+	private void InitializeTimers()
+	{
+		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.PlayerManager;
+
+		foreach(var timer in _timers)
+		{
+			timer.Dispose();
+		}
+
+		_timers.Clear();
+
+		_timers.Add(Timers.SetInterval(SetIsUpdatePending, Utils.SecondsToMilliseconds(updateDelays.Update)));
 	}
 
 	private void SetIsUpdatePending()
@@ -108,6 +129,11 @@ internal sealed class PlayerManager : IDisposable
 		{
 			LogManager.Error(exception);
 		}
+	}
+
+	private void OnAnyConfigChanged(object sender, EventArgs e)
+	{
+		InitializeTimers();
 	}
 
 	[MethodHook(typeof(app.PlayerManager), nameof(app.PlayerManager.update), MethodHookType.Post)]

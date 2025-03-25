@@ -149,7 +149,7 @@ internal class ImGuiLocalization
 	public string SizeScaleModifier = "Size Scale Modifier";
 
 	public string Performance = "Performance";
-	public string UpdateDelaySeconds = "Update Delay (seconds)";
+	public string UpdateDelaysSeconds = "Update Delays (seconds)";
 	public string CalculationCaching = "Calculation Caching";
 
 	public string Font = "Font";
@@ -167,6 +167,17 @@ internal class ImGuiLocalization
 	public string FontScale = "Font Scale";
 	public string DefinedByLocalization = "Defined by Localization";
 	public string GlobalFonts = "Global Fonts";
+
+	public string LargeMonsters = "Large Monsters";
+	public string MissionBeaconOffset = "Mission Beacon Offset";
+	public string ModelRadius = "Model Radius";
+
+	public string DynamicList = "Dynamic List";
+	public string StaticList = "Static List";
+
+	public string Update = "Update";
+	public string ScreenManager = "Screen Manager";
+	public string PlayerManager = "Player Manager";
 }
 
 internal class Localization
