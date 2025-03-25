@@ -14,6 +14,9 @@ internal sealed class ImGuiManager
 	private bool _isForceModInfoOpen = true;
 	private string _modTitle = string.Empty;
 
+	private Debouncer _onConfigChangedEmitDebouncer;
+	private Debouncer _onConfigChangedSaveDebouncer;
+
 	private ImGuiManager() { }
 
 	public void Initialize()
@@ -21,6 +24,9 @@ internal sealed class ImGuiManager
 		LogManager.Info("[ImGuiManager] Initializing...");
 
 		_modTitle = $"{Constants.ModName} v{Constants.Version}";
+
+		_onConfigChangedEmitDebouncer = new Debouncer();
+		_onConfigChangedSaveDebouncer = new Debouncer();
 
 		LogManager.Info("[ImGuiManager] Initialized!");
 
@@ -147,14 +153,25 @@ internal sealed class ImGuiManager
 
 			if(changed)
 			{
-				LogManager.Info("[ImGuiManager] Changes detected. Saving...");
-				configManager.ActiveConfig.Save();
-				configManager.EmitAnyConfigChanged();
+				_onConfigChangedEmitDebouncer.Debounce(OnConfigChangedEmit, 25);
+				_onConfigChangedSaveDebouncer.Debounce(OnConfigChangedSave, 100);
 			}
 		}
 		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
+	}
+
+	private void OnConfigChangedEmit()
+	{
+		ConfigManager.Instance.EmitAnyConfigChanged();
+	}
+
+	private void OnConfigChangedSave()
+	{
+		LogManager.Info("[ImGuiManager] Config changed.");
+
+		ConfigManager.Instance.ActiveConfig.Save();
 	}
 }
