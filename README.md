@@ -139,8 +139,9 @@
 * **[Nightly Builds](https://github.com/GreenComfyTea/MHWs-YURI-Overlay-Nightly/releases)** 
 
 ## Requirements
-1. **[REFramework.NET](https://github.com/GreenComfyTea/REFramework/releases/)**
-2. **[.NET Desktop Runtime 8.0.x](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)**
+1. **[REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93)**
+2. **[REFramework.NET](https://github.com/GreenComfyTea/REFramework/releases/)**
+3. **[.NET Desktop Runtime 8.0.x](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)**
 
 ## How to install:
 1. Install **[REFramework.NET](https://github.com/GreenComfyTea/REFramework/releases/)**;
@@ -170,8 +171,8 @@ The mod has support for localizations. If you wish to translate the mod, follow 
 
 ## Credits
 **[GreenComfyTea](https://github.com/GreenComfyTea)** - creator of the mod and it's main contributor.  
-**[cursey](https://github.com/cursey)** - creator of [REFramework.NET](https://GreenComfyTeanexusmods.com/monsterhunterrise/mods/26).  
-**[praydog](https://github.com/praydog)** - contributor of [REFramework](https://GreenComfyTeanexusmods.com/monsterhunterrise/mods/26).
+**[cursey](https://github.com/praydog)** - creator of [REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93), [REFramework.NET](https://github.com/praydog/REFramework).  
+**[praydog](https://github.com/praydog)** - contributor of [REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93).
 
 ## Roadmap
 1. [x] Large Monster Static UI;
