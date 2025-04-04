@@ -171,8 +171,8 @@ The mod has support for localizations. If you wish to translate the mod, follow 
 
 ## Credits
 **[GreenComfyTea](https://github.com/GreenComfyTea)** - creator of the mod and it's main contributor.  
-**[cursey](https://github.com/praydog)** - creator of [REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93), [REFramework.NET](https://github.com/praydog/REFramework).  
-**[praydog](https://github.com/praydog)** - contributor of [REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93).
+**[praydog](https://github.com/praydog)** - creator of [REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93), [REFramework.NET](https://github.com/praydog/REFramework).  
+**[cursey](https://github.com/cursey)** - contributor of [REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93).
 
 ## Roadmap
 1. [x] Large Monster Static UI;
