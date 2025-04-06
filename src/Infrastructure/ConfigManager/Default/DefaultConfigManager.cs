@@ -21,6 +21,8 @@ internal partial class ConfigManager
 		config.GlobalSettings.Performance.UpdateDelays.LargeMonsters.Stamina = 0.25f;
 		config.GlobalSettings.Performance.UpdateDelays.LargeMonsters.Rage = 0.25f;
 
+		config.LargeMonsterUI.Dynamic.Enabled = true;
+
 		config.LargeMonsterUI.Dynamic.Settings.RenderDeadMonsters = false;
 		config.LargeMonsterUI.Dynamic.Settings.RenderHighlightedMonster = true;
 		config.LargeMonsterUI.Dynamic.Settings.RenderNonHighlightedMonsters = true;
@@ -299,6 +301,8 @@ internal partial class ConfigManager
 		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Outline.Offset = 0f;
 		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Outline.Style = OutlineStyles.Inside;
 		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Outline.Color.ColorInfo.Rgba = 0xFF000080;
+
+		config.LargeMonsterUI.Static.Enabled = true;
 
 		config.LargeMonsterUI.Static.Settings.RenderDeadMonsters = false;
 		config.LargeMonsterUI.Static.Settings.RenderHighlightedMonster = true;
