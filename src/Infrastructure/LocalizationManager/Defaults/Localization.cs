@@ -178,6 +178,8 @@ internal class ImGuiLocalization
 	public string Update = "Update";
 	public string ScreenManager = "Screen Manager";
 	public string PlayerManager = "Player Manager";
+
+	public string Inverted = "Inverted";
 }
 
 internal class Localization

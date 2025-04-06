@@ -11,6 +11,8 @@ internal sealed class BarElementSettingsCustomization : Customization
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public FillDirections FillDirection { get => (FillDirections) _fillDirectionIndex; set => _fillDirectionIndex = (int) value; }
 
+	public bool Inverted = false;
+
 	public override bool RenderImGui(string parentName = "")
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
@@ -22,6 +24,7 @@ internal sealed class BarElementSettingsCustomization : Customization
 		if(ImGui.TreeNode($"{localization.Settings}##{customizationName}"))
 		{
 			isChanged |= ImGuiHelper.Combo($"{localization.FillDirection}##{customizationName}", ref _fillDirectionIndex, localizationHelper.FillDirections);
+			isChanged |= ImGui.Checkbox($"{localization.Inverted}##{customizationName}", ref Inverted);
 
 			ImGui.TreePop();
 		}
