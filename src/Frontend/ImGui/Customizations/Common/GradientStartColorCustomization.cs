@@ -48,6 +48,8 @@ internal sealed class GradientStartColorCustomization : Customization
 					ColorInfo2.Vector = ColorInfo1.vector;
 				}
 
+				ImGui.TreePop();
+
 				return isChanged;
 			}
 
