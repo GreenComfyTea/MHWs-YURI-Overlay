@@ -78,6 +78,7 @@ internal static class DefaultConfig
 
 		config.LargeMonsterUI.Dynamic.Health.Bar.Visible = true;
 		config.LargeMonsterUI.Dynamic.Health.Bar.Settings.FillDirection = FillDirections.LeftToRight;
+		config.LargeMonsterUI.Dynamic.Health.Bar.Settings.Inverted = false;
 		config.LargeMonsterUI.Dynamic.Health.Bar.Offset.X = 0f;
 		config.LargeMonsterUI.Dynamic.Health.Bar.Offset.Y = 0f;
 		config.LargeMonsterUI.Dynamic.Health.Bar.Size.Width = 297f;
@@ -135,6 +136,7 @@ internal static class DefaultConfig
 
 		config.LargeMonsterUI.Dynamic.Stamina.Bar.Visible = true;
 		config.LargeMonsterUI.Dynamic.Stamina.Bar.Settings.FillDirection = FillDirections.LeftToRight;
+		config.LargeMonsterUI.Dynamic.Stamina.Bar.Settings.Inverted = false;
 		config.LargeMonsterUI.Dynamic.Stamina.Bar.Offset.X = 0f;
 		config.LargeMonsterUI.Dynamic.Stamina.Bar.Offset.Y = 0f;
 		config.LargeMonsterUI.Dynamic.Stamina.Bar.Size.Width = 128f;
@@ -174,6 +176,7 @@ internal static class DefaultConfig
 
 		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Visible = true;
 		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Settings.FillDirection = FillDirections.LeftToRight;
+		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Settings.Inverted = true;
 		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Offset.X = 0f;
 		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Offset.Y = 0f;
 		config.LargeMonsterUI.Dynamic.Stamina.TimerBar.Size.Width = 128f;
@@ -230,6 +233,7 @@ internal static class DefaultConfig
 
 		config.LargeMonsterUI.Dynamic.Rage.Bar.Visible = true;
 		config.LargeMonsterUI.Dynamic.Rage.Bar.Settings.FillDirection = FillDirections.LeftToRight;
+		config.LargeMonsterUI.Dynamic.Rage.Bar.Settings.Inverted = false;
 		config.LargeMonsterUI.Dynamic.Rage.Bar.Offset.X = 0f;
 		config.LargeMonsterUI.Dynamic.Rage.Bar.Offset.Y = 0f;
 		config.LargeMonsterUI.Dynamic.Rage.Bar.Size.Width = 128f;
@@ -269,6 +273,7 @@ internal static class DefaultConfig
 
 		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Visible = true;
 		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Settings.FillDirection = FillDirections.LeftToRight;
+		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Settings.Inverted = false;
 		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Offset.X = 0f;
 		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Offset.Y = 0f;
 		config.LargeMonsterUI.Dynamic.Rage.TimerBar.Size.Width = 128f;
@@ -351,6 +356,7 @@ internal static class DefaultConfig
 
 		config.LargeMonsterUI.Static.Health.Bar.Visible = true;
 		config.LargeMonsterUI.Static.Health.Bar.Settings.FillDirection = FillDirections.LeftToRight;
+		config.LargeMonsterUI.Static.Health.Bar.Settings.Inverted = false;
 		config.LargeMonsterUI.Static.Health.Bar.Offset.X = 0f;
 		config.LargeMonsterUI.Static.Health.Bar.Offset.Y = 0f;
 		config.LargeMonsterUI.Static.Health.Bar.Size.Width = 297f;
@@ -407,6 +413,7 @@ internal static class DefaultConfig
 
 		config.LargeMonsterUI.Static.Stamina.Bar.Visible = true;
 		config.LargeMonsterUI.Static.Stamina.Bar.Settings.FillDirection = FillDirections.LeftToRight;
+		config.LargeMonsterUI.Static.Stamina.Bar.Settings.Inverted = false;
 		config.LargeMonsterUI.Static.Stamina.Bar.Offset.X = 0f;
 		config.LargeMonsterUI.Static.Stamina.Bar.Offset.Y = 0f;
 		config.LargeMonsterUI.Static.Stamina.Bar.Size.Width = 94f;
@@ -446,6 +453,7 @@ internal static class DefaultConfig
 
 		config.LargeMonsterUI.Static.Stamina.TimerBar.Visible = true;
 		config.LargeMonsterUI.Static.Stamina.TimerBar.Settings.FillDirection = FillDirections.LeftToRight;
+		config.LargeMonsterUI.Static.Stamina.TimerBar.Settings.Inverted = true;
 		config.LargeMonsterUI.Static.Stamina.TimerBar.Offset.X = 0f;
 		config.LargeMonsterUI.Static.Stamina.TimerBar.Offset.Y = 0f;
 		config.LargeMonsterUI.Static.Stamina.TimerBar.Size.Width = 94f;
@@ -502,6 +510,7 @@ internal static class DefaultConfig
 
 		config.LargeMonsterUI.Static.Rage.Bar.Visible = true;
 		config.LargeMonsterUI.Static.Rage.Bar.Settings.FillDirection = FillDirections.LeftToRight;
+		config.LargeMonsterUI.Static.Rage.Bar.Settings.Inverted = false;
 		config.LargeMonsterUI.Static.Rage.Bar.Offset.X = 0f;
 		config.LargeMonsterUI.Static.Rage.Bar.Offset.Y = 0f;
 		config.LargeMonsterUI.Static.Rage.Bar.Size.Width = 74f;
@@ -541,6 +550,7 @@ internal static class DefaultConfig
 
 		config.LargeMonsterUI.Static.Rage.TimerBar.Visible = true;
 		config.LargeMonsterUI.Static.Rage.TimerBar.Settings.FillDirection = FillDirections.LeftToRight;
+		config.LargeMonsterUI.Static.Rage.TimerBar.Settings.Inverted = false;
 		config.LargeMonsterUI.Static.Rage.TimerBar.Offset.X = 0f;
 		config.LargeMonsterUI.Static.Rage.TimerBar.Offset.Y = 0f;
 		config.LargeMonsterUI.Static.Rage.TimerBar.Size.Width = 74f;
