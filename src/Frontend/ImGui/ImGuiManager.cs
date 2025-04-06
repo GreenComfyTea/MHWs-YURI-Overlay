@@ -9,6 +9,7 @@ internal sealed class ImGuiManager
 	public static ImGuiManager Instance => Lazy.Value;
 
 	public float ComboBoxWidth = 100f;
+	public float ColorPickerWidth = 100f;
 
 	private bool _isOpened = false;
 	private bool _isForceModInfoOpen = true;
@@ -40,15 +41,9 @@ internal sealed class ImGuiManager
 			var localizationManager = LocalizationManager.Instance;
 
 			var isClicked = ImGui.Button($"{_modTitle}##button");
-			if(isClicked)
-			{
-				_isOpened = !_isOpened;
-			}
+			if(isClicked) _isOpened = !_isOpened;
 
-			if(!_isOpened)
-			{
-				return;
-			}
+			if(!_isOpened) return;
 
 			var configManager = ConfigManager.Instance;
 
@@ -68,7 +63,7 @@ internal sealed class ImGuiManager
 
 			ImGui.Begin($"{_modTitle}##window", ref _isOpened);
 
-			ComboBoxWidth = Constants.ComboboxWidthMultiplier * ImGui.GetWindowSize().X;
+			CalculateWidths();
 
 			if(_isForceModInfoOpen)
 			{
@@ -171,6 +166,19 @@ internal sealed class ImGuiManager
 		{
 			LogManager.Error(exception);
 		}
+	}
+
+	private void CalculateWidths()
+	{
+
+		var windowSize = ImGui.GetWindowSize();
+
+		ComboBoxWidth = Constants.ComboboxWidthMultiplier * windowSize.X;
+
+		var maxColorPickerWidthByWindowWidth = Constants.ColorPickerWidthMultiplier * windowSize.X;
+		var maxColorPickerWidthByWindowHeight = Constants.ColorPickerWidthToHeightRatio * windowSize.Y;
+
+		ColorPickerWidth = Math.Min(maxColorPickerWidthByWindowWidth, maxColorPickerWidthByWindowHeight);
 	}
 
 	private void OnConfigChangedEmit()

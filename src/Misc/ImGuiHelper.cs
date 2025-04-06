@@ -8,6 +8,7 @@ internal static class ImGuiHelper
 {
 	public static bool Combo(string label, ref int currentItem, string[] items)
 	{
+		ImGui.SetNextItemWidth(ImGuiManager.Instance.ComboBoxWidth);
 		return ImGui.Combo(label, ref currentItem, items, items.Length);
 	}
 
@@ -31,6 +32,7 @@ internal static class ImGuiHelper
 			ImGui.SameLine();
 		}
 
+		ImGui.SetNextItemWidth(ImGuiManager.Instance.ComboBoxWidth);
 		isChanged |= Combo(label, ref currentItem, items);
 
 		return isChanged;
@@ -92,6 +94,8 @@ internal static class ImGuiHelper
 			ImGui.SameLine();
 		}
 
+		;
+		ImGui.SetNextItemWidth(ImGuiManager.Instance.ColorPickerWidth);
 		isChanged |= ImGui.ColorPicker4(label, ref value);
 
 		return isChanged;

@@ -54,6 +54,9 @@ internal static class Constants
 	public const float Epsilon = 0.000001f;
 
 	public const float ComboboxWidthMultiplier = 0.4f;
+	public const float ColorPickerWidthMultiplier = 0.5f;
+
+	public const float ColorPickerWidthToHeightRatio = 801f / 778f;
 
 	public const uint MaxConfigNameLength = 64;
 
