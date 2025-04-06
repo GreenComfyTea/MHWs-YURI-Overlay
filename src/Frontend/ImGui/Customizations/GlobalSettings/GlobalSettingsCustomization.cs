@@ -12,23 +12,32 @@ internal sealed class GlobalSettingsCustomization : Customization
 
 	public GlobalSettingsCustomization() { }
 
-	public override bool RenderImGui(string parentName = "")
+	public bool RenderImGui(string parentName = "", GlobalSettingsCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-global-settings";
 
+		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
 		if(ImGui.TreeNode($"{localization.GlobalSettings}##${customizationName}"))
 		{
 			isChanged |= LocalizationManager.Instance.Customization.RenderImGui(customizationName);
 			//isChanged |= GlobalFonts.RenderImGui(customizationName);
-			isChanged |= GlobalScale.RenderImGui(customizationName);
-			isChanged |= Performance.RenderImGui(customizationName);
+			isChanged |= GlobalScale.RenderImGui(customizationName, defaultCustomization?.GlobalScale);
+			isChanged |= Performance.RenderImGui(customizationName, defaultCustomization?.Performance);
 
 			ImGui.TreePop();
 		}
 
 		return isChanged;
+	}
+
+	public void Reset(GlobalSettingsCustomization defaultCustomization = null)
+	{
+		if(defaultCustomization is null) return;
+
+		GlobalScale.Reset(defaultCustomization.GlobalScale);
+		Performance.Reset(defaultCustomization.Performance);
 	}
 }

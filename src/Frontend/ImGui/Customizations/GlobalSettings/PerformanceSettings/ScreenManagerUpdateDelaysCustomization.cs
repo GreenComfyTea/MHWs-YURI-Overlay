@@ -8,20 +8,29 @@ internal sealed class ScreenManagerUpdateDelaysCustomization : Customization
 
 	public ScreenManagerUpdateDelaysCustomization() { }
 
-	public override bool RenderImGui(string parentName = "")
+	public bool RenderImGui(string parentName = "", ScreenManagerUpdateDelaysCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-screen-manager";
 
+		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
+
 		if(ImGui.TreeNode($"{localization.ScreenManager}##${customizationName}"))
 		{
-			isChanged |= ImGui.DragFloat($"{localization.Update}##{customizationName}", ref Update, 0.001f, 0.001f, 10f, "%.3f");
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Update}##{customizationName}", ref Update, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Update);
 
 			ImGui.TreePop();
 		}
 
 		return isChanged;
+	}
+
+	public void Reset(ScreenManagerUpdateDelaysCustomization defaultCustomization = null)
+	{
+		if(defaultCustomization is null) return;
+
+		Update = defaultCustomization.Update;
 	}
 }

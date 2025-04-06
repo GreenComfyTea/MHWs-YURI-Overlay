@@ -9,21 +9,31 @@ internal sealed class OffsetCustomization : Customization
 
 	public OffsetCustomization() { }
 
-	public override bool RenderImGui(string parentName = "")
+	public bool RenderImGui(string parentName = "", OffsetCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-offset";
 
+		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
+
 		if(ImGui.TreeNode($"{localization.Offset}##${customizationName}"))
 		{
-			isChanged |= ImGui.DragFloat($"{localization.X}##${customizationName}", ref X, 0.1f, -4096f, 4096f, "%.1f");
-			isChanged |= ImGui.DragFloat($"{localization.Y}##${customizationName}", ref Y, 0.1f, -4096f, 4096f, "%.1f");
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.X}##${customizationName}", ref X, 0.1f, -4096f, 4096f, "%.1f", defaultCustomization?.X);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Y}##${customizationName}", ref Y, 0.1f, -4096f, 4096f, "%.1f", defaultCustomization?.Y);
 
 			ImGui.TreePop();
 		}
 
 		return isChanged;
+	}
+
+	public void Reset(OffsetCustomization defaultCustomization = null)
+	{
+		if(defaultCustomization is null) return;
+
+		X = defaultCustomization.X;
+		Y = defaultCustomization.Y;
 	}
 }

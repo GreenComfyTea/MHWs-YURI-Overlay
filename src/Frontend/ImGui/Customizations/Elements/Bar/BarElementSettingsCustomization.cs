@@ -13,7 +13,7 @@ internal sealed class BarElementSettingsCustomization : Customization
 
 	public bool Inverted = false;
 
-	public override bool RenderImGui(string parentName = "")
+	public bool RenderImGui(string parentName = "", BarElementSettingsCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 		var localizationHelper = LocalizationHelper.Instance;
@@ -21,14 +21,24 @@ internal sealed class BarElementSettingsCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-settings";
 
+		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
+
 		if(ImGui.TreeNode($"{localization.Settings}##{customizationName}"))
 		{
-			isChanged |= ImGuiHelper.Combo($"{localization.FillDirection}##{customizationName}", ref _fillDirectionIndex, localizationHelper.FillDirections);
-			isChanged |= ImGui.Checkbox($"{localization.Inverted}##{customizationName}", ref Inverted);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization.FillDirection}##{customizationName}", ref _fillDirectionIndex, localizationHelper.FillDirections, defaultCustomization?._fillDirectionIndex);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Inverted}##{customizationName}", ref Inverted, defaultCustomization?.Inverted);
 
 			ImGui.TreePop();
 		}
 
 		return isChanged;
+	}
+
+	public void Reset(BarElementSettingsCustomization defaultCustomization = null)
+	{
+		if(defaultCustomization is null) return;
+
+		FillDirection = defaultCustomization.FillDirection;
+		Inverted = defaultCustomization.Inverted;
 	}
 }

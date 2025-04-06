@@ -13,21 +13,23 @@ internal sealed class BarElementCustomization : Customization
 
 	public BarElementCustomization() { }
 
-	public bool RenderImGui(string visibleName, string customizationName = "bar")
+	public bool RenderImGui(string visibleName, string customizationName = "bar", BarElementCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 
+		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
+
 		if(ImGui.TreeNode($"{visibleName}##{customizationName}"))
 		{
-			isChanged |= ImGui.Checkbox($"{localization.Visible}##{customizationName}", ref Visible);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
 
-			isChanged |= Settings.RenderImGui(customizationName);
-			isChanged |= Offset.RenderImGui(customizationName);
-			isChanged |= Size.RenderImGui(customizationName);
-			isChanged |= Colors.RenderImGui(customizationName);
-			isChanged |= Outline.RenderImGui(customizationName);
+			isChanged |= Settings.RenderImGui(customizationName, defaultCustomization?.Settings);
+			isChanged |= Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
+			isChanged |= Size.RenderImGui(customizationName, defaultCustomization?.Size);
+			isChanged |= Colors.RenderImGui(customizationName, defaultCustomization?.Colors);
+			isChanged |= Outline.RenderImGui(customizationName, defaultCustomization?.Outline);
 
 			ImGui.TreePop();
 		}
@@ -35,8 +37,15 @@ internal sealed class BarElementCustomization : Customization
 		return isChanged;
 	}
 
-	public override bool RenderImGui(string parentName = "")
+	public void Reset(BarElementCustomization defaultCustomization = null)
 	{
-		return RenderImGui(parentName);
+		if(defaultCustomization is null) return;
+
+		Visible = defaultCustomization.Visible;
+		Settings.Reset(defaultCustomization.Settings);
+		Offset.Reset(defaultCustomization.Offset);
+		Size.Reset(defaultCustomization.Size);
+		Colors.Reset(defaultCustomization.Colors);
+		Outline.Reset(defaultCustomization.Outline);
 	}
 }

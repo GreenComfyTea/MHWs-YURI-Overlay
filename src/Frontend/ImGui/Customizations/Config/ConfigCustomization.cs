@@ -19,7 +19,7 @@ internal sealed class ConfigCustomization : Customization
 		OnAnyConfigChanged(configManager, EventArgs.Empty);
 	}
 
-	public override bool RenderImGui(string parentName = "")
+	public bool RenderImGui(string parentName = "")
 	{
 		var configManager = ConfigManager.Instance;
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;

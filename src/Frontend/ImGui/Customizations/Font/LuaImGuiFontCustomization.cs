@@ -8,7 +8,7 @@ internal sealed class LuaImGuiFontCustomization : Customization
 
 	public LuaImGuiFontCustomization() { }
 
-	public override bool RenderImGui(string parentName = "")
+	public bool RenderImGui(string parentName = "", LuaImGuiFontCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 

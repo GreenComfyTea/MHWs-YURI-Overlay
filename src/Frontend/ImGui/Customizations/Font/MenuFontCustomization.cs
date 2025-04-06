@@ -15,7 +15,7 @@ internal sealed class MenuFontCustomization : Customization
 		LocalizationManager.Instance.ActiveLocalizationChanged += OnActiveLocalizationChanged;
 	}
 
-	public override bool RenderImGui(string parentName = "")
+	public bool RenderImGui(string parentName = "", MenuFontCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 		var localizationHelper = LocalizationHelper.Instance;

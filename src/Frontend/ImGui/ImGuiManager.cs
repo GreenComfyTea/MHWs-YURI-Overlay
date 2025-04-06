@@ -140,9 +140,19 @@ internal sealed class ImGuiManager
 			ImGui.NewLine();
 			ImGui.Separator();
 
+			var defaultConfig = ConfigManager.Instance.DefaultConfig;
+
 			changed |= configManager.Customization.RenderImGui("config-settings");
-			changed |= configManager.ActiveConfig.Data.GlobalSettings.RenderImGui("global-settings");
-			changed |= configManager.ActiveConfig.Data.LargeMonsterUI.RenderImGui("large-monster-ui");
+			changed |= configManager.ActiveConfig.Data.GlobalSettings.RenderImGui("global-settings", defaultConfig.GlobalSettings);
+			changed |= configManager.ActiveConfig.Data.LargeMonsterUI.RenderImGui("large-monster-ui", defaultConfig.LargeMonsterUI);
+
+			//ImGui.ShowDemoWindow();
+			//ImGui.ShowAboutWindow();
+			//ImGui.ShowDebugLogWindow();
+			//ImGui.ShowFontSelector("font-selector");
+			//ImGui.ShowMetricsWindow();
+			//ImGui.ShowStyleEditor();
+			//ImGui.ShowUserGuide();
 
 			if(menuFont != null)
 			{

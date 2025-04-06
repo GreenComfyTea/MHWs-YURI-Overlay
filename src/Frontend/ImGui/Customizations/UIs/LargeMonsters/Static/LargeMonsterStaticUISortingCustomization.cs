@@ -14,7 +14,7 @@ internal class LargeMonsterStaticUiSortingCustomization : Customization
 
 	public LargeMonsterStaticUiSortingCustomization() { }
 
-	public override bool RenderImGui(string parentName = "")
+	public bool RenderImGui(string parentName = "", LargeMonsterStaticUiSortingCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 		var localizationHelper = LocalizationHelper.Instance;
@@ -22,15 +22,24 @@ internal class LargeMonsterStaticUiSortingCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-settings";
 
+		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
+
 		if(ImGui.TreeNode($"{localization.Sorting}##{customizationName}"))
 		{
-			isChanged |= ImGuiHelper.Combo($"{localization.Type}##{customizationName}", ref _typeIndex, localizationHelper.Sortings);
-
-			isChanged |= ImGui.Checkbox($"{localization.ReversedOrder}##{customizationName}", ref ReversedOrder);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Type}##{customizationName}", ref _typeIndex, localizationHelper.Sortings, defaultCustomization?._typeIndex);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.ReversedOrder}##{customizationName}", ref ReversedOrder, defaultCustomization?.ReversedOrder);
 
 			ImGui.TreePop();
 		}
 
 		return isChanged;
+	}
+
+	public void Reset(LargeMonsterStaticUiSortingCustomization defaultCustomization = null)
+	{
+		if(defaultCustomization is null) return;
+
+		Type = defaultCustomization.Type;
+		ReversedOrder = defaultCustomization.ReversedOrder;
 	}
 }

@@ -25,20 +25,22 @@ internal sealed class GradientStartColorCustomization : Customization
 
 	public GradientStartColorCustomization() { }
 
-	public override bool RenderImGui(string parentName = "")
+	public bool RenderImGui(string parentName = "", GradientStartColorCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-start";
 
+		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
+
 		if(ImGui.TreeNode($"{localization.Start}##${customizationName}"))
 		{
-			isChanged |= ImGui.Checkbox(localization.SplitIntoTwoColors, ref SplitIntoTwoColors);
+			isChanged |= ImGuiHelper.ResettableCheckbox(localization.SplitIntoTwoColors, ref SplitIntoTwoColors, defaultCustomization?.SplitIntoTwoColors);
 
 			if(!SplitIntoTwoColors)
 			{
-				var isStart1Changed = ImGui.ColorPicker4($"##${customizationName}", ref ColorInfo1.vector);
+				var isStart1Changed = ImGuiHelper.ResettableColorPicker4($"##${customizationName}", ref ColorInfo1.vector, defaultCustomization?.ColorInfo1.vector);
 				isChanged |= isStart1Changed;
 
 				if(isStart1Changed)
@@ -52,7 +54,7 @@ internal sealed class GradientStartColorCustomization : Customization
 
 			if(ImGui.TreeNode($"{localization._1}##${customizationName}"))
 			{
-				var isStart1Changed = ImGui.ColorPicker4($"##${customizationName}-1", ref ColorInfo1.vector);
+				var isStart1Changed = ImGuiHelper.ResettableColorPicker4($"##${customizationName}-1", ref ColorInfo1.vector, defaultCustomization?.ColorInfo1.vector);
 				isChanged |= isStart1Changed;
 
 				if(isStart1Changed)
@@ -65,7 +67,7 @@ internal sealed class GradientStartColorCustomization : Customization
 
 			if(ImGui.TreeNode($"{localization._2}##${customizationName}"))
 			{
-				var isStart2Changed = ImGui.ColorPicker4($"##${customizationName}-2", ref ColorInfo2.vector);
+				var isStart2Changed = ImGuiHelper.ResettableColorPicker4($"##${customizationName}-2", ref ColorInfo2.vector, defaultCustomization?.ColorInfo2.vector);
 				isChanged |= isStart2Changed;
 
 				if(isStart2Changed)
@@ -80,5 +82,14 @@ internal sealed class GradientStartColorCustomization : Customization
 		}
 
 		return isChanged;
+	}
+
+	public void Reset(GradientStartColorCustomization defaultCustomization = null)
+	{
+		if(defaultCustomization is null) return;
+
+		SplitIntoTwoColors = defaultCustomization.SplitIntoTwoColors;
+		ColorInfo1.Vector = defaultCustomization.ColorInfo1.vector;
+		ColorInfo2.Vector = defaultCustomization.ColorInfo2.vector;
 	}
 }

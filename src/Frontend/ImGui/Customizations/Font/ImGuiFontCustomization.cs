@@ -10,7 +10,7 @@ internal sealed class ImGuiFontCustomization : Customization
 
 	public ImGuiFontCustomization() { }
 
-	public override bool RenderImGui(string parentName = "")
+	public bool RenderImGui(string parentName = "", ImGuiFontCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 

@@ -11,7 +11,7 @@ internal sealed class GlobalFontsCustomization : Customization
 
 	public GlobalFontsCustomization() { }
 
-	public override bool RenderImGui(string parentName = "")
+	public bool RenderImGui(string parentName = "", GlobalFontsCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 

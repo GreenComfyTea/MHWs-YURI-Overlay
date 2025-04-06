@@ -8,6 +8,7 @@ internal sealed partial class ConfigManager : IDisposable
 	public ConfigCustomization Customization;
 
 	public JsonDatabase<Config> ActiveConfig;
+	public Config DefaultConfig;
 	public Dictionary<string, JsonDatabase<Config>> Configs = [];
 
 	public EventHandler ActiveConfigChanged = delegate { };
@@ -29,6 +30,7 @@ internal sealed partial class ConfigManager : IDisposable
 		LogManager.Info("[ConfigManager] Initializing...");
 
 
+		InitializeDefaultConfig();
 		LoadAllConfigs();
 		LoadCurrentConfig();
 
@@ -48,7 +50,7 @@ internal sealed partial class ConfigManager : IDisposable
 
 		EmitActiveConfigChanged();
 
-		LogManager.Info($"[ConfigManager] Config \"{config.Name}\" is activated!");
+		LogManager.Info($"[ConfigManager] Config \"{config.Name}\" activated!");
 	}
 
 	public void ActivateConfig(string name)
@@ -69,21 +71,21 @@ internal sealed partial class ConfigManager : IDisposable
 				LogManager.Info("[ConfigManager] Default config is not found. Creating it...");
 
 				var newDefaultConfig = InitializeConfig(Constants.DefaultConfig);
-				DefaultConfig.ResetTo(newDefaultConfig);
+				ResetToDefault(newDefaultConfig);
 
-				LogManager.Info("[ConfigManager] Default config is created!");
+				LogManager.Info("[ConfigManager] Default config created!");
 
 				ActivateConfig(newDefaultConfig);
 				return;
 			}
 
-			LogManager.Info("[ConfigManager] Default config is found!");
+			LogManager.Info("[ConfigManager] Default config found!");
 
 			ActivateConfig(defaultConfig);
 			return;
 		}
 
-		LogManager.Info($"[ConfigManager] Config \"{name}\" is found!");
+		LogManager.Info($"[ConfigManager] Config \"{name}\" found!");
 
 		ActivateConfig(config);
 	}
@@ -106,7 +108,7 @@ internal sealed partial class ConfigManager : IDisposable
 
 		EmitAnyConfigChanged();
 
-		LogManager.Info($"[ConfigManager] Config \"{name}\" is initialized!");
+		LogManager.Info($"[ConfigManager] Config \"{name}\" initialized!");
 
 		return config;
 	}
@@ -115,7 +117,7 @@ internal sealed partial class ConfigManager : IDisposable
 	{
 		ConfigWatcherInstance.Disable();
 		var newConfig = InitializeConfig(newConfigName);
-		DefaultConfig.ResetTo(newConfig);
+		ResetToDefault(newConfig);
 		ConfigWatcherInstance.DelayedEnable();
 
 		ActivateConfig(newConfig);
@@ -149,7 +151,7 @@ internal sealed partial class ConfigManager : IDisposable
 
 	public void ResetConfig()
 	{
-		DefaultConfig.ResetTo(ActiveConfig);
+		ResetToDefault(ActiveConfig);
 	}
 
 	public void Dispose()
@@ -169,6 +171,16 @@ internal sealed partial class ConfigManager : IDisposable
 	public void EmitAnyConfigChanged()
 	{
 		Utils.EmitEvents(this, AnyConfigChanged);
+	}
+
+	private void InitializeDefaultConfig()
+	{
+		LogManager.Info("[ConfigManager] Initializing default config reference...");
+
+		DefaultConfig = new Config();
+		ResetToDefault(DefaultConfig);
+
+		LogManager.Info("[ConfigManager] Default config reference initialized!");
 	}
 
 	private void LoadCurrentConfig()
@@ -198,26 +210,27 @@ internal sealed partial class ConfigManager : IDisposable
 
 			var allConfigFilePathNames = Directory.GetFiles(Constants.ConfigsPath);
 
-			if(allConfigFilePathNames.Length == 0)
+			if (allConfigFilePathNames.Length == 0)
 			{
 				var defaultConfig = InitializeConfig(Constants.DefaultConfig);
-				DefaultConfig.ResetTo(defaultConfig);
+				ResetToDefault(defaultConfig);
 				return;
 			}
 
-			foreach(var configFilePathName in allConfigFilePathNames)
+			foreach (var configFilePathName in allConfigFilePathNames)
 			{
 				var name = Path.GetFileNameWithoutExtension(configFilePathName);
 				InitializeConfig(name);
 			}
 
-			LogManager.Info("[ConfigManager] Loading all configs is done!");
+			LogManager.Info("[ConfigManager] Loading all configs done!");
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
 	}
+
 	private void OnCurrentConfigChanged(object sender, EventArgs eventArgs)
 	{
 		LogManager.Info("[ConfigManager] Current config file changed.");

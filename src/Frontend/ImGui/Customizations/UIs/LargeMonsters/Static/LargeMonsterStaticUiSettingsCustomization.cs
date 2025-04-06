@@ -1,4 +1,6 @@
 ﻿using ImGuiNET;
+using static app.user_data.EmParamBadConditionPreset;
+using System.Xml;
 
 namespace YURI_Overlay;
 
@@ -8,10 +10,9 @@ internal class LargeMonsterStaticUiSettingsCustomization : Customization
 	public bool RenderHighlightedMonster = true;
 	public bool RenderNonHighlightedMonsters = true;
 
-
 	public LargeMonsterStaticUiSettingsCustomization() { }
 
-	public override bool RenderImGui(string parentName = "")
+	public bool RenderImGui(string parentName = "", LargeMonsterStaticUiSettingsCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 		var localizationHelper = LocalizationHelper.Instance;
@@ -19,17 +20,28 @@ internal class LargeMonsterStaticUiSettingsCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-settings";
 
+		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
+
 		if(ImGui.TreeNode($"{localization.Settings}##{customizationName}"))
 		{
-			isChanged |= ImGui.Checkbox($"{localization.RenderDeadMonsters}##{customizationName}", ref RenderDeadMonsters);
-			//isChanged |= ImGui.Checkbox($"{localization.renderHighlightedMonster}##{customizationName}", ref renderHighlightedMonster);
-			//isChanged |= ImGui.Checkbox($"{localization.RenderNonHighlightedMonsters}##{customizationName}", ref RenderNonHighlightedMonsters);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderDeadMonsters}##{customizationName}", ref RenderDeadMonsters, defaultCustomization?.RenderDeadMonsters);
+			//isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.renderHighlightedMonster}##{customizationName}", ref RenderHighlightedMonster, defaultCustomization?.RenderHighlightedMonster);
+			//isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderNonHighlightedMonsters}##{customizationName}", ref RenderNonHighlightedMonsters, defaultCustomization?.RenderNonHighlightedMonsters);
 
-			//isChanged |= ImGuiHelper.Combo($"{localization.highlightedMonsterLocation}##{customizationName}", ref _highlightedMonsterLocationIndex, localizationHelper.SortingLocations, localizationHelper.SortingLocations.Length);
+			//isChanged |= ImGuiHelper.ResettableCombo($"{localization.highlightedMonsterLocation}##{customizationName}", ref _highlightedMonsterLocationIndex, localizationHelper.SortingLocations);
 
 			ImGui.TreePop();
 		}
 
 		return isChanged;
+	}
+
+	public void Reset(LargeMonsterStaticUiSettingsCustomization defaultCustomization = null)
+	{
+		if(defaultCustomization is null) return;
+
+		RenderDeadMonsters = defaultCustomization.RenderDeadMonsters;
+		RenderHighlightedMonster = defaultCustomization.RenderHighlightedMonster;
+		RenderNonHighlightedMonsters = defaultCustomization.RenderNonHighlightedMonsters;
 	}
 }

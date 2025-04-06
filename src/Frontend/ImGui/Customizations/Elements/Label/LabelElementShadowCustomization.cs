@@ -8,23 +8,34 @@ internal class LabelElementShadowCustomization : Customization
 	public OffsetCustomization Offset = new();
 	public ColorCustomization Color = new();
 
-	public override bool RenderImGui(string parentName = "")
+	public bool RenderImGui(string parentName = "", LabelElementShadowCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-shadow";
 
+		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
+
 		if(ImGui.TreeNode($"{localization.Shadow}##{parentName}"))
 		{
-			isChanged |= ImGui.Checkbox($"{localization.Visible}##{parentName}", ref Visible);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{parentName}", ref Visible, defaultCustomization?.Visible);
 
-			isChanged |= Offset.RenderImGui(customizationName);
-			isChanged |= Color.RenderImGui(customizationName);
+			isChanged |= Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
+			isChanged |= Color.RenderImGui(customizationName, defaultCustomization?.Color);
 
 			ImGui.TreePop();
 		}
 
 		return isChanged;
+	}
+
+	public void Reset(LabelElementShadowCustomization defaultCustomization = null)
+	{
+		if(defaultCustomization is null) return;
+
+		Visible = defaultCustomization.Visible;
+		Offset.Reset(defaultCustomization.Offset);
+		Color.Reset(defaultCustomization.Color);
 	}
 }

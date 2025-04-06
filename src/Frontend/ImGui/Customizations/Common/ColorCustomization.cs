@@ -16,16 +16,18 @@ internal sealed class ColorCustomization : Customization
 
 	public ColorCustomization() { }
 
-	public override bool RenderImGui(string parentName = "")
+	public bool RenderImGui(string parentName = "", ColorCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-color";
 
+		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
+
 		if(ImGui.TreeNode($"{localization.Color}##${customizationName}"))
 		{
-			var isColorChanged = ImGui.ColorPicker4($"##${customizationName}", ref ColorInfo.vector);
+			var isColorChanged = ImGuiHelper.ResettableColorPicker4($"##${customizationName}", ref ColorInfo.vector, defaultCustomization?.ColorInfo.vector);
 			isChanged |= isColorChanged;
 			if(isColorChanged)
 			{
@@ -36,5 +38,12 @@ internal sealed class ColorCustomization : Customization
 		}
 
 		return isChanged;
+	}
+
+	public void Reset(ColorCustomization defaultCustomization = null)
+	{
+		if(defaultCustomization is null) return;
+
+		ColorInfo.Vector = defaultCustomization.ColorInfo.Vector;
 	}
 }

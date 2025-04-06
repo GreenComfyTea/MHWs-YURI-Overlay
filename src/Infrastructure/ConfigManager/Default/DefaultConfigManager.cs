@@ -1,17 +1,18 @@
 ﻿namespace YURI_Overlay;
 
-internal static class DefaultConfig
+internal partial class ConfigManager
 {
-	public static void ResetTo(JsonDatabase<Config> configDatabase)
+	public static void ResetToDefault(Config config)
 	{
-		var config = configDatabase.Data;
-
 		config.GlobalSettings.Localization = Constants.DefaultLocalization;
 
 		config.GlobalSettings.GlobalScale.PositionScaleModifier = 1f;
 		config.GlobalSettings.GlobalScale.SizeScaleModifier = 1f;
 
 		config.GlobalSettings.Performance.CalculationCaching = true;
+
+		config.GlobalSettings.Performance.UpdateDelays.ScreenManager.Update = 1f;
+		config.GlobalSettings.Performance.UpdateDelays.PlayerManager.Update = 1f;
 
 		config.GlobalSettings.Performance.UpdateDelays.LargeMonsters.Name = 1f;
 		config.GlobalSettings.Performance.UpdateDelays.LargeMonsters.MissionBeaconOffset = 1f;
@@ -575,7 +576,11 @@ internal static class DefaultConfig
 		config.LargeMonsterUI.Static.Rage.TimerBar.Outline.Offset = 0f;
 		config.LargeMonsterUI.Static.Rage.TimerBar.Outline.Style = OutlineStyles.Inside;
 		config.LargeMonsterUI.Static.Rage.TimerBar.Outline.Color.ColorInfo.Rgba = 0xFF000080;
+	}
 
+	public static void ResetToDefault(JsonDatabase<Config> configDatabase)
+	{
+		ResetToDefault(configDatabase.Data);
 		configDatabase.Save();
 	}
 }

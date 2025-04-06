@@ -1,4 +1,6 @@
-﻿namespace YURI_Overlay;
+﻿using via.network.session;
+
+namespace YURI_Overlay;
 
 internal sealed class LocalizationCustomization : Customization
 {
@@ -20,7 +22,7 @@ internal sealed class LocalizationCustomization : Customization
 		localizationManager.AnyLocalizationChanged += OnAnyLocalizationChanged;
 	}
 
-	public override bool RenderImGui(string parentName = "")
+	public bool RenderImGui(string parentName = "")
 	{
 		var localizationManager = LocalizationManager.Instance;
 		var configManager = ConfigManager.Instance;
@@ -28,7 +30,9 @@ internal sealed class LocalizationCustomization : Customization
 
 		var isChanged = false;
 
-		var isActiveConfigChanged = ImGuiHelper.Combo(localization.Language, ref _activeLocalizationIndex, _localizationNames);
+		var englishLocalizationIndex = Array.IndexOf(_localizationIsoCodes, Constants.DefaultLocalization);
+
+		var isActiveConfigChanged = ImGuiHelper.ResettableCombo(localization.Language, ref _activeLocalizationIndex, _localizationNames, englishLocalizationIndex);
 		if(isActiveConfigChanged)
 		{
 			isChanged |= isActiveConfigChanged;
@@ -38,6 +42,13 @@ internal sealed class LocalizationCustomization : Customization
 		}
 
 		return isChanged;
+	}
+
+	public void Reset(int defaultLocalizationIndex = -1)
+	{
+		if (defaultLocalizationIndex == -1) return;
+
+		_activeLocalizationIndex = defaultLocalizationIndex;
 	}
 
 	private void OnAnyLocalizationChanged(object sender, EventArgs eventArgs)

@@ -16,27 +16,43 @@ internal sealed class LargeMonstersUpdateDelaysCustomization : Customization
 
 	public LargeMonstersUpdateDelaysCustomization() { }
 
-	public override bool RenderImGui(string parentName = "")
+	public bool RenderImGui(string parentName = "", LargeMonstersUpdateDelaysCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-large-monsters";
 
+		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
+
 		if(ImGui.TreeNode($"{localization.LargeMonsters}##${customizationName}"))
 		{
-			isChanged |= ImGui.DragFloat($"{localization.Name}##{customizationName}", ref Name, 0.001f, 0.001f, 10f, "%.3f");
-			isChanged |= ImGui.DragFloat($"{localization.MissionBeaconOffset}##{customizationName}", ref MissionBeaconOffset, 0.001f, 0.001f, 10f, "%.3f");
-			isChanged |= ImGui.DragFloat($"{localization.ModelRadius}##{customizationName}", ref ModelRadius, 0.001f, 0.001f, 10f, "%.3f");
-			isChanged |= ImGui.DragFloat($"{localization.Health}##{customizationName}", ref Health, 0.001f, 0.001f, 10f, "%.3f");
-			isChanged |= ImGui.DragFloat($"{localization.Stamina}##{customizationName}", ref Stamina, 0.001f, 0.001f, 10f, "%.3f");
-			isChanged |= ImGui.DragFloat($"{localization.Rage}##{customizationName}", ref Rage, 0.001f, 0.001f, 10f, "%.3f");
-			isChanged |= ImGui.DragFloat($"{localization.DynamicList}##{customizationName}", ref DynamicList, 0.001f, 0.001f, 10f, "%.3f");
-			isChanged |= ImGui.DragFloat($"{localization.StaticList}##{customizationName}", ref StaticList, 0.001f, 0.001f, 10f, "%.3f");
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Name}##{customizationName}", ref Name, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Name);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MissionBeaconOffset}##{customizationName}", ref MissionBeaconOffset, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.MissionBeaconOffset);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.ModelRadius}##{customizationName}", ref ModelRadius, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.ModelRadius);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Health}##{customizationName}", ref Health, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Health);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Stamina}##{customizationName}", ref Stamina, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Stamina);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Rage}##{customizationName}", ref Rage, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Rage);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.DynamicList}##{customizationName}", ref DynamicList, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.DynamicList);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.StaticList}##{customizationName}", ref StaticList, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.StaticList);
 
 			ImGui.TreePop();
 		}
 
 		return isChanged;
+	}
+
+	public void Reset(LargeMonstersUpdateDelaysCustomization defaultCustomization = null)
+	{
+		if(defaultCustomization is null) return;
+
+		Name = defaultCustomization.Name;
+		MissionBeaconOffset = defaultCustomization.MissionBeaconOffset;
+		ModelRadius = defaultCustomization.ModelRadius;
+		Health = defaultCustomization.Health;
+		Stamina = defaultCustomization.Stamina;
+		Rage = defaultCustomization.Rage;
+		DynamicList = defaultCustomization.DynamicList;
+		StaticList = defaultCustomization.StaticList;
 	}
 }

@@ -10,17 +10,19 @@ internal sealed class GradientColorCustomization : Customization
 	public GradientColorCustomization() { }
 
 
-	public bool RenderImGui(string parentName = "", string name = "")
+	public bool RenderImGui(string name = "",string parentName = "", GradientColorCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-gradient-color";
 
+		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
+
 		if(ImGui.TreeNode($"{name}##${customizationName}"))
 		{
-			isChanged |= Start.RenderImGui(customizationName);
-			isChanged |= End.RenderImGui(customizationName);
+			isChanged |= Start.RenderImGui(customizationName, defaultCustomization?.Start);
+			isChanged |= End.RenderImGui(customizationName, defaultCustomization?.End);
 
 			ImGui.TreePop();
 		}
@@ -28,10 +30,11 @@ internal sealed class GradientColorCustomization : Customization
 		return isChanged;
 	}
 
-	public override bool RenderImGui(string parentName = "")
+	public void Reset(GradientColorCustomization defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
+		if(defaultCustomization is null) return;
 
-		return RenderImGui(parentName, localization.Color);
+		Start.Reset(defaultCustomization.Start);
+		End.Reset(defaultCustomization.End);
 	}
 }

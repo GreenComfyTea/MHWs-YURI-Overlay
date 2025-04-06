@@ -13,22 +13,23 @@ internal sealed class LabelElementCustomization : Customization
 
 	public LabelElementCustomization() { }
 
-	public bool RenderImGui(string visibleName, string customizationName = "label")
+	public bool RenderImGui(string visibleName, string customizationName = "label", LabelElementCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 
+		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
+
 		if(ImGui.TreeNode($"{visibleName}##{customizationName}"))
 		{
-			isChanged |= ImGui.Checkbox($"{localization.Visible}##{customizationName}", ref Visible);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
+			isChanged |= ImGuiHelper.ResettableInputText($"{localization.Format}##{customizationName}", ref Format, defaultValue: defaultCustomization?.Format);
 
-			isChanged |= ImGui.InputText($"{localization.Format}##{customizationName}", ref Format, 256);
-
-			isChanged |= Settings.RenderImGui(customizationName);
-			isChanged |= Offset.RenderImGui(customizationName);
-			isChanged |= Color.RenderImGui(customizationName);
-			isChanged |= Shadow.RenderImGui(customizationName);
+			isChanged |= Settings.RenderImGui(customizationName, defaultCustomization?.Settings);
+			isChanged |= Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
+			isChanged |= Color.RenderImGui(customizationName, defaultCustomization?.Color);
+			isChanged |= Shadow.RenderImGui(customizationName, defaultCustomization?.Shadow);
 
 			ImGui.TreePop();
 		}
@@ -36,8 +37,14 @@ internal sealed class LabelElementCustomization : Customization
 		return isChanged;
 	}
 
-	public override bool RenderImGui(string parentName = "")
+	public void Reset(LabelElementCustomization defaultCustomization = null)
 	{
-		return RenderImGui(parentName);
+		if(defaultCustomization is null) return;
+
+		Visible = defaultCustomization.Visible;
+		Format = defaultCustomization.Format;
+		Offset.Reset(defaultCustomization.Offset);
+		Color.Reset(defaultCustomization.Color);
+		Shadow.Reset(defaultCustomization.Shadow);
 	}
 }

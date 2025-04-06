@@ -180,6 +180,9 @@ internal class ImGuiLocalization
 	public string PlayerManager = "Player Manager";
 
 	public string Inverted = "Inverted";
+
+	public string ResetIcon = "\uF0E2";
+	public string ResetToDefault = "Reset to Default";
 }
 
 internal class Localization
