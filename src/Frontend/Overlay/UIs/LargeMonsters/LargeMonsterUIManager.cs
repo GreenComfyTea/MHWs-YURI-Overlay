@@ -8,7 +8,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 	private List<LargeMonster> _dynamicLargeMonsters = [];
 	private List<LargeMonster> _staticLargeMonsters = [];
 
-	private System.Timers.Timer _updateTimer;
+	private readonly List<System.Timers.Timer> _timers = [];
 
 	public LargeMonsterUiManager()
 	{
@@ -24,15 +24,9 @@ internal sealed class LargeMonsterUiManager : IDisposable
 	{
 		LogManager.Info("[LargeMonsterUiManager] Initializing...");
 
-		_updateTimer = Timers.SetInterval(Update, 100);
+		InitializeTimers();
 
 		LogManager.Info("[LargeMonsterUiManager] Initialized!");
-	}
-
-	public void Update()
-	{
-		UpdateDynamic();
-		UpdateStatic();
 	}
 
 	public void Draw(ImDrawListPtr backgroundDrawList)
@@ -45,9 +39,26 @@ internal sealed class LargeMonsterUiManager : IDisposable
 	{
 		LogManager.Info($"[LargeMonsterUiManager] Disposing...");
 
-		_updateTimer.Dispose();
+		foreach(var timer in _timers)
+		{
+			timer.Dispose();
+		}
 
 		LogManager.Info($"[LargeMonsterUiManager] Disposed!");
+	}
+	private void InitializeTimers()
+	{
+		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.LargeMonsters;
+
+		foreach(var timer in _timers)
+		{
+			timer.Dispose();
+		}
+
+		_timers.Clear();
+
+		_timers.Add(Timers.SetInterval(UpdateDynamic, Utils.SecondsToMilliseconds(updateDelays.DynamicList)));
+		_timers.Add(Timers.SetInterval(UpdateStatic, Utils.SecondsToMilliseconds(updateDelays.StaticList)));
 	}
 
 	private void UpdateDynamic()

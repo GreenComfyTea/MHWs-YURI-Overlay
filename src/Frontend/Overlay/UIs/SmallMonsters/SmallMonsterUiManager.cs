@@ -1,4 +1,5 @@
 ﻿using ImGuiNET;
+using System.Data;
 
 namespace YURI_Overlay;
 
@@ -7,7 +8,7 @@ internal sealed class SmallMonsterUiManager : IDisposable
 
 	private List<SmallMonster> _dynamicSmallMonsters = [];
 
-	private System.Timers.Timer _updateTimer;
+	private readonly List<System.Timers.Timer> _timers = [];
 
 	public SmallMonsterUiManager()
 	{
@@ -23,7 +24,7 @@ internal sealed class SmallMonsterUiManager : IDisposable
 	{
 		LogManager.Info("[SmallMonsterUiManager] Initializing...");
 
-		_updateTimer = Timers.SetInterval(Update, 100);
+		InitializeTimers();
 
 		LogManager.Info("[SmallMonsterUiManager] Initialized!");
 	}
@@ -42,9 +43,26 @@ internal sealed class SmallMonsterUiManager : IDisposable
 	{
 		LogManager.Info($"[SmallMonsterUiManager] Disposing...");
 
-		_updateTimer.Dispose();
+		foreach(var timer in _timers)
+		{
+			timer.Dispose();
+		}
 
 		LogManager.Info($"[SmallMonsterUiManager] Disposed!");
+	}
+
+	private void InitializeTimers()
+	{
+		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.SmallMonsters;
+
+		foreach(var timer in _timers)
+		{
+			timer.Dispose();
+		}
+
+		_timers.Clear();
+
+		_timers.Add(Timers.SetInterval(UpdateDynamic, Utils.SecondsToMilliseconds(updateDelays.DynamicList)));
 	}
 
 	private void UpdateDynamic()
