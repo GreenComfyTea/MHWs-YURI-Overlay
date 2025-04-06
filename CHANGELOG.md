@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.3.0](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.2.3...v1.3.0) (2025-04-06)
+
+
+### Features
+
+* Added inverted bar option ([81ffcb4](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/81ffcb4513546c9a711e8cb8ea486934bc7e4a83))
+* Added Large Monster UI Enabled option ([98f997f](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/98f997f38d20967a8639045cda9d490d89d46926))
+* Added reset buttons in customization menu everywhere ([6d1763b](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/6d1763b1c5ee11e480d9ee13783cc040abcecada))
+* Added Small Monster UI ([8cb6a3d](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/8cb6a3deb9262f1a446a442e3fe410c50d85e163))
+* Added update delay customization in performance global settings ([4d2aab2](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/4d2aab29595f5a2085ad859444d1778fdabb4883))
+* Clamped timer labels ([b116e63](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/b116e637940c57da158860965778b81a0237ef1f))
+* Constrained combo box and color picker widths ([b8b23d1](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/b8b23d1d46ee6be66e94897cbb4cb0f70eeb6d22))
+* Debounced config changes ([4fd0475](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/4fd0475c5b0546e09aced33e7a192a5ecc6d24bb))
+* Optimized null check ([d96a60a](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/d96a60adbe449a13492c597d75fdb77ac302ab8d))
+
+
+### Bug Fixes
+
+* Fixed default values not being applied on new configs ([ca0f1d2](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/ca0f1d2d6914830b5db9f0968f1f1b6f87c0fac9))
+* Fixed incorrect stamina and rage validation ([e30284d](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/e30284da4581a05a3176f2476bb1dbda99c8d900))
+* Fixed large monster rage update timer using name timer ([29d12d5](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/29d12d50860e7183e4992285150d51a1e148b789))
+* Fixed Split into Two Colors options causing ImGui errors ([e8556d4](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/e8556d4d4bff29b956d0d96aea7341e895794831))
+* Fixed static and dynamic list not using update delay values ([3c68f90](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/3c68f90d313b0c7df9d409fecbef501ca3c0cafe))
+* Fixed Static and Dynamic UI enable states not being reset ([bed7667](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/bed7667a374ccc54cdc4ff9598bb5f834067c1f9))
+* Fixed timer label formatting ([d50ad14](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/d50ad14502b7815a9a5a6484886c233510e85546))
+
 ## [1.2.3](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.2.2...v1.2.3) (2025-03-24)
 
 
