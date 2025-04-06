@@ -1,5 +1,4 @@
 ﻿using ImGuiNET;
-using static app.GUIFlowHunterProfile.Flow;
 
 namespace YURI_Overlay;
 
@@ -21,7 +20,7 @@ internal class LabelElementSettingsCustomization : Customization
 		if(ImGui.TreeNode($"{localization.Settings}##{customizationName}"))
 		{
 			isChanged |= ImGuiHelper.ResettableInputInt($"{localization.RightAlignmentShift}##{customizationName}", ref RightAlignmentShift, defaultCustomization?.RightAlignmentShift);
-			
+
 			if(isChanged && RightAlignmentShift < 0) RightAlignmentShift = 0;
 
 			ImGui.TreePop();

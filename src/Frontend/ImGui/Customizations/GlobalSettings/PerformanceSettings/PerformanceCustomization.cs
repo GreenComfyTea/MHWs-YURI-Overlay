@@ -1,5 +1,4 @@
 ﻿using ImGuiNET;
-using static app.user_data.EmParamBadConditionPreset;
 
 namespace YURI_Overlay;
 

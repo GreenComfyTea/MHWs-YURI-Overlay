@@ -1,4 +1,4 @@
-﻿namespace YURI_Overlay;
+namespace YURI_Overlay;
 
 internal static class LargeMonsterSorting
 {

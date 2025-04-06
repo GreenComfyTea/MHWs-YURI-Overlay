@@ -1,7 +1,5 @@
-﻿using System.Text.Json.Serialization;
-
-using ImGuiNET;
-using via.render;
+﻿using ImGuiNET;
+using System.Text.Json.Serialization;
 namespace YURI_Overlay;
 
 internal sealed class BarElementOutlineCustomization : Customization

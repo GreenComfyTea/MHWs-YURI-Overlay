@@ -127,7 +127,7 @@ internal sealed class MonsterManager : IDisposable
 			}
 
 			var isLargeMonster = enemyContext.IsBoss;
-			if (isLargeMonster)
+			if(isLargeMonster)
 			{
 				var isFound = Instance.LargeMonsters.ContainsKey(enemyCharacter);
 				if(isFound)

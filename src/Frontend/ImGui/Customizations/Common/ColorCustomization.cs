@@ -1,6 +1,5 @@
-﻿using System.Text.Json.Serialization;
-
-using ImGuiNET;
+﻿using ImGuiNET;
+using System.Text.Json.Serialization;
 
 namespace YURI_Overlay;
 

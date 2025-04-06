@@ -210,14 +210,14 @@ internal sealed partial class ConfigManager : IDisposable
 
 			var allConfigFilePathNames = Directory.GetFiles(Constants.ConfigsPath);
 
-			if (allConfigFilePathNames.Length == 0)
+			if(allConfigFilePathNames.Length == 0)
 			{
 				var defaultConfig = InitializeConfig(Constants.DefaultConfig);
 				ResetToDefault(defaultConfig);
 				return;
 			}
 
-			foreach (var configFilePathName in allConfigFilePathNames)
+			foreach(var configFilePathName in allConfigFilePathNames)
 			{
 				var name = Path.GetFileNameWithoutExtension(configFilePathName);
 				InitializeConfig(name);
@@ -225,7 +225,7 @@ internal sealed partial class ConfigManager : IDisposable
 
 			LogManager.Info("[ConfigManager] Loading all configs done!");
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}

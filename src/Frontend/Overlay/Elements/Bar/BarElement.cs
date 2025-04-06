@@ -1,6 +1,5 @@
-﻿using System.Numerics;
-
-using ImGuiNET;
+﻿using ImGuiNET;
+using System.Numerics;
 
 namespace YURI_Overlay;
 
@@ -76,7 +75,7 @@ internal sealed class BarElement
 		}
 
 		progress = Math.Clamp(progress, 0f, 1f);
-		if (customization.Settings.Inverted) progress = 1 - progress;
+		if(customization.Settings.Inverted) progress = 1 - progress;
 
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier;
 

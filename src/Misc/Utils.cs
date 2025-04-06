@@ -1,10 +1,8 @@
+using ImGuiNET;
+using REFrameworkNET;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text.Json;
-
-using ImGuiNET;
-
-using REFrameworkNET;
 
 namespace YURI_Overlay;
 

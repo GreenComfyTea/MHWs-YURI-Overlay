@@ -1,6 +1,5 @@
-﻿using System.Numerics;
-using ImGuiNET;
-using static app.btable.PlCommand.cPorterSpeedDiffCheck;
+﻿using ImGuiNET;
+using System.Numerics;
 
 namespace YURI_Overlay;
 
@@ -65,10 +64,10 @@ internal static class ImGuiHelper
 
 		var isChanged = false;
 
-		if (defaultValue is not null)
+		if(defaultValue is not null)
 		{
 			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
-			if (isChanged) value = (float) defaultValue;
+			if(isChanged) value = (float) defaultValue;
 
 			Tooltip(localization.ResetToDefault);
 			ImGui.SameLine();

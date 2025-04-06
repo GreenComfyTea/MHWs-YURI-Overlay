@@ -1,6 +1,5 @@
-﻿using System.Numerics;
-
-using ImGuiNET;
+﻿using ImGuiNET;
+using System.Numerics;
 
 namespace YURI_Overlay;
 

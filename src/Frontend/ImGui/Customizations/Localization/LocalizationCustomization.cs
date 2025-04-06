@@ -1,6 +1,4 @@
-﻿using via.network.session;
-
-namespace YURI_Overlay;
+﻿namespace YURI_Overlay;
 
 internal sealed class LocalizationCustomization : Customization
 {
@@ -46,7 +44,7 @@ internal sealed class LocalizationCustomization : Customization
 
 	public void Reset(int defaultLocalizationIndex = -1)
 	{
-		if (defaultLocalizationIndex == -1) return;
+		if(defaultLocalizationIndex == -1) return;
 
 		_activeLocalizationIndex = defaultLocalizationIndex;
 	}

@@ -1,7 +1,6 @@
-using System.Diagnostics.CodeAnalysis;
-
 using REFrameworkNET;
 using REFrameworkNET.Attributes;
+using System.Diagnostics.CodeAnalysis;
 
 
 namespace YURI_Overlay;

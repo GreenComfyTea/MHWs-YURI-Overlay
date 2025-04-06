@@ -1,6 +1,5 @@
-﻿using System.Text.Json.Serialization;
-
-using ImGuiNET;
+﻿using ImGuiNET;
+using System.Text.Json.Serialization;
 
 namespace YURI_Overlay;
 internal sealed class AnchoredPositionCustomization : Customization
@@ -42,7 +41,7 @@ internal sealed class AnchoredPositionCustomization : Customization
 
 	public void Reset(AnchoredPositionCustomization defaultCustomization = null)
 	{
-		if (defaultCustomization is null) return;
+		if(defaultCustomization is null) return;
 
 		X = defaultCustomization.X;
 		Y = defaultCustomization.Y;

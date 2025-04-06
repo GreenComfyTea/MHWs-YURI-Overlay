@@ -1,6 +1,5 @@
-using System.Numerics;
-
 using REFrameworkNET;
+using System.Numerics;
 
 namespace YURI_Overlay;
 

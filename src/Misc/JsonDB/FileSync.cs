@@ -13,12 +13,7 @@ internal class FileSync
 
 	public string Read()
 	{
-		if(File.Exists(PathFileName))
-		{
-			return ReadFromFile();
-		}
-
-		return Constants.EmptyJson;
+		return File.Exists(PathFileName) ? ReadFromFile() : Constants.EmptyJson;
 	}
 
 	public bool Write(string json)

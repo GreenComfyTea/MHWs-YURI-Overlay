@@ -50,6 +50,6 @@ internal class SmallMonsterDynamicUiCustomization : Customization
 
 		NameLabel.Reset(defaultCustomization.NameLabel);
 		Health.Reset(defaultCustomization.Health);
-		
+
 	}
 }
