@@ -432,7 +432,7 @@ internal static class DefaultConfig
 		config.LargeMonsterUI.Static.Stamina.Bar.Outline.Style = OutlineStyles.Inside;
 		config.LargeMonsterUI.Static.Stamina.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
 
-		config.LargeMonsterUI.Static.Stamina.TimerLabel.Visible = true;
+		config.LargeMonsterUI.Static.Stamina.TimerLabel.Visible = false;
 		config.LargeMonsterUI.Static.Stamina.TimerLabel.Format = "{0}";
 		config.LargeMonsterUI.Static.Stamina.TimerLabel.Settings.RightAlignmentShift = 4;
 		config.LargeMonsterUI.Static.Stamina.TimerLabel.Offset.X = 54f;
