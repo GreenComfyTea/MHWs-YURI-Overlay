@@ -115,6 +115,7 @@ internal sealed partial class ConfigManager : IDisposable
 	{
 		ConfigWatcherInstance.Disable();
 		var newConfig = InitializeConfig(newConfigName);
+		DefaultConfig.ResetTo(newConfig);
 		ConfigWatcherInstance.DelayedEnable();
 
 		ActivateConfig(newConfig);
