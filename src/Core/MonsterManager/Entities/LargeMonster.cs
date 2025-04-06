@@ -382,8 +382,8 @@ internal sealed class LargeMonster : IDisposable
 				return conditionsModule;
 			}
 
-			IsRageValid = tiredCondition.IsValid;
-			if(!IsRageValid) return conditionsModule;
+			IsStaminaValid = tiredCondition.IsValid;
+			if(!IsStaminaValid) return conditionsModule;
 
 			IsTired = tiredCondition.IsActive;
 
@@ -445,8 +445,8 @@ internal sealed class LargeMonster : IDisposable
 				return;
 			}
 
-			IsStaminaValid = angryCondition.IsValid;
-			if(!IsStaminaValid) return;
+			IsRageValid = angryCondition.IsValid;
+			if(!IsRageValid) return;
 
 			IsEnraged = angryCondition.IsActive;
 
