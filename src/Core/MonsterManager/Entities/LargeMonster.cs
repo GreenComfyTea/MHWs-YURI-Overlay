@@ -2,8 +2,6 @@ using System.Numerics;
 
 using REFrameworkNET;
 
-
-
 namespace YURI_Overlay;
 
 internal sealed class LargeMonster : IDisposable
@@ -160,7 +158,7 @@ internal sealed class LargeMonster : IDisposable
 		_timers.Add(Timers.SetInterval(SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays.ModelRadius)));
 		_timers.Add(Timers.SetInterval(SetUpdateHealthPending, Utils.SecondsToMilliseconds(updateDelays.Health)));
 		_timers.Add(Timers.SetInterval(SetUpdateStaminaPending, Utils.SecondsToMilliseconds(updateDelays.Stamina)));
-		_timers.Add(Timers.SetInterval(SetUpdateRagePending, Utils.SecondsToMilliseconds(updateDelays.Name)));
+		_timers.Add(Timers.SetInterval(SetUpdateRagePending, Utils.SecondsToMilliseconds(updateDelays.Rage)));
 	}
 
 	private void SetUpdateNamePending()
