@@ -399,7 +399,7 @@ internal sealed class LargeMonster : IDisposable
 					StaminaRemainingTimerPercentage = StaminaRemainingTimerSeconds / StaminaMaxTimerSeconds;
 				}
 
-				StaminaRemainingTimerString = Utils.FormatTimer(StaminaTimerSeconds, StaminaMaxTimerSeconds);
+				StaminaRemainingTimerString = Utils.FormatTimer(StaminaRemainingTimerSeconds);
 
 				return conditionsModule;
 			}
@@ -462,7 +462,7 @@ internal sealed class LargeMonster : IDisposable
 					RageRemainingTimerPercentage = RageRemainingTimerSeconds / RageMaxTimerSeconds;
 				}
 
-				RageRemainingTimerString = Utils.FormatTimer(RageTimerSeconds, RageMaxTimerSeconds);
+				RageRemainingTimerString = Utils.FormatTimer(RageRemainingTimerSeconds);
 
 				return;
 			}

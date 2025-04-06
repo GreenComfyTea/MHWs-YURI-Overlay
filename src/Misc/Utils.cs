@@ -131,13 +131,11 @@ internal static class Utils
 		return (alpha << 24) | (blue << 16) | (green << 8) | red;
 	}
 
-	public static string FormatTimer(float seconds, float maxSeconds)
+	public static string FormatTimer(float totalSeconds)
 	{
-		var totalSeconds = (int) Math.Round(Math.Clamp(seconds, 0f, maxSeconds));
-
-		var minutes = totalSeconds / 60;
-		var remainingSeconds = totalSeconds % 60;
-		return $"{minutes}:{remainingSeconds:F2}";
+		var minutes = (int) (totalSeconds / 60);
+		var seconds = (int) (totalSeconds % 60);
+		return $"{minutes}:{seconds:D2}";
 	}
 
 	public static ManagedObject ProxyToManagedObject(object proxyObject)
