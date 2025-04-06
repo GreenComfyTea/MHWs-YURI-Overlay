@@ -131,8 +131,10 @@ internal static class Utils
 		return (alpha << 24) | (blue << 16) | (green << 8) | red;
 	}
 
-	public static string FormatTimer(float totalSeconds)
+	public static string FormatTimer(float totalSeconds, float maxSeconds)
 	{
+		totalSeconds = Math.Clamp(totalSeconds, 0f, maxSeconds);
+
 		var minutes = (int) (totalSeconds / 60);
 		var seconds = (int) (totalSeconds % 60);
 		return $"{minutes}:{seconds:D2}";
