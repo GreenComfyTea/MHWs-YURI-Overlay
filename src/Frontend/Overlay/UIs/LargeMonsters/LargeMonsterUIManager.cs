@@ -63,10 +63,10 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 	private void UpdateDynamic()
 	{
-		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI.Dynamic;
-		var settings = customization.Settings;
+		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
+		var renderDeadMonsters = customization.Dynamic.Settings.RenderDeadMonsters;
 
-		if(!customization.Enabled)
+		if(!customization.Enabled || !customization.Dynamic.Enabled)
 		{
 			_dynamicLargeMonsters = [];
 			return;
@@ -80,7 +80,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		{
 			var largeMonster = largeMonsterPair.Value;
 
-			if(!settings.RenderDeadMonsters && !largeMonster.IsAlive)
+			if(!renderDeadMonsters && !largeMonster.IsAlive)
 			{
 				continue;
 			}
@@ -97,9 +97,10 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 	private void UpdateStatic()
 	{
-		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI.Static;
+		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
+		var renderDeadMonsters = customization.Dynamic.Settings.RenderDeadMonsters;
 
-		if(!customization.Enabled)
+		if(!customization.Enabled || !customization.Dynamic.Enabled)
 		{
 			_staticLargeMonsters = [];
 			return;
@@ -113,7 +114,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		{
 			var largeMonster = largeMonsterPair.Value;
 
-			if(!customization.Settings.RenderDeadMonsters && !largeMonster.IsAlive)
+			if(!renderDeadMonsters && !largeMonster.IsAlive)
 			{
 				continue;
 			}
@@ -123,9 +124,9 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 		// Sort
 
-		if(customization.Sorting.ReversedOrder)
+		if(customization.Static.Sorting.ReversedOrder)
 		{
-			switch(customization.Sorting.Type)
+			switch(customization.Static.Sorting.Type)
 			{
 				case Sortings.Id:
 					newLargeMonsters.Sort(LargeMonsterSorting.CompareByIdReversed);
@@ -150,7 +151,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		}
 		else
 		{
-			switch(customization.Sorting.Type)
+			switch(customization.Static.Sorting.Type)
 			{
 				case Sortings.Id:
 					newLargeMonsters.Sort(LargeMonsterSorting.CompareById);
@@ -179,9 +180,9 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 	private void DrawDynamicUi(ImDrawListPtr backgroundDrawList)
 	{
-		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI.Dynamic;
+		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
-		if(!customization.Enabled)
+		if(!customization.Enabled || !customization.Dynamic.Enabled)
 		{
 			return;
 		}
@@ -194,9 +195,9 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 	private void DrawStaticUi(ImDrawListPtr backgroundDrawList)
 	{
-		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI.Static;
+		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
-		if(!customization.Enabled)
+		if(!customization.Enabled || !customization.Static.Enabled)
 		{
 			return;
 		}

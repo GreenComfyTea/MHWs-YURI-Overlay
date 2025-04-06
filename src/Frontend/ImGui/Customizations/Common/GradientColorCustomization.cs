@@ -9,11 +9,8 @@ internal sealed class GradientColorCustomization : Customization
 
 	public GradientColorCustomization() { }
 
-
-	public bool RenderImGui(string name = "",string parentName = "", GradientColorCustomization defaultCustomization = null)
+	public bool RenderImGui(string name = "", string parentName = "", GradientColorCustomization defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
-
 		var isChanged = false;
 		var customizationName = $"{parentName}-gradient-color";
 

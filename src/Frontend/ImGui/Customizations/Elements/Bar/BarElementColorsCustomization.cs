@@ -18,8 +18,8 @@ internal class BarElementColorsCustomization : Customization
 
 		if(ImGui.TreeNode($"{localization.Colors}##{customizationName}"))
 		{
-			isChanged |= Foreground.RenderImGui(customizationName, localization.Foreground, defaultCustomization?.Foreground);
-			isChanged |= Background.RenderImGui(customizationName, localization.Background, defaultCustomization?.Background);
+			isChanged |= Foreground.RenderImGui(localization.Foreground, customizationName, defaultCustomization?.Foreground);
+			isChanged |= Background.RenderImGui(localization.Background, customizationName, defaultCustomization?.Background);
 
 			ImGui.TreePop();
 		}

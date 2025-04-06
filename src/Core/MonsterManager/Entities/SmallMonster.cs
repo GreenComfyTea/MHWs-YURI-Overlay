@@ -1,6 +1,5 @@
-﻿using System.Numerics;
-
-using REFrameworkNET;
+﻿using REFrameworkNET;
+using System.Numerics;
 
 namespace YURI_Overlay;
 
@@ -310,7 +309,7 @@ internal sealed class SmallMonster : IDisposable
 
 			Health = healthManager.Health;
 			MaxHealth = healthManager.MaxHealth;
-			HealthPercentage = healthManager.HealthNormalized;
+			if(!Utils.IsApproximatelyEqual(MaxHealth, 0f)) HealthPercentage = Health / MaxHealth;
 
 			IsAlive = !Utils.IsApproximatelyEqual(Health, 0f);
 		}

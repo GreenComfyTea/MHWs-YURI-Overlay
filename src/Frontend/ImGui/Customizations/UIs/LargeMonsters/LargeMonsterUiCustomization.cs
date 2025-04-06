@@ -5,6 +5,8 @@ namespace YURI_Overlay;
 
 internal class LargeMonsterUiCustomization : Customization
 {
+	public bool Enabled = true;
+
 	public LargeMonsterDynamicUiCustomization Dynamic = new();
 	public LargeMonsterStaticUiCustomization Static = new();
 
@@ -21,6 +23,8 @@ internal class LargeMonsterUiCustomization : Customization
 
 		if(ImGui.TreeNode($"{localization.LargeMonstersUI}##{customizationName}"))
 		{
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
+
 			isChanged |= Dynamic.RenderImGui(customizationName, defaultCustomization?.Dynamic);
 			isChanged |= Static.RenderImGui(customizationName, defaultCustomization?.Static);
 
@@ -35,6 +39,7 @@ internal class LargeMonsterUiCustomization : Customization
 	{
 		if(defaultCustomization is null) return;
 
+		Enabled = defaultCustomization.Enabled;
 		Dynamic.Reset(defaultCustomization.Dynamic);
 		Static.Reset(defaultCustomization.Static);
 	}

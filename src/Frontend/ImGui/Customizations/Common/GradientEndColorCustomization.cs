@@ -1,6 +1,5 @@
-﻿using System.Text.Json.Serialization;
-
-using ImGuiNET;
+﻿using ImGuiNET;
+using System.Text.Json.Serialization;
 
 namespace YURI_Overlay;
 
@@ -30,7 +29,7 @@ internal sealed class GradientEndColorCustomization : Customization
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
-		var customizationName = $"{parentName}-start";
+		var customizationName = $"{parentName}-end";
 
 		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
 
