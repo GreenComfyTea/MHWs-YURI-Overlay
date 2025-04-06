@@ -19,7 +19,7 @@ internal class LargeMonsterUiCustomization : Customization
 
 		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
 
-		if(ImGui.TreeNode($"{localization.LargeMonstersUi}##{customizationName}"))
+		if(ImGui.TreeNode($"{localization.LargeMonstersUI}##{customizationName}"))
 		{
 			isChanged |= Dynamic.RenderImGui(customizationName, defaultCustomization?.Dynamic);
 			isChanged |= Static.RenderImGui(customizationName, defaultCustomization?.Static);

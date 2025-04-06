@@ -96,7 +96,7 @@ internal class ImGuiLocalization
 	public string PercentageLabel = "Percentage Label";
 
 	// Large Monsters
-	public string LargeMonstersUi = "Large Monsters UI";
+	public string LargeMonstersUI = "Large Monsters UI";
 	public string Static = "Static";
 	public string Dynamic = "Dynamic";
 	public string Highlighted = "Highlighted";
@@ -183,6 +183,8 @@ internal class ImGuiLocalization
 
 	public string ResetIcon = "\uF0E2";
 	public string ResetToDefault = "Reset to Default";
+
+	public string SmallMonsterUI = "Small Monster UI";
 }
 
 internal class Localization

@@ -8,6 +8,7 @@ internal sealed class UpdateDelaysCustomization : Customization
 	public ScreenManagerUpdateDelaysCustomization ScreenManager = new();
 	public PlayerManagerUpdateDelaysCustomization PlayerManager = new();
 	public LargeMonstersUpdateDelaysCustomization LargeMonsters = new();
+	public SmallMonstersUpdateDelaysCustomization SmallMonsters = new();
 
 	public UpdateDelaysCustomization() { }
 
@@ -25,6 +26,7 @@ internal sealed class UpdateDelaysCustomization : Customization
 			isChanged |= ScreenManager.RenderImGui(customizationName, defaultCustomization?.ScreenManager);
 			isChanged |= PlayerManager.RenderImGui(customizationName, defaultCustomization?.PlayerManager);
 			isChanged |= LargeMonsters.RenderImGui(customizationName, defaultCustomization?.LargeMonsters);
+			isChanged |= SmallMonsters.RenderImGui(customizationName, defaultCustomization?.SmallMonsters);
 
 			ImGui.TreePop();
 		}
@@ -39,5 +41,6 @@ internal sealed class UpdateDelaysCustomization : Customization
 		ScreenManager.Reset(defaultCustomization.ScreenManager);
 		PlayerManager.Reset(defaultCustomization.PlayerManager);
 		LargeMonsters.Reset(defaultCustomization.LargeMonsters);
+		SmallMonsters.Reset(defaultCustomization.SmallMonsters);
 	}
 }

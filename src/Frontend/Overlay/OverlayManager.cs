@@ -9,13 +9,14 @@ internal sealed class OverlayManager
 	public static OverlayManager Instance => Lazy.Value;
 
 	private LargeMonsterUiManager _largeMonsterUiManager;
-
+	private SmallMonsterUiManager _smallMonsterUiManager;
 
 	private OverlayManager() { }
 
 	public void Initialize()
 	{
 		_largeMonsterUiManager = new LargeMonsterUiManager();
+		_smallMonsterUiManager = new SmallMonsterUiManager();
 	}
 
 	public void Draw()
@@ -35,6 +36,7 @@ internal sealed class OverlayManager
 			var backgroundDrawList = ImGui.GetBackgroundDrawList();
 
 			_largeMonsterUiManager.Draw(backgroundDrawList);
+			_smallMonsterUiManager.Draw(backgroundDrawList);
 
 			ImGui.End();
 		}
