@@ -2,9 +2,9 @@ using REFrameworkNET;
 using REFrameworkNET.Attributes;
 using System.Diagnostics.CodeAnalysis;
 
-
 namespace YURI_Overlay;
 
+// Cool plugin, very wow
 [SuppressMessage("Roslynator", "RCS1102:Make class Static", Justification = "<Pending>")]
 public class Plugin
 {
