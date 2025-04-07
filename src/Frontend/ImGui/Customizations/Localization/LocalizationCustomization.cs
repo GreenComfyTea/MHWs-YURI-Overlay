@@ -1,4 +1,8 @@
-﻿namespace YURI_Overlay;
+﻿using ImGuiNET;
+using System.Numerics;
+using System.Text.Json.Serialization;
+
+namespace YURI_Overlay;
 
 internal sealed class LocalizationCustomization : Customization
 {
@@ -6,6 +10,9 @@ internal sealed class LocalizationCustomization : Customization
 
 	private string[] _localizationNames = [];
 	private string[] _localizationIsoCodes = [];
+
+	[JsonIgnore]
+	private Vector4 TranslatorColor { get; set; } = Constants.ModAuthorColor;
 
 	public LocalizationCustomization()
 	{
@@ -15,6 +22,8 @@ internal sealed class LocalizationCustomization : Customization
 		_localizationIsoCodes = localizationManager.Localizations.Values.Select(localization => localization.Name).ToArray();
 
 		_activeLocalizationIndex = Array.IndexOf(_localizationIsoCodes, localizationManager.ActiveLocalization.Name);
+
+		UpdateTranslatorColor();
 
 		localizationManager.ActiveLocalizationChanged += OnActiveLocalizationChanged;
 		localizationManager.AnyLocalizationChanged += OnAnyLocalizationChanged;
@@ -27,17 +36,27 @@ internal sealed class LocalizationCustomization : Customization
 		var localization = localizationManager.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
+		var customizationName = $"{parentName}-language";
 
 		var englishLocalizationIndex = Array.IndexOf(_localizationIsoCodes, Constants.DefaultLocalization);
 
-		var isActiveConfigChanged = ImGuiHelper.ResettableCombo(localization.Language, ref _activeLocalizationIndex, _localizationNames, englishLocalizationIndex);
-		if(isActiveConfigChanged)
+		if(ImGui.TreeNode($"{localization.Language}##{customizationName}"))
 		{
-			isChanged |= isActiveConfigChanged;
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Language}##{customizationName}", ref _activeLocalizationIndex, _localizationNames, englishLocalizationIndex);
+			if(isChanged)
+			{
+				configManager.ActiveConfig.Data.GlobalSettings.Localization = _localizationIsoCodes[_activeLocalizationIndex];
+				localizationManager.ActivateLocalization(_localizationIsoCodes[_activeLocalizationIndex]);
+			}
 
-			configManager.ActiveConfig.Data.GlobalSettings.Localization = _localizationIsoCodes[_activeLocalizationIndex];
-			localizationManager.ActivateLocalization(_localizationIsoCodes[_activeLocalizationIndex]);
+			ImGui.Text($"{LocalizationManager.Instance.ActiveLocalization.Data.ImGui.Translators}:");
+			ImGui.SameLine();
+			ImGui.TextColored(TranslatorColor, localizationManager.ActiveLocalization.Data.LocalizationInfo.Translators);
+
+			ImGui.TreePop();
 		}
+
+
 
 		return isChanged;
 	}
@@ -47,6 +66,14 @@ internal sealed class LocalizationCustomization : Customization
 		if(defaultLocalizationIndex == -1) return;
 
 		_activeLocalizationIndex = defaultLocalizationIndex;
+	}
+
+	private void UpdateTranslatorColor()
+	{
+		TranslatorColor =
+			LocalizationManager.Instance.ActiveLocalization.Data.LocalizationInfo.Translators.Equals(Constants.ModAuthor)
+				? Constants.ModAuthorColor
+				: Constants.ImGuiUserNameColor;
 	}
 
 	private void OnAnyLocalizationChanged(object sender, EventArgs eventArgs)
@@ -62,5 +89,6 @@ internal sealed class LocalizationCustomization : Customization
 		var localizationManager = LocalizationManager.Instance;
 
 		_activeLocalizationIndex = Array.IndexOf(_localizationIsoCodes, localizationManager.ActiveLocalization.Name);
+		UpdateTranslatorColor();
 	}
 }

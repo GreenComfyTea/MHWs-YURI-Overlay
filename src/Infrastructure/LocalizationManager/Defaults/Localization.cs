@@ -185,6 +185,8 @@ internal class ImGuiLocalization
 	public string ResetToDefault = "Reset to Default";
 
 	public string SmallMonsterUI = "Small Monster UI";
+
+	public string Translators = "Translators";
 }
 
 internal class Localization
