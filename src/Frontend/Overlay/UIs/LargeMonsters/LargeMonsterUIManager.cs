@@ -98,9 +98,9 @@ internal sealed class LargeMonsterUiManager : IDisposable
 	private void UpdateStatic()
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
-		var renderDeadMonsters = customization.Dynamic.Settings.RenderDeadMonsters;
+		var renderDeadMonsters = customization.Static.Settings.RenderDeadMonsters;
 
-		if(!customization.Enabled || !customization.Dynamic.Enabled)
+		if(!customization.Enabled || !customization.Static.Enabled)
 		{
 			_staticLargeMonsters = [];
 			return;
