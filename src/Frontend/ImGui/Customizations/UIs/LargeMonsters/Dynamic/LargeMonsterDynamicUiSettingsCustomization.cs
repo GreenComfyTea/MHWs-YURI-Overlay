@@ -48,7 +48,7 @@ internal class LargeMonsterDynamicUiSettingsCustomization : Customization
 		RenderNonHighlightedMonsters = defaultCustomization.RenderNonHighlightedMonsters;
 
 		AddMissionBeaconOffsetToWorldOffset = defaultCustomization.AddMissionBeaconOffsetToWorldOffset;
-		AddMissionBeaconOffsetToWorldOffset = defaultCustomization.AddModelRadiusToWorldOffsetY;
+		AddModelRadiusToWorldOffsetY = defaultCustomization.AddModelRadiusToWorldOffsetY;
 
 		OpacityFalloff = defaultCustomization.OpacityFalloff;
 		MaxDistance = defaultCustomization.MaxDistance;
