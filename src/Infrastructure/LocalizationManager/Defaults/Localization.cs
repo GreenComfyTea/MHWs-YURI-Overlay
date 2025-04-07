@@ -187,6 +187,7 @@ internal class ImGuiLocalization
 	public string SmallMonsterUI = "Small Monster UI";
 
 	public string Translators = "Translators";
+	public string SmallMonsters = "Small Monsters";
 }
 
 internal class Localization

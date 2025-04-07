@@ -19,7 +19,7 @@ internal sealed class SmallMonstersUpdateDelaysCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-large-monsters";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.LargeMonsters, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.SmallMonsters, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Name}##{customizationName}", ref Name, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Name);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MissionBeaconOffset}##{customizationName}", ref MissionBeaconOffset, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.MissionBeaconOffset);
