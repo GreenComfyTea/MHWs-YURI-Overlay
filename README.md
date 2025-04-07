@@ -168,6 +168,13 @@ The mod has support for localizations. If you wish to translate the mod, follow 
 > [!IMPORTANT]
 > **Font hot-reloading is not supported. So adding/changing a font will require game restart.**
 
+# Development
+1. Install .NET SDK 8.0.x if it's not already installed;
+2. Clone the repo to your machine;
+3. Unzip `*repo*\REFramework\plugins\managed\generated\REFramework.NET.application.zip`. It is zipped to bypass 100MB max file size limit on github (I don't want to pay for git lfs);
+4. Open the project in Visual Studio;
+5. ???
+6. ~~PROFIT~~ Build.
 
 ## Credits
 **[GreenComfyTea](https://github.com/GreenComfyTea)** - creator of the mod and it's main contributor.  
