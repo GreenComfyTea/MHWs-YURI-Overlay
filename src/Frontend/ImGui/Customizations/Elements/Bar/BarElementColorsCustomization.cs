@@ -14,9 +14,7 @@ internal class BarElementColorsCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-colors";
 
-		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
-
-		if(ImGui.TreeNode($"{localization.Colors}##{customizationName}"))
+		if(ImGuiHelper.ResettableTreeNode(localization.Colors, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= Foreground.RenderImGui(localization.Foreground, customizationName, defaultCustomization?.Foreground);
 			isChanged |= Background.RenderImGui(localization.Background, customizationName, defaultCustomization?.Background);

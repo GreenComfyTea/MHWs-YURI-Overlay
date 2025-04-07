@@ -17,9 +17,7 @@ internal sealed class WorldOffsetCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-world-offset";
 
-		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
-
-		if(ImGui.TreeNode($"{localization.WorldOffset}##${customizationName}"))
+		if(ImGuiHelper.ResettableTreeNode(localization.WorldOffset, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.X}##${customizationName}", ref X, 0.001f, -4096f, 4096f, "%.3f", defaultCustomization?.X);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Y}##${customizationName}", ref Y, 0.001f, -4096f, 4096f, "%.3f", defaultCustomization?.Y);

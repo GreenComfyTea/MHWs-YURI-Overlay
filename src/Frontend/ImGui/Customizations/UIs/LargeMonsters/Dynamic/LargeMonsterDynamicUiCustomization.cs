@@ -23,9 +23,7 @@ internal class LargeMonsterDynamicUiCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-dynamic";
 
-		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
-
-		if(ImGui.TreeNode($"{localization.Dynamic}##{customizationName}"))
+		if(ImGuiHelper.ResettableTreeNode(localization.Dynamic, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
 

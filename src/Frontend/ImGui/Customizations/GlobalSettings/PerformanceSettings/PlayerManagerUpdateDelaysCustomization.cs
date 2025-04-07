@@ -15,9 +15,7 @@ internal sealed class PlayerManagerUpdateDelaysCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-player-manager";
 
-		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
-
-		if(ImGui.TreeNode($"{localization.PlayerManager}##${customizationName}"))
+		if(ImGuiHelper.ResettableTreeNode(localization.PlayerManager, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Update}##{customizationName}", ref Update, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Update);
 

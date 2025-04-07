@@ -15,9 +15,7 @@ internal sealed class ScreenManagerUpdateDelaysCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-screen-manager";
 
-		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
-
-		if(ImGui.TreeNode($"{localization.ScreenManager}##${customizationName}"))
+		if(ImGuiHelper.ResettableTreeNode(localization.ScreenManager, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Update}##{customizationName}", ref Update, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Update);
 

@@ -19,9 +19,7 @@ internal class SmallMonsterHealthComponentCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-health";
 
-		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
-
-		if(ImGui.TreeNode($"{localization.Health}##{customizationName}"))
+		if(ImGuiHelper.ResettableTreeNode(localization.Health, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
 			isChanged |= Offset.RenderImGui(customizationName, defaultCustomization?.Offset);

@@ -40,7 +40,7 @@ internal sealed class LocalizationCustomization : Customization
 
 		var englishLocalizationIndex = Array.IndexOf(_localizationIsoCodes, Constants.DefaultLocalization);
 
-		if(ImGui.TreeNode($"{localization.Language}##{customizationName}"))
+		if(ImGuiHelper.ResettableTreeNode(localization.Language, customizationName, ref isChanged, englishLocalizationIndex, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Language}##{customizationName}", ref _activeLocalizationIndex, _localizationNames, englishLocalizationIndex);
 			if(isChanged)

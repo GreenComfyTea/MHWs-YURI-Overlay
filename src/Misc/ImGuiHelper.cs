@@ -167,4 +167,11 @@ internal static class ImGuiHelper
 			ImGui.EndTooltip();
 		}
 	}
+
+	public static bool ResettableTreeNode<T>(string label, string customizationName, ref bool isChanged, T defaultCustomization, Action<T> resetMethod)
+	{
+		isChanged |= ResetButton(customizationName, defaultCustomization, resetMethod);
+
+		return ImGui.TreeNode($"{label}##${customizationName}");
+	}
 }

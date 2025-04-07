@@ -31,9 +31,7 @@ internal sealed class GradientStartColorCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-start";
 
-		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
-
-		if(ImGui.TreeNode($"{localization.Start}##${customizationName}"))
+		if(ImGuiHelper.ResettableTreeNode(localization.Start, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox(localization.SplitIntoTwoColors, ref SplitIntoTwoColors, defaultCustomization?.SplitIntoTwoColors);
 

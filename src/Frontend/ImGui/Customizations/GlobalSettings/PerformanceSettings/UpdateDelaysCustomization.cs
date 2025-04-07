@@ -18,9 +18,7 @@ internal sealed class UpdateDelaysCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-update-delays";
 
-		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
-
-		if(ImGui.TreeNode($"{localization.UpdateDelaysSeconds}##${customizationName}"))
+		if(ImGuiHelper.ResettableTreeNode(localization.UpdateDelaysSeconds, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ScreenManager.RenderImGui(customizationName, defaultCustomization?.ScreenManager);
 			isChanged |= PlayerManager.RenderImGui(customizationName, defaultCustomization?.PlayerManager);

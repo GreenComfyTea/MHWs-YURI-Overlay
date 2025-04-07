@@ -24,9 +24,7 @@ internal class LargeMonsterStaticUiCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-static";
 
-		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
-
-		if(ImGui.TreeNode($"{localization.Static}##{customizationName}"))
+		if(ImGuiHelper.ResettableTreeNode(localization.Static, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
 

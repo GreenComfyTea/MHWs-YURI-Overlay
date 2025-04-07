@@ -15,9 +15,7 @@ internal class LabelElementShadowCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-shadow";
 
-		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
-
-		if(ImGui.TreeNode($"{localization.Shadow}##{parentName}"))
+		if(ImGuiHelper.ResettableTreeNode(localization.Shadow, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{parentName}", ref Visible, defaultCustomization?.Visible);
 

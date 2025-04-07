@@ -19,8 +19,7 @@ internal sealed class GlobalSettingsCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-global-settings";
 
-		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
-		if(ImGui.TreeNode($"{localization.GlobalSettings}##${customizationName}"))
+		if(ImGuiHelper.ResettableTreeNode(localization.GlobalSettings, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= LocalizationManager.Instance.Customization.RenderImGui(customizationName);
 			//isChanged |= GlobalFonts.RenderImGui(customizationName);

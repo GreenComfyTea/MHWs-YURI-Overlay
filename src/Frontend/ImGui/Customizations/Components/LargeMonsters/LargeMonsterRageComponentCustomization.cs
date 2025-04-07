@@ -21,9 +21,7 @@ internal class LargeMonsterRageComponentCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-rage";
 
-		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
-
-		if(ImGui.TreeNode($"{localization.Rage}##{customizationName}"))
+		if(ImGuiHelper.ResettableTreeNode(localization.Rage, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
 			isChanged |= Offset.RenderImGui(customizationName, defaultCustomization?.Offset);

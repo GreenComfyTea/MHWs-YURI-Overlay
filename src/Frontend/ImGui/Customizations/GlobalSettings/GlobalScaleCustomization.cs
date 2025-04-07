@@ -16,9 +16,7 @@ internal sealed class GlobalScaleCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-global-settings";
 
-		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
-
-		if(ImGui.TreeNode($"{localization.GlobalScale}##${customizationName}"))
+		if(ImGuiHelper.ResettableTreeNode(localization.GlobalScale, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.PositionScaleModifier}##{customizationName}", ref PositionScaleModifier, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.PositionScaleModifier);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.SizeScaleModifier}##{customizationName}", ref SizeScaleModifier, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.SizeScaleModifier);

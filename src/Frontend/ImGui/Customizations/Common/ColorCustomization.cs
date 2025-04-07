@@ -22,9 +22,7 @@ internal sealed class ColorCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-color";
 
-		isChanged |= ImGuiHelper.ResetButton(customizationName, defaultCustomization, Reset);
-
-		if(ImGui.TreeNode($"{localization.Color}##${customizationName}"))
+		if(ImGuiHelper.ResettableTreeNode(localization.Color, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			var isColorChanged = ImGuiHelper.ResettableColorPicker4($"##${customizationName}", ref ColorInfo.vector, defaultCustomization?.ColorInfo.vector);
 			isChanged |= isColorChanged;
