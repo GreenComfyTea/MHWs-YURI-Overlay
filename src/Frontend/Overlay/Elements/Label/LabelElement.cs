@@ -33,13 +33,6 @@ internal sealed class LabelElement
 			return;
 		}
 
-		var rightAlignmentShift = customization.Settings.RightAlignmentShift;
-
-		if(rightAlignmentShift != 0)
-		{
-			text = text.PadLeft(rightAlignmentShift);
-		}
-
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier;
 
 		var offset = customization.Offset;
@@ -57,8 +50,10 @@ internal sealed class LabelElement
 		var shadowPositionX = textPositionX + shadowOffsetX;
 		var shadowPositionY = textPositionY + shadowOffsetY;
 
-		Vector2 textPosition = new(textPositionX, textPositionY);
-		Vector2 shadowPosition = new(shadowPositionX, shadowPositionY);
+		var (alignmentX, alignmentY) = GetAlignmentShifts(text, customization.Settings.Alignment);
+
+		Vector2 textPosition = new(textPositionX + alignmentX, textPositionY + alignmentY);
+		Vector2 shadowPosition = new(shadowPositionX + alignmentX, shadowPositionY + alignmentY);
 
 		if(customization.Shadow.Visible)
 		{
@@ -78,5 +73,40 @@ internal sealed class LabelElement
 		}
 
 		backgroundDrawList.AddText(textPosition, color, text);
+	}
+
+	private static (float, float) GetAlignmentShifts(string text, Anchors alignment)
+	{
+		Vector2 textSize;
+		switch(alignment)
+		{
+			case Anchors.TopCenter:
+				textSize = ImGui.CalcTextSize(text);
+				return (-textSize.X / 2, 0);
+			case Anchors.TopRight:
+				textSize = ImGui.CalcTextSize(text);
+				return (-textSize.X, 0);
+			case Anchors.CenterLeft:
+				textSize = ImGui.CalcTextSize(text);
+				return (0, -textSize.Y / 2);
+			case Anchors.Center:
+				textSize = ImGui.CalcTextSize(text);
+				return (-textSize.X / 2, -textSize.Y / 2);
+			case Anchors.CenterRight:
+				textSize = ImGui.CalcTextSize(text);
+				return (-textSize.X, -textSize.Y / 2);
+			case Anchors.BottomLeft:
+				textSize = ImGui.CalcTextSize(text);
+				return (0, -textSize.Y);
+			case Anchors.BottomCenter:
+				textSize = ImGui.CalcTextSize(text);
+				return (-textSize.X / 2, -textSize.Y);
+			case Anchors.BottomRight:
+				textSize = ImGui.CalcTextSize(text);
+				return (-textSize.X, -textSize.Y);
+			case Anchors.TopLeft:
+			default:
+				return (0, 0);
+		}
 	}
 }

@@ -41,7 +41,9 @@ internal sealed class LabelElementCustomization : Customization
 
 		Visible = defaultCustomization.Visible;
 		Format = defaultCustomization.Format;
+
 		Offset.Reset(defaultCustomization.Offset);
+		Settings.Reset(defaultCustomization.Settings);
 		Color.Reset(defaultCustomization.Color);
 		Shadow.Reset(defaultCustomization.Shadow);
 	}

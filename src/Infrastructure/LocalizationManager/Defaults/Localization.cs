@@ -90,7 +90,6 @@ internal class ImGuiLocalization
 
 	public string Label = "Label";
 	public string Format = "Format";
-	public string RightAlignmentShift = "Right Alignment Shift";
 	public string Shadow = "Shadow";
 	public string ValueLabel = "Value Label";
 	public string PercentageLabel = "Percentage Label";
@@ -190,6 +189,7 @@ internal class ImGuiLocalization
 	public string SmallMonsters = "Small Monsters";
 
 	public string EndemicLifeUI = "Endemic Life UI";
+	public string Alignment = "Alignment";
 }
 
 internal class Localization

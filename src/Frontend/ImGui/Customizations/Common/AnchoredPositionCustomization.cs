@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 
 namespace YURI_Overlay;
+
 internal sealed class AnchoredPositionCustomization : Customization
 {
 	public float X = 0f;

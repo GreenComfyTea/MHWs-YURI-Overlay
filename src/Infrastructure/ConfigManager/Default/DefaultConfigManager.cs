@@ -46,7 +46,6 @@ internal partial class ConfigManager
 		globalSettingsConfig.Performance.UpdateDelays.LargeMonsters.DynamicList = 0.2f;
 
 		globalSettingsConfig.Performance.UpdateDelays.EndemicLife.Name = 5f;
-		globalSettingsConfig.Performance.UpdateDelays.EndemicLife.MissionBeaconOffset = 5f;
 		globalSettingsConfig.Performance.UpdateDelays.EndemicLife.ModelRadius = 5f;
 		globalSettingsConfig.Performance.UpdateDelays.EndemicLife.DynamicList = 0.2f;
 	}
@@ -80,9 +79,9 @@ internal partial class ConfigManager
 
 		largeMonsterDynamicUiConfig.NameLabel.Visible = true;
 		largeMonsterDynamicUiConfig.NameLabel.Format = "{0}";
-		largeMonsterDynamicUiConfig.NameLabel.Settings.RightAlignmentShift = 0;
+		largeMonsterDynamicUiConfig.NameLabel.Settings.Alignment = Anchors.BottomLeft;
 		largeMonsterDynamicUiConfig.NameLabel.Offset.X = 7f;
-		largeMonsterDynamicUiConfig.NameLabel.Offset.Y = 0f;
+		largeMonsterDynamicUiConfig.NameLabel.Offset.Y = 2f;
 		largeMonsterDynamicUiConfig.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
 		largeMonsterDynamicUiConfig.NameLabel.Shadow.Visible = true;
@@ -93,13 +92,14 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Health.Visible = true;
 
 		largeMonsterDynamicUiConfig.Health.Offset.X = 0f;
-		largeMonsterDynamicUiConfig.Health.Offset.Y = 15f;
+		largeMonsterDynamicUiConfig.Health.Offset.Y = 0f;
 
 		largeMonsterDynamicUiConfig.Health.ValueLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Health.ValueLabel.Format = "{0:F1}/{1:F0}";
-		largeMonsterDynamicUiConfig.Health.ValueLabel.Settings.RightAlignmentShift = 0;
+		largeMonsterDynamicUiConfig.Health.ValueLabel.Settings.Alignment = Anchors.TopLeft;
 		largeMonsterDynamicUiConfig.Health.ValueLabel.Offset.X = 7f;
 		largeMonsterDynamicUiConfig.Health.ValueLabel.Offset.Y = 9f;
+
 		largeMonsterDynamicUiConfig.Health.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
 		largeMonsterDynamicUiConfig.Health.ValueLabel.Shadow.Visible = true;
@@ -109,8 +109,8 @@ internal partial class ConfigManager
 
 		largeMonsterDynamicUiConfig.Health.PercentageLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Health.PercentageLabel.Format = "{0:P1}";
-		largeMonsterDynamicUiConfig.Health.PercentageLabel.Settings.RightAlignmentShift = 6;
-		largeMonsterDynamicUiConfig.Health.PercentageLabel.Offset.X = 245f;
+		largeMonsterDynamicUiConfig.Health.PercentageLabel.Settings.Alignment = Anchors.TopRight;
+		largeMonsterDynamicUiConfig.Health.PercentageLabel.Offset.X = 290f;
 		largeMonsterDynamicUiConfig.Health.PercentageLabel.Offset.Y = 9f;
 		largeMonsterDynamicUiConfig.Health.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
@@ -151,11 +151,11 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Stamina.Visible = true;
 
 		largeMonsterDynamicUiConfig.Stamina.Offset.X = 7;
-		largeMonsterDynamicUiConfig.Stamina.Offset.Y = 25f;
+		largeMonsterDynamicUiConfig.Stamina.Offset.Y = 10f;
 
 		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Format = "{0:F0}/{1:F0}";
-		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Settings.RightAlignmentShift = 0;
+		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Settings.Alignment = Anchors.TopLeft;
 		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Offset.X = 7f;
 		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Offset.Y = 5f;
 		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -167,8 +167,8 @@ internal partial class ConfigManager
 
 		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Format = "{0:P0}";
-		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Settings.RightAlignmentShift = 4;
-		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Offset.X = 87f;
+		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Settings.Alignment = Anchors.TopRight;
+		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Offset.X = 121f;
 		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Offset.Y = 5f;
 		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
@@ -207,8 +207,8 @@ internal partial class ConfigManager
 
 		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Format = "{0}";
-		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Settings.RightAlignmentShift = 4;
-		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Offset.X = 87f;
+		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Settings.Alignment = Anchors.TopRight;
+		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Offset.X = 121f;
 		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Offset.Y = 5f;
 		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
@@ -248,11 +248,11 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Rage.Visible = true;
 
 		largeMonsterDynamicUiConfig.Rage.Offset.X = 137f;
-		largeMonsterDynamicUiConfig.Rage.Offset.Y = 25f;
+		largeMonsterDynamicUiConfig.Rage.Offset.Y = 10f;
 
 		largeMonsterDynamicUiConfig.Rage.ValueLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Rage.ValueLabel.Format = "{0:F0}/{1:F0}";
-		largeMonsterDynamicUiConfig.Rage.ValueLabel.Settings.RightAlignmentShift = 0;
+		largeMonsterDynamicUiConfig.Rage.ValueLabel.Settings.Alignment = Anchors.TopLeft;
 		largeMonsterDynamicUiConfig.Rage.ValueLabel.Offset.X = 7f;
 		largeMonsterDynamicUiConfig.Rage.ValueLabel.Offset.Y = 5f;
 		largeMonsterDynamicUiConfig.Rage.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -264,7 +264,7 @@ internal partial class ConfigManager
 
 		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Format = "{0:P1}";
-		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Settings.RightAlignmentShift = 4;
+		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Settings.Alignment = Anchors.TopRight;
 		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Offset.X = 87f;
 		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Offset.Y = 5f;
 		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -304,7 +304,7 @@ internal partial class ConfigManager
 
 		largeMonsterDynamicUiConfig.Rage.TimerLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Rage.TimerLabel.Format = "{0}";
-		largeMonsterDynamicUiConfig.Rage.TimerLabel.Settings.RightAlignmentShift = 4;
+		largeMonsterDynamicUiConfig.Rage.TimerLabel.Settings.Alignment = Anchors.TopRight;
 		largeMonsterDynamicUiConfig.Rage.TimerLabel.Offset.X = 87f;
 		largeMonsterDynamicUiConfig.Rage.TimerLabel.Offset.Y = 5f;
 		largeMonsterDynamicUiConfig.Rage.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -354,7 +354,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Settings.RenderNonHighlightedMonsters = true;
 
 		largeMonsterStaticUiConfig.Position.X = 89f;
-		largeMonsterStaticUiConfig.Position.Y = -40f;
+		largeMonsterStaticUiConfig.Position.Y = -32f;
 		largeMonsterStaticUiConfig.Position.Anchor = Anchors.BottomLeft;
 
 		largeMonsterStaticUiConfig.Spacing.X = 320f;
@@ -365,9 +365,9 @@ internal partial class ConfigManager
 
 		largeMonsterStaticUiConfig.NameLabel.Visible = true;
 		largeMonsterStaticUiConfig.NameLabel.Format = "{0}";
-		largeMonsterStaticUiConfig.NameLabel.Settings.RightAlignmentShift = 0;
+		largeMonsterStaticUiConfig.NameLabel.Settings.Alignment = Anchors.BottomLeft;
 		largeMonsterStaticUiConfig.NameLabel.Offset.X = 7f;
-		largeMonsterStaticUiConfig.NameLabel.Offset.Y = 0f;
+		largeMonsterStaticUiConfig.NameLabel.Offset.Y = 2f;
 		largeMonsterStaticUiConfig.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
 		largeMonsterStaticUiConfig.NameLabel.Shadow.Visible = true;
@@ -378,11 +378,11 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Health.Visible = true;
 
 		largeMonsterStaticUiConfig.Health.Offset.X = 0f;
-		largeMonsterStaticUiConfig.Health.Offset.Y = 15f;
+		largeMonsterStaticUiConfig.Health.Offset.Y = 0f;
 
 		largeMonsterStaticUiConfig.Health.ValueLabel.Visible = true;
 		largeMonsterStaticUiConfig.Health.ValueLabel.Format = "{0:F1}/{1:F0}";
-		largeMonsterStaticUiConfig.Health.ValueLabel.Settings.RightAlignmentShift = 0;
+		largeMonsterStaticUiConfig.Health.ValueLabel.Settings.Alignment = Anchors.TopLeft;
 		largeMonsterStaticUiConfig.Health.ValueLabel.Offset.X = 7f;
 		largeMonsterStaticUiConfig.Health.ValueLabel.Offset.Y = 9f;
 		largeMonsterStaticUiConfig.Health.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -394,8 +394,8 @@ internal partial class ConfigManager
 
 		largeMonsterStaticUiConfig.Health.PercentageLabel.Visible = true;
 		largeMonsterStaticUiConfig.Health.PercentageLabel.Format = "{0:P1}";
-		largeMonsterStaticUiConfig.Health.PercentageLabel.Settings.RightAlignmentShift = 6;
-		largeMonsterStaticUiConfig.Health.PercentageLabel.Offset.X = 245f;
+		largeMonsterStaticUiConfig.Health.PercentageLabel.Settings.Alignment = Anchors.TopRight;
+		largeMonsterStaticUiConfig.Health.PercentageLabel.Offset.X = 290f;
 		largeMonsterStaticUiConfig.Health.PercentageLabel.Offset.Y = 9f;
 		largeMonsterStaticUiConfig.Health.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
@@ -435,11 +435,11 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Stamina.Visible = true;
 
 		largeMonsterStaticUiConfig.Stamina.Offset.X = 140f;
-		largeMonsterStaticUiConfig.Stamina.Offset.Y = 25f;
+		largeMonsterStaticUiConfig.Stamina.Offset.Y = 10f;
 
 		largeMonsterStaticUiConfig.Stamina.ValueLabel.Visible = false;
 		largeMonsterStaticUiConfig.Stamina.ValueLabel.Format = "{0:F1}/{1:F0}";
-		largeMonsterStaticUiConfig.Stamina.ValueLabel.Settings.RightAlignmentShift = 0;
+		largeMonsterStaticUiConfig.Stamina.ValueLabel.Settings.Alignment = Anchors.TopLeft;
 		largeMonsterStaticUiConfig.Stamina.ValueLabel.Offset.X = 7f;
 		largeMonsterStaticUiConfig.Stamina.ValueLabel.Offset.Y = 5f;
 		largeMonsterStaticUiConfig.Stamina.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -451,8 +451,8 @@ internal partial class ConfigManager
 
 		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Visible = false;
 		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Format = "{0:P1}";
-		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Settings.RightAlignmentShift = 4;
-		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Offset.X = 54f;
+		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Settings.Alignment = Anchors.TopRight;
+		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Offset.X = 87f;
 		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Offset.Y = 5f;
 		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
@@ -491,8 +491,8 @@ internal partial class ConfigManager
 
 		largeMonsterStaticUiConfig.Stamina.TimerLabel.Visible = false;
 		largeMonsterStaticUiConfig.Stamina.TimerLabel.Format = "{0}";
-		largeMonsterStaticUiConfig.Stamina.TimerLabel.Settings.RightAlignmentShift = 4;
-		largeMonsterStaticUiConfig.Stamina.TimerLabel.Offset.X = 54f;
+		largeMonsterStaticUiConfig.Stamina.TimerLabel.Settings.Alignment = Anchors.TopRight;
+		largeMonsterStaticUiConfig.Stamina.TimerLabel.Offset.X = 87f;
 		largeMonsterStaticUiConfig.Stamina.TimerLabel.Offset.Y = 5f;
 		largeMonsterStaticUiConfig.Stamina.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
@@ -532,11 +532,11 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Rage.Visible = true;
 
 		largeMonsterStaticUiConfig.Rage.Offset.X = 152f;
-		largeMonsterStaticUiConfig.Rage.Offset.Y = 31f;
+		largeMonsterStaticUiConfig.Rage.Offset.Y = 16f;
 
 		largeMonsterStaticUiConfig.Rage.ValueLabel.Visible = false;
 		largeMonsterStaticUiConfig.Rage.ValueLabel.Format = "{0:F1}/{1:F0}";
-		largeMonsterStaticUiConfig.Rage.ValueLabel.Settings.RightAlignmentShift = 0;
+		largeMonsterStaticUiConfig.Rage.ValueLabel.Settings.Alignment = Anchors.TopLeft;
 		largeMonsterStaticUiConfig.Rage.ValueLabel.Offset.X = 7f;
 		largeMonsterStaticUiConfig.Rage.ValueLabel.Offset.Y = 5f;
 		largeMonsterStaticUiConfig.Rage.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -548,8 +548,8 @@ internal partial class ConfigManager
 
 		largeMonsterStaticUiConfig.Rage.PercentageLabel.Visible = false;
 		largeMonsterStaticUiConfig.Rage.PercentageLabel.Format = "{0:P1}";
-		largeMonsterStaticUiConfig.Rage.PercentageLabel.Settings.RightAlignmentShift = 4;
-		largeMonsterStaticUiConfig.Rage.PercentageLabel.Offset.X = 34f;
+		largeMonsterStaticUiConfig.Rage.PercentageLabel.Settings.Alignment = Anchors.TopRight;
+		largeMonsterStaticUiConfig.Rage.PercentageLabel.Offset.X = 67f;
 		largeMonsterStaticUiConfig.Rage.PercentageLabel.Offset.Y = 5f;
 		largeMonsterStaticUiConfig.Rage.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
@@ -588,8 +588,8 @@ internal partial class ConfigManager
 
 		largeMonsterStaticUiConfig.Rage.TimerLabel.Visible = false;
 		largeMonsterStaticUiConfig.Rage.TimerLabel.Format = "{0}";
-		largeMonsterStaticUiConfig.Rage.TimerLabel.Settings.RightAlignmentShift = 4;
-		largeMonsterStaticUiConfig.Rage.TimerLabel.Offset.X = 34f;
+		largeMonsterStaticUiConfig.Rage.TimerLabel.Settings.Alignment = Anchors.TopRight;
+		largeMonsterStaticUiConfig.Rage.TimerLabel.Offset.X = 67f;
 		largeMonsterStaticUiConfig.Rage.TimerLabel.Offset.Y = 5f;
 		largeMonsterStaticUiConfig.Rage.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
@@ -653,9 +653,9 @@ internal partial class ConfigManager
 
 		smallMonsterDynamicUiConfig.NameLabel.Visible = true;
 		smallMonsterDynamicUiConfig.NameLabel.Format = "{0}";
-		smallMonsterDynamicUiConfig.NameLabel.Settings.RightAlignmentShift = 0;
+		smallMonsterDynamicUiConfig.NameLabel.Settings.Alignment = Anchors.BottomLeft;
 		smallMonsterDynamicUiConfig.NameLabel.Offset.X = 7f;
-		smallMonsterDynamicUiConfig.NameLabel.Offset.Y = 0f;
+		smallMonsterDynamicUiConfig.NameLabel.Offset.Y = 2f;
 		smallMonsterDynamicUiConfig.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
 		smallMonsterDynamicUiConfig.NameLabel.Shadow.Visible = true;
@@ -666,11 +666,11 @@ internal partial class ConfigManager
 		smallMonsterDynamicUiConfig.Health.Visible = true;
 
 		smallMonsterDynamicUiConfig.Health.Offset.X = 0f;
-		smallMonsterDynamicUiConfig.Health.Offset.Y = 15f;
+		smallMonsterDynamicUiConfig.Health.Offset.Y = 0f;
 
 		smallMonsterDynamicUiConfig.Health.ValueLabel.Visible = false;
 		smallMonsterDynamicUiConfig.Health.ValueLabel.Format = "{0:F1}/{1:F0}";
-		smallMonsterDynamicUiConfig.Health.ValueLabel.Settings.RightAlignmentShift = 0;
+		smallMonsterDynamicUiConfig.Health.ValueLabel.Settings.Alignment = Anchors.TopLeft;
 		smallMonsterDynamicUiConfig.Health.ValueLabel.Offset.X = 7f;
 		smallMonsterDynamicUiConfig.Health.ValueLabel.Offset.Y = 9f;
 		smallMonsterDynamicUiConfig.Health.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -682,8 +682,8 @@ internal partial class ConfigManager
 
 		smallMonsterDynamicUiConfig.Health.PercentageLabel.Visible = false;
 		smallMonsterDynamicUiConfig.Health.PercentageLabel.Format = "{0:P1}";
-		smallMonsterDynamicUiConfig.Health.PercentageLabel.Settings.RightAlignmentShift = 6;
-		smallMonsterDynamicUiConfig.Health.PercentageLabel.Offset.X = 245f;
+		smallMonsterDynamicUiConfig.Health.PercentageLabel.Settings.Alignment = Anchors.TopRight;
+		smallMonsterDynamicUiConfig.Health.PercentageLabel.Offset.X = 155f;
 		smallMonsterDynamicUiConfig.Health.PercentageLabel.Offset.Y = 9f;
 		smallMonsterDynamicUiConfig.Health.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
@@ -732,7 +732,6 @@ internal partial class ConfigManager
 
 		endemicLifeDynamicUiConfig.Enabled = true;
 
-		endemicLifeDynamicUiConfig.Settings.AddMissionBeaconOffsetToWorldOffset = false;
 		endemicLifeDynamicUiConfig.Settings.AddModelRadiusToWorldOffsetY = true;
 		endemicLifeDynamicUiConfig.Settings.OpacityFalloff = true;
 		endemicLifeDynamicUiConfig.Settings.MaxDistance = 200f;
@@ -741,12 +740,12 @@ internal partial class ConfigManager
 		endemicLifeDynamicUiConfig.WorldOffset.Y = 0f;
 		endemicLifeDynamicUiConfig.WorldOffset.Z = 0f;
 
-		endemicLifeDynamicUiConfig.Offset.X = -81f;
+		endemicLifeDynamicUiConfig.Offset.X = 0f;
 		endemicLifeDynamicUiConfig.Offset.Y = 0f;
 
 		endemicLifeDynamicUiConfig.NameLabel.Visible = true;
 		endemicLifeDynamicUiConfig.NameLabel.Format = "{0}";
-		endemicLifeDynamicUiConfig.NameLabel.Settings.RightAlignmentShift = 0;
+		endemicLifeDynamicUiConfig.NameLabel.Settings.Alignment = Anchors.BottomCenter;
 		endemicLifeDynamicUiConfig.NameLabel.Offset.X = 7f;
 		endemicLifeDynamicUiConfig.NameLabel.Offset.Y = 0f;
 		endemicLifeDynamicUiConfig.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;

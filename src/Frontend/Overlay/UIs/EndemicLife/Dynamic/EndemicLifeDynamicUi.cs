@@ -32,11 +32,6 @@ internal sealed class EndemicLifeDynamicUi
 			entityPosition.Z + worldOffset.Z
 		);
 
-		if(settings.AddMissionBeaconOffsetToWorldOffset)
-		{
-			targetWorldPosition += _endemicLifeEntity.MissionBeaconOffset;
-		}
-
 		if(settings.AddModelRadiusToWorldOffsetY)
 		{
 			targetWorldPosition.Y += _endemicLifeEntity.ModelRadius;
