@@ -188,6 +188,8 @@ internal class ImGuiLocalization
 
 	public string Translators = "Translators";
 	public string SmallMonsters = "Small Monsters";
+
+	public string EndemicLifeUI = "Endemic Life UI";
 }
 
 internal class Localization

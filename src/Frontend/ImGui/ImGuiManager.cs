@@ -141,6 +141,7 @@ internal sealed class ImGuiManager
 			changed |= configManager.ActiveConfig.Data.GlobalSettings.RenderImGui("global-settings", defaultConfig.GlobalSettings);
 			changed |= configManager.ActiveConfig.Data.LargeMonsterUI.RenderImGui("large-monster-ui", defaultConfig.LargeMonsterUI);
 			changed |= configManager.ActiveConfig.Data.SmallMonsterUI.RenderImGui("small-monster-ui", defaultConfig.SmallMonsterUI);
+			changed |= configManager.ActiveConfig.Data.EndemicLifeUI.RenderImGui("endemic-life-ui", defaultConfig.EndemicLifeUI);
 
 			//ImGui.ShowDemoWindow();
 			//ImGui.ShowAboutWindow();

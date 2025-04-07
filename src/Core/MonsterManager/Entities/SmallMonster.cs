@@ -58,7 +58,7 @@ internal sealed class SmallMonster : IDisposable
 
 			ConfigManager.Instance.AnyConfigChanged += OnAnyConfigChanged;
 
-			LogManager.Info($"[SmallMonster] Initialized {Name}");
+			LogManager.Info($"[SmallMonster] Initialized {Name}!");
 		}
 		catch(Exception exception)
 		{

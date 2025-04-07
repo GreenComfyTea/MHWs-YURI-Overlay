@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace YURI_Overlay;
 
-internal sealed class EndemicLife : IDisposable
+internal sealed class EndemicLifeEntity : IDisposable
 {
 	public app.EnemyCharacter EnemyCharacter;
 	public app.cEnemyContext EnemyContext;
@@ -21,17 +21,10 @@ internal sealed class EndemicLife : IDisposable
 	public Vector3 Position = Vector3.Zero;
 	public float Distance = 0f;
 
-	public float Health = -1;
-	public float MaxHealth = -1;
-	public float HealthPercentage = -1;
-	public bool IsAlive = false;
-
-	//public AnimalDynamicUi DynamicUi;
+	public EndemicLifeDynamicUi DynamicUi;
 
 	private bool _isUpdateNamePending = true;
-	private bool _isUpdateMissionBeaconOffsetPending = true;
 	private bool _isUpdateModelRadiusPending = true;
-	private bool _isUpdateHealthPending = true;
 
 	private readonly List<System.Timers.Timer> _timers = [];
 
@@ -43,7 +36,7 @@ internal sealed class EndemicLife : IDisposable
 
 	private Method NameString_Method;
 
-	public EndemicLife(app.EnemyCharacter enemyCharacter, app.cEnemyContext enemyContext, ManagedObject enemyCharacterManagedObject)
+	public EndemicLifeEntity(app.EnemyCharacter enemyCharacter, app.cEnemyContext enemyContext, ManagedObject enemyCharacterManagedObject)
 	{
 		EnemyCharacter = enemyCharacter;
 		EnemyContext = enemyContext;
@@ -54,11 +47,11 @@ internal sealed class EndemicLife : IDisposable
 			InitializeTdb();
 			Initialize();
 
-			//DynamicUi = new AnimalDynamicUi(this);
+			DynamicUi = new EndemicLifeDynamicUi(this);
 
 			ConfigManager.Instance.AnyConfigChanged += OnAnyConfigChanged;
 
-			LogManager.Info($"[Animal] Initialized {Name}");
+			LogManager.Info($"[EndemicLife] Initialized {Name}!");
 		}
 		catch(Exception exception)
 		{
@@ -74,10 +67,7 @@ internal sealed class EndemicLife : IDisposable
 			UpdateDistance();
 
 			UpdateName();
-			UpdateMissionBeaconOffset();
 			UpdateModelRadius();
-
-			UpdateHealth();
 		}
 		catch(Exception exception)
 		{
@@ -87,7 +77,7 @@ internal sealed class EndemicLife : IDisposable
 
 	public void Dispose()
 	{
-		LogManager.Info($"[Animal] Disposing {Name}...");
+		LogManager.Info($"[EndemicLife] Disposing {Name}...");
 
 		foreach(var timer in _timers)
 		{
@@ -96,7 +86,7 @@ internal sealed class EndemicLife : IDisposable
 
 		_timers.Clear();
 
-		LogManager.Info($"[Animal] {Name} Disposed!");
+		LogManager.Info($"[EndemicLife] {Name} Disposed!");
 	}
 
 	private void Initialize()
@@ -115,7 +105,7 @@ internal sealed class EndemicLife : IDisposable
 
 	private void InitializeTimers()
 	{
-		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.SmallMonsters;
+		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.EndemicLife;
 
 		foreach(var timer in _timers)
 		{
@@ -125,9 +115,7 @@ internal sealed class EndemicLife : IDisposable
 		_timers.Clear();
 
 		_timers.Add(Timers.SetInterval(SetUpdateNamePending, Utils.SecondsToMilliseconds(updateDelays.Name)));
-		_timers.Add(Timers.SetInterval(SetUpdateMissionBeaconOffset, Utils.SecondsToMilliseconds(updateDelays.MissionBeaconOffset)));
 		_timers.Add(Timers.SetInterval(SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays.ModelRadius)));
-		_timers.Add(Timers.SetInterval(SetUpdateHealthPending, Utils.SecondsToMilliseconds(updateDelays.Health)));
 	}
 
 	private void SetUpdateNamePending()
@@ -135,19 +123,9 @@ internal sealed class EndemicLife : IDisposable
 		_isUpdateNamePending = true;
 	}
 
-	private void SetUpdateMissionBeaconOffset()
-	{
-		_isUpdateMissionBeaconOffsetPending = true;
-	}
-
 	private void SetUpdateModelRadius()
 	{
 		_isUpdateModelRadiusPending = true;
-	}
-
-	private void SetUpdateHealthPending()
-	{
-		_isUpdateHealthPending = true;
 	}
 
 	private void UpdatePosition()
@@ -157,7 +135,7 @@ internal sealed class EndemicLife : IDisposable
 			var position = EnemyCharacter.Pos;
 			if(position is null)
 			{
-				LogManager.Warn("[Animal.UpdatePositionAndDistance] No enemy pos");
+				LogManager.Warn("[EndemicLife.UpdatePositionAndDistance] No enemy pos");
 				return;
 			}
 
@@ -183,14 +161,14 @@ internal sealed class EndemicLife : IDisposable
 			var basicModule = EnemyContext.Basic;
 			if(basicModule is null)
 			{
-				LogManager.Warn("[Animal.UpdateIds] No enemy basic module");
+				LogManager.Warn("[EndemicLife.UpdateIds] No enemy basic module");
 				return;
 			}
 
 			var basicModuleManagedObject = Utils.ProxyToManagedObject(basicModule);
 			if(basicModuleManagedObject is null)
 			{
-				LogManager.Warn("[Animal.UpdateIds] No enemy basic module managed object");
+				LogManager.Warn("[EndemicLife.UpdateIds] No enemy basic module managed object");
 				return;
 			}
 
@@ -200,7 +178,7 @@ internal sealed class EndemicLife : IDisposable
 			var EmID = (int?) EmID_Field.GetDataBoxed(basicPointer, false);
 			if(EmID is null)
 			{
-				LogManager.Warn("[Animal.UpdateIds] No enemy Id");
+				LogManager.Warn("[EndemicLife.UpdateIds] No enemy Id");
 				return;
 			}
 
@@ -208,7 +186,7 @@ internal sealed class EndemicLife : IDisposable
 			var RoleID = (int?) RoleID_Field.GetDataBoxed(basicPointer, false);
 			if(RoleID is null)
 			{
-				LogManager.Warn("[Animal.UpdateIds] No enemy role Id");
+				LogManager.Warn("[EndemicLife.UpdateIds] No enemy role Id");
 				return;
 			}
 
@@ -216,7 +194,7 @@ internal sealed class EndemicLife : IDisposable
 			var LegendaryID = (int?) LegendaryID_Field.GetDataBoxed(basicPointer, false);
 			if(LegendaryID is null)
 			{
-				LogManager.Warn("[Animal.UpdateIds] No enemy legendary Id");
+				LogManager.Warn("[EndemicLife.UpdateIds] No enemy legendary Id");
 				return;
 			}
 
@@ -240,36 +218,12 @@ internal sealed class EndemicLife : IDisposable
 			var name = (string) NameString_Method.InvokeBoxed(String_Type, null, [Id, RoleId, LegendaryId]);
 			if(name is null)
 			{
-				LogManager.Warn("[Animal.UpdateName] No enemy name");
+				LogManager.Warn("[EndemicLife.UpdateName] No enemy name");
 				return;
 			}
 
 			Name = name;
 			//Name = "Nerscylla Hatchling";
-		}
-		catch(Exception exception)
-		{
-			LogManager.Error(exception);
-		}
-	}
-
-	private void UpdateMissionBeaconOffset()
-	{
-		try
-		{
-			if(!_isUpdateMissionBeaconOffsetPending) return;
-			_isUpdateMissionBeaconOffsetPending = false;
-
-			var missionBeaconOffset = EnemyContext.MissionBeaconOffset;
-			if(missionBeaconOffset is null)
-			{
-				LogManager.Warn("[Animal.UpdateMissionBeaconOffset] No enemy mission beacon offset");
-				return;
-			}
-
-			MissionBeaconOffset.X = missionBeaconOffset.x;
-			MissionBeaconOffset.Y = missionBeaconOffset.y;
-			MissionBeaconOffset.Z = missionBeaconOffset.z;
 		}
 		catch(Exception exception)
 		{
@@ -285,35 +239,6 @@ internal sealed class EndemicLife : IDisposable
 			_isUpdateModelRadiusPending = false;
 
 			ModelRadius = EnemyContext.ModelRadius;
-		}
-		catch(Exception exception)
-		{
-			LogManager.Error(exception);
-		}
-	}
-
-	// Has to be called from in-game update method, because it is encrypted protected memory.
-	private void UpdateHealth()
-	{
-		try
-		{
-			if(!_isUpdateHealthPending) return;
-			_isUpdateHealthPending = false;
-
-			var healthManager = EnemyCharacter.HealthMgr;
-			if(healthManager is null)
-			{
-				LogManager.Warn("[Animal.UpdateHealth] No health manager");
-				return;
-			}
-
-			Health = healthManager.Health;
-			MaxHealth = healthManager.MaxHealth;
-			HealthPercentage = healthManager.HealthNormalized;
-
-			LogManager.Debug($"{Name}: {Health}/{MaxHealth}");
-
-			IsAlive = !Utils.IsApproximatelyEqual(Health, 0f);
 		}
 		catch(Exception exception)
 		{

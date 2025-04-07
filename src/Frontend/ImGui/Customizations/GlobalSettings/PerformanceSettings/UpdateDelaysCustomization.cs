@@ -8,6 +8,7 @@ internal sealed class UpdateDelaysCustomization : Customization
 	public PlayerManagerUpdateDelaysCustomization PlayerManager = new();
 	public LargeMonstersUpdateDelaysCustomization LargeMonsters = new();
 	public SmallMonstersUpdateDelaysCustomization SmallMonsters = new();
+	public EndemicLifeUpdateDelaysCustomization EndemicLife = new();
 
 	public UpdateDelaysCustomization() { }
 
@@ -24,6 +25,7 @@ internal sealed class UpdateDelaysCustomization : Customization
 			isChanged |= PlayerManager.RenderImGui(customizationName, defaultCustomization?.PlayerManager);
 			isChanged |= LargeMonsters.RenderImGui(customizationName, defaultCustomization?.LargeMonsters);
 			isChanged |= SmallMonsters.RenderImGui(customizationName, defaultCustomization?.SmallMonsters);
+			isChanged |= EndemicLife.RenderImGui(customizationName, defaultCustomization?.EndemicLife);
 
 			ImGui.TreePop();
 		}

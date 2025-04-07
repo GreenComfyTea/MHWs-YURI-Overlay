@@ -106,9 +106,9 @@ internal sealed class SmallMonsterUiManager : IDisposable
 			return;
 		}
 
-		foreach(var SmallMonster in _dynamicSmallMonsters)
+		foreach(var smallMonster in _dynamicSmallMonsters)
 		{
-			SmallMonster.DynamicUi.Draw(backgroundDrawList);
+			smallMonster.DynamicUi.Draw(backgroundDrawList);
 		}
 	}
 }

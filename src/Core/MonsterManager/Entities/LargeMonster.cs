@@ -84,7 +84,7 @@ internal sealed class LargeMonster : IDisposable
 
 			ConfigManager.Instance.AnyConfigChanged += OnAnyConfigChanged;
 
-			LogManager.Info($"[LargeMonster] Initialized {Name}");
+			LogManager.Info($"[LargeMonster] Initialized {Name}!");
 		}
 		catch(Exception exception)
 		{

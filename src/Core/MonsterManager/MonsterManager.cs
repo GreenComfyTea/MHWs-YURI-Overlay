@@ -11,7 +11,7 @@ internal sealed class MonsterManager : IDisposable
 
 	public Dictionary<app.EnemyCharacter, LargeMonster> LargeMonsters = [];
 	public Dictionary<app.EnemyCharacter, SmallMonster> SmallMonsters = [];
-	public Dictionary<app.EnemyCharacter, EndemicLife> Animals = [];
+	public Dictionary<app.EnemyCharacter, EndemicLifeEntity> EndemicLifeEntities = [];
 
 	private MonsterManager() { }
 
@@ -80,20 +80,20 @@ internal sealed class MonsterManager : IDisposable
 				}
 			}
 
-			//var isAnimal = enemyContext.IsAnimal;
-			//if(isAnimal)
-			//{
-			//	var isFound = Instance.Animals.ContainsKey(enemyCharacter);
-			//	if(!isFound)
-			//	{
-			//		var animal = new EndemicLife(enemyCharacter, enemyContext, enemyCharacterManagedObject);
-			//		Instance.Animals.Add(enemyCharacter, animal);
-			//	}
-			//	else
-			//	{
-			//		Instance.Animals[enemyCharacter].Update();
-			//	}
-			//}
+			var isEndemicLife = enemyContext.IsAnimal;
+			if(isEndemicLife)
+			{
+				var isFound = Instance.EndemicLifeEntities.ContainsKey(enemyCharacter);
+				if(!isFound)
+				{
+					var animal = new EndemicLifeEntity(enemyCharacter, enemyContext, enemyCharacterManagedObject);
+					Instance.EndemicLifeEntities.Add(enemyCharacter, animal);
+				}
+				else
+				{
+					Instance.EndemicLifeEntities[enemyCharacter].Update();
+				}
+			}
 
 			return PreHookResult.Continue;
 		}
@@ -152,17 +152,17 @@ internal sealed class MonsterManager : IDisposable
 				return PreHookResult.Continue;
 			}
 
-			//var isAnimal = enemyContext.IsAnimal;
-			//if(isAnimal)
-			//{
-			//	if(Instance.Animals.ContainsKey(enemyCharacter))
-			//	{
-			//		Instance.Animals[enemyCharacter].Dispose();
-			//		Instance.Animals.Remove(enemyCharacter);
-			//	}
+			var isEndemicLife = enemyContext.IsAnimal;
+			if(isEndemicLife)
+			{
+				if(Instance.EndemicLifeEntities.ContainsKey(enemyCharacter))
+				{
+					Instance.EndemicLifeEntities[enemyCharacter].Dispose();
+					Instance.EndemicLifeEntities.Remove(enemyCharacter);
+				}
 
-			//	return PreHookResult.Continue;
-			//}
+				return PreHookResult.Continue;
+			}
 
 			return PreHookResult.Continue;
 		}

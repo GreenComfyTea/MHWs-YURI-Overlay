@@ -13,6 +13,7 @@ internal partial class ConfigManager
 		ResetGlobalSettings(config);
 		ResetLargeMonsterUI(config);
 		ResetSmallMonsterUI(config);
+		ResetEndemicLifeUI(config);
 	}
 
 	private static void ResetGlobalSettings(Config config)
@@ -35,6 +36,19 @@ internal partial class ConfigManager
 		globalSettingsConfig.Performance.UpdateDelays.LargeMonsters.Health = 0.1f;
 		globalSettingsConfig.Performance.UpdateDelays.LargeMonsters.Stamina = 0.25f;
 		globalSettingsConfig.Performance.UpdateDelays.LargeMonsters.Rage = 0.25f;
+		globalSettingsConfig.Performance.UpdateDelays.LargeMonsters.DynamicList = 0.1f;
+		globalSettingsConfig.Performance.UpdateDelays.LargeMonsters.StaticList = 0.1f;
+
+		globalSettingsConfig.Performance.UpdateDelays.SmallMonsters.Name = 5f;
+		globalSettingsConfig.Performance.UpdateDelays.SmallMonsters.MissionBeaconOffset = 5f;
+		globalSettingsConfig.Performance.UpdateDelays.SmallMonsters.ModelRadius = 5f;
+		globalSettingsConfig.Performance.UpdateDelays.SmallMonsters.Health = 0.5f;
+		globalSettingsConfig.Performance.UpdateDelays.LargeMonsters.DynamicList = 0.2f;
+
+		globalSettingsConfig.Performance.UpdateDelays.EndemicLife.Name = 5f;
+		globalSettingsConfig.Performance.UpdateDelays.EndemicLife.MissionBeaconOffset = 5f;
+		globalSettingsConfig.Performance.UpdateDelays.EndemicLife.ModelRadius = 5f;
+		globalSettingsConfig.Performance.UpdateDelays.EndemicLife.DynamicList = 0.2f;
 	}
 
 	private static void ResetLargeMonsterUI(Config config)
@@ -707,4 +721,39 @@ internal partial class ConfigManager
 		smallMonsterDynamicUiConfig.Health.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
 	}
 
+	private static void ResetEndemicLifeUI(Config config)
+	{
+		ResetEndemicLifeDynamicUI(config);
+	}
+
+	private static void ResetEndemicLifeDynamicUI(Config config)
+	{
+		var endemicLifeDynamicUiConfig = config.EndemicLifeUI;
+
+		endemicLifeDynamicUiConfig.Enabled = true;
+
+		endemicLifeDynamicUiConfig.Settings.AddMissionBeaconOffsetToWorldOffset = false;
+		endemicLifeDynamicUiConfig.Settings.AddModelRadiusToWorldOffsetY = true;
+		endemicLifeDynamicUiConfig.Settings.OpacityFalloff = true;
+		endemicLifeDynamicUiConfig.Settings.MaxDistance = 200f;
+
+		endemicLifeDynamicUiConfig.WorldOffset.X = 0f;
+		endemicLifeDynamicUiConfig.WorldOffset.Y = 0f;
+		endemicLifeDynamicUiConfig.WorldOffset.Z = 0f;
+
+		endemicLifeDynamicUiConfig.Offset.X = -81f;
+		endemicLifeDynamicUiConfig.Offset.Y = 0f;
+
+		endemicLifeDynamicUiConfig.NameLabel.Visible = true;
+		endemicLifeDynamicUiConfig.NameLabel.Format = "{0}";
+		endemicLifeDynamicUiConfig.NameLabel.Settings.RightAlignmentShift = 0;
+		endemicLifeDynamicUiConfig.NameLabel.Offset.X = 7f;
+		endemicLifeDynamicUiConfig.NameLabel.Offset.Y = 0f;
+		endemicLifeDynamicUiConfig.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		endemicLifeDynamicUiConfig.NameLabel.Shadow.Visible = true;
+		endemicLifeDynamicUiConfig.NameLabel.Shadow.Offset.X = 2f;
+		endemicLifeDynamicUiConfig.NameLabel.Shadow.Offset.Y = 2f;
+		endemicLifeDynamicUiConfig.NameLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	}
 }
