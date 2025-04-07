@@ -42,8 +42,7 @@ internal class SmallMonsterDynamicUiSettingsCustomization : Customization
 		RenderDeadMonsters = defaultCustomization.RenderDeadMonsters;
 
 		AddMissionBeaconOffsetToWorldOffset = defaultCustomization.AddMissionBeaconOffsetToWorldOffset;
-		AddMissionBeaconOffsetToWorldOffset = defaultCustomization.AddModelRadiusToWorldOffsetY;
-
+		AddModelRadiusToWorldOffsetY = defaultCustomization.AddModelRadiusToWorldOffsetY;
 		OpacityFalloff = defaultCustomization.OpacityFalloff;
 		MaxDistance = defaultCustomization.MaxDistance;
 	}
