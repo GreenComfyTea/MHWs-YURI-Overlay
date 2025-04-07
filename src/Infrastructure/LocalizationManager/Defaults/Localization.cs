@@ -52,75 +52,58 @@ internal class ImGuiLocalization
 	// Localization
 
 	public string Language = "Language";
+	public string Translators = "Translators";
 
-	// Bar
+	// Generic Stuff
 
-	public string Bar = "Bar";
+	public string Enabled = "Enabled";
 	public string Visible = "Visible";
-	public string Settings = "Settings";
-	public string FillDirection = "Fill Direction";
-	public string LeftToRight = "Left to Right";
-	public string RightToLeft = "Right to Left";
-	public string TopToBottom = "Top to Bottom";
-	public string BottomToTop = "Bottom to Top";
+
+	public string ResetIcon = "\uF0E2";
+	public string ResetToDefault = "Reset to Default";
+
+	// Position and Offset
+
+	public string Position = "Position";
+	public string WorldOffset = "World Offset";
 	public string Offset = "Offset";
+
 	public string X = "X";
 	public string Y = "Y";
 	public string Z = "Z";
-	public string Size = "Size";
-	public string Width = "Width";
-	public string Height = "Height";
-	public string Outline = "Outline";
-	public string Thickness = "Thickness";
-	public string Style = "Style";
-	public string Inside = "Inside";
-	public string Center = "Center";
-	public string Outside = "Outside";
+
+	// Color
+
+	public string Color = "Color";
 	public string Colors = "Colors";
 	public string Background = "Background";
 	public string Foreground = "Foreground";
-	public string Color = "Color";
 	public string SplitIntoTwoColors = "Split into Two Colors";
 	public string Start = "Start";
 	public string End = "End";
 	public string _1 = "1";
 	public string _2 = "2";
 
-	// Label
+	// Anchor
 
-	public string Label = "Label";
-	public string Format = "Format";
-	public string Shadow = "Shadow";
-	public string ValueLabel = "Value Label";
-	public string PercentageLabel = "Percentage Label";
+	public string Anchor = "Anchor";
 
-	// Large Monsters
-	public string LargeMonstersUI = "Large Monsters UI";
-	public string Static = "Static";
-	public string Dynamic = "Dynamic";
-	public string Highlighted = "Highlighted";
-	public string Spacing = "Spacing";
-	public string Position = "Position";
+	public string TopLeft = "Top-Left";
+	public string TopCenter = "Top-Center";
+	public string TopRight = "Top-Right";
 
-	public string Enabled = "Enabled";
-	public string RenderDeadMonsters = "Render Dead Monsters";
-	public string RenderHighlightedMonster = "Render Highlighted Monster";
-	public string RenderNonHighlightedMonsters = "Render Non-highlighted Monsters";
-	public string AddMissionBeaconOffsetToWorldOffset = "Add Mission Beacon Offset to World Offset";
-	public string AddModelRadiusToWorldOffsetY = "Add Model Radius to World Offset Y";
-	public string OpacityFalloff = "Opacity Falloff";
-	public string MaxDistance = "Max Distance";
-	public string WorldOffset = "World Offset";
+	public string Center = "Center";
+	public string CenterLeft = "Center-Left";
+	public string CenterRight = "Center-Right";
 
-	public string Name = "Name";
-	public string Health = "Health";
+	public string BottomLeft = "Bottom-Left";
+	public string BottomCenter = "Bottom-Center";
+	public string BottomRight = "Bottom-Right";
 
-	public string HighlightedMonsterLocation = "Highlighted Monster Location";
-	public string Normal = "Normal";
-	public string First = "First";
-	public string Last = "Last";
+	// Sorting
 
 	public string Sorting = "Sorting";
+
 	public string Type = "Type";
 	public string Id = "Id";
 	public string MaxHealth = "Max Health";
@@ -129,17 +112,7 @@ internal class ImGuiLocalization
 
 	public string ReversedOrder = "Reversed Order";
 
-	public string Anchor = "Anchor";
-	public string TopLeft = "Top-Left";
-	public string TopCenter = "Top-Center";
-	public string TopRight = "Top-Right";
-	public string CenterLeft = "Center-Left";
-	public string CenterRight = "Center-Right";
-	public string BottomLeft = "Bottom-Left";
-	public string BottomCenter = "Bottom-Center";
-	public string BottomRight = "Bottom-Right";
-
-	public string NameLabel = "Name Label";
+	// Global Settings
 
 	public string GlobalSettings = "Global Settings";
 
@@ -151,23 +124,17 @@ internal class ImGuiLocalization
 	public string UpdateDelaysSeconds = "Update Delays (seconds)";
 	public string CalculationCaching = "Calculation Caching";
 
-	public string Font = "Font";
-	public string AnyChangesToFontRequireGameRestart = "Any Changes to Font Require Game Restart!";
-	public string FontSize = "Font Size";
-	public string HorizontalOversample = "Horizontal Oversample";
-	public string VerticalOversample = "Vertical Oversample";
-
-	public string Stamina = "Stamina";
-	public string TimerLabel = "Timer Label";
-	public string Rage = "Rage";
-	public string TimerBar = "Timer Bar";
-
-	public string MenuFont = "Menu Font";
-	public string FontScale = "Font Scale";
-	public string DefinedByLocalization = "Defined by Localization";
-	public string GlobalFonts = "Global Fonts";
-
+	public string ScreenManager = "Screen Manager";
+	public string PlayerManager = "Player Manager";
 	public string LargeMonsters = "Large Monsters";
+	public string SmallMonsters = "Small Monsters";
+	public string EndemicLife = "Endemic Life";
+
+	public string Name = "Name";
+	public string Health = "Health";
+	public string Stamina = "Stamina";
+	public string Rage = "Rage";
+
 	public string MissionBeaconOffset = "Mission Beacon Offset";
 	public string ModelRadius = "Model Radius";
 
@@ -175,21 +142,84 @@ internal class ImGuiLocalization
 	public string StaticList = "Static List";
 
 	public string Update = "Update";
-	public string ScreenManager = "Screen Manager";
-	public string PlayerManager = "Player Manager";
+
+	// Font
+
+	public string Font = "Font";
+
+	public string AnyChangesToFontRequireGameRestart = "Any Changes to Font Require Game Restart!";
+	public string FontSize = "Font Size";
+	public string HorizontalOversample = "Horizontal Oversample";
+	public string VerticalOversample = "Vertical Oversample";
+
+	public string MenuFont = "Menu Font";
+
+	public string FontScale = "Font Scale";
+	public string DefinedByLocalization = "Defined by Localization";
+	public string GlobalFonts = "Global Fonts";
+
+	// Label
+
+	public string Label = "Label";
+
+	public string Format = "Format";
+	public string Alignment = "Alignment";
+	public string Shadow = "Shadow";
+
+	public string NameLabel = "Name Label";
+	public string ValueLabel = "Value Label";
+	public string PercentageLabel = "Percentage Label";
+	public string TimerLabel = "Timer Label";
+
+	// Bar
+
+	public string Bar = "Bar";
+
+	public string Settings = "Settings";
+	public string FillDirection = "Fill Direction";
+	public string LeftToRight = "Left to Right";
+	public string RightToLeft = "Right to Left";
+	public string TopToBottom = "Top to Bottom";
+	public string BottomToTop = "Bottom to Top";
+
+	public string Size = "Size";
+	public string Width = "Width";
+	public string Height = "Height";
+
+	public string Outline = "Outline";
+	public string Thickness = "Thickness";
+
+	public string Style = "Style";
+	public string Inside = "Inside";
+	public string Outside = "Outside";
 
 	public string Inverted = "Inverted";
 
-	public string ResetIcon = "\uF0E2";
-	public string ResetToDefault = "Reset to Default";
+	public string TimerBar = "Timer Bar";
 
+	// Monsters and Entities
+	public string LargeMonstersUI = "Large Monsters UI";
 	public string SmallMonsterUI = "Small Monster UI";
-
-	public string Translators = "Translators";
-	public string SmallMonsters = "Small Monsters";
-
 	public string EndemicLifeUI = "Endemic Life UI";
-	public string Alignment = "Alignment";
+
+	public string Static = "Static";
+	public string Dynamic = "Dynamic";
+	public string Highlighted = "Highlighted";
+
+	public string Spacing = "Spacing";
+
+	public string RenderDeadMonsters = "Render Dead Monsters";
+	public string RenderHighlightedMonster = "Render Highlighted Monster";
+	public string RenderNonHighlightedMonsters = "Render Non-highlighted Monsters";
+	public string AddMissionBeaconOffsetToWorldOffset = "Add Mission Beacon Offset to World Offset";
+	public string AddModelRadiusToWorldOffsetY = "Add Model Radius to World Offset Y";
+	public string OpacityFalloff = "Opacity Falloff";
+	public string MaxDistance = "Max Distance";
+
+	public string HighlightedMonsterLocation = "Highlighted Monster Location";
+	public string Normal = "Normal";
+	public string First = "First";
+	public string Last = "Last";
 }
 
 internal class Localization
