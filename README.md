@@ -191,7 +191,7 @@ The mod has support for localizations. If you wish to translate the mod, follow 
 7. [ ] Unicode Support (Partial by REFramework);
 8. [ ] Damage Meter UI;
 9. [ ] Image Support, Monster Icons, Weapon Icons, Crown Icons;
-10. [ ] Endemic Life UI;
+10. [x] Endemic Life UI;
 11. [ ] Large Monster UI Body Parts + Weak points;
 12. [ ] Large Monster UI Ailments;
 13. [ ] Stats UI;
