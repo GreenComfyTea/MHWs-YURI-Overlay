@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.4.0](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.3.0...v1.4.0) (2025-04-08)
+
+
+### Features
+
+* Added Endemic Life UI ([72f9ee5](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/72f9ee5e29cdcbdddc19b0763a2b2eb0359d32ec))
+* Added Simplified Chinese localization by [@squareblue](https://github.com/squareblue) ([de887f6](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/de887f655dd91d2a19f2a66d4d72fda1956e55aa))
+* Added translators credits to the customization menu ([c7aaaa2](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/c7aaaa2d495754d1b30f3895d3a837e68e318300))
+* Upgraded Right Shift Alignment to Alignment with 9 options ([6e11a81](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/6e11a81251a9dd24a65d7ad25b71685ed335e322))
+
+
+### Bug Fixes
+
+* Fixed disabling dynamic large monster UI also disabling static one ([a1d4ad2](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/a1d4ad249d5f2c886e9584ab4495dc63fe3e4965))
+* Fixed Large Monster Add Model Radius to World Offset Y option ([a26face](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/a26faceb6d08737ccff75a7aa606402f191fcf03))
+* Fixed Small Monster Add Model Radius to World Offset Y option ([9e869b7](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/9e869b75f2d6124428b8f731475a98c2206c9363))
+* Fixed small monster update delay section having incorrect label ([b654d62](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/b654d62b10a562ae925133b629e23a02df7bec82))
+
 ## [1.3.0](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.2.3...v1.3.0) (2025-04-06)
 
 
