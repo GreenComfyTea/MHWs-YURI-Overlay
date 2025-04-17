@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.4.0...v1.5.0) (2025-04-17)
+
+
+### Features
+
+* Updated Simplified Chinese localization to v1.4.0 by [@squareblue](https://github.com/squareblue) ([10ee484](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/10ee4846d535380590f0ccde7f11e87b6d96b66f))
+
 ## [1.4.0](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.3.0...v1.4.0) (2025-04-08)
 
 
