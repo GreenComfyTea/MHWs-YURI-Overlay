@@ -10,10 +10,9 @@ internal sealed class SmallMonster : IDisposable
 	public ManagedObject EnemyCharacterManagedObject;
 
 	public string Name = "Small Monster";
-	public int Id = -1;
-	public int RoleId = -1;
-	public int LegendaryId = -1;
-
+	public app.EnemyDef.ID Id = 0;
+	public app.EnemyDef.ROLE_ID RoleId = 0;
+	public app.EnemyDef.LEGENDARY_ID LegendaryId = 0;
 
 	public Vector3 MissionBeaconOffset = Vector3.Zero;
 	public float ModelRadius = 0f;
@@ -37,9 +36,6 @@ internal sealed class SmallMonster : IDisposable
 
 	private Type String_Type;
 
-	private Field EmID_Field;
-	private Field RoleID_Field;
-	private Field LegendaryID_Field;
 
 	private Method NameString_Method;
 
@@ -187,42 +183,9 @@ internal sealed class SmallMonster : IDisposable
 				return;
 			}
 
-			var basicModuleManagedObject = Utils.ProxyToManagedObject(basicModule);
-			if(basicModuleManagedObject is null)
-			{
-				LogManager.Warn("[SmallMonster.UpdateIds] No enemy basic module managed object");
-				return;
-			}
-
-			var basicPointer = (ulong) basicModuleManagedObject!.Ptr();
-
-			// isValueType = false is intentional, otherwise, value is wrong
-			var EmID = (int?) EmID_Field.GetDataBoxed(basicPointer, false);
-			if(EmID is null)
-			{
-				LogManager.Warn("[SmallMonster.UpdateIds] No enemy Id");
-				return;
-			}
-
-			// isValueType = false is intentional, otherwise, value is wrong
-			var RoleID = (int?) RoleID_Field.GetDataBoxed(basicPointer, false);
-			if(RoleID is null)
-			{
-				LogManager.Warn("[SmallMonster.UpdateIds] No enemy role Id");
-				return;
-			}
-
-			// isValueType = false is intentional, otherwise, value is wrong
-			var LegendaryID = (int?) LegendaryID_Field.GetDataBoxed(basicPointer, false);
-			if(LegendaryID is null)
-			{
-				LogManager.Warn("[SmallMonster.UpdateIds] No enemy legendary Id");
-				return;
-			}
-
-			Id = (int) EmID;
-			RoleId = (int) RoleID;
-			LegendaryId = (int) LegendaryID;
+			Id = basicModule.EmID;
+			RoleId = basicModule.RoleID;
+			LegendaryId = basicModule.LegendaryID;
 		}
 		catch(Exception exception)
 		{
@@ -322,12 +285,6 @@ internal sealed class SmallMonster : IDisposable
 	{
 		try
 		{
-			var cEmModuleBasic_TypeDef = app.cEmModuleBasic.REFType;
-
-			EmID_Field = cEmModuleBasic_TypeDef.GetField("EmID");
-			RoleID_Field = cEmModuleBasic_TypeDef.GetField("RoleID");
-			LegendaryID_Field = cEmModuleBasic_TypeDef.GetField("LegendaryID");
-
 			var EnemyDef_TypeDef = app.EnemyDef.REFType;
 
 			NameString_Method = EnemyDef_TypeDef.GetMethod("NameString");

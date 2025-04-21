@@ -9,10 +9,10 @@ internal sealed class EndemicLifeEntity : IDisposable
 	public app.cEnemyContext EnemyContext;
 	public ManagedObject EnemyCharacterManagedObject;
 
-	public string Name = "Small Monster";
-	public int Id = -1;
-	public int RoleId = -1;
-	public int LegendaryId = -1;
+	public string Name = "Endemic Life";
+	public app.EnemyDef.ID Id = 0;
+	public app.EnemyDef.ROLE_ID RoleId = 0;
+	public app.EnemyDef.LEGENDARY_ID LegendaryId = 0;
 
 
 	public Vector3 MissionBeaconOffset = Vector3.Zero;
@@ -29,10 +29,6 @@ internal sealed class EndemicLifeEntity : IDisposable
 	private readonly List<System.Timers.Timer> _timers = [];
 
 	private Type String_Type;
-
-	private Field EmID_Field;
-	private Field RoleID_Field;
-	private Field LegendaryID_Field;
 
 	private Method NameString_Method;
 
@@ -165,42 +161,9 @@ internal sealed class EndemicLifeEntity : IDisposable
 				return;
 			}
 
-			var basicModuleManagedObject = Utils.ProxyToManagedObject(basicModule);
-			if(basicModuleManagedObject is null)
-			{
-				LogManager.Warn("[EndemicLife.UpdateIds] No enemy basic module managed object");
-				return;
-			}
-
-			var basicPointer = (ulong) basicModuleManagedObject!.Ptr();
-
-			// isValueType = false is intentional, otherwise, value is wrong
-			var EmID = (int?) EmID_Field.GetDataBoxed(basicPointer, false);
-			if(EmID is null)
-			{
-				LogManager.Warn("[EndemicLife.UpdateIds] No enemy Id");
-				return;
-			}
-
-			// isValueType = false is intentional, otherwise, value is wrong
-			var RoleID = (int?) RoleID_Field.GetDataBoxed(basicPointer, false);
-			if(RoleID is null)
-			{
-				LogManager.Warn("[EndemicLife.UpdateIds] No enemy role Id");
-				return;
-			}
-
-			// isValueType = false is intentional, otherwise, value is wrong
-			var LegendaryID = (int?) LegendaryID_Field.GetDataBoxed(basicPointer, false);
-			if(LegendaryID is null)
-			{
-				LogManager.Warn("[EndemicLife.UpdateIds] No enemy legendary Id");
-				return;
-			}
-
-			Id = (int) EmID;
-			RoleId = (int) RoleID;
-			LegendaryId = (int) LegendaryID;
+			Id = basicModule.EmID;
+			RoleId = basicModule.RoleID;
+			LegendaryId = basicModule.LegendaryID;
 		}
 		catch(Exception exception)
 		{
@@ -249,12 +212,6 @@ internal sealed class EndemicLifeEntity : IDisposable
 	{
 		try
 		{
-			var cEmModuleBasic_TypeDef = app.cEmModuleBasic.REFType;
-
-			EmID_Field = cEmModuleBasic_TypeDef.GetField("EmID");
-			RoleID_Field = cEmModuleBasic_TypeDef.GetField("RoleID");
-			LegendaryID_Field = cEmModuleBasic_TypeDef.GetField("LegendaryID");
-
 			var EnemyDef_TypeDef = app.EnemyDef.REFType;
 
 			NameString_Method = EnemyDef_TypeDef.GetMethod("NameString");
