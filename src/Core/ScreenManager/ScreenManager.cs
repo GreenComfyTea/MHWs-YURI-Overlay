@@ -37,6 +37,8 @@ internal sealed class ScreenManager : IDisposable
 		GameUpdate();
 		InitializeTimers();
 
+		ConfigManager.Instance.AnyConfigChanged += OnAnyConfigChanged;
+
 		LogManager.Info("[ScreenManager] Initialized!");
 	}
 
