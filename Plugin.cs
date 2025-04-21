@@ -30,6 +30,8 @@ public class Plugin
 	{
 		LogManager.Info("Disposing...");
 
+		MonsterManager.Instance.Dispose();
+
 		PlayerManager.Instance.Dispose();
 		ScreenManager.Instance.Dispose();
 

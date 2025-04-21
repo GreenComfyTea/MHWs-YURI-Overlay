@@ -91,7 +91,6 @@ internal sealed class PlayerManager : IDisposable
 		{
 			LogManager.Error(exception);
 		}
-
 	}
 
 	private void Update()
