@@ -1,5 +1,5 @@
-﻿using ImGuiNET;
-using System.Numerics;
+﻿using System.Numerics;
+using ImGuiNET;
 
 namespace YURI_Overlay;
 
@@ -10,41 +10,41 @@ internal sealed class BarElement
 	private (OutlineStyles, float, float, float, float, float, float, float, float, float) _cashingKeyByPosition1 = (OutlineStyles.Inside, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f);
 	private (FillDirections, float, float, float) _cashingKeyByProgress2 = (FillDirections.LeftToRight, 0f, 0f, 0f);
 
-	private float _outlinePositionX = 0f;
-	private float _outlinePositionY = 0f;
+	private float _outlinePositionX;
+	private float _outlinePositionY;
 
-	private float _outlineWidth = 0f;
-	private float _outlineHeight = 0f;
+	private float _outlineWidth;
+	private float _outlineHeight;
 
-	private float _positionX = 0f;
-	private float _positionY = 0f;
+	private float _positionX;
+	private float _positionY;
 
-	private float _width = 0f;
-	private float _height = 0f;
+	private float _width;
+	private float _height;
 
-	private float _foregroundWidth = 0f;
-	private float _foregroundHeight = 0f;
+	private float _foregroundWidth;
+	private float _foregroundHeight;
 
-	private float _backgroundWidth = 0f;
-	private float _backgroundHeight = 0f;
+	private float _backgroundWidth;
+	private float _backgroundHeight;
 
-	private float _foregroundShiftX = 0f;
-	private float _foregroundShiftY = 0f;
+	private float _foregroundShiftX;
+	private float _foregroundShiftY;
 
-	private float _backgroundShiftX = 0f;
-	private float _backgroundShiftY = 0f;
+	private float _backgroundShiftX;
+	private float _backgroundShiftY;
 
-	private uint _backgroundColorTopLeft = 0;
-	private uint _backgroundColorTopRight = 0;
-	private uint _backgroundColorBottomRight = 0;
-	private uint _backgroundColorBottomLeft = 0;
+	private uint _backgroundColorTopLeft;
+	private uint _backgroundColorTopRight;
+	private uint _backgroundColorBottomRight;
+	private uint _backgroundColorBottomLeft;
 
-	private uint _foregroundColorTopLeft = 0;
-	private uint _foregroundColorTopRight = 0;
-	private uint _foregroundColorBottomRight = 0;
-	private uint _foregroundColorBottomLeft = 0;
+	private uint _foregroundColorTopLeft;
+	private uint _foregroundColorTopRight;
+	private uint _foregroundColorBottomRight;
+	private uint _foregroundColorBottomLeft;
 
-	private uint _outlineColor = 0;
+	private uint _outlineColor;
 
 	private Vector2 _backgroundTopLeft = Vector2.Zero;
 	private Vector2 _backgroundBottomRight = Vector2.Zero;
@@ -69,10 +69,7 @@ internal sealed class BarElement
 	{
 		var customization = _customizationAccessor();
 
-		if(!customization.Visible)
-		{
-			return;
-		}
+		if(!customization.Visible) return;
 
 		progress = Math.Clamp(progress, 0f, 1f);
 		if(customization.Settings.Inverted) progress = 1 - progress;
@@ -146,10 +143,7 @@ internal sealed class BarElement
 		outlineThickness = outline.Thickness * sizeScaleModifier;
 		outlineOffset = outline.Offset * sizeScaleModifier;
 
-		if(!disableCaching && cachingKey == _cashingKeyByPosition1)
-		{
-			return;
-		}
+		if(!disableCaching && cachingKey == _cashingKeyByPosition1) return;
 
 		_cashingKeyByPosition1 = cachingKey;
 
@@ -213,10 +207,7 @@ internal sealed class BarElement
 
 		var cachingKey = (fillDirection, _width, _height, progress);
 
-		if(!disableCaching && cachingKey == _cashingKeyByProgress2)
-		{
-			return;
-		}
+		if(!disableCaching && cachingKey == _cashingKeyByProgress2) return;
 
 		_cashingKeyByProgress2 = cachingKey;
 
@@ -332,10 +323,7 @@ internal sealed class BarElement
 
 		_outlineColor = customization.Outline.Color.ColorInfo.Abgr;
 
-		if(Utils.IsApproximatelyEqual(opacityScale, 1f))
-		{
-			return;
-		}
+		if(Utils.IsApproximatelyEqual(opacityScale, 1f)) return;
 
 		_backgroundColorTopLeft = Utils.ScaleColorOpacityAbgr(_backgroundColorTopLeft, opacityScale);
 		_backgroundColorTopRight = Utils.ScaleColorOpacityAbgr(_backgroundColorTopRight, opacityScale);
@@ -359,9 +347,9 @@ internal sealed class BarElement
 		// Background
 
 		_backgroundTopLeft = new Vector2(
-				_positionX + _backgroundShiftX,
-				_positionY + _backgroundShiftY
-			);
+			_positionX + _backgroundShiftX,
+			_positionY + _backgroundShiftY
+		);
 
 		_backgroundBottomRight = new Vector2(
 			_backgroundTopLeft.X + _backgroundWidth,
@@ -371,9 +359,9 @@ internal sealed class BarElement
 		// Foreground
 
 		_foregroundTopLeft = new Vector2(
-				_positionX + _foregroundShiftX,
-				_positionY + _foregroundShiftY
-			);
+			_positionX + _foregroundShiftX,
+			_positionY + _foregroundShiftY
+		);
 
 		_foregroundBottomRight = new Vector2(
 			_foregroundTopLeft.X + _foregroundWidth,

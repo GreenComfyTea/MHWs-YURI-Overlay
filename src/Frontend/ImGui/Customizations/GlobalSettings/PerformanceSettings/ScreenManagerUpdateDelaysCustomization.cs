@@ -6,8 +6,6 @@ internal sealed class ScreenManagerUpdateDelaysCustomization : Customization
 {
 	public float Update = 1f;
 
-	public ScreenManagerUpdateDelaysCustomization() { }
-
 	public bool RenderImGui(string parentName = "", ScreenManagerUpdateDelaysCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;

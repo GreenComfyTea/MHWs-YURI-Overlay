@@ -11,7 +11,6 @@ internal class LargeMonsterStaminaComponentCustomization : Customization
 	public BarElementCustomization Bar = new();
 	public LabelElementCustomization TimerLabel = new();
 	public BarElementCustomization TimerBar = new();
-	public LargeMonsterStaminaComponentCustomization() { }
 
 	public bool RenderImGui(string parentName = "", LargeMonsterStaminaComponentCustomization defaultCustomization = null)
 	{

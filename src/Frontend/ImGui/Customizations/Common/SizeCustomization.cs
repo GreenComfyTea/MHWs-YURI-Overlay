@@ -7,8 +7,6 @@ internal sealed class SizeCustomization : Customization
 	public float Width = 100f;
 	public float Height = 5f;
 
-	public SizeCustomization() { }
-
 	public bool RenderImGui(string parentName = "", SizeCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;

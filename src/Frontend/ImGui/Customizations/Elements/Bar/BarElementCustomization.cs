@@ -11,8 +11,6 @@ internal sealed class BarElementCustomization : Customization
 	public BarElementColorsCustomization Colors = new();
 	public BarElementOutlineCustomization Outline = new();
 
-	public BarElementCustomization() { }
-
 	public bool RenderImGui(string visibleName, string customizationName = "bar", BarElementCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;

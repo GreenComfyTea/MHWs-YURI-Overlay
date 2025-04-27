@@ -1,5 +1,5 @@
-﻿using ImGuiNET;
-using System.Numerics;
+﻿using System.Numerics;
+using ImGuiNET;
 
 namespace YURI_Overlay;
 
@@ -55,7 +55,6 @@ internal static class ImGuiHelper
 		isChanged |= InputText(label, ref input, maxLength);
 
 		return isChanged;
-
 	}
 
 	public static bool ResettableDragFloat(string label, ref float value, float speed, float minValue, float maxValue, string format, float? defaultValue = null)

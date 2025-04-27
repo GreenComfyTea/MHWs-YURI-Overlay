@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 
 namespace YURI_Overlay;
@@ -71,6 +72,6 @@ internal static class Constants
 		WriteIndented = true,
 		AllowTrailingCommas = true,
 		IncludeFields = true,
-		Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+		Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
 	};
 }

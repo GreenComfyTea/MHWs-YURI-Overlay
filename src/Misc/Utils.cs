@@ -1,8 +1,8 @@
-using ImGuiNET;
-using REFrameworkNET;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text.Json;
+using ImGuiNET;
+using REFrameworkNET;
 
 namespace YURI_Overlay;
 
@@ -28,17 +28,11 @@ internal static class Utils
 				Process.Start(new ProcessStartInfo(url) { FileName = url, UseShellExecute = true });
 			}
 			else if(RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-			{
 				Process.Start("xdg-open", url);
-			}
 			else if(RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-			{
 				Process.Start("open", url);
-			}
 			else
-			{
 				LogManager.Warn(exception);
-			}
 		}
 	}
 

@@ -10,8 +10,6 @@ internal sealed class SmallMonstersUpdateDelaysCustomization : Customization
 	public float Health = 0.5f;
 	public float DynamicList = 0.2f;
 
-	public SmallMonstersUpdateDelaysCustomization() { }
-
 	public bool RenderImGui(string parentName = "", SmallMonstersUpdateDelaysCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;

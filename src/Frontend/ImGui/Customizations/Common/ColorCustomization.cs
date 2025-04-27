@@ -1,5 +1,5 @@
-﻿using ImGuiNET;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using ImGuiNET;
 
 namespace YURI_Overlay;
 
@@ -7,13 +7,12 @@ internal sealed class ColorCustomization : Customization
 {
 	[JsonIgnore]
 	public ColorInfo ColorInfo = new();
+
 	public string Color
 	{
 		get => ColorInfo.RgbaHex;
 		set => ColorInfo.RgbaHex = value;
 	}
-
-	public ColorCustomization() { }
 
 	public bool RenderImGui(string parentName = "", ColorCustomization defaultCustomization = null)
 	{
@@ -26,10 +25,7 @@ internal sealed class ColorCustomization : Customization
 		{
 			var isColorChanged = ImGuiHelper.ResettableColorPicker4($"##${customizationName}", ref ColorInfo.vector, defaultCustomization?.ColorInfo.vector);
 			isChanged |= isColorChanged;
-			if(isColorChanged)
-			{
-				ColorInfo.Vector = ColorInfo.vector;
-			}
+			if(isColorChanged) ColorInfo.Vector = ColorInfo.vector;
 
 			ImGui.TreePop();
 		}

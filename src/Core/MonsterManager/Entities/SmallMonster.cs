@@ -1,29 +1,31 @@
-﻿using REFrameworkNET;
-using System.Numerics;
+﻿using System.Numerics;
+using app;
+using REFrameworkNET;
+using Timer = System.Timers.Timer;
 
 namespace YURI_Overlay;
 
 internal sealed class SmallMonster : IDisposable
 {
-	public app.EnemyCharacter EnemyCharacter;
-	public app.cEnemyContext EnemyContext;
-	public ManagedObject EnemyCharacterManagedObject;
+	public EnemyCharacter EnemyCharacter;
+	public cEnemyContext EnemyContext;
+
+	public EnemyDef.ID Id = 0;
+	public EnemyDef.ROLE_ID RoleId = 0;
+	public EnemyDef.LEGENDARY_ID LegendaryId = 0;
 
 	public string Name = "Small Monster";
-	public app.EnemyDef.ID Id = 0;
-	public app.EnemyDef.ROLE_ID RoleId = 0;
-	public app.EnemyDef.LEGENDARY_ID LegendaryId = 0;
 
 	public Vector3 MissionBeaconOffset = Vector3.Zero;
-	public float ModelRadius = 0f;
+	public float ModelRadius;
 
 	public Vector3 Position = Vector3.Zero;
-	public float Distance = 0f;
+	public float Distance;
 
+	public bool IsAlive;
 	public float Health = -1;
 	public float MaxHealth = -1;
 	public float HealthPercentage = -1;
-	public bool IsAlive = false;
 
 	public SmallMonsterDynamicUi DynamicUi;
 
@@ -32,18 +34,16 @@ internal sealed class SmallMonster : IDisposable
 	private bool _isUpdateModelRadiusPending = true;
 	private bool _isUpdateHealthPending = true;
 
-	private readonly List<System.Timers.Timer> _timers = [];
+	private readonly List<Timer> _timers = [];
 
-	private Type String_Type;
+	private Type _stringType;
 
+	private Method _nameStringMethod;
 
-	private Method NameString_Method;
-
-	public SmallMonster(app.EnemyCharacter enemyCharacter, app.cEnemyContext enemyContext, ManagedObject enemyCharacterManagedObject)
+	public SmallMonster(EnemyCharacter enemyCharacter, cEnemyContext enemyContext)
 	{
-		EnemyCharacter = enemyCharacter;
-		EnemyContext = enemyContext;
-		EnemyCharacterManagedObject = enemyCharacterManagedObject;
+		this.EnemyCharacter = enemyCharacter;
+		this.EnemyContext = enemyContext;
 
 		try
 		{
@@ -157,9 +157,9 @@ internal sealed class SmallMonster : IDisposable
 				return;
 			}
 
-			Position.X = position.x;
-			Position.Y = position.y;
-			Position.Z = position.z;
+			this.Position.X = position.x;
+			this.Position.Y = position.y;
+			this.Position.Z = position.z;
 		}
 		catch(Exception exception)
 		{
@@ -172,7 +172,7 @@ internal sealed class SmallMonster : IDisposable
 		Distance = Vector3.Distance(Position, PlayerManager.Instance.Position);
 	}
 
-	private unsafe void UpdateIds()
+	private void UpdateIds()
 	{
 		try
 		{
@@ -200,14 +200,14 @@ internal sealed class SmallMonster : IDisposable
 			if(!_isUpdateNamePending) return;
 			_isUpdateNamePending = false;
 
-			var name = (string) NameString_Method.InvokeBoxed(String_Type, null, [Id, RoleId, LegendaryId]);
+			var name = (string) _nameStringMethod.InvokeBoxed(_stringType, null, [Id, RoleId, LegendaryId]);
 			if(name is null)
 			{
 				LogManager.Warn("[SmallMonster.UpdateName] No enemy name");
 				return;
 			}
 
-			Name = name;
+			this.Name = name;
 			// Name = "Nerscylla Hatchling";
 		}
 		catch(Exception exception)
@@ -230,9 +230,9 @@ internal sealed class SmallMonster : IDisposable
 				return;
 			}
 
-			MissionBeaconOffset.X = missionBeaconOffset.x;
-			MissionBeaconOffset.Y = missionBeaconOffset.y;
-			MissionBeaconOffset.Z = missionBeaconOffset.z;
+			this.MissionBeaconOffset.X = missionBeaconOffset.x;
+			this.MissionBeaconOffset.Y = missionBeaconOffset.y;
+			this.MissionBeaconOffset.Z = missionBeaconOffset.z;
 		}
 		catch(Exception exception)
 		{
@@ -281,15 +281,16 @@ internal sealed class SmallMonster : IDisposable
 			LogManager.Error(exception);
 		}
 	}
+
 	private void InitializeTdb()
 	{
 		try
 		{
-			var EnemyDef_TypeDef = app.EnemyDef.REFType;
+			var enemyDefTypeDef = EnemyDef.REFType;
 
-			NameString_Method = EnemyDef_TypeDef.GetMethod("NameString");
+			_nameStringMethod = enemyDefTypeDef.GetMethod("NameString");
 
-			String_Type = NameString_Method.ReturnType.GetType();
+			_stringType = _nameStringMethod.ReturnType.GetType();
 		}
 		catch(Exception exception)
 		{

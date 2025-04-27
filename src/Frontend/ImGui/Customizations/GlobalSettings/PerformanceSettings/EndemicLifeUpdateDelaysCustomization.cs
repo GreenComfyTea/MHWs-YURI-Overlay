@@ -8,8 +8,6 @@ internal sealed class EndemicLifeUpdateDelaysCustomization : Customization
 	public float ModelRadius = 5f;
 	public float DynamicList = 0.2f;
 
-	public EndemicLifeUpdateDelaysCustomization() { }
-
 	public bool RenderImGui(string parentName = "", EndemicLifeUpdateDelaysCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;

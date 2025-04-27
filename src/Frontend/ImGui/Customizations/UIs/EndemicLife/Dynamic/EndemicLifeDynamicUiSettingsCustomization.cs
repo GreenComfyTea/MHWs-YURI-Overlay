@@ -9,8 +9,6 @@ internal class EndemicLifeDynamicUiSettingsCustomization : Customization
 	public bool OpacityFalloff = true;
 	public float MaxDistance = 200f;
 
-	public EndemicLifeDynamicUiSettingsCustomization() { }
-
 	public bool RenderImGui(string parentName = "", EndemicLifeDynamicUiSettingsCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;

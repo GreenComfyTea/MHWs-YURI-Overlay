@@ -4,11 +4,9 @@ namespace YURI_Overlay;
 
 internal sealed class WorldOffsetCustomization : Customization
 {
-	public float X = 0f;
-	public float Y = 0f;
-	public float Z = 0f;
-
-	public WorldOffsetCustomization() { }
+	public float X;
+	public float Y;
+	public float Z;
 
 	public bool RenderImGui(string parentName = "", WorldOffsetCustomization defaultCustomization = null)
 	{

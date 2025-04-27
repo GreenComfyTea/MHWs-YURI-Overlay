@@ -11,8 +11,6 @@ internal sealed class LabelElementCustomization : Customization
 	public ColorCustomization Color = new();
 	public LabelElementShadowCustomization Shadow = new();
 
-	public LabelElementCustomization() { }
-
 	public bool RenderImGui(string visibleName, string customizationName = "label", LabelElementCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;

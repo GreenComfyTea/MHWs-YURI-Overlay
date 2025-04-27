@@ -10,8 +10,6 @@ internal sealed class GlobalSettingsCustomization : Customization
 	public GlobalScaleCustomization GlobalScale = new();
 	public PerformanceCustomization Performance = new();
 
-	public GlobalSettingsCustomization() { }
-
 	public bool RenderImGui(string parentName = "", GlobalSettingsCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;

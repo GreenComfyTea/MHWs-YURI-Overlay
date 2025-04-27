@@ -14,8 +14,6 @@ internal class LargeMonsterDynamicUiCustomization : Customization
 	public LargeMonsterStaminaComponentCustomization Stamina = new();
 	public LargeMonsterRageComponentCustomization Rage = new();
 
-	public LargeMonsterDynamicUiCustomization() { }
-
 	public bool RenderImGui(string parentName = "", LargeMonsterDynamicUiCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;

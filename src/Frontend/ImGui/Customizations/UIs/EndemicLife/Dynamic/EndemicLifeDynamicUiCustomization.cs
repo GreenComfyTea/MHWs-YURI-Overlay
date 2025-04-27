@@ -11,8 +11,6 @@ internal class EndemicLifeDynamicUiCustomization : Customization
 
 	public LabelElementCustomization NameLabel = new();
 
-	public EndemicLifeDynamicUiCustomization() { }
-
 	public bool RenderImGui(string parentName = "", EndemicLifeDynamicUiCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;

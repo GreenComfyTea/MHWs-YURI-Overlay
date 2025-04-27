@@ -4,7 +4,7 @@ namespace YURI_Overlay;
 
 internal sealed class ConfigCustomization : Customization
 {
-	private int _activeConfigIndex = 0;
+	private int _activeConfigIndex;
 	private string _configNameInput = string.Empty;
 
 	private string[] _configNames = [];

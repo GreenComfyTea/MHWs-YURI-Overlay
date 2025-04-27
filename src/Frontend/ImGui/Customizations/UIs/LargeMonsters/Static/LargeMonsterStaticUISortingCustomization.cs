@@ -1,17 +1,20 @@
-﻿using ImGuiNET;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using ImGuiNET;
 
 namespace YURI_Overlay;
 
 internal class LargeMonsterStaticUiSortingCustomization : Customization
 {
 	private int _typeIndex = (int) Sortings.Name;
+
 	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public Sortings Type { get => (Sortings) _typeIndex; set => _typeIndex = (int) value; }
+	public Sortings Type
+	{
+		get => (Sortings) _typeIndex;
+		set => _typeIndex = (int) value;
+	}
 
-	public bool ReversedOrder = false;
-
-	public LargeMonsterStaticUiSortingCustomization() { }
+	public bool ReversedOrder;
 
 	public bool RenderImGui(string parentName = "", LargeMonsterStaticUiSortingCustomization defaultCustomization = null)
 	{

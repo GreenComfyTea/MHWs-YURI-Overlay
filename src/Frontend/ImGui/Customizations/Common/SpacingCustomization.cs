@@ -4,10 +4,8 @@ namespace YURI_Overlay;
 
 internal sealed class SpacingCustomization : Customization
 {
-	public float X = 0f;
-	public float Y = 0f;
-
-	public SpacingCustomization() { }
+	public float X;
+	public float Y;
 
 	public bool RenderImGui(string parentName = "", SpacingCustomization defaultCustomization = null)
 	{

@@ -1,16 +1,22 @@
-﻿using ImGuiNET;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using ImGuiNET;
+
 namespace YURI_Overlay;
 
 internal sealed class BarElementOutlineCustomization : Customization
 {
 	public bool Visible = true;
 	public float Thickness = 1f;
-	public float Offset = 0f;
+	public float Offset;
 
 	private int _styleIndex = (int) OutlineStyles.Outside;
+
 	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public OutlineStyles Style { get => (OutlineStyles) _styleIndex; set => _styleIndex = (int) value; }
+	public OutlineStyles Style
+	{
+		get => (OutlineStyles) _styleIndex;
+		set => _styleIndex = (int) value;
+	}
 
 	public ColorCustomization Color { get; set; } = new();
 

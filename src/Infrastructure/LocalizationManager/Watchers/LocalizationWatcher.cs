@@ -2,12 +2,12 @@ using Timer = System.Timers.Timer;
 
 namespace YURI_Overlay;
 
-internal partial class LocalizationWatcher : IDisposable
+internal class LocalizationWatcher : IDisposable
 {
 	private readonly FileSystemWatcher _watcher;
 	private readonly Dictionary<string, DateTime> _lastEventTimes = [];
 
-	private bool _disabled = false;
+	private bool _disabled;
 	private Timer _delayedEnableTimer;
 
 	public LocalizationWatcher()
@@ -19,11 +19,11 @@ internal partial class LocalizationWatcher : IDisposable
 			_watcher = new FileSystemWatcher(Constants.LocalizationsPath);
 
 			_watcher.NotifyFilter = NotifyFilters.Attributes
-								 | NotifyFilters.CreationTime
-								 | NotifyFilters.FileName
-								 | NotifyFilters.LastWrite
-								 | NotifyFilters.Security
-								 | NotifyFilters.Size;
+									| NotifyFilters.CreationTime
+									| NotifyFilters.FileName
+									| NotifyFilters.LastWrite
+									| NotifyFilters.Security
+									| NotifyFilters.Size;
 
 			_watcher.Changed += OnLocalizationFileChanged;
 			_watcher.Created += OnLocalizationFileCreated;
@@ -88,28 +88,16 @@ internal partial class LocalizationWatcher : IDisposable
 			if(_disabled) return;
 
 			var name = Path.GetFileNameWithoutExtension(e.Name);
-			if(name is null)
-			{
-				return;
-			}
+			if(name is null) return;
 
 			var eventTime = File.GetLastWriteTime(e.FullPath);
-			if(!_lastEventTimes.ContainsKey(name))
-			{
-				_lastEventTimes[name] = DateTime.MinValue;
-			}
+			if(!_lastEventTimes.ContainsKey(name)) _lastEventTimes[name] = DateTime.MinValue;
 
-			if(eventTime.Ticks - _lastEventTimes[name].Ticks < Constants.DuplicateEventThresholdTicks)
-			{
-				return;
-			}
+			if(eventTime.Ticks - _lastEventTimes[name].Ticks < Constants.DuplicateEventThresholdTicks) return;
 
 			LogManager.Info($"Localization \"{name}\": Changed.");
 
-			if(LocalizationManager.Instance.Localizations.ContainsKey(name))
-			{
-				return;
-			}
+			if(LocalizationManager.Instance.Localizations.ContainsKey(name)) return;
 
 			_lastEventTimes[name] = eventTime;
 		}

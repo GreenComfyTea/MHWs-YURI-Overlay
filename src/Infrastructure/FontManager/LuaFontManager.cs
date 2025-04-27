@@ -18,7 +18,9 @@ internal sealed class LuaFontManager
 
 	private bool _isGameUpdatePending = true;
 
-	private LuaFontManager() { }
+	private LuaFontManager()
+	{
+	}
 
 	public void Initialize()
 	{
@@ -51,10 +53,7 @@ internal sealed class LuaFontManager
 
 				fontName = string.Empty.Equals(fontName) ? "Default" : fontName;
 
-				if(FontNames.Contains(fontName))
-				{
-					continue;
-				}
+				if(FontNames.Contains(fontName)) continue;
 
 				LogManager.Info($"[LuaFontManager] Font \"{fontName}\": Initialized!");
 
@@ -64,10 +63,7 @@ internal sealed class LuaFontManager
 				areFontsAdded = true;
 			}
 
-			if(areFontsAdded)
-			{
-				EmitFontsChanged();
-			}
+			if(areFontsAdded) EmitFontsChanged();
 
 			UpdateActiveFonts();
 		}

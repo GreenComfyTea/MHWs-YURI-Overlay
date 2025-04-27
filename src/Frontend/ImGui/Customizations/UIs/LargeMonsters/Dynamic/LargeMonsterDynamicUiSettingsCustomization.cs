@@ -4,17 +4,15 @@ namespace YURI_Overlay;
 
 internal class LargeMonsterDynamicUiSettingsCustomization : Customization
 {
-	public bool RenderDeadMonsters = false;
+	public bool RenderDeadMonsters;
 	public bool RenderHighlightedMonster = true;
 	public bool RenderNonHighlightedMonsters = true;
 
-	public bool AddMissionBeaconOffsetToWorldOffset = false;
+	public bool AddMissionBeaconOffsetToWorldOffset;
 	public bool AddModelRadiusToWorldOffsetY = true;
 
 	public bool OpacityFalloff = true;
 	public float MaxDistance = 200f;
-
-	public LargeMonsterDynamicUiSettingsCustomization() { }
 
 	public bool RenderImGui(string parentName = "", LargeMonsterDynamicUiSettingsCustomization defaultCustomization = null)
 	{

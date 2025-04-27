@@ -1,14 +1,14 @@
 ﻿using ImGuiNET;
+using Timer = System.Timers.Timer;
 
 namespace YURI_Overlay;
 
 internal sealed class LargeMonsterUiManager : IDisposable
 {
-
 	private List<LargeMonster> _dynamicLargeMonsters = [];
 	private List<LargeMonster> _staticLargeMonsters = [];
 
-	private readonly List<System.Timers.Timer> _timers = [];
+	private readonly List<Timer> _timers = [];
 
 	public LargeMonsterUiManager()
 	{
@@ -37,15 +37,16 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 	public void Dispose()
 	{
-		LogManager.Info($"[LargeMonsterUiManager] Disposing...");
+		LogManager.Info("[LargeMonsterUiManager] Disposing...");
 
 		foreach(var timer in _timers)
 		{
 			timer.Dispose();
 		}
 
-		LogManager.Info($"[LargeMonsterUiManager] Disposed!");
+		LogManager.Info("[LargeMonsterUiManager] Disposed!");
 	}
+
 	private void InitializeTimers()
 	{
 		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.LargeMonsters;
@@ -80,10 +81,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		{
 			var largeMonster = largeMonsterPair.Value;
 
-			if(!renderDeadMonsters && !largeMonster.IsAlive)
-			{
-				continue;
-			}
+			if(!renderDeadMonsters && !largeMonster.IsAlive) continue;
 
 			newLargeMonsters.Add(largeMonster);
 		}
@@ -114,10 +112,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		{
 			var largeMonster = largeMonsterPair.Value;
 
-			if(!renderDeadMonsters && !largeMonster.IsAlive)
-			{
-				continue;
-			}
+			if(!renderDeadMonsters && !largeMonster.IsAlive) continue;
 
 			newLargeMonsters.Add(largeMonster);
 		}
@@ -182,10 +177,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
-		if(!customization.Enabled || !customization.Dynamic.Enabled)
-		{
-			return;
-		}
+		if(!customization.Enabled || !customization.Dynamic.Enabled) return;
 
 		foreach(var largeMonster in _dynamicLargeMonsters)
 		{
@@ -197,10 +189,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
-		if(!customization.Enabled || !customization.Static.Enabled)
-		{
-			return;
-		}
+		if(!customization.Enabled || !customization.Static.Enabled) return;
 
 		for(var locationIndex = 0; locationIndex < _staticLargeMonsters.Count; locationIndex++)
 		{

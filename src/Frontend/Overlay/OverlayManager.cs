@@ -12,7 +12,9 @@ internal sealed class OverlayManager
 	private SmallMonsterUiManager _smallMonsterUiManager;
 	private EndemicLifeUiManager _endemicLifeUiManager;
 
-	private OverlayManager() { }
+	private OverlayManager()
+	{
+	}
 
 	public void Initialize()
 	{

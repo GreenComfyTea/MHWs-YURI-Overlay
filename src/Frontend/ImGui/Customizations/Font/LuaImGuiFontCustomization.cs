@@ -6,8 +6,6 @@ internal sealed class LuaImGuiFontCustomization : Customization
 {
 	public float FontScale = 0.5f;
 
-	public LuaImGuiFontCustomization() { }
-
 	public bool RenderImGui(string parentName = "", LuaImGuiFontCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;

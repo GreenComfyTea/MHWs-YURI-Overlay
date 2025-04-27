@@ -9,8 +9,6 @@ internal sealed class GlobalFontsCustomization : Customization
 	public MenuFontCustomization MenuFont = new();
 	//public GlobalOverlayFontCustomization GlobalOverlayFont = new();
 
-	public GlobalFontsCustomization() { }
-
 	public bool RenderImGui(string parentName = "", GlobalFontsCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;

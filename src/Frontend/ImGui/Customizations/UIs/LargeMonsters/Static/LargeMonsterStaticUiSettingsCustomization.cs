@@ -4,11 +4,9 @@ namespace YURI_Overlay;
 
 internal class LargeMonsterStaticUiSettingsCustomization : Customization
 {
-	public bool RenderDeadMonsters = false;
+	public bool RenderDeadMonsters;
 	public bool RenderHighlightedMonster = true;
 	public bool RenderNonHighlightedMonsters = true;
-
-	public LargeMonsterStaticUiSettingsCustomization() { }
 
 	public bool RenderImGui(string parentName = "", LargeMonsterStaticUiSettingsCustomization defaultCustomization = null)
 	{

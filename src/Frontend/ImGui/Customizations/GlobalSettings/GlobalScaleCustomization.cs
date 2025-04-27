@@ -7,8 +7,6 @@ internal sealed class GlobalScaleCustomization : Customization
 	public float PositionScaleModifier = 1f;
 	public float SizeScaleModifier = 1f;
 
-	public GlobalScaleCustomization() { }
-
 	public bool RenderImGui(string parentName = "", GlobalScaleCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
@@ -35,4 +33,3 @@ internal sealed class GlobalScaleCustomization : Customization
 		SizeScaleModifier = defaultCustomization.SizeScaleModifier;
 	}
 }
-

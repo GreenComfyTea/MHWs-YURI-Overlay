@@ -11,14 +11,16 @@ internal sealed class ImGuiManager
 	public float ComboBoxWidth = 100f;
 	public float ColorPickerWidth = 100f;
 
-	private bool _isOpened = false;
+	private bool _isOpened;
 	private bool _isForceModInfoOpen = true;
 	private string _modTitle = string.Empty;
 
 	private Debouncer _onConfigChangedEmitDebouncer;
 	private Debouncer _onConfigChangedSaveDebouncer;
 
-	private ImGuiManager() { }
+	private ImGuiManager()
+	{
+	}
 
 	public void Initialize()
 	{
@@ -30,8 +32,6 @@ internal sealed class ImGuiManager
 		_onConfigChangedSaveDebouncer = new Debouncer();
 
 		LogManager.Info("[ImGuiManager] Initialized!");
-
-		return;
 	}
 
 	public void Draw()
@@ -65,10 +65,7 @@ internal sealed class ImGuiManager
 
 			CalculateWidths();
 
-			if(_isForceModInfoOpen)
-			{
-				ImGui.SetNextItemOpen(true);
-			}
+			if(_isForceModInfoOpen) ImGui.SetNextItemOpen(true);
 
 			if(ImGui.TreeNode(activeLocalization.ImGui.ModInfo))
 			{
@@ -76,60 +73,34 @@ internal sealed class ImGuiManager
 				ImGui.SameLine();
 				ImGui.TextColored(Constants.ModAuthorColor, Constants.ModAuthor);
 
-				if(ImGui.Button(activeLocalization.ImGui.NexusMods))
-				{
-					Utils.OpenLink(Constants.NexusModsLink);
-				}
+				if(ImGui.Button(activeLocalization.ImGui.NexusMods)) Utils.OpenLink(Constants.NexusModsLink);
 
 				ImGui.SameLine();
-				if(ImGui.Button(activeLocalization.ImGui.GitHubRepo))
-				{
-					Utils.OpenLink(Constants.GithubRepoLink);
-				}
+				if(ImGui.Button(activeLocalization.ImGui.GitHubRepo)) Utils.OpenLink(Constants.GithubRepoLink);
 
-				if(ImGui.Button(activeLocalization.ImGui.Twitch))
-				{
-					Utils.OpenLink(Constants.TwitchLink);
-				}
+				if(ImGui.Button(activeLocalization.ImGui.Twitch)) Utils.OpenLink(Constants.TwitchLink);
 
 				ImGui.SameLine();
-				if(ImGui.Button(activeLocalization.ImGui.Twitter))
-				{
-					Utils.OpenLink(Constants.TwitterLink);
-				}
+				if(ImGui.Button(activeLocalization.ImGui.Twitter)) Utils.OpenLink(Constants.TwitterLink);
 
 				ImGui.SameLine();
-				if(ImGui.Button(activeLocalization.ImGui.ArtStation))
-				{
-					Utils.OpenLink(Constants.ArtStationLink);
-				}
+				if(ImGui.Button(activeLocalization.ImGui.ArtStation)) Utils.OpenLink(Constants.ArtStationLink);
 
 				ImGui.Text(activeLocalization.ImGui.DonationMessage1);
 				ImGui.Text(activeLocalization.ImGui.DonationMessage2);
 
-				if(ImGui.Button(activeLocalization.ImGui.Donate))
-				{
-					Utils.OpenLink(Constants.StreamElementsTipLink);
-				}
+				if(ImGui.Button(activeLocalization.ImGui.Donate)) Utils.OpenLink(Constants.StreamElementsTipLink);
 
 				ImGui.SameLine();
-				if(ImGui.Button(activeLocalization.ImGui.PayPal))
-				{
-					Utils.OpenLink(Constants.PaypalLink);
-				}
+				if(ImGui.Button(activeLocalization.ImGui.PayPal)) Utils.OpenLink(Constants.PaypalLink);
 
 				ImGui.SameLine();
-				if(ImGui.Button(activeLocalization.ImGui.BuyMeATea))
-				{
-					Utils.OpenLink(Constants.KofiLink);
-				}
+				if(ImGui.Button(activeLocalization.ImGui.BuyMeATea)) Utils.OpenLink(Constants.KofiLink);
 
 				ImGui.TreePop();
 			}
 			else
-			{
 				_isForceModInfoOpen = false;
-			}
 
 			ImGui.Separator();
 			ImGui.NewLine();
@@ -172,7 +143,6 @@ internal sealed class ImGuiManager
 
 	private void CalculateWidths()
 	{
-
 		var windowSize = ImGui.GetWindowSize();
 
 		ComboBoxWidth = Constants.ComboboxWidthMultiplier * windowSize.X;

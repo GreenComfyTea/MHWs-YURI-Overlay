@@ -1,5 +1,5 @@
-﻿using ImGuiNET;
-using System.Numerics;
+﻿using System.Numerics;
+using ImGuiNET;
 
 namespace YURI_Overlay;
 
@@ -16,22 +16,13 @@ internal sealed class LabelElement
 	{
 		var customization = _customizationAccessor();
 
-		if(!customization.Visible)
-		{
-			return;
-		}
+		if(!customization.Visible) return;
 
-		if(args.Length == 0)
-		{
-			return;
-		}
+		if(args.Length == 0) return;
 
 		var text = string.Format(customization.Format, args);
 
-		if(string.IsNullOrEmpty(text))
-		{
-			return;
-		}
+		if(string.IsNullOrEmpty(text)) return;
 
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier;
 
@@ -58,19 +49,13 @@ internal sealed class LabelElement
 		if(customization.Shadow.Visible)
 		{
 			var shadowColor = customization.Shadow.Color.ColorInfo.Abgr;
-			if(opacityScale < 1)
-			{
-				shadowColor = Utils.ScaleColorOpacityAbgr(shadowColor, opacityScale);
-			}
+			if(opacityScale < 1) shadowColor = Utils.ScaleColorOpacityAbgr(shadowColor, opacityScale);
 
 			backgroundDrawList.AddText(shadowPosition, shadowColor, text);
 		}
 
 		var color = customization.Color.ColorInfo.Abgr;
-		if(opacityScale < 1)
-		{
-			color = Utils.ScaleColorOpacityAbgr(color, opacityScale);
-		}
+		if(opacityScale < 1) color = Utils.ScaleColorOpacityAbgr(color, opacityScale);
 
 		backgroundDrawList.AddText(textPosition, color, text);
 	}

@@ -10,8 +10,6 @@ internal class LargeMonsterHealthComponentCustomization : Customization
 	public LabelElementCustomization PercentageLabel = new();
 	public BarElementCustomization Bar = new();
 
-	public LargeMonsterHealthComponentCustomization() { }
-
 	public bool RenderImGui(string parentName = "", LargeMonsterHealthComponentCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;

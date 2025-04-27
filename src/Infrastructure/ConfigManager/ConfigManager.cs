@@ -18,7 +18,9 @@ internal sealed partial class ConfigManager : IDisposable
 
 	private JsonDatabase<CurrentConfig> _currentConfigInstance;
 
-	private ConfigManager() { }
+	private ConfigManager()
+	{
+	}
 
 	~ConfigManager()
 	{
@@ -168,6 +170,7 @@ internal sealed partial class ConfigManager : IDisposable
 
 		LogManager.Info("[ConfigManager] Disposed!");
 	}
+
 	public void EmitAnyConfigChanged()
 	{
 		Utils.EmitEvents(this, AnyConfigChanged);

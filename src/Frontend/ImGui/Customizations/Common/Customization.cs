@@ -2,5 +2,4 @@
 
 internal abstract class Customization
 {
-	protected Customization() { }
 }

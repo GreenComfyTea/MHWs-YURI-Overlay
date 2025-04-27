@@ -1,18 +1,17 @@
-﻿using ImGuiNET;
-using System.Numerics;
+﻿using System.Numerics;
 using System.Text.Json.Serialization;
+using ImGuiNET;
 
 namespace YURI_Overlay;
 
 internal sealed class LocalizationCustomization : Customization
 {
-	private int _activeLocalizationIndex = 0;
+	private int _activeLocalizationIndex;
 
 	private string[] _localizationNames = [];
 	private string[] _localizationIsoCodes = [];
 
-	[JsonIgnore]
-	private Vector4 TranslatorColor { get; set; } = Constants.ModAuthorColor;
+	[JsonIgnore] private Vector4 TranslatorColor { get; set; } = Constants.ModAuthorColor;
 
 	public LocalizationCustomization()
 	{
@@ -55,7 +54,6 @@ internal sealed class LocalizationCustomization : Customization
 
 			ImGui.TreePop();
 		}
-
 
 
 		return isChanged;

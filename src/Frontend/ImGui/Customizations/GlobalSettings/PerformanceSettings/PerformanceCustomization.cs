@@ -7,8 +7,6 @@ internal sealed class PerformanceCustomization : Customization
 	public bool CalculationCaching = true;
 	public UpdateDelaysCustomization UpdateDelays = new();
 
-	public PerformanceCustomization() { }
-
 	public bool RenderImGui(string parentName = "", PerformanceCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
@@ -35,4 +33,3 @@ internal sealed class PerformanceCustomization : Customization
 		UpdateDelays.Reset(defaultCustomization.UpdateDelays);
 	}
 }
-

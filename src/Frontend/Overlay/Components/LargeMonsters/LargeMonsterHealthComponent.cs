@@ -1,5 +1,5 @@
-﻿using ImGuiNET;
-using System.Numerics;
+﻿using System.Numerics;
+using ImGuiNET;
 
 namespace YURI_Overlay;
 
@@ -29,7 +29,7 @@ internal class LargeMonsterHealthComponent
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier;
 
 		var offset = _customizationAccessor().Offset;
-		var offsetPosition = new Vector2(position.X + (sizeScaleModifier * offset.X), position.Y + (sizeScaleModifier * offset.Y));
+		var offsetPosition = new Vector2(position.X + sizeScaleModifier * offset.X, position.Y + sizeScaleModifier * offset.Y);
 
 		_healthBarElement.Draw(backgroundDrawList, offsetPosition, _largeMonster.HealthPercentage, opacityScale);
 		_healthPercentageLabelElement.Draw(backgroundDrawList, offsetPosition, opacityScale, _largeMonster.HealthPercentage);

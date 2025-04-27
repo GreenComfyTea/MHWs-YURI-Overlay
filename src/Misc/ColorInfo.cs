@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Numerics;
 
 namespace YURI_Overlay;
@@ -113,7 +114,7 @@ internal class ColorInfo
 	{
 		if(rgbaHex.Length != 9) return;
 
-		_rgba = uint.Parse(rgbaHex[1..], System.Globalization.NumberStyles.HexNumber);
+		_rgba = uint.Parse(rgbaHex[1..], NumberStyles.HexNumber);
 
 		var red = (byte) (Rgba >> 24);
 		var green = (byte) (Rgba >> 16);
@@ -129,7 +130,7 @@ internal class ColorInfo
 	{
 		if(abgrHex.Length != 9) return;
 
-		_abgr = uint.Parse(abgrHex[1..], System.Globalization.NumberStyles.HexNumber);
+		_abgr = uint.Parse(abgrHex[1..], NumberStyles.HexNumber);
 
 		var red = (byte) Abgr;
 		var green = (byte) (Abgr >> 8);

@@ -1,6 +1,7 @@
+using System.Diagnostics.CodeAnalysis;
 using REFrameworkNET;
 using REFrameworkNET.Attributes;
-using System.Diagnostics.CodeAnalysis;
+using REFrameworkNET.Callbacks;
 
 namespace YURI_Overlay;
 
@@ -83,9 +84,9 @@ public class Plugin
 			LogManager.Info("Managers: Initialized!");
 			LogManager.Info("Callbacks: Initializing...");
 
-			REFrameworkNET.Callbacks.UpdateBehavior.Post += OnUpdate;
-			REFrameworkNET.Callbacks.ImGuiDrawUI.Post += OnImGuiDrawUI;
-			REFrameworkNET.Callbacks.ImGuiRender.Post += OnImGuiRender;
+			UpdateBehavior.Post += OnUpdate;
+			ImGuiDrawUI.Post += OnImGuiDrawUI;
+			ImGuiRender.Post += OnImGuiRender;
 
 			IsInitialized = true;
 		}
@@ -121,6 +122,5 @@ public class Plugin
 		if(!IsInitialized) return;
 
 		OverlayManager.Instance.Draw();
-
 	}
 }

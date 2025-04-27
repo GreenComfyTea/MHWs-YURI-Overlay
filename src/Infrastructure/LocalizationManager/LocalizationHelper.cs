@@ -24,8 +24,6 @@ internal sealed class LocalizationHelper
 	public string DefaultDefinedByLocalization = "";
 	public string DefinedByLocalization = "";
 
-	public LocalizationHelper() { }
-
 	public void Initialize()
 	{
 		var localizationManager = LocalizationManager.Instance;
@@ -39,21 +37,21 @@ internal sealed class LocalizationHelper
 			defaultLocalization.LeftToRight,
 			defaultLocalization.RightToLeft,
 			defaultLocalization.TopToBottom,
-			defaultLocalization.BottomToTop
+			defaultLocalization.BottomToTop,
 		];
 
 		DefaultOutlineStyles =
 		[
 			defaultLocalization.Inside,
 			defaultLocalization.Center,
-			defaultLocalization.Outside
+			defaultLocalization.Outside,
 		];
 
 		DefaultSortingLocations =
 		[
 			defaultLocalization.Normal,
 			defaultLocalization.First,
-			defaultLocalization.Last
+			defaultLocalization.Last,
 		];
 
 		DefaultSortings =
@@ -63,7 +61,7 @@ internal sealed class LocalizationHelper
 			defaultLocalization.Health,
 			defaultLocalization.MaxHealth,
 			defaultLocalization.HealthPercentage,
-			defaultLocalization.Distance
+			defaultLocalization.Distance,
 		];
 
 		DefaultAnchors =
@@ -76,7 +74,7 @@ internal sealed class LocalizationHelper
 			defaultLocalization.CenterRight,
 			defaultLocalization.BottomLeft,
 			defaultLocalization.BottomCenter,
-			defaultLocalization.BottomRight
+			defaultLocalization.BottomRight,
 		];
 
 		DefinedByLocalization = defaultLocalization.DefinedByLocalization.Replace(" ", "");
@@ -93,21 +91,21 @@ internal sealed class LocalizationHelper
 			localization.LeftToRight,
 			localization.RightToLeft,
 			localization.TopToBottom,
-			localization.BottomToTop
+			localization.BottomToTop,
 		];
 
 		OutlineStyles =
 		[
 			localization.Inside,
 			localization.Center,
-			localization.Outside
+			localization.Outside,
 		];
 
 		SortingLocations =
 		[
 			localization.Normal,
 			localization.First,
-			localization.Last
+			localization.Last,
 		];
 
 		Sortings =
@@ -117,7 +115,7 @@ internal sealed class LocalizationHelper
 			localization.Health,
 			localization.MaxHealth,
 			localization.HealthPercentage,
-			localization.Distance
+			localization.Distance,
 		];
 
 		Anchors =
@@ -130,7 +128,7 @@ internal sealed class LocalizationHelper
 			localization.CenterRight,
 			localization.BottomLeft,
 			localization.BottomCenter,
-			localization.BottomRight
+			localization.BottomRight,
 		];
 
 		DefinedByLocalization = localization.DefinedByLocalization;

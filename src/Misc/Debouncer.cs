@@ -6,7 +6,7 @@ internal sealed class Debouncer
 
 	public void Debounce(Action action, int delayMilliseconds)
 	{
-		_cancellationTokenSource?.Cancel();  // Cancel any previously scheduled task
+		_cancellationTokenSource?.Cancel(); // Cancel any previously scheduled task
 		_cancellationTokenSource = new CancellationTokenSource();
 
 		var token = _cancellationTokenSource.Token;

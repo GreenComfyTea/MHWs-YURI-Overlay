@@ -13,8 +13,6 @@ internal sealed class LargeMonstersUpdateDelaysCustomization : Customization
 	public float DynamicList = 0.1f;
 	public float StaticList = 0.1f;
 
-	public LargeMonstersUpdateDelaysCustomization() { }
-
 	public bool RenderImGui(string parentName = "", LargeMonstersUpdateDelaysCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;

@@ -1,5 +1,4 @@
-﻿
-using ImGuiNET;
+﻿using ImGuiNET;
 
 namespace YURI_Overlay;
 
@@ -9,8 +8,6 @@ internal class LargeMonsterUiCustomization : Customization
 
 	public LargeMonsterDynamicUiCustomization Dynamic = new();
 	public LargeMonsterStaticUiCustomization Static = new();
-
-	public LargeMonsterUiCustomization() { }
 
 	public bool RenderImGui(string parentName = "", LargeMonsterUiCustomization defaultCustomization = null)
 	{

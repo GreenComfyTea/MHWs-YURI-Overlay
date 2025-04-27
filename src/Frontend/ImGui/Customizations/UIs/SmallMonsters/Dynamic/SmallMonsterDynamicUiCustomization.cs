@@ -12,8 +12,6 @@ internal class SmallMonsterDynamicUiCustomization : Customization
 	public LabelElementCustomization NameLabel = new();
 	public SmallMonsterHealthComponentCustomization Health = new();
 
-	public SmallMonsterDynamicUiCustomization() { }
-
 	public bool RenderImGui(string parentName = "", SmallMonsterDynamicUiCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
@@ -48,6 +46,5 @@ internal class SmallMonsterDynamicUiCustomization : Customization
 
 		NameLabel.Reset(defaultCustomization.NameLabel);
 		Health.Reset(defaultCustomization.Health);
-
 	}
 }

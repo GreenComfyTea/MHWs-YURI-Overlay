@@ -10,8 +10,6 @@ internal sealed class UpdateDelaysCustomization : Customization
 	public SmallMonstersUpdateDelaysCustomization SmallMonsters = new();
 	public EndemicLifeUpdateDelaysCustomization EndemicLife = new();
 
-	public UpdateDelaysCustomization() { }
-
 	public bool RenderImGui(string parentName = "", UpdateDelaysCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;

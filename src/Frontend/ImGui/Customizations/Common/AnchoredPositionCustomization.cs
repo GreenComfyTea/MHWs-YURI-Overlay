@@ -1,22 +1,21 @@
-﻿using ImGuiNET;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using ImGuiNET;
 
 namespace YURI_Overlay;
 
 internal sealed class AnchoredPositionCustomization : Customization
 {
-	public float X = 0f;
-	public float Y = 0f;
+	public float X;
+	public float Y;
 
 	private int _anchorIndex = (int) Anchors.TopLeft;
+
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public Anchors Anchor
 	{
 		get => (Anchors) _anchorIndex;
 		set => _anchorIndex = (int) value;
 	}
-
-	public AnchoredPositionCustomization() { }
 
 	public bool RenderImGui(string parentName = "", AnchoredPositionCustomization defaultCustomization = null)
 	{

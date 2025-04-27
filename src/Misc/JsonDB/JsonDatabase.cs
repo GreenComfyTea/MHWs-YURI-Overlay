@@ -2,7 +2,7 @@ using System.Text.Json;
 
 namespace YURI_Overlay;
 
-internal partial class JsonDatabase<T> : IDisposable where T : class, new()
+internal class JsonDatabase<T> : IDisposable where T : class, new()
 {
 	public string Name = string.Empty;
 	public string FilePath = Constants.PluginDataPath;
@@ -80,13 +80,9 @@ internal partial class JsonDatabase<T> : IDisposable where T : class, new()
 			var isSuccess = FileSyncInstance.Write(json);
 
 			if(isSuccess)
-			{
 				LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Saved!");
-			}
 			else
-			{
 				LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Saving failed!");
-			}
 
 			JsonWatcherInstance?.DelayedEnable();
 			return isSuccess;
@@ -127,6 +123,7 @@ internal partial class JsonDatabase<T> : IDisposable where T : class, new()
 	{
 		Utils.EmitEvents(this, Deleted);
 	}
+
 	public void Dispose()
 	{
 		LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Disposing...");

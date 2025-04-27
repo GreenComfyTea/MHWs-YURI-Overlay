@@ -1,5 +1,5 @@
-﻿using ImGuiNET;
-using System.Numerics;
+﻿using System.Numerics;
+using ImGuiNET;
 
 namespace YURI_Overlay;
 
@@ -34,33 +34,21 @@ internal sealed class SmallMonsterDynamicUi
 			monsterPosition.Z + worldOffset.Z
 		);
 
-		if(settings.AddMissionBeaconOffsetToWorldOffset)
-		{
-			targetWorldPosition += _largeMonster.MissionBeaconOffset;
-		}
+		if(settings.AddMissionBeaconOffsetToWorldOffset) targetWorldPosition += _largeMonster.MissionBeaconOffset;
 
-		if(settings.AddModelRadiusToWorldOffsetY)
-		{
-			targetWorldPosition.Y += _largeMonster.ModelRadius;
-		}
+		if(settings.AddModelRadiusToWorldOffsetY) targetWorldPosition.Y += _largeMonster.ModelRadius;
 
 		var maybeScreenPosition = ScreenManager.Instance.ConvertWorldPositionToScreenPosition(targetWorldPosition);
 
 		// Not on screen
-		if(maybeScreenPosition is null)
-		{
-			return;
-		}
+		if(maybeScreenPosition is null) return;
 
 		var opacityScale =
 			settings.OpacityFalloff && settings.MaxDistance > 0f
-			? float.Clamp((settings.MaxDistance - _largeMonster.Distance) / settings.MaxDistance, 0f, 1f)
-			: 1f;
+				? float.Clamp((settings.MaxDistance - _largeMonster.Distance) / settings.MaxDistance, 0f, 1f)
+				: 1f;
 
-		if(Utils.IsApproximatelyEqual(opacityScale, 0f))
-		{
-			return;
-		}
+		if(Utils.IsApproximatelyEqual(opacityScale, 0f)) return;
 
 		var screenPosition = (Vector2) maybeScreenPosition;
 
@@ -71,6 +59,5 @@ internal sealed class SmallMonsterDynamicUi
 
 		_healthComponent.Draw(backgroundDrawList, screenPosition, opacityScale);
 		_nameLabelElement.Draw(backgroundDrawList, screenPosition, opacityScale, _largeMonster.Name);
-
 	}
 }

@@ -8,8 +8,6 @@ internal sealed class ImGuiFontCustomization : Customization
 	public int HorizontalOversample = 2;
 	public int VerticalOversample = 2;
 
-	public ImGuiFontCustomization() { }
-
 	public bool RenderImGui(string parentName = "", ImGuiFontCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
@@ -19,7 +17,6 @@ internal sealed class ImGuiFontCustomization : Customization
 
 		if(ImGui.TreeNode($"{localization.Font}##{customizationName}"))
 		{
-
 			ImGui.Text(localization.AnyChangesToFontRequireGameRestart);
 
 			isChanged |= ImGui.DragFloat($"{localization.FontSize}##{customizationName}", ref FontSize, 0.1f, 1f, 128f, "%.1f");

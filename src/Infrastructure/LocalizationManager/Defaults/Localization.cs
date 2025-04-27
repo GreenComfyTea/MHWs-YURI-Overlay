@@ -224,13 +224,11 @@ internal class ImGuiLocalization
 
 internal class Localization
 {
-	[JsonIgnore]
-	public string IsoCode = Constants.DefaultLocalization;
+	[JsonIgnore] public string IsoCode = Constants.DefaultLocalization;
 
 	public LocalizationInfo LocalizationInfo = new();
 
 	public FontsInfo Fonts { get; set; } = new();
 
-	[JsonPropertyName("Customization")]
-	public ImGuiLocalization ImGui = new();
+	[JsonPropertyName("Customization")] public ImGuiLocalization ImGui = new();
 }

@@ -1,42 +1,41 @@
-﻿using REFrameworkNET;
-using System.Numerics;
+﻿using System.Numerics;
+using app;
+using REFrameworkNET;
+using Timer = System.Timers.Timer;
 
 namespace YURI_Overlay;
 
 internal sealed class EndemicLifeEntity : IDisposable
 {
-	public app.EnemyCharacter EnemyCharacter;
-	public app.cEnemyContext EnemyContext;
-	public ManagedObject EnemyCharacterManagedObject;
-
-	public string Name = "Endemic Life";
-	public app.EnemyDef.ID Id = 0;
-	public app.EnemyDef.ROLE_ID RoleId = 0;
-	public app.EnemyDef.LEGENDARY_ID LegendaryId = 0;
-
-
-	public Vector3 MissionBeaconOffset = Vector3.Zero;
-	public float ModelRadius = 0f;
-
-	public Vector3 Position = Vector3.Zero;
-	public float Distance = 0f;
+	public EnemyCharacter EnemyCharacter;
+	public cEnemyContext EnemyContext;
 
 	public EndemicLifeDynamicUi DynamicUi;
+
+	public EnemyDef.ID Id = 0;
+	public EnemyDef.ROLE_ID RoleId = 0;
+	public EnemyDef.LEGENDARY_ID LegendaryId = 0;
+
+	public string Name = "Endemic Life";
+
+	public float ModelRadius;
+
+	public Vector3 Position = Vector3.Zero;
+	public float Distance;
+
+	private readonly List<Timer> _timers = [];
 
 	private bool _isUpdateNamePending = true;
 	private bool _isUpdateModelRadiusPending = true;
 
-	private readonly List<System.Timers.Timer> _timers = [];
+	private Type _stringType;
 
-	private Type String_Type;
+	private Method _nameStringMethod;
 
-	private Method NameString_Method;
-
-	public EndemicLifeEntity(app.EnemyCharacter enemyCharacter, app.cEnemyContext enemyContext, ManagedObject enemyCharacterManagedObject)
+	public EndemicLifeEntity(EnemyCharacter enemyCharacter, cEnemyContext enemyContext)
 	{
-		EnemyCharacter = enemyCharacter;
-		EnemyContext = enemyContext;
-		EnemyCharacterManagedObject = enemyCharacterManagedObject;
+		this.EnemyCharacter = enemyCharacter;
+		this.EnemyContext = enemyContext;
 
 		try
 		{
@@ -135,9 +134,9 @@ internal sealed class EndemicLifeEntity : IDisposable
 				return;
 			}
 
-			Position.X = position.x;
-			Position.Y = position.y;
-			Position.Z = position.z;
+			this.Position.X = position.x;
+			this.Position.Y = position.y;
+			this.Position.Z = position.z;
 		}
 		catch(Exception exception)
 		{
@@ -150,7 +149,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 		Distance = Vector3.Distance(Position, PlayerManager.Instance.Position);
 	}
 
-	private unsafe void UpdateIds()
+	private void UpdateIds()
 	{
 		try
 		{
@@ -178,14 +177,14 @@ internal sealed class EndemicLifeEntity : IDisposable
 			if(!_isUpdateNamePending) return;
 			_isUpdateNamePending = false;
 
-			var name = (string) NameString_Method.InvokeBoxed(String_Type, null, [Id, RoleId, LegendaryId]);
+			var name = (string) _nameStringMethod.InvokeBoxed(_stringType, null, [Id, RoleId, LegendaryId]);
 			if(name is null)
 			{
 				LogManager.Warn("[EndemicLife.UpdateName] No enemy name");
 				return;
 			}
 
-			Name = name;
+			this.Name = name;
 			//Name = "Nerscylla Hatchling";
 		}
 		catch(Exception exception)
@@ -208,15 +207,16 @@ internal sealed class EndemicLifeEntity : IDisposable
 			LogManager.Error(exception);
 		}
 	}
+
 	private void InitializeTdb()
 	{
 		try
 		{
-			var EnemyDef_TypeDef = app.EnemyDef.REFType;
+			var enemyDefTypeDef = EnemyDef.REFType;
 
-			NameString_Method = EnemyDef_TypeDef.GetMethod("NameString");
+			_nameStringMethod = enemyDefTypeDef.GetMethod("NameString");
 
-			String_Type = NameString_Method.ReturnType.GetType();
+			_stringType = _nameStringMethod.ReturnType.GetType();
 		}
 		catch(Exception exception)
 		{

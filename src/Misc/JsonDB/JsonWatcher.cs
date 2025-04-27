@@ -2,13 +2,12 @@ using Timer = System.Timers.Timer;
 
 namespace YURI_Overlay;
 
-
-internal partial class JsonWatcher<T> : IDisposable where T : class, new()
+internal class JsonWatcher<T> : IDisposable where T : class, new()
 {
 	private readonly JsonDatabase<T> JsonDatabaseInstance;
 	private readonly FileSystemWatcher Watcher;
 
-	private bool _disabled = false;
+	private bool _disabled;
 	private DateTime _lastEventTime = DateTime.MinValue;
 	private Timer _delayedEnableTimer;
 
@@ -22,11 +21,11 @@ internal partial class JsonWatcher<T> : IDisposable where T : class, new()
 			Watcher = new FileSystemWatcher(jsonDatabase.FilePath);
 
 			Watcher.NotifyFilter = NotifyFilters.Attributes
-								 | NotifyFilters.CreationTime
-								 | NotifyFilters.FileName
-								 | NotifyFilters.LastWrite
-								 | NotifyFilters.Security
-								 | NotifyFilters.Size;
+								   | NotifyFilters.CreationTime
+								   | NotifyFilters.FileName
+								   | NotifyFilters.LastWrite
+								   | NotifyFilters.Security
+								   | NotifyFilters.Size;
 
 			Watcher.Changed += OnJsonFileChanged;
 			Watcher.Renamed += OnJsonFileRenamed;
@@ -73,6 +72,7 @@ internal partial class JsonWatcher<T> : IDisposable where T : class, new()
 
 		LogManager.Info($"[JsonWatcher] File \"{JsonDatabaseInstance.Name}\": Temporarily disabled!");
 	}
+
 	public void Dispose()
 	{
 		LogManager.Info($"[JsonWatcher] File \"{JsonDatabaseInstance.Name}\": Disposing...");
@@ -90,10 +90,7 @@ internal partial class JsonWatcher<T> : IDisposable where T : class, new()
 
 			var eventTime = File.GetLastWriteTime(e.FullPath);
 
-			if(eventTime.Ticks - _lastEventTime.Ticks < Constants.DuplicateEventThresholdTicks)
-			{
-				return;
-			}
+			if(eventTime.Ticks - _lastEventTime.Ticks < Constants.DuplicateEventThresholdTicks) return;
 
 			LogManager.Info($"[JsonWatcher] File \"{JsonDatabaseInstance.Name}.json\": Changed.");
 
@@ -135,13 +132,9 @@ internal partial class JsonWatcher<T> : IDisposable where T : class, new()
 			LogManager.Info($"[JsonWatcher] File \"{e.OldName}\": Renamed to \"{e.Name}\".");
 
 			if(e.Name != Watcher.Filter)
-			{
 				JsonDatabaseInstance.EmitRenamedFrom();
-			}
 			else
-			{
 				JsonDatabaseInstance.EmitRenamedTo();
-			}
 		}
 		catch(Exception exception)
 		{

@@ -4,10 +4,8 @@ namespace YURI_Overlay;
 
 internal sealed class OffsetCustomization : Customization
 {
-	public float X = 0f;
-	public float Y = 0f;
-
-	public OffsetCustomization() { }
+	public float X;
+	public float Y;
 
 	public bool RenderImGui(string parentName = "", OffsetCustomization defaultCustomization = null)
 	{

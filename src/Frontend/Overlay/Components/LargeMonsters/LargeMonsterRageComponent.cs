@@ -1,5 +1,5 @@
-﻿using ImGuiNET;
-using System.Numerics;
+﻿using System.Numerics;
+using ImGuiNET;
 
 namespace YURI_Overlay;
 
@@ -19,7 +19,7 @@ internal sealed class LargeMonsterRageComponent
 	{
 		_largeMonster = largeMonster;
 
-		this._customizationAccessor = customizationAccessor;
+		_customizationAccessor = customizationAccessor;
 
 		_rageValueLabelElement = new LabelElement(() => customizationAccessor().ValueLabel);
 		_ragePercentageLabelElement = new LabelElement(() => customizationAccessor().PercentageLabel);
@@ -35,7 +35,7 @@ internal sealed class LargeMonsterRageComponent
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier;
 
 		var offset = _customizationAccessor().Offset;
-		var offsetPosition = new Vector2(position.X + (sizeScaleModifier * offset.X), position.Y + (sizeScaleModifier * offset.Y));
+		var offsetPosition = new Vector2(position.X + sizeScaleModifier * offset.X, position.Y + sizeScaleModifier * offset.Y);
 
 		if(_largeMonster.IsEnraged)
 		{

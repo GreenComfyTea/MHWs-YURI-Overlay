@@ -1,5 +1,7 @@
-using REFrameworkNET;
 using System.Numerics;
+using REFrameworkNET;
+using via;
+using Timer = System.Timers.Timer;
 
 namespace YURI_Overlay;
 
@@ -11,7 +13,7 @@ internal sealed class ScreenManager : IDisposable
 	public Vector2 WindowSize = new(1920f, 1080f);
 	public Vector3 CameraPosition = Vector3.Zero;
 
-	private via.Camera _primaryCamera;
+	private Camera _primaryCamera;
 	private Matrix4x4 _viewProjectionMatrix = Matrix4x4.Identity;
 
 	private Vector3 _cameraForward = Vector3.Zero;
@@ -21,13 +23,15 @@ internal sealed class ScreenManager : IDisposable
 
 	private bool _isUpdatePending = true;
 
-	private readonly List<System.Timers.Timer> _timers = [];
+	private readonly List<Timer> _timers = [];
 
-	private Type SceneView_Type;
+	private Type _sceneViewType;
 
-	private Method get_MainView_Method;
+	private Method _getMainViewMethod;
 
-	private ScreenManager() { }
+	private ScreenManager()
+	{
+	}
 
 	public void Initialize()
 	{
@@ -51,19 +55,13 @@ internal sealed class ScreenManager : IDisposable
 			var cameraToWorld = worldPosition - CameraPosition;
 
 			// Check if world position is behind the camera
-			if(Vector3.Dot(cameraToWorld, -_cameraForward) <= 0f)
-			{
-				return null;
-			}
+			if(Vector3.Dot(cameraToWorld, -_cameraForward) <= 0f) return null;
 
 			var worldPosition4 = new Vector4(worldPosition, 1.0f);
 
 			var clipSpacePosition = Vector4.Transform(worldPosition4, _viewProjectionMatrix);
 
-			if(Utils.IsApproximatelyEqual(clipSpacePosition.W, 0f))
-			{
-				return null;
-			}
+			if(Utils.IsApproximatelyEqual(clipSpacePosition.W, 0f)) return null;
 
 			// Perform perspective division to get NDC
 			var normalizedDeviceCoordinatesX = clipSpacePosition.X / clipSpacePosition.W;
@@ -99,10 +97,8 @@ internal sealed class ScreenManager : IDisposable
 			Update();
 
 			if(_primaryCamera is null)
-			{
 				//LogManager.Warn("[ScreenManager.GameUpdate] No primary camera");
 				return;
-			}
 
 			var viewProjectionMatrix = _primaryCamera.ViewProjMatrix;
 			if(viewProjectionMatrix is null)
@@ -217,7 +213,7 @@ internal sealed class ScreenManager : IDisposable
 				return;
 			}
 
-			var mainViewObject = (ManagedObject) get_MainView_Method.InvokeBoxed(SceneView_Type, sceneManager, []);
+			var mainViewObject = (ManagedObject) _getMainViewMethod.InvokeBoxed(_sceneViewType, sceneManager, []);
 			if(mainViewObject is null)
 			{
 				LogManager.Warn("[ScreenManager.Update] No main view");
@@ -225,7 +221,7 @@ internal sealed class ScreenManager : IDisposable
 			}
 
 			var mainViewPtr = (ulong) mainViewObject.Ptr();
-			var mainView = ManagedObject.ToManagedObject(mainViewPtr).As<via.SceneView>();
+			var mainView = ManagedObject.ToManagedObject(mainViewPtr).As<SceneView>();
 			if(mainView is null)
 			{
 				LogManager.Warn("[ScreenManager.Update] No main view");
@@ -234,10 +230,8 @@ internal sealed class ScreenManager : IDisposable
 
 			_primaryCamera = mainView.PrimaryCamera;
 			if(_primaryCamera is null)
-			{
 				//LogManager.Warn("[ScreenManager.Update] No primary camera");
 				return;
-			}
 
 
 			var windowSize = mainView.WindowSize;
@@ -263,12 +257,12 @@ internal sealed class ScreenManager : IDisposable
 	{
 		try
 		{
-			var sceneManager_TypeDef = via.SceneManager.REFType;
+			var sceneManagerTypeDef = SceneManager.REFType;
 
-			get_MainView_Method = sceneManager_TypeDef.GetMethod("get_MainView");
+			_getMainViewMethod = sceneManagerTypeDef.GetMethod("get_MainView");
 
-			var SceneView_TypeDef = get_MainView_Method.GetReturnType();
-			SceneView_Type = SceneView_TypeDef.GetType();
+			var sceneViewTypeDef = _getMainViewMethod.GetReturnType();
+			_sceneViewType = sceneViewTypeDef.GetType();
 		}
 		catch(Exception exception)
 		{

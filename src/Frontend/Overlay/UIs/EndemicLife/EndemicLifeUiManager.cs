@@ -1,13 +1,13 @@
 ﻿using ImGuiNET;
+using Timer = System.Timers.Timer;
 
 namespace YURI_Overlay;
 
 internal sealed class EndemicLifeUiManager : IDisposable
 {
-
 	private List<EndemicLifeEntity> _dynamicEndemicLifeEntities = [];
 
-	private readonly List<System.Timers.Timer> _timers = [];
+	private readonly List<Timer> _timers = [];
 
 	public EndemicLifeUiManager()
 	{
@@ -40,14 +40,14 @@ internal sealed class EndemicLifeUiManager : IDisposable
 
 	public void Dispose()
 	{
-		LogManager.Info($"[EndemicLifeUiManager] Disposing...");
+		LogManager.Info("[EndemicLifeUiManager] Disposing...");
 
 		foreach(var timer in _timers)
 		{
 			timer.Dispose();
 		}
 
-		LogManager.Info($"[EndemicLifeUiManager] Disposed!");
+		LogManager.Info("[EndemicLifeUiManager] Disposed!");
 	}
 
 	private void InitializeTimers()
@@ -92,14 +92,12 @@ internal sealed class EndemicLifeUiManager : IDisposable
 
 		_dynamicEndemicLifeEntities = newEndemicLifeEntities;
 	}
+
 	private void DrawDynamicUi(ImDrawListPtr backgroundDrawList)
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.EndemicLifeUI;
 
-		if(!customization.Enabled)
-		{
-			return;
-		}
+		if(!customization.Enabled) return;
 
 		foreach(var endemicLifeEntity in _dynamicEndemicLifeEntities)
 		{

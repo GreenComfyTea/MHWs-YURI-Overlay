@@ -1,28 +1,26 @@
-﻿using ImGuiNET;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using ImGuiNET;
 
 namespace YURI_Overlay;
 
 internal sealed class GradientStartColorCustomization : Customization
 {
-	public bool SplitIntoTwoColors = false;
-	[JsonIgnore]
-	public ColorInfo ColorInfo1 { get; set; } = new();
+	public bool SplitIntoTwoColors;
+	[JsonIgnore] public ColorInfo ColorInfo1 { get; set; } = new();
+
 	public string _1
 	{
 		get => ColorInfo1.RgbaHex;
 		set => ColorInfo1.RgbaHex = value;
 	}
 
-	[JsonIgnore]
-	public ColorInfo ColorInfo2 { get; set; } = new();
+	[JsonIgnore] public ColorInfo ColorInfo2 { get; set; } = new();
+
 	public string _2
 	{
 		get => ColorInfo2.RgbaHex;
 		set => ColorInfo2.RgbaHex = value;
 	}
-
-	public GradientStartColorCustomization() { }
 
 	public bool RenderImGui(string parentName = "", GradientStartColorCustomization defaultCustomization = null)
 	{
@@ -56,10 +54,7 @@ internal sealed class GradientStartColorCustomization : Customization
 				var isStart1Changed = ImGuiHelper.ResettableColorPicker4($"##${customizationName}-1", ref ColorInfo1.vector, defaultCustomization?.ColorInfo1.vector);
 				isChanged |= isStart1Changed;
 
-				if(isStart1Changed)
-				{
-					ColorInfo1.Vector = ColorInfo1.vector;
-				}
+				if(isStart1Changed) ColorInfo1.Vector = ColorInfo1.vector;
 
 				ImGui.TreePop();
 			}
@@ -69,10 +64,7 @@ internal sealed class GradientStartColorCustomization : Customization
 				var isStart2Changed = ImGuiHelper.ResettableColorPicker4($"##${customizationName}-2", ref ColorInfo2.vector, defaultCustomization?.ColorInfo2.vector);
 				isChanged |= isStart2Changed;
 
-				if(isStart2Changed)
-				{
-					ColorInfo2.Vector = ColorInfo2.vector;
-				}
+				if(isStart2Changed) ColorInfo2.Vector = ColorInfo2.vector;
 
 				ImGui.TreePop();
 			}

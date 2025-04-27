@@ -1,6 +1,6 @@
 ﻿namespace YURI_Overlay;
 
-internal sealed partial class LocalizationManager : IDisposable
+internal sealed class LocalizationManager : IDisposable
 {
 	private static readonly Lazy<LocalizationManager> Lazy = new(() => new LocalizationManager());
 
@@ -16,7 +16,9 @@ internal sealed partial class LocalizationManager : IDisposable
 
 	private LocalizationWatcher _localizationWatcherInstance;
 
-	private LocalizationManager() { }
+	private LocalizationManager()
+	{
+	}
 
 	~LocalizationManager()
 	{
@@ -112,7 +114,7 @@ internal sealed partial class LocalizationManager : IDisposable
 		defaultLocalization.Data = new Localization();
 		defaultLocalization.Save();
 		Localizations[Constants.DefaultLocalization] = defaultLocalization;
-		this.DefaultLocalization = defaultLocalization;
+		DefaultLocalization = defaultLocalization;
 
 		LogManager.Info("[LocalizationManager] Default localization is initialized!");
 	}
@@ -131,10 +133,7 @@ internal sealed partial class LocalizationManager : IDisposable
 			{
 				var name = Path.GetFileNameWithoutExtension(configFilePathName);
 
-				if(name == Constants.DefaultLocalization)
-				{
-					continue;
-				}
+				if(name == Constants.DefaultLocalization) continue;
 
 				InitializeLocalization(name);
 			}
@@ -153,10 +152,7 @@ internal sealed partial class LocalizationManager : IDisposable
 	{
 		var configManager = ConfigManager.Instance;
 
-		if(ActiveLocalization.Name == configManager.ActiveConfig.Data.GlobalSettings.Localization)
-		{
-			return;
-		}
+		if(ActiveLocalization.Name == configManager.ActiveConfig.Data.GlobalSettings.Localization) return;
 
 		ActivateLocalization(configManager.ActiveConfig.Data.GlobalSettings.Localization);
 	}

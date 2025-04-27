@@ -1,6 +1,8 @@
-﻿using REFrameworkNET;
+﻿using System.Numerics;
+using app;
+using REFrameworkNET;
 using REFrameworkNET.Attributes;
-using System.Numerics;
+using Timer = System.Timers.Timer;
 
 namespace YURI_Overlay;
 
@@ -11,13 +13,15 @@ internal sealed class PlayerManager : IDisposable
 
 	public Vector3 Position = Vector3.Zero;
 
-	private app.HunterCharacter _masterPlayerCharacter;
+	private readonly List<Timer> _timers = [];
+
+	private HunterCharacter _masterPlayerCharacter;
 
 	private bool _isUpdatePending = true;
 
-	private readonly List<System.Timers.Timer> _timers = [];
-
-	private PlayerManager() { }
+	private PlayerManager()
+	{
+	}
 
 	public void Initialize()
 	{
@@ -71,21 +75,19 @@ internal sealed class PlayerManager : IDisposable
 			Update();
 
 			if(_masterPlayerCharacter is null)
-			{
 				//LogManager.Warn("[PlayerManager.GameUpdate] No master player character");
 				return;
-			}
 
-			var position = _masterPlayerCharacter.Pos;
-			if(position is null)
+			var playerPosition = _masterPlayerCharacter.Pos;
+			if(playerPosition is null)
 			{
 				LogManager.Warn("[PlayerManager.GameUpdate] No master player position");
 				return;
 			}
 
-			Position.X = position.x;
-			Position.Y = position.y;
-			Position.Z = position.z;
+			Position.X = playerPosition.x;
+			Position.Y = playerPosition.y;
+			Position.Z = playerPosition.z;
 		}
 		catch(Exception exception)
 		{
@@ -109,17 +111,13 @@ internal sealed class PlayerManager : IDisposable
 
 			var masterPlayer = playerManager.getMasterPlayer();
 			if(masterPlayer is null)
-			{
 				//LogManager.Warn("[PlayerManager.Update] No master player");
 				return;
-			}
 
 			var masterPlayerCharacter = masterPlayer.Character;
 			if(masterPlayerCharacter is null)
-			{
 				//LogManager.Warn("[PlayerManager.Update] No master player character");
 				return;
-			}
 
 			_masterPlayerCharacter = masterPlayerCharacter;
 		}

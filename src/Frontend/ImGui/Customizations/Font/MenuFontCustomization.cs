@@ -6,7 +6,7 @@ internal sealed class MenuFontCustomization : Customization
 {
 	public string FontName = string.Empty;
 
-	private int _activeFontIndex = 0;
+	private int _activeFontIndex;
 	private string[] _fontNames = [];
 
 	public MenuFontCustomization()
@@ -28,10 +28,7 @@ internal sealed class MenuFontCustomization : Customization
 			var isFontChanged = ImGuiHelper.Combo(localization.Font, ref _activeFontIndex, _fontNames);
 			isChanged |= isFontChanged;
 
-			if(isFontChanged)
-			{
-				FontName = _activeFontIndex == 0 ? localizationHelper.DefaultDefinedByLocalization : _fontNames[_activeFontIndex];
-			}
+			if(isFontChanged) FontName = _activeFontIndex == 0 ? localizationHelper.DefaultDefinedByLocalization : _fontNames[_activeFontIndex];
 
 			ImGui.TreePop();
 		}

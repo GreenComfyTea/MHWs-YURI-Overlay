@@ -12,8 +12,6 @@ internal class LargeMonsterRageComponentCustomization : Customization
 	public LabelElementCustomization TimerLabel = new();
 	public BarElementCustomization TimerBar = new();
 
-	public LargeMonsterRageComponentCustomization() { }
-
 	public bool RenderImGui(string parentName = "", LargeMonsterRageComponentCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;

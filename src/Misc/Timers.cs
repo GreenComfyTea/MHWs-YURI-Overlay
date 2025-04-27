@@ -1,10 +1,12 @@
-﻿namespace YURI_Overlay;
+﻿using Timer = System.Timers.Timer;
+
+namespace YURI_Overlay;
 
 internal static class Timers
 {
-	public static System.Timers.Timer SetInterval(Action method, int delayInMilliseconds)
+	public static Timer SetInterval(Action method, int delayInMilliseconds)
 	{
-		System.Timers.Timer timer = new(delayInMilliseconds);
+		Timer timer = new(delayInMilliseconds);
 
 		timer.Elapsed += (source, eventArgs) => method();
 		timer.Enabled = true;
@@ -15,11 +17,11 @@ internal static class Timers
 		return timer;
 	}
 
-	public static System.Timers.Timer SetTimeout(Action method, int delayInMilliseconds)
+	public static Timer SetTimeout(Action method, int delayInMilliseconds)
 	{
 		//return Task.Delay(delayInMilliseconds).ContinueWith((_) => method());
 
-		System.Timers.Timer timer = new(delayInMilliseconds);
+		Timer timer = new(delayInMilliseconds);
 
 		timer.Elapsed += (source, eventArgs) => method();
 		timer.AutoReset = false;

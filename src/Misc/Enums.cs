@@ -13,21 +13,21 @@ internal enum FillDirections
 	LeftToRight,
 	RightToLeft,
 	TopToBottom,
-	BottomToTop
+	BottomToTop,
 }
 
 internal enum OutlineStyles
 {
 	Inside,
 	Center,
-	Outside
+	Outside,
 }
 
 internal enum SortingLocations
 {
 	Normal,
 	First,
-	Last
+	Last,
 }
 
 internal enum Sortings
@@ -37,7 +37,7 @@ internal enum Sortings
 	Health,
 	MaxHealth,
 	HealthPercentage,
-	Distance
+	Distance,
 }
 
 internal enum Anchors
@@ -50,5 +50,5 @@ internal enum Anchors
 	CenterRight,
 	BottomLeft,
 	BottomCenter,
-	BottomRight
+	BottomRight,
 }

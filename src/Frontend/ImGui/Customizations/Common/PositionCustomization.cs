@@ -4,10 +4,8 @@ namespace YURI_Overlay;
 
 internal sealed class PositionCustomization : Customization
 {
-	public float X = 0f;
-	public float Y = 0f;
-
-	public PositionCustomization() { }
+	public float X;
+	public float Y;
 
 	public bool RenderImGui(string parentName = "", PositionCustomization defaultCustomization = null)
 	{

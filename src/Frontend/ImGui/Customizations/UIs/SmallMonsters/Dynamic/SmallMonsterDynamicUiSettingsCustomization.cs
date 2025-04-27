@@ -4,15 +4,13 @@ namespace YURI_Overlay;
 
 internal class SmallMonsterDynamicUiSettingsCustomization : Customization
 {
-	public bool RenderDeadMonsters = false;
+	public bool RenderDeadMonsters;
 
-	public bool AddMissionBeaconOffsetToWorldOffset = false;
+	public bool AddMissionBeaconOffsetToWorldOffset;
 	public bool AddModelRadiusToWorldOffsetY = true;
 
 	public bool OpacityFalloff = true;
 	public float MaxDistance = 200f;
-
-	public SmallMonsterDynamicUiSettingsCustomization() { }
 
 	public bool RenderImGui(string parentName = "", SmallMonsterDynamicUiSettingsCustomization defaultCustomization = null)
 	{

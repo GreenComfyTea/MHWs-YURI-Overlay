@@ -2,12 +2,12 @@ using Timer = System.Timers.Timer;
 
 namespace YURI_Overlay;
 
-internal partial class ConfigWatcher : IDisposable
+internal class ConfigWatcher : IDisposable
 {
 	private readonly FileSystemWatcher _watcher;
 	private readonly Dictionary<string, DateTime> _lastEventTimes = [];
 
-	private bool _disabled = false;
+	private bool _disabled;
 	private Timer _delayedEnableTimer;
 
 	public ConfigWatcher()
@@ -19,11 +19,11 @@ internal partial class ConfigWatcher : IDisposable
 			_watcher = new FileSystemWatcher(Constants.ConfigsPath);
 
 			_watcher.NotifyFilter = NotifyFilters.Attributes
-								 | NotifyFilters.CreationTime
-								 | NotifyFilters.FileName
-								 | NotifyFilters.LastWrite
-								 | NotifyFilters.Security
-								 | NotifyFilters.Size;
+									| NotifyFilters.CreationTime
+									| NotifyFilters.FileName
+									| NotifyFilters.LastWrite
+									| NotifyFilters.Security
+									| NotifyFilters.Size;
 
 			_watcher.Changed += OnConfigFileChanged;
 			_watcher.Created += OnConfigFileCreated;
@@ -93,10 +93,7 @@ internal partial class ConfigWatcher : IDisposable
 
 			var name = Path.GetFileNameWithoutExtension(e.Name);
 
-			if(name is null)
-			{
-				return;
-			}
+			if(name is null) return;
 
 			var eventTime = File.GetLastWriteTime(e.FullPath);
 
@@ -108,10 +105,7 @@ internal partial class ConfigWatcher : IDisposable
 				return;
 			}
 
-			if(eventTime.Ticks - lastEventTime.Ticks < Constants.DuplicateEventThresholdTicks)
-			{
-				return;
-			}
+			if(eventTime.Ticks - lastEventTime.Ticks < Constants.DuplicateEventThresholdTicks) return;
 
 			LogManager.Info($"Config \"{name}\": Changed.");
 

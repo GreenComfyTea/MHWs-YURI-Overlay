@@ -1,19 +1,18 @@
-﻿using ImGuiNET;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using ImGuiNET;
 
 namespace YURI_Overlay;
 
 internal class LabelElementSettingsCustomization : Customization
 {
 	private int _alignmentIndex = (int) Anchors.TopLeft;
+
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public Anchors Alignment
 	{
 		get => (Anchors) _alignmentIndex;
 		set => _alignmentIndex = (int) value;
 	}
-
-	public LabelElementSettingsCustomization() { }
 
 	public bool RenderImGui(string parentName = "", LabelElementSettingsCustomization defaultCustomization = null)
 	{

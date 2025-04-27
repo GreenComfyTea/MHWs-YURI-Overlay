@@ -1,6 +1,6 @@
 ﻿namespace YURI_Overlay;
 
-internal sealed partial class FontManager
+internal sealed class FontManager
 {
 	private static readonly Lazy<FontManager> Lazy = new(() => new FontManager());
 	public static FontManager Instance => Lazy.Value;
@@ -19,7 +19,9 @@ internal sealed partial class FontManager
 
 	//public List<ushort[]> GlyphRanges = [];
 
-	private FontManager() { }
+	private FontManager()
+	{
+	}
 
 	//public void Initialize()
 	//{
