@@ -33,6 +33,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 	{
 		DrawDynamicUi(backgroundDrawList);
 		DrawStaticUi(backgroundDrawList);
+		DrawTargetedUi(backgroundDrawList);
 	}
 
 	public void Dispose()
@@ -65,7 +66,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 	private void UpdateDynamic()
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
-		var renderDeadMonsters = customization.Dynamic.Settings.RenderDeadMonsters;
+		var settingsCustomization = customization.Dynamic.Settings;
 
 		if(!customization.Enabled || !customization.Dynamic.Enabled)
 		{
@@ -81,14 +82,16 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		{
 			var largeMonster = largeMonsterPair.Value;
 
-			if(!renderDeadMonsters && !largeMonster.IsAlive) continue;
+			if(!settingsCustomization.RenderDeadMonsters && !largeMonster.IsAlive) continue;
+			if(!settingsCustomization.RenderTargetedMonster && largeMonster.IsTargeted) continue;
+			if(!settingsCustomization.RenderNonTargetedMonsters && !largeMonster.IsTargeted) continue;
 
 			newLargeMonsters.Add(largeMonster);
 		}
 
 		// Sort by distance
 		// Closest are drawn last
-		newLargeMonsters.Sort(LargeMonsterSorting.CompareByDistanceReversed);
+		newLargeMonsters.Sort(LargeMonsterDynamicSorting.CompareByDistanceReversed);
 
 		_dynamicLargeMonsters = newLargeMonsters;
 	}
@@ -96,7 +99,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 	private void UpdateStatic()
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
-		var renderDeadMonsters = customization.Static.Settings.RenderDeadMonsters;
+		var settingsCustomization = customization.Static.Settings;
 
 		if(!customization.Enabled || !customization.Static.Enabled)
 		{
@@ -112,7 +115,9 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		{
 			var largeMonster = largeMonsterPair.Value;
 
-			if(!renderDeadMonsters && !largeMonster.IsAlive) continue;
+			if(!settingsCustomization.RenderDeadMonsters && !largeMonster.IsAlive) continue;
+			if(!settingsCustomization.RenderTargetedMonster && largeMonster.IsTargeted) continue;
+			if(!settingsCustomization.RenderNonTargetedMonsters && !largeMonster.IsTargeted) continue;
 
 			newLargeMonsters.Add(largeMonster);
 		}
@@ -123,24 +128,24 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		{
 			switch(customization.Static.Sorting.Type)
 			{
-				case Sortings.Id:
-					newLargeMonsters.Sort(LargeMonsterSorting.CompareByIdReversed);
+				case Sorting.Id:
+					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByIdReversed);
 					break;
-				case Sortings.Health:
-					newLargeMonsters.Sort(LargeMonsterSorting.CompareByHealthReversed);
+				case Sorting.Health:
+					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByHealthReversed);
 					break;
-				case Sortings.MaxHealth:
-					newLargeMonsters.Sort(LargeMonsterSorting.CompareByMaxHealthReversed);
+				case Sorting.MaxHealth:
+					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByMaxHealthReversed);
 					break;
-				case Sortings.HealthPercentage:
-					newLargeMonsters.Sort(LargeMonsterSorting.CompareByHealthPercentageReversed);
+				case Sorting.HealthPercentage:
+					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByHealthPercentageReversed);
 					break;
-				case Sortings.Distance:
-					newLargeMonsters.Sort(LargeMonsterSorting.CompareByDistanceReversed);
+				case Sorting.Distance:
+					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByDistanceReversed);
 					break;
-				case Sortings.Name:
+				case Sorting.Name:
 				default:
-					newLargeMonsters.Sort(LargeMonsterSorting.CompareByNameReversed);
+					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByNameReversed);
 					break;
 			}
 		}
@@ -148,24 +153,24 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		{
 			switch(customization.Static.Sorting.Type)
 			{
-				case Sortings.Id:
-					newLargeMonsters.Sort(LargeMonsterSorting.CompareById);
+				case Sorting.Id:
+					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareById);
 					break;
-				case Sortings.Health:
-					newLargeMonsters.Sort(LargeMonsterSorting.CompareByHealth);
+				case Sorting.Health:
+					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByHealth);
 					break;
-				case Sortings.MaxHealth:
-					newLargeMonsters.Sort(LargeMonsterSorting.CompareByMaxHealth);
+				case Sorting.MaxHealth:
+					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByMaxHealth);
 					break;
-				case Sortings.HealthPercentage:
-					newLargeMonsters.Sort(LargeMonsterSorting.CompareByHealthPercentage);
+				case Sorting.HealthPercentage:
+					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByHealthPercentage);
 					break;
-				case Sortings.Distance:
-					newLargeMonsters.Sort(LargeMonsterSorting.CompareByDistance);
+				case Sorting.Distance:
+					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByDistance);
 					break;
-				case Sortings.Name:
+				case Sorting.Name:
 				default:
-					newLargeMonsters.Sort(LargeMonsterSorting.CompareByName);
+					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByName);
 					break;
 			}
 		}
@@ -197,5 +202,17 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 			largeMonster.StaticUi.Draw(backgroundDrawList, locationIndex);
 		}
+	}
+
+	private void DrawTargetedUi(ImDrawListPtr backgroundDrawList)
+	{
+		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
+
+		if(!customization.Enabled || !customization.Targeted.Enabled) return;
+
+		var targetedLargeMonster = CameraManager.Instance.TargetedLargeMonster;
+		if(targetedLargeMonster is null) return;
+
+		targetedLargeMonster.TargetedUi.Draw(backgroundDrawList);
 	}
 }

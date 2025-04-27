@@ -2,7 +2,7 @@
 
 namespace YURI_Overlay;
 
-internal class BarElementColorsCustomization : Customization
+internal sealed class BarElementColorsCustomization : Customization
 {
 	public GradientColorCustomization Foreground = new();
 	public GradientColorCustomization Background = new();

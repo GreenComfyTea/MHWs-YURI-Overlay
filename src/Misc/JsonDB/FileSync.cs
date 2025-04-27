@@ -2,7 +2,7 @@ using System.Text;
 
 namespace YURI_Overlay;
 
-internal class FileSync
+internal sealed class FileSync
 {
 	public string PathFileName;
 

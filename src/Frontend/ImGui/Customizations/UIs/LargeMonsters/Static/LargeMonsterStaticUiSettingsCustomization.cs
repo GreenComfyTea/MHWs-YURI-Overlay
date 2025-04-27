@@ -2,16 +2,15 @@
 
 namespace YURI_Overlay;
 
-internal class LargeMonsterStaticUiSettingsCustomization : Customization
+internal sealed class LargeMonsterStaticUiSettingsCustomization : Customization
 {
-	public bool RenderDeadMonsters;
-	public bool RenderHighlightedMonster = true;
-	public bool RenderNonHighlightedMonsters = true;
+	public bool RenderDeadMonsters = false;
+	public bool RenderTargetedMonster = true;
+	public bool RenderNonTargetedMonsters = true;
 
 	public bool RenderImGui(string parentName = "", LargeMonsterStaticUiSettingsCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
-		var localizationHelper = LocalizationHelper.Instance;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-settings";
@@ -19,10 +18,8 @@ internal class LargeMonsterStaticUiSettingsCustomization : Customization
 		if(ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderDeadMonsters}##{customizationName}", ref RenderDeadMonsters, defaultCustomization?.RenderDeadMonsters);
-			//isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.renderHighlightedMonster}##{customizationName}", ref RenderHighlightedMonster, defaultCustomization?.RenderHighlightedMonster);
-			//isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderNonHighlightedMonsters}##{customizationName}", ref RenderNonHighlightedMonsters, defaultCustomization?.RenderNonHighlightedMonsters);
-
-			//isChanged |= ImGuiHelper.ResettableCombo($"{localization.highlightedMonsterLocation}##{customizationName}", ref _highlightedMonsterLocationIndex, localizationHelper.SortingLocations);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderTargetedMonster}##{customizationName}", ref RenderTargetedMonster, defaultCustomization?.RenderTargetedMonster);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderNonTargetedMonsters}##{customizationName}", ref RenderNonTargetedMonsters, defaultCustomization?.RenderNonTargetedMonsters);
 
 			ImGui.TreePop();
 		}
@@ -35,7 +32,7 @@ internal class LargeMonsterStaticUiSettingsCustomization : Customization
 		if(defaultCustomization is null) return;
 
 		RenderDeadMonsters = defaultCustomization.RenderDeadMonsters;
-		RenderHighlightedMonster = defaultCustomization.RenderHighlightedMonster;
-		RenderNonHighlightedMonsters = defaultCustomization.RenderNonHighlightedMonsters;
+		RenderTargetedMonster = defaultCustomization.RenderTargetedMonster;
+		RenderNonTargetedMonsters = defaultCustomization.RenderNonTargetedMonsters;
 	}
 }

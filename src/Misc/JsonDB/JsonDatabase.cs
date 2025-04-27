@@ -2,7 +2,7 @@ using System.Text.Json;
 
 namespace YURI_Overlay;
 
-internal class JsonDatabase<T> : IDisposable where T : class, new()
+internal sealed class JsonDatabase<T> : IDisposable where T : class, new()
 {
 	public string Name = string.Empty;
 	public string FilePath = Constants.PluginDataPath;

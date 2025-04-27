@@ -2,7 +2,7 @@ using Timer = System.Timers.Timer;
 
 namespace YURI_Overlay;
 
-internal class ConfigWatcher : IDisposable
+internal sealed class ConfigWatcher : IDisposable
 {
 	private readonly FileSystemWatcher _watcher;
 	private readonly Dictionary<string, DateTime> _lastEventTimes = [];

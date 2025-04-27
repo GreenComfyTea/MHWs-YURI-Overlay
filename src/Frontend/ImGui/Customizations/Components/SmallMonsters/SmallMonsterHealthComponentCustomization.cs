@@ -2,7 +2,7 @@
 
 namespace YURI_Overlay;
 
-internal class SmallMonsterHealthComponentCustomization : Customization
+internal sealed class SmallMonsterHealthComponentCustomization : Customization
 {
 	public bool Visible = true;
 	public OffsetCustomization Offset = new();

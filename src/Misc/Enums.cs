@@ -1,14 +1,6 @@
 ﻿namespace YURI_Overlay;
 
-internal enum SmallMonsters
-{
-}
-
-internal enum LargeMonsters
-{
-}
-
-internal enum FillDirections
+internal enum FillDirection
 {
 	LeftToRight,
 	RightToLeft,
@@ -16,21 +8,25 @@ internal enum FillDirections
 	BottomToTop,
 }
 
-internal enum OutlineStyles
+internal enum OutlineStyle
 {
 	Inside,
 	Center,
 	Outside,
 }
 
-internal enum SortingLocations
+internal enum Priority
 {
-	Normal,
-	First,
-	Last,
+	Lower3 = -3,
+	Lower2 = -2,
+	Lower1 = -1,
+	Normal = 0,
+	Higher1 = 1,
+	Higher2 = 2,
+	Higher3 = 3,
 }
 
-internal enum Sortings
+internal enum Sorting
 {
 	Name,
 	Id,
@@ -40,7 +36,7 @@ internal enum Sortings
 	Distance,
 }
 
-internal enum Anchors
+internal enum Anchor
 {
 	TopLeft,
 	TopCenter,

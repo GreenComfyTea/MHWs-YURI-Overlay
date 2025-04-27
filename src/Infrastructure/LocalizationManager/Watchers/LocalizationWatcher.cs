@@ -2,7 +2,7 @@ using Timer = System.Timers.Timer;
 
 namespace YURI_Overlay;
 
-internal class LocalizationWatcher : IDisposable
+internal sealed class LocalizationWatcher : IDisposable
 {
 	private readonly FileSystemWatcher _watcher;
 	private readonly Dictionary<string, DateTime> _lastEventTimes = [];

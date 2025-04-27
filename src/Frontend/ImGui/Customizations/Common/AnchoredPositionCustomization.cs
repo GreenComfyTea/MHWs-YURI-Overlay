@@ -8,12 +8,12 @@ internal sealed class AnchoredPositionCustomization : Customization
 	public float X;
 	public float Y;
 
-	private int _anchorIndex = (int) Anchors.TopLeft;
+	private int _anchorIndex = (int) Anchor.TopLeft;
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public Anchors Anchor
+	public Anchor Anchor
 	{
-		get => (Anchors) _anchorIndex;
+		get => (Anchor) _anchorIndex;
 		set => _anchorIndex = (int) value;
 	}
 

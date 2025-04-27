@@ -2,7 +2,7 @@
 
 namespace YURI_Overlay;
 
-internal class EndemicLifeDynamicUiSettingsCustomization : Customization
+internal sealed class EndemicLifeDynamicUiSettingsCustomization : Customization
 {
 	public bool AddModelRadiusToWorldOffsetY = true;
 

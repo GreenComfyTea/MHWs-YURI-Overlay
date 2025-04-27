@@ -12,12 +12,18 @@ internal sealed class LargeMonster : IDisposable
 
 	public LargeMonsterDynamicUi DynamicUi;
 	public LargeMonsterStaticUi StaticUi;
+	public LargeMonsterTargetedUi TargetedUi;
 
 	public EnemyDef.ID Id = 0;
 	public EnemyDef.ROLE_ID RoleId = 0;
 	public EnemyDef.LEGENDARY_ID LegendaryId = 0;
 
 	public string Name = "Large Monster";
+
+	public bool IsTargeted = false;
+
+	public int DynamicSortingPriority = 0;
+	public int StaticSortingPriority = 0;
 
 	public Vector3 MissionBeaconOffset = Vector3.Zero;
 	public float ModelRadius;
@@ -82,6 +88,7 @@ internal sealed class LargeMonster : IDisposable
 
 			DynamicUi = new LargeMonsterDynamicUi(this);
 			StaticUi = new LargeMonsterStaticUi(this);
+			TargetedUi = new LargeMonsterTargetedUi(this);
 
 			ConfigManager.Instance.AnyConfigChanged += OnAnyConfigChanged;
 
@@ -121,13 +128,57 @@ internal sealed class LargeMonster : IDisposable
 			UpdateHealth();
 			var conditionsModule = UpdateStamina();
 			UpdateRage(conditionsModule);
-
-			var isRequestTargetCamera = EnemyContext.IsRequestTargetCamera;
-			if(isRequestTargetCamera) LogManager.Debug($"isRequestTargetCamera: {Name}");
 		}
 		catch(Exception exception)
 		{
 			LogManager.Error(exception);
+		}
+	}
+
+	public void SetIsTargeted(bool newIsTargeted)
+	{
+		IsTargeted = newIsTargeted;
+		UpdateSortingPriorities();
+	}
+
+	public void UpdateSortingPriorities()
+	{
+		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
+
+		// Targeted Dynamic UI should be rendered last to be on top
+		DynamicSortingPriority = IsTargeted ? 3 : 0;
+
+		if(IsTargeted)
+		{
+			switch(customization.Static.Sorting.TargetedMonsterPriority)
+			{
+				case Priority.Lower3:
+					StaticSortingPriority = -3;
+					break;
+				case Priority.Lower2:
+					StaticSortingPriority = -2;
+					break;
+				case Priority.Lower1:
+					StaticSortingPriority = -1;
+					break;
+				case Priority.Higher1:
+					StaticSortingPriority = 1;
+					break;
+				case Priority.Higher2:
+					StaticSortingPriority = 2;
+					break;
+				case Priority.Higher3:
+					StaticSortingPriority = 3;
+					break;
+				case Priority.Normal:
+				default:
+					StaticSortingPriority = 0;
+					break;
+			}
+		}
+		else
+		{
+			StaticSortingPriority = 0;
 		}
 	}
 
@@ -147,8 +198,7 @@ internal sealed class LargeMonster : IDisposable
 
 	private void InitializeTimers()
 	{
-		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays
-										.LargeMonsters;
+		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.LargeMonsters;
 
 		foreach(var timer in _timers)
 		{

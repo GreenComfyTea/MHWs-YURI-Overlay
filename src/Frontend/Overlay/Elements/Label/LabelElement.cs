@@ -60,36 +60,36 @@ internal sealed class LabelElement
 		backgroundDrawList.AddText(textPosition, color, text);
 	}
 
-	private static (float, float) GetAlignmentShifts(string text, Anchors alignment)
+	private static (float, float) GetAlignmentShifts(string text, Anchor alignment)
 	{
 		Vector2 textSize;
 		switch(alignment)
 		{
-			case Anchors.TopCenter:
+			case Anchor.TopCenter:
 				textSize = ImGui.CalcTextSize(text);
 				return (-textSize.X / 2, 0);
-			case Anchors.TopRight:
+			case Anchor.TopRight:
 				textSize = ImGui.CalcTextSize(text);
 				return (-textSize.X, 0);
-			case Anchors.CenterLeft:
+			case Anchor.CenterLeft:
 				textSize = ImGui.CalcTextSize(text);
 				return (0, -textSize.Y / 2);
-			case Anchors.Center:
+			case Anchor.Center:
 				textSize = ImGui.CalcTextSize(text);
 				return (-textSize.X / 2, -textSize.Y / 2);
-			case Anchors.CenterRight:
+			case Anchor.CenterRight:
 				textSize = ImGui.CalcTextSize(text);
 				return (-textSize.X, -textSize.Y / 2);
-			case Anchors.BottomLeft:
+			case Anchor.BottomLeft:
 				textSize = ImGui.CalcTextSize(text);
 				return (0, -textSize.Y);
-			case Anchors.BottomCenter:
+			case Anchor.BottomCenter:
 				textSize = ImGui.CalcTextSize(text);
 				return (-textSize.X / 2, -textSize.Y);
-			case Anchors.BottomRight:
+			case Anchor.BottomRight:
 				textSize = ImGui.CalcTextSize(text);
 				return (-textSize.X, -textSize.Y);
-			case Anchors.TopLeft:
+			case Anchor.TopLeft:
 			default:
 				return (0, 0);
 		}

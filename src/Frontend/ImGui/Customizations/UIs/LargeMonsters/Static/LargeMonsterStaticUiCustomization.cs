@@ -2,7 +2,7 @@
 
 namespace YURI_Overlay;
 
-internal class LargeMonsterStaticUiCustomization : Customization
+internal sealed class LargeMonsterStaticUiCustomization : Customization
 {
 	public bool Enabled = true;
 	public LargeMonsterStaticUiSettingsCustomization Settings = new();

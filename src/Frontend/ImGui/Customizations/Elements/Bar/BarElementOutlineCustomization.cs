@@ -9,12 +9,12 @@ internal sealed class BarElementOutlineCustomization : Customization
 	public float Thickness = 1f;
 	public float Offset;
 
-	private int _styleIndex = (int) OutlineStyles.Outside;
+	private int _styleIndex = (int) OutlineStyle.Outside;
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public OutlineStyles Style
+	public OutlineStyle Style
 	{
-		get => (OutlineStyles) _styleIndex;
+		get => (OutlineStyle) _styleIndex;
 		set => _styleIndex = (int) value;
 	}
 

@@ -3,7 +3,7 @@ using ImGuiNET;
 
 namespace YURI_Overlay;
 
-internal class SmallMonsterHealthComponent
+internal sealed class SmallMonsterHealthComponent
 {
 	private readonly SmallMonster _smallMonster;
 

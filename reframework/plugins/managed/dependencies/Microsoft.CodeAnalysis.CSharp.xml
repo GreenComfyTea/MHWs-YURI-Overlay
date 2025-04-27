@@ -11061,7 +11061,7 @@
 			</summary>
 			<remarks>
 				A method can me marked as RequiresSecurityObject by applying the DynamicSecurityMethodAttribute in source.
-				DynamicSecurityMethodAttribute is a pseudo custom attribute defined as an internal class in System.Security namespace.
+				DynamicSecurityMethodAttribute is a pseudo custom attribute defined as an internal sealed class in System.Security namespace.
 				This attribute is set on certain security methods defined within mscorlib.
 			</remarks>
 		</member>
@@ -11954,7 +11954,7 @@
 			</summary>
 			<remarks>
 				A type can me marked as a Windows runtime type in source by applying the WindowsRuntimeImportAttribute.
-				WindowsRuntimeImportAttribute is a pseudo custom attribute defined as an internal class in System.Runtime.InteropServices.WindowsRuntime namespace.
+				WindowsRuntimeImportAttribute is a pseudo custom attribute defined as an internal sealed class in System.Runtime.InteropServices.WindowsRuntime namespace.
 				This is needed to mark Windows runtime types which are redefined in mscorlib.dll and System.Runtime.WindowsRuntime.dll.
 				These two assemblies are special as they implement the CLR's support for WinRT.
 			</remarks>

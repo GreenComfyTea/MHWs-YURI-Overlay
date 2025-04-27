@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace YURI_Overlay;
 
-internal class ColorInfo
+internal sealed class ColorInfo
 {
 	public Vector4 vector;
 	private uint _rgba;

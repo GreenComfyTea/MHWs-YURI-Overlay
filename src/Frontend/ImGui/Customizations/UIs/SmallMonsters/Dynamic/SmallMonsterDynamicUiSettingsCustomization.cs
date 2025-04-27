@@ -2,7 +2,7 @@
 
 namespace YURI_Overlay;
 
-internal class SmallMonsterDynamicUiSettingsCustomization : Customization
+internal sealed class SmallMonsterDynamicUiSettingsCustomization : Customization
 {
 	public bool RenderDeadMonsters;
 

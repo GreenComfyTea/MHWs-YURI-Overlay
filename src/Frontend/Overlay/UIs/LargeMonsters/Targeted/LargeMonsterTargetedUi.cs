@@ -2,20 +2,20 @@
 
 namespace YURI_Overlay;
 
-internal sealed class LargeMonsterStaticUi
+internal sealed class LargeMonsterTargetedUi
 {
 	private readonly LargeMonster _largeMonster;
-	private readonly Func<LargeMonsterStaticUiCustomization> _customizationAccessor;
+	private readonly Func<LargeMonsterTargetedUiCustomization> _customizationAccessor;
 
 	private readonly LabelElement _nameLabelElement;
 	private readonly LargeMonsterHealthComponent _healthComponent;
 	private readonly LargeMonsterStaminaComponent _staminaComponent;
 	private readonly LargeMonsterRageComponent _rageComponent;
 
-	public LargeMonsterStaticUi(LargeMonster largeMonster)
+	public LargeMonsterTargetedUi(LargeMonster largeMonster)
 	{
 		_largeMonster = largeMonster;
-		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI.Static;
+		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI.Targeted;
 
 		_nameLabelElement = new LabelElement(() => _customizationAccessor().NameLabel);
 		_healthComponent = new LargeMonsterHealthComponent(largeMonster, () => _customizationAccessor().Health);
@@ -23,11 +23,9 @@ internal sealed class LargeMonsterStaticUi
 		_rageComponent = new LargeMonsterRageComponent(largeMonster, () => _customizationAccessor().Rage);
 	}
 
-	public void Draw(ImDrawListPtr backgroundDrawList, int locationIndex)
+	public void Draw(ImDrawListPtr backgroundDrawList)
 	{
 		var customization = _customizationAccessor();
-
-		var spacing = customization.Spacing;
 
 		var anchoredPosition = customization.Position;
 
@@ -35,9 +33,6 @@ internal sealed class LargeMonsterStaticUi
 
 		// TODO: Can be cached
 		var position = AnchorPositionCalculator.Convert(anchoredPosition, positionScaleModifier);
-
-		position.X += spacing.X * positionScaleModifier * locationIndex;
-		position.Y += spacing.Y * positionScaleModifier * locationIndex;
 
 		_rageComponent.Draw(backgroundDrawList, position);
 		_staminaComponent.Draw(backgroundDrawList, position);

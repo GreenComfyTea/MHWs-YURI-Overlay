@@ -7,8 +7,8 @@ internal sealed class BarElement
 {
 	private readonly Func<BarElementCustomization> _customizationAccessor;
 
-	private (OutlineStyles, float, float, float, float, float, float, float, float, float) _cashingKeyByPosition1 = (OutlineStyles.Inside, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f);
-	private (FillDirections, float, float, float) _cashingKeyByProgress2 = (FillDirections.LeftToRight, 0f, 0f, 0f);
+	private (OutlineStyle, float, float, float, float, float, float, float, float, float) _cashingKeyByPosition1 = (OutlineStyle.Inside, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f);
+	private (FillDirection, float, float, float) _cashingKeyByProgress2 = (FillDirection.LeftToRight, 0f, 0f, 0f);
 
 	private float _outlinePositionX;
 	private float _outlinePositionY;
@@ -152,7 +152,7 @@ internal sealed class BarElement
 
 		switch(outlineStyle)
 		{
-			case OutlineStyles.Outside:
+			case OutlineStyle.Outside:
 				_positionX = position.X + offsetX;
 				_positionY = position.Y + offsetY;
 
@@ -166,7 +166,7 @@ internal sealed class BarElement
 				_outlineHeight = _height + outlineThickness + outlineOffset + outlineOffset;
 
 				break;
-			case OutlineStyles.Center:
+			case OutlineStyle.Center:
 				_outlinePositionX = position.X + offsetX - halfOutlineOffset;
 				_outlinePositionY = position.Y + offsetY - halfOutlineOffset;
 
@@ -181,7 +181,7 @@ internal sealed class BarElement
 
 				break;
 
-			case OutlineStyles.Inside:
+			case OutlineStyle.Inside:
 			default:
 				_outlinePositionX = position.X + offsetX + halfOutlineThickness;
 				_outlinePositionY = position.Y + offsetY + halfOutlineThickness;
@@ -213,7 +213,7 @@ internal sealed class BarElement
 
 		switch(fillDirection)
 		{
-			case FillDirections.RightToLeft:
+			case FillDirection.RightToLeft:
 				_foregroundWidth = _width * progress;
 				_foregroundHeight = _height;
 
@@ -222,7 +222,7 @@ internal sealed class BarElement
 
 				_foregroundShiftX = _backgroundWidth;
 				break;
-			case FillDirections.TopToBottom:
+			case FillDirection.TopToBottom:
 				_foregroundWidth = _width;
 				_foregroundHeight = _height * progress;
 
@@ -232,7 +232,7 @@ internal sealed class BarElement
 				_backgroundShiftY = _foregroundHeight;
 
 				break;
-			case FillDirections.BottomToTop:
+			case FillDirection.BottomToTop:
 				_foregroundWidth = _width;
 				_foregroundHeight = _height * progress;
 
@@ -242,7 +242,7 @@ internal sealed class BarElement
 				_foregroundShiftY = _backgroundHeight;
 
 				break;
-			case FillDirections.LeftToRight:
+			case FillDirection.LeftToRight:
 			default:
 				_foregroundWidth = _width * progress;
 				_foregroundHeight = _height;
@@ -266,7 +266,7 @@ internal sealed class BarElement
 
 		switch(customization.Settings.FillDirection)
 		{
-			case FillDirections.RightToLeft:
+			case FillDirection.RightToLeft:
 				_backgroundColorTopRight = backgroundColor.Start.ColorInfo1.Abgr;
 				_backgroundColorBottomRight = backgroundColor.Start.ColorInfo2.Abgr;
 
@@ -279,7 +279,7 @@ internal sealed class BarElement
 				_foregroundColorTopLeft = foregroundColor.End.ColorInfo1.Abgr;
 				_foregroundColorBottomLeft = foregroundColor.End.ColorInfo2.Abgr;
 				break;
-			case FillDirections.TopToBottom:
+			case FillDirection.TopToBottom:
 				_backgroundColorTopLeft = backgroundColor.Start.ColorInfo1.Abgr;
 				_backgroundColorTopRight = backgroundColor.Start.ColorInfo2.Abgr;
 
@@ -292,7 +292,7 @@ internal sealed class BarElement
 				_foregroundColorBottomLeft = foregroundColor.End.ColorInfo1.Abgr;
 				_foregroundColorBottomRight = foregroundColor.End.ColorInfo2.Abgr;
 				break;
-			case FillDirections.BottomToTop:
+			case FillDirection.BottomToTop:
 				_backgroundColorBottomLeft = backgroundColor.Start.ColorInfo1.Abgr;
 				_backgroundColorBottomRight = backgroundColor.Start.ColorInfo2.Abgr;
 
@@ -305,7 +305,7 @@ internal sealed class BarElement
 				_foregroundColorTopLeft = foregroundColor.End.ColorInfo1.Abgr;
 				_foregroundColorTopRight = foregroundColor.End.ColorInfo2.Abgr;
 				break;
-			case FillDirections.LeftToRight:
+			case FillDirection.LeftToRight:
 			default:
 				_backgroundColorTopLeft = backgroundColor.Start.ColorInfo1.Abgr;
 				_backgroundColorBottomLeft = backgroundColor.Start.ColorInfo2.Abgr;

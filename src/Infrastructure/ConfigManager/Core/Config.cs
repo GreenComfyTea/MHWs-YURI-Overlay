@@ -1,6 +1,6 @@
 ﻿namespace YURI_Overlay;
 
-internal class Config
+internal sealed class Config
 {
 	public GlobalSettingsCustomization GlobalSettings = new();
 	public LargeMonsterUiCustomization LargeMonsterUI = new();

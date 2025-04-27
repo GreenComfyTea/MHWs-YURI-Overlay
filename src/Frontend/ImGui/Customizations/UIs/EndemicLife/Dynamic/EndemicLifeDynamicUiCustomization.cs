@@ -2,7 +2,7 @@
 
 namespace YURI_Overlay;
 
-internal class EndemicLifeDynamicUiCustomization : Customization
+internal sealed class EndemicLifeDynamicUiCustomization : Customization
 {
 	public bool Enabled = true;
 	public EndemicLifeDynamicUiSettingsCustomization Settings = new();

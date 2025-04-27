@@ -3,14 +3,14 @@ using ImGuiNET;
 
 namespace YURI_Overlay;
 
-internal class LabelElementSettingsCustomization : Customization
+internal sealed class LabelElementSettingsCustomization : Customization
 {
-	private int _alignmentIndex = (int) Anchors.TopLeft;
+	private int _alignmentIndex = (int) Anchor.TopLeft;
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public Anchors Alignment
+	public Anchor Alignment
 	{
-		get => (Anchors) _alignmentIndex;
+		get => (Anchor) _alignmentIndex;
 		set => _alignmentIndex = (int) value;
 	}
 

@@ -2,12 +2,13 @@
 
 namespace YURI_Overlay;
 
-internal class LargeMonsterUiCustomization : Customization
+internal sealed class LargeMonsterUiCustomization : Customization
 {
 	public bool Enabled = true;
 
 	public LargeMonsterDynamicUiCustomization Dynamic = new();
 	public LargeMonsterStaticUiCustomization Static = new();
+	public LargeMonsterTargetedUiCustomization Targeted = new();
 
 	public bool RenderImGui(string parentName = "", LargeMonsterUiCustomization defaultCustomization = null)
 	{
@@ -22,6 +23,7 @@ internal class LargeMonsterUiCustomization : Customization
 
 			isChanged |= Dynamic.RenderImGui(customizationName, defaultCustomization?.Dynamic);
 			isChanged |= Static.RenderImGui(customizationName, defaultCustomization?.Static);
+			isChanged |= Targeted.RenderImGui(customizationName, defaultCustomization?.Targeted);
 
 			ImGui.TreePop();
 		}
@@ -37,5 +39,6 @@ internal class LargeMonsterUiCustomization : Customization
 		Enabled = defaultCustomization.Enabled;
 		Dynamic.Reset(defaultCustomization.Dynamic);
 		Static.Reset(defaultCustomization.Static);
+		Targeted.Reset(defaultCustomization.Targeted);
 	}
 }

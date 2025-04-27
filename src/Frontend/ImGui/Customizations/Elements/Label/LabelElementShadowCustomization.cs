@@ -2,7 +2,7 @@
 
 namespace YURI_Overlay;
 
-internal class LabelElementShadowCustomization : Customization
+internal sealed class LabelElementShadowCustomization : Customization
 {
 	public bool Visible = true;
 	public OffsetCustomization Offset = new();

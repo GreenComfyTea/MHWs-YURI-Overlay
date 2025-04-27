@@ -65,6 +65,7 @@ public class Plugin
 			var playerManager = PlayerManager.Instance;
 
 			var monsterManager = MonsterManager.Instance;
+			var cameraManager = CameraManager.Instance;
 
 			configManager.Initialize();
 			localizationManager.Initialize();
@@ -80,6 +81,7 @@ public class Plugin
 			playerManager.Initialize();
 
 			monsterManager.Initialize();
+			cameraManager.Initialize();
 
 			LogManager.Info("Managers: Initialized!");
 			LogManager.Info("Callbacks: Initializing...");

@@ -12,11 +12,11 @@ internal sealed class LocalizationHelper
 	public string[] DefaultOutlineStyles = new string[3];
 	public string[] OutlineStyles = new string[3];
 
-	public string[] DefaultSortingLocations = new string[3];
-	public string[] SortingLocations = new string[3];
-
 	public string[] DefaultSortings = new string[6];
 	public string[] Sortings = new string[6];
+
+	public string[] DefaultPriorities = new string[6];
+	public string[] Priorities = new string[6];
 
 	public string[] DefaultAnchors = new string[9];
 	public string[] Anchors = new string[9];
@@ -47,13 +47,6 @@ internal sealed class LocalizationHelper
 			defaultLocalization.Outside,
 		];
 
-		DefaultSortingLocations =
-		[
-			defaultLocalization.Normal,
-			defaultLocalization.First,
-			defaultLocalization.Last,
-		];
-
 		DefaultSortings =
 		[
 			defaultLocalization.Name,
@@ -62,6 +55,17 @@ internal sealed class LocalizationHelper
 			defaultLocalization.MaxHealth,
 			defaultLocalization.HealthPercentage,
 			defaultLocalization.Distance,
+		];
+
+		DefaultPriorities =
+		[
+			defaultLocalization.Lower3,
+			defaultLocalization.Lower2,
+			defaultLocalization.Lower1,
+			defaultLocalization.Normal,
+			defaultLocalization.Higher1,
+			defaultLocalization.Higher2,
+			defaultLocalization.Higher3,
 		];
 
 		DefaultAnchors =
@@ -101,11 +105,15 @@ internal sealed class LocalizationHelper
 			localization.Outside,
 		];
 
-		SortingLocations =
+		Priorities =
 		[
+			localization.Lower3,
+			localization.Lower2,
+			localization.Lower1,
 			localization.Normal,
-			localization.First,
-			localization.Last,
+			localization.Higher1,
+			localization.Higher2,
+			localization.Higher3,
 		];
 
 		Sortings =

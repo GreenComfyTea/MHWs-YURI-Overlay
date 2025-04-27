@@ -5,12 +5,12 @@ namespace YURI_Overlay;
 
 internal sealed class BarElementSettingsCustomization : Customization
 {
-	[JsonIgnore] private int _fillDirectionIndex = (int) FillDirections.LeftToRight;
+	[JsonIgnore] private int _fillDirectionIndex = (int) FillDirection.LeftToRight;
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public FillDirections FillDirection
+	public FillDirection FillDirection
 	{
-		get => (FillDirections) _fillDirectionIndex;
+		get => (FillDirection) _fillDirectionIndex;
 		set => _fillDirectionIndex = (int) value;
 	}
 

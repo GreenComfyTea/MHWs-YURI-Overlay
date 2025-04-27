@@ -2,25 +2,25 @@
 
 namespace YURI_Overlay;
 
-internal class LocalizationInfo
+internal sealed class LocalizationInfo
 {
 	public string Name = "English";
 	public string Translators = "GreenComfyTea";
 }
 
-internal class FontsInfo
+internal sealed class FontsInfo
 {
 	public FontInfo MenuFont = new();
 	public FontInfo OverlayFont = new();
 }
 
-internal class FontInfo
+internal sealed class FontInfo
 {
 	public string Name { get; set; } = "NotoSans-Bold.ttf";
 	public string[] GlyphRanges { get; set; } = ["0x0020", "0xFFFF"];
 }
 
-internal class ImGuiLocalization
+internal sealed class ImGuiLocalization
 {
 	// Mod Info
 	public string ModInfo = "Mod Info";
@@ -204,31 +204,38 @@ internal class ImGuiLocalization
 
 	public string Static = "Static";
 	public string Dynamic = "Dynamic";
-	public string Highlighted = "Highlighted";
+	public string Targeted = "Targeted";
 
 	public string Spacing = "Spacing";
 
+	public string RenderDeadMonster = "Render Dead Monster";
 	public string RenderDeadMonsters = "Render Dead Monsters";
-	public string RenderHighlightedMonster = "Render Highlighted Monster";
-	public string RenderNonHighlightedMonsters = "Render Non-highlighted Monsters";
+	public string RenderTargetedMonster = "Render Targeted Monster";
+	public string RenderNonTargetedMonsters = "Render Non-Targeted Monsters";
 	public string AddMissionBeaconOffsetToWorldOffset = "Add Mission Beacon Offset to World Offset";
 	public string AddModelRadiusToWorldOffsetY = "Add Model Radius to World Offset Y";
 	public string OpacityFalloff = "Opacity Falloff";
 	public string MaxDistance = "Max Distance";
 
-	public string HighlightedMonsterLocation = "Highlighted Monster Location";
+	public string TargetedMonsterPriority = "Targeted Monster Priority";
+	public string Lower3 = "Lower (-3)";
+	public string Lower2 = "Lower (-2)";
+	public string Lower1 = "Lower (-1)";
 	public string Normal = "Normal";
-	public string First = "First";
-	public string Last = "Last";
+	public string Higher1 = "Higher (+1)";
+	public string Higher2 = "Higher (+2)";
+	public string Higher3 = "Higher (+3)";
 }
 
-internal class Localization
+internal sealed class Localization
 {
-	[JsonIgnore] public string IsoCode = Constants.DefaultLocalization;
+	[JsonIgnore]
+	public string IsoCode = Constants.DefaultLocalization;
 
 	public LocalizationInfo LocalizationInfo = new();
 
 	public FontsInfo Fonts { get; set; } = new();
 
-	[JsonPropertyName("Customization")] public ImGuiLocalization ImGui = new();
+	[JsonPropertyName("Customization")]
+	public ImGuiLocalization ImGui = new();
 }

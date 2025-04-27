@@ -2,7 +2,7 @@
 
 namespace YURI_Overlay;
 
-internal class LargeMonsterRageComponentCustomization : Customization
+internal sealed class LargeMonsterRageComponentCustomization : Customization
 {
 	public bool Visible = true;
 	public OffsetCustomization Offset = new();

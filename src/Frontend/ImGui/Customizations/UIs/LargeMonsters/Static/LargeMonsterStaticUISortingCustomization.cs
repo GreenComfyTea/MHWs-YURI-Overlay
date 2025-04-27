@@ -3,18 +3,27 @@ using ImGuiNET;
 
 namespace YURI_Overlay;
 
-internal class LargeMonsterStaticUiSortingCustomization : Customization
+internal sealed class LargeMonsterStaticUiSortingCustomization : Customization
 {
-	private int _typeIndex = (int) Sortings.Name;
+	public bool ReversedOrder;
+
+	private int _typeIndex = (int) Sorting.Name;
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public Sortings Type
+	public Sorting Type
 	{
-		get => (Sortings) _typeIndex;
+		get => (Sorting) _typeIndex;
 		set => _typeIndex = (int) value;
 	}
 
-	public bool ReversedOrder;
+	private int _targetedMonsterPriorityIndex = (int) Priority.Normal;
+
+	[JsonConverter(typeof(JsonStringEnumConverter))]
+	public Priority TargetedMonsterPriority
+	{
+		get => (Priority) _targetedMonsterPriorityIndex;
+		set => _targetedMonsterPriorityIndex = (int) value;
+	}
 
 	public bool RenderImGui(string parentName = "", LargeMonsterStaticUiSortingCustomization defaultCustomization = null)
 	{
@@ -26,8 +35,9 @@ internal class LargeMonsterStaticUiSortingCustomization : Customization
 
 		if(ImGuiHelper.ResettableTreeNode(localization.Sorting, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Type}##{customizationName}", ref _typeIndex, localizationHelper.Sortings, defaultCustomization?._typeIndex);
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.ReversedOrder}##{customizationName}", ref ReversedOrder, defaultCustomization?.ReversedOrder);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Type}##{customizationName}", ref _typeIndex, localizationHelper.Sortings, defaultCustomization?._typeIndex);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization.TargetedMonsterPriority}##{customizationName}", ref _targetedMonsterPriorityIndex, localizationHelper.Priorities, defaultCustomization?._targetedMonsterPriorityIndex);
 
 			ImGui.TreePop();
 		}
@@ -39,7 +49,8 @@ internal class LargeMonsterStaticUiSortingCustomization : Customization
 	{
 		if(defaultCustomization is null) return;
 
-		Type = defaultCustomization.Type;
 		ReversedOrder = defaultCustomization.ReversedOrder;
+		Type = defaultCustomization.Type;
+		TargetedMonsterPriority = defaultCustomization.TargetedMonsterPriority;
 	}
 }
