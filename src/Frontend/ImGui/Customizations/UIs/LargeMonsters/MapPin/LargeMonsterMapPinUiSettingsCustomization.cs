@@ -2,7 +2,7 @@
 
 namespace YURI_Overlay;
 
-internal sealed class LargeMonsterTargetedUiSettingsCustomization : Customization
+internal sealed class LargeMonsterMapPinUiSettingsCustomization : Customization
 {
 	public bool RenderDeadMonster = false;
 	public bool RenderTargetedMonster = true;
@@ -10,7 +10,7 @@ internal sealed class LargeMonsterTargetedUiSettingsCustomization : Customizatio
 	public bool RenderPinnedMonster = true;
 	public bool RenderNonPinnedMonsters = true;
 
-	public bool RenderImGui(string parentName = "", LargeMonsterTargetedUiSettingsCustomization defaultCustomization = null)
+	public bool RenderImGui(string parentName = "", LargeMonsterMapPinUiSettingsCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
@@ -22,8 +22,8 @@ internal sealed class LargeMonsterTargetedUiSettingsCustomization : Customizatio
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderDeadMonster}##{customizationName}", ref RenderDeadMonster, defaultCustomization?.RenderDeadMonster);
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderTargetedMonster}##{customizationName}", ref RenderTargetedMonster, defaultCustomization?.RenderTargetedMonster);
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderNonTargetedMonsters}##{customizationName}", ref RenderNonTargetedMonsters, defaultCustomization?.RenderNonTargetedMonsters);
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderPinnedMonster}##{customizationName}", ref RenderDeadMonster, defaultCustomization?.RenderPinnedMonster);
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderNonPinnedMonsters}##{customizationName}", ref RenderDeadMonster, defaultCustomization?.RenderNonPinnedMonsters);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderPinnedMonster}##{customizationName}", ref RenderPinnedMonster, defaultCustomization?.RenderPinnedMonster);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderNonPinnedMonsters}##{customizationName}", ref RenderNonPinnedMonsters, defaultCustomization?.RenderNonPinnedMonsters);
 
 			ImGui.TreePop();
 		}
@@ -31,7 +31,7 @@ internal sealed class LargeMonsterTargetedUiSettingsCustomization : Customizatio
 		return isChanged;
 	}
 
-	public void Reset(LargeMonsterTargetedUiSettingsCustomization defaultCustomization = null)
+	public void Reset(LargeMonsterMapPinUiSettingsCustomization defaultCustomization = null)
 	{
 		if(defaultCustomization is null) return;
 

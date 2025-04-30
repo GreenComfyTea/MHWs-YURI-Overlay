@@ -1,4 +1,5 @@
-﻿using app;
+﻿using System.Diagnostics;
+using app;
 using REFrameworkNET;
 using REFrameworkNET.Attributes;
 

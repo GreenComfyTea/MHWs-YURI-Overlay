@@ -12,6 +12,8 @@ internal sealed class LargeMonstersUpdateDelaysCustomization : Customization
 	public float Rage = 0.25f;
 	public float DynamicList = 0.1f;
 	public float StaticList = 0.1f;
+	public float Targeted = 0.1f;
+	public float MapPin = 0.1f;
 
 	public bool RenderImGui(string parentName = "", LargeMonstersUpdateDelaysCustomization defaultCustomization = null)
 	{
@@ -30,6 +32,8 @@ internal sealed class LargeMonstersUpdateDelaysCustomization : Customization
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Rage}##{customizationName}", ref Rage, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Rage);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.DynamicList}##{customizationName}", ref DynamicList, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.DynamicList);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.StaticList}##{customizationName}", ref StaticList, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.StaticList);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Targeted}##{customizationName}", ref Targeted, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Targeted);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MapPin}##{customizationName}", ref MapPin, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.MapPin);
 
 			ImGui.TreePop();
 		}
@@ -49,5 +53,7 @@ internal sealed class LargeMonstersUpdateDelaysCustomization : Customization
 		Rage = defaultCustomization.Rage;
 		DynamicList = defaultCustomization.DynamicList;
 		StaticList = defaultCustomization.StaticList;
+		Targeted = defaultCustomization.Targeted;
+		MapPin = defaultCustomization.MapPin;
 	}
 }

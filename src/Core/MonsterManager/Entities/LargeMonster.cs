@@ -13,6 +13,7 @@ internal sealed class LargeMonster : IDisposable
 	public LargeMonsterDynamicUi DynamicUi;
 	public LargeMonsterStaticUi StaticUi;
 	public LargeMonsterTargetedUi TargetedUi;
+	public LargeMonsterMapPinUi MapPinUi;
 
 	public EnemyDef.ID Id = 0;
 	public EnemyDef.ROLE_ID RoleId = 0;
@@ -75,6 +76,7 @@ internal sealed class LargeMonster : IDisposable
 
 	private Method _nameStringMethod;
 
+	public bool IsPinOn = false;
 
 	public LargeMonster(EnemyCharacter enemyCharacter, cEnemyContext enemyContext)
 	{
@@ -89,6 +91,7 @@ internal sealed class LargeMonster : IDisposable
 			DynamicUi = new LargeMonsterDynamicUi(this);
 			StaticUi = new LargeMonsterStaticUi(this);
 			TargetedUi = new LargeMonsterTargetedUi(this);
+			MapPinUi = new LargeMonsterMapPinUi(this);
 
 			ConfigManager.Instance.AnyConfigChanged += OnAnyConfigChanged;
 
@@ -128,6 +131,8 @@ internal sealed class LargeMonster : IDisposable
 			UpdateHealth();
 			var conditionsModule = UpdateStamina();
 			UpdateRage(conditionsModule);
+
+			IsPinOn = EnemyContext.IsTargetPinOn;
 		}
 		catch(Exception exception)
 		{

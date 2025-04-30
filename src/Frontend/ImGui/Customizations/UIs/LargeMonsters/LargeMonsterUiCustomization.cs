@@ -9,6 +9,7 @@ internal sealed class LargeMonsterUiCustomization : Customization
 	public LargeMonsterDynamicUiCustomization Dynamic = new();
 	public LargeMonsterStaticUiCustomization Static = new();
 	public LargeMonsterTargetedUiCustomization Targeted = new();
+	public LargeMonsterMapPinUiCustomization MapPin = new();
 
 	public bool RenderImGui(string parentName = "", LargeMonsterUiCustomization defaultCustomization = null)
 	{
@@ -24,6 +25,7 @@ internal sealed class LargeMonsterUiCustomization : Customization
 			isChanged |= Dynamic.RenderImGui(customizationName, defaultCustomization?.Dynamic);
 			isChanged |= Static.RenderImGui(customizationName, defaultCustomization?.Static);
 			isChanged |= Targeted.RenderImGui(customizationName, defaultCustomization?.Targeted);
+			isChanged |= MapPin.RenderImGui(customizationName, defaultCustomization?.MapPin);
 
 			ImGui.TreePop();
 		}
@@ -40,5 +42,6 @@ internal sealed class LargeMonsterUiCustomization : Customization
 		Dynamic.Reset(defaultCustomization.Dynamic);
 		Static.Reset(defaultCustomization.Static);
 		Targeted.Reset(defaultCustomization.Targeted);
+		MapPin.Reset(defaultCustomization.MapPin);
 	}
 }

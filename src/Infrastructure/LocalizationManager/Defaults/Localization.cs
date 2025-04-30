@@ -205,6 +205,7 @@ internal sealed class ImGuiLocalization
 	public string Static = "Static";
 	public string Dynamic = "Dynamic";
 	public string Targeted = "Targeted";
+	public string MapPin = "Map Pin";
 
 	public string Spacing = "Spacing";
 
@@ -212,6 +213,9 @@ internal sealed class ImGuiLocalization
 	public string RenderDeadMonsters = "Render Dead Monsters";
 	public string RenderTargetedMonster = "Render Targeted Monster";
 	public string RenderNonTargetedMonsters = "Render Non-Targeted Monsters";
+	public string RenderPinnedMonster = "Render Pinned Monster";
+	public string RenderNonPinnedMonsters = "Render Non-Pinned Monsters";
+
 	public string AddMissionBeaconOffsetToWorldOffset = "Add Mission Beacon Offset to World Offset";
 	public string AddModelRadiusToWorldOffsetY = "Add Model Radius to World Offset Y";
 	public string OpacityFalloff = "Opacity Falloff";

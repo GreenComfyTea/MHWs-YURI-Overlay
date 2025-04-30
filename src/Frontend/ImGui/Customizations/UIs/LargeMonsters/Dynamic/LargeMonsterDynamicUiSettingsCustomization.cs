@@ -7,6 +7,8 @@ internal sealed class LargeMonsterDynamicUiSettingsCustomization : Customization
 	public bool RenderDeadMonsters = false;
 	public bool RenderTargetedMonster = true;
 	public bool RenderNonTargetedMonsters = true;
+	public bool RenderPinnedMonster = true;
+	public bool RenderNonPinnedMonsters = true;
 
 	public bool AddMissionBeaconOffsetToWorldOffset = false;
 	public bool AddModelRadiusToWorldOffsetY = true;
@@ -24,8 +26,12 @@ internal sealed class LargeMonsterDynamicUiSettingsCustomization : Customization
 		if(ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderDeadMonsters}##{customizationName}", ref RenderDeadMonsters, defaultCustomization?.RenderDeadMonsters);
+
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderTargetedMonster}##{customizationName}", ref RenderTargetedMonster, defaultCustomization?.RenderTargetedMonster);
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderNonTargetedMonsters}##{customizationName}", ref RenderNonTargetedMonsters, defaultCustomization?.RenderNonTargetedMonsters);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderPinnedMonster}##{customizationName}", ref RenderPinnedMonster, defaultCustomization?.RenderPinnedMonster);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderNonPinnedMonsters}##{customizationName}", ref RenderNonPinnedMonsters, defaultCustomization?.RenderNonPinnedMonsters);
+
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.AddMissionBeaconOffsetToWorldOffset}##{customizationName}", ref AddMissionBeaconOffsetToWorldOffset, defaultCustomization?.AddMissionBeaconOffsetToWorldOffset);
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.AddModelRadiusToWorldOffsetY}##{customizationName}", ref AddModelRadiusToWorldOffsetY, defaultCustomization?.AddModelRadiusToWorldOffsetY);
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.OpacityFalloff}##{customizationName}", ref OpacityFalloff, defaultCustomization?.OpacityFalloff);
@@ -44,6 +50,8 @@ internal sealed class LargeMonsterDynamicUiSettingsCustomization : Customization
 		RenderDeadMonsters = defaultCustomization.RenderDeadMonsters;
 		RenderTargetedMonster = defaultCustomization.RenderTargetedMonster;
 		RenderNonTargetedMonsters = defaultCustomization.RenderNonTargetedMonsters;
+		RenderPinnedMonster = defaultCustomization.RenderPinnedMonster;
+		RenderNonPinnedMonsters = defaultCustomization.RenderNonPinnedMonsters;
 
 		AddMissionBeaconOffsetToWorldOffset = defaultCustomization.AddMissionBeaconOffsetToWorldOffset;
 		AddModelRadiusToWorldOffsetY = defaultCustomization.AddModelRadiusToWorldOffsetY;
