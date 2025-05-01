@@ -17,19 +17,19 @@ internal enum OutlineStyle
 
 internal enum Priority
 {
-	Lower3 = -3,
-	Lower2 = -2,
-	Lower1 = -1,
-	Normal = 0,
-	Higher1 = 1,
-	Higher2 = 2,
-	Higher3 = 3,
+	Higher3,
+	Higher2,
+	Higher1,
+	Normal,
+	Lower1,
+	Lower2,
+	Lower3,
 }
 
 internal enum Sorting
 {
-	Name,
 	Id,
+	Name,
 	Health,
 	MaxHealth,
 	HealthPercentage,

@@ -4,15 +4,23 @@ internal static class LargeMonsterStaticSorting
 {
 	public static int CompareById(LargeMonster a, LargeMonster b)
 	{
-		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
+		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
 		if(priorityComparison != 0) return priorityComparison;
 
 		return LargeMonsterSorting.CompareById(a, b);
 	}
 
+	public static int CompareByName(LargeMonster a, LargeMonster b)
+	{
+		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
+		if(priorityComparison != 0) return priorityComparison;
+
+		return LargeMonsterSorting.CompareByName(a, b);
+	}
+
 	public static int CompareByHealth(LargeMonster a, LargeMonster b)
 	{
-		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
+		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
 		if(priorityComparison != 0) return priorityComparison;
 
 		return LargeMonsterSorting.CompareByHealth(a, b);
@@ -20,7 +28,7 @@ internal static class LargeMonsterStaticSorting
 
 	public static int CompareByMaxHealth(LargeMonster a, LargeMonster b)
 	{
-		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
+		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
 		if(priorityComparison != 0) return priorityComparison;
 
 		return LargeMonsterSorting.CompareByMaxHealth(a, b);
@@ -28,7 +36,7 @@ internal static class LargeMonsterStaticSorting
 
 	public static int CompareByHealthPercentage(LargeMonster a, LargeMonster b)
 	{
-		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
+		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
 		if(priorityComparison != 0) return priorityComparison;
 
 		return LargeMonsterSorting.CompareByHealthPercentage(a, b);
@@ -36,18 +44,10 @@ internal static class LargeMonsterStaticSorting
 
 	public static int CompareByDistance(LargeMonster a, LargeMonster b)
 	{
-		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
+		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
 		if(priorityComparison != 0) return priorityComparison;
 
 		return LargeMonsterSorting.CompareByDistance(a, b);
-	}
-
-	public static int CompareByName(LargeMonster a, LargeMonster b)
-	{
-		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
-
-		return LargeMonsterSorting.CompareByName(a, b);
 	}
 
 	public static int CompareByIdReversed(LargeMonster a, LargeMonster b)
@@ -56,6 +56,14 @@ internal static class LargeMonsterStaticSorting
 		if(priorityComparison != 0) return priorityComparison;
 
 		return LargeMonsterSorting.CompareByIdReversed(a, b);
+	}
+
+	public static int CompareByNameReversed(LargeMonster a, LargeMonster b)
+	{
+		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
+		if(priorityComparison != 0) return priorityComparison;
+
+		return LargeMonsterSorting.CompareByNameReversed(a, b);
 	}
 
 	public static int CompareByHealthReversed(LargeMonster a, LargeMonster b)
@@ -88,13 +96,5 @@ internal static class LargeMonsterStaticSorting
 		if(priorityComparison != 0) return priorityComparison;
 
 		return LargeMonsterSorting.CompareByDistanceReversed(a, b);
-	}
-
-	public static int CompareByNameReversed(LargeMonster a, LargeMonster b)
-	{
-		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
-
-		return LargeMonsterSorting.CompareByNameReversed(a, b);
 	}
 }

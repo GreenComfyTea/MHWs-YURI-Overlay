@@ -49,8 +49,8 @@ internal sealed class LocalizationHelper
 
 		DefaultSortings =
 		[
-			defaultLocalization.Name,
 			defaultLocalization.Id,
+			defaultLocalization.Name,
 			defaultLocalization.Health,
 			defaultLocalization.MaxHealth,
 			defaultLocalization.HealthPercentage,
@@ -59,13 +59,13 @@ internal sealed class LocalizationHelper
 
 		DefaultPriorities =
 		[
-			defaultLocalization.Lower3,
-			defaultLocalization.Lower2,
-			defaultLocalization.Lower1,
-			defaultLocalization.Normal,
-			defaultLocalization.Higher1,
-			defaultLocalization.Higher2,
 			defaultLocalization.Higher3,
+			defaultLocalization.Higher2,
+			defaultLocalization.Higher1,
+			defaultLocalization.Normal,
+			defaultLocalization.Lower1,
+			defaultLocalization.Lower2,
+			defaultLocalization.Lower3,
 		];
 
 		DefaultAnchors =
@@ -107,19 +107,19 @@ internal sealed class LocalizationHelper
 
 		Priorities =
 		[
-			localization.Lower3,
-			localization.Lower2,
-			localization.Lower1,
-			localization.Normal,
-			localization.Higher1,
-			localization.Higher2,
 			localization.Higher3,
+			localization.Higher2,
+			localization.Higher1,
+			localization.Normal,
+			localization.Lower1,
+			localization.Lower2,
+			localization.Lower3,
 		];
 
 		Sortings =
 		[
-			localization.Name,
 			localization.Id,
+			localization.Name,
 			localization.Health,
 			localization.MaxHealth,
 			localization.HealthPercentage,

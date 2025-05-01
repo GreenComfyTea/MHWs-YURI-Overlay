@@ -153,33 +153,33 @@ internal sealed class LargeMonster : IDisposable
 		// Targeted Dynamic UI should be rendered last to be on top
 		DynamicSortingPriority = IsTargeted ? 3 : 0;
 
-		if(IsTargeted)
+		var sortingCustomization = customization.Static.Sorting;
+		var targetedMonsterPriorityValue = PriorityUtils.ConvertPriorityToValue(sortingCustomization.TargetedMonsterPriority);
+		var pinnedMonsterPriorityValue = PriorityUtils.ConvertPriorityToValue(sortingCustomization.PinnedMonsterPriority);
+
+
+		if(IsTargeted && IsPinned)
 		{
-			switch(customization.Static.Sorting.TargetedMonsterPriority)
+			if(targetedMonsterPriorityValue > 0)
 			{
-				case Priority.Lower3:
-					StaticSortingPriority = -3;
-					break;
-				case Priority.Lower2:
-					StaticSortingPriority = -2;
-					break;
-				case Priority.Lower1:
-					StaticSortingPriority = -1;
-					break;
-				case Priority.Higher1:
-					StaticSortingPriority = 1;
-					break;
-				case Priority.Higher2:
-					StaticSortingPriority = 2;
-					break;
-				case Priority.Higher3:
-					StaticSortingPriority = 3;
-					break;
-				case Priority.Normal:
-				default:
-					StaticSortingPriority = 0;
-					break;
+				StaticSortingPriority = targetedMonsterPriorityValue >= pinnedMonsterPriorityValue ? targetedMonsterPriorityValue : pinnedMonsterPriorityValue;
 			}
+			else if(pinnedMonsterPriorityValue > 0)
+			{
+				StaticSortingPriority = pinnedMonsterPriorityValue;
+			}
+			else
+			{
+				StaticSortingPriority = targetedMonsterPriorityValue <= pinnedMonsterPriorityValue ? targetedMonsterPriorityValue : pinnedMonsterPriorityValue;
+			}
+		}
+		else if(IsTargeted)
+		{
+			StaticSortingPriority = targetedMonsterPriorityValue;
+		}
+		else if(IsPinned)
+		{
+			StaticSortingPriority = pinnedMonsterPriorityValue;
 		}
 		else
 		{
