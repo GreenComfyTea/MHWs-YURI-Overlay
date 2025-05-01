@@ -8,14 +8,13 @@ internal sealed class SmallMonstersUpdateDelaysCustomization : Customization
 	public float MissionBeaconOffset = 5f;
 	public float ModelRadius = 5f;
 	public float Health = 0.5f;
-	public float DynamicList = 0.2f;
 
 	public bool RenderImGui(string parentName = "", SmallMonstersUpdateDelaysCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
-		var customizationName = $"{parentName}-large-monsters";
+		var customizationName = $"{parentName}-small-monsters";
 
 		if(ImGuiHelper.ResettableTreeNode(localization.SmallMonsters, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
@@ -23,7 +22,6 @@ internal sealed class SmallMonstersUpdateDelaysCustomization : Customization
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MissionBeaconOffset}##{customizationName}", ref MissionBeaconOffset, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.MissionBeaconOffset);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.ModelRadius}##{customizationName}", ref ModelRadius, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.ModelRadius);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Health}##{customizationName}", ref Health, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Health);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.DynamicList}##{customizationName}", ref DynamicList, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.DynamicList);
 
 			ImGui.TreePop();
 		}
@@ -39,6 +37,5 @@ internal sealed class SmallMonstersUpdateDelaysCustomization : Customization
 		MissionBeaconOffset = defaultCustomization.MissionBeaconOffset;
 		ModelRadius = defaultCustomization.ModelRadius;
 		Health = defaultCustomization.Health;
-		DynamicList = defaultCustomization.DynamicList;
 	}
 }
