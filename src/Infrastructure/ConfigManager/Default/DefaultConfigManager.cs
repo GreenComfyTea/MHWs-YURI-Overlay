@@ -374,8 +374,10 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Spacing.X = 311f;
 		largeMonsterStaticUiConfig.Spacing.Y = 0f;
 
-		largeMonsterStaticUiConfig.Sorting.Type = Sorting.Name;
 		largeMonsterStaticUiConfig.Sorting.ReversedOrder = false;
+		largeMonsterStaticUiConfig.Sorting.Type = Sorting.Name;
+		largeMonsterStaticUiConfig.Sorting.TargetedMonsterPriority = Priority.Higher2;
+		largeMonsterStaticUiConfig.Sorting.PinnedMonsterPriority = Priority.Higher1;
 
 		largeMonsterStaticUiConfig.NameLabel.Visible = true;
 		largeMonsterStaticUiConfig.NameLabel.Format = "{0}";
@@ -1272,7 +1274,7 @@ internal partial class ConfigManager
 		smallMonsterDynamicUiConfig.Health.Bar.Offset.X = 0f;
 		smallMonsterDynamicUiConfig.Health.Bar.Offset.Y = 0f;
 		smallMonsterDynamicUiConfig.Health.Bar.Size.Width = 162f;
-		smallMonsterDynamicUiConfig.Health.Bar.Size.Height = 12f;
+		smallMonsterDynamicUiConfig.Health.Bar.Size.Height = 9f;
 
 		smallMonsterDynamicUiConfig.Health.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
 		smallMonsterDynamicUiConfig.Health.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x004D1BCC;
