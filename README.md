@@ -4,7 +4,7 @@
 	<h5 align="center"><b>(Your Useless Rewilding Interface)</b></h2>
 	<h3 align="center"><b>Mod for Monster Hunter Wilds</b></h2>
 	<hr>
-	<p align="center">Exposes internal game data about monsters, creatures, players, damage; and draws a highly customizable UI.</p>
+	<p align="center">Exposes internal game data about monsters, endemic life, players, damage; and draws a highly customizable UI.</p>
 	<p align="center">This mod is solely intended to empower players with means of self-improvement. Please don't use the information provided by this tool to make hurtful comments and actions toward other players.</p>
 </p>
 
