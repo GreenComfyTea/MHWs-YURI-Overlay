@@ -42,8 +42,8 @@ internal sealed class SmallMonster : IDisposable
 
 	public SmallMonster(EnemyCharacter enemyCharacter, cEnemyContext enemyContext)
 	{
-		this.EnemyCharacter = enemyCharacter;
-		this.EnemyContext = enemyContext;
+		EnemyCharacter = enemyCharacter;
+		EnemyContext = enemyContext;
 
 		try
 		{

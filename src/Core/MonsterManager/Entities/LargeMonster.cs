@@ -64,24 +64,24 @@ internal sealed class LargeMonster : IDisposable
 
 	private readonly List<Timer> _timers = [];
 
-	private bool _isUpdateHealthPending = true;
+	private bool _isUpdateNamePending = true;
 	private bool _isUpdateMissionBeaconOffsetPending = true;
 	private bool _isUpdateModelRadiusPending = true;
-
-	private bool _isUpdateNamePending = true;
-	private bool _isUpdateRagePending = true;
+	private bool _isUpdateHealthPending = true;
 	private bool _isUpdateStaminaPending = true;
+	private bool _isUpdateRagePending = true;
+	private bool _isUpdateMapPinPending = true;
 
 	private Type _stringType;
 
 	private Method _nameStringMethod;
 
-	public bool IsPinOn = false;
+	public bool IsPinned = false;
 
 	public LargeMonster(EnemyCharacter enemyCharacter, cEnemyContext enemyContext)
 	{
-		this.EnemyCharacter = enemyCharacter;
-		this.EnemyContext = enemyContext;
+		EnemyCharacter = enemyCharacter;
+		EnemyContext = enemyContext;
 
 		try
 		{
@@ -131,8 +131,7 @@ internal sealed class LargeMonster : IDisposable
 			UpdateHealth();
 			var conditionsModule = UpdateStamina();
 			UpdateRage(conditionsModule);
-
-			IsPinOn = EnemyContext.IsTargetPinOn;
+			UpdateMapPin();
 		}
 		catch(Exception exception)
 		{
@@ -153,33 +152,33 @@ internal sealed class LargeMonster : IDisposable
 		// Targeted Dynamic UI should be rendered last to be on top
 		DynamicSortingPriority = IsTargeted ? 3 : 0;
 
-		if(IsTargeted)
+		var sortingCustomization = customization.Static.Sorting;
+		var targetedMonsterPriorityValue = PriorityUtils.ConvertPriorityToValue(sortingCustomization.TargetedMonsterPriority);
+		var pinnedMonsterPriorityValue = PriorityUtils.ConvertPriorityToValue(sortingCustomization.PinnedMonsterPriority);
+
+
+		if(IsTargeted && IsPinned)
 		{
-			switch(customization.Static.Sorting.TargetedMonsterPriority)
+			if(targetedMonsterPriorityValue > 0)
 			{
-				case Priority.Lower3:
-					StaticSortingPriority = -3;
-					break;
-				case Priority.Lower2:
-					StaticSortingPriority = -2;
-					break;
-				case Priority.Lower1:
-					StaticSortingPriority = -1;
-					break;
-				case Priority.Higher1:
-					StaticSortingPriority = 1;
-					break;
-				case Priority.Higher2:
-					StaticSortingPriority = 2;
-					break;
-				case Priority.Higher3:
-					StaticSortingPriority = 3;
-					break;
-				case Priority.Normal:
-				default:
-					StaticSortingPriority = 0;
-					break;
+				StaticSortingPriority = targetedMonsterPriorityValue >= pinnedMonsterPriorityValue ? targetedMonsterPriorityValue : pinnedMonsterPriorityValue;
 			}
+			else if(pinnedMonsterPriorityValue > 0)
+			{
+				StaticSortingPriority = pinnedMonsterPriorityValue;
+			}
+			else
+			{
+				StaticSortingPriority = targetedMonsterPriorityValue <= pinnedMonsterPriorityValue ? targetedMonsterPriorityValue : pinnedMonsterPriorityValue;
+			}
+		}
+		else if(IsTargeted)
+		{
+			StaticSortingPriority = targetedMonsterPriorityValue;
+		}
+		else if(IsPinned)
+		{
+			StaticSortingPriority = pinnedMonsterPriorityValue;
 		}
 		else
 		{
@@ -219,6 +218,7 @@ internal sealed class LargeMonster : IDisposable
 		_timers.Add(Timers.SetInterval(SetUpdateHealthPending, Utils.SecondsToMilliseconds(updateDelays.Health)));
 		_timers.Add(Timers.SetInterval(SetUpdateStaminaPending, Utils.SecondsToMilliseconds(updateDelays.Stamina)));
 		_timers.Add(Timers.SetInterval(SetUpdateRagePending, Utils.SecondsToMilliseconds(updateDelays.Rage)));
+		_timers.Add(Timers.SetInterval(SetUpdateMapPinPending, Utils.SecondsToMilliseconds(updateDelays.MapPin)));
 	}
 
 	private void SetUpdateNamePending()
@@ -249,6 +249,11 @@ internal sealed class LargeMonster : IDisposable
 	private void SetUpdateRagePending()
 	{
 		_isUpdateRagePending = true;
+	}
+
+	private void SetUpdateMapPinPending()
+	{
+		_isUpdateMapPinPending = true;
 	}
 
 	private void UpdatePosition()
@@ -489,6 +494,22 @@ internal sealed class LargeMonster : IDisposable
 			MaxRage = angryCondition.LimitValue;
 
 			if(!Utils.IsApproximatelyEqual(MaxRage, 0)) RagePercentage = Rage / MaxRage;
+		}
+		catch(Exception exception)
+		{
+			LogManager.Error(exception);
+		}
+	}
+
+	private void UpdateMapPin()
+	{
+		try
+		{
+			if(!_isUpdateMapPinPending) return;
+			_isUpdateMapPinPending = false;
+
+			IsPinned = EnemyContext.IsTargetPinOn;
+			UpdateSortingPriorities();
 		}
 		catch(Exception exception)
 		{

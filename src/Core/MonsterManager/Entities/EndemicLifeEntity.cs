@@ -34,8 +34,8 @@ internal sealed class EndemicLifeEntity : IDisposable
 
 	public EndemicLifeEntity(EnemyCharacter enemyCharacter, cEnemyContext enemyContext)
 	{
-		this.EnemyCharacter = enemyCharacter;
-		this.EnemyContext = enemyContext;
+		EnemyCharacter = enemyCharacter;
+		EnemyContext = enemyContext;
 
 		try
 		{

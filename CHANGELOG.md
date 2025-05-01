@@ -5,6 +5,8 @@
 
 ### Features
 
+* Decreased small monster health bar default height ([1d4af77](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/1d4af770c89e4e6fbd23800cf06483e73fd0ddfd))
+* Disabled updating monsters and endemic life when respective UIs are disabled ([20493ae](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/20493aec35abf5e969ab1872d671812d0310a5be))
 * Finalized migration to auto-generated assemblies ([bb447f5](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/bb447f572775c4dd2122ead6ad368977ba0df1b1))
 * Added Map Pin Large Monster UI ([e8041d3](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/e8041d367670c6bd32f3b280d6fa8b412c3586d0))
 * Added Targeted Large Monster UI ([906854d](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/906854dc2ad7158080cf2a4bd1c9792bc7dd1faf))

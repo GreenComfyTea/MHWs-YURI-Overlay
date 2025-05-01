@@ -91,8 +91,8 @@ internal sealed class LargeMonsterUiManager : IDisposable
 			if(!settingsCustomization.RenderDeadMonsters && !largeMonster.IsAlive) continue;
 			if(!settingsCustomization.RenderTargetedMonster && largeMonster.IsTargeted) continue;
 			if(!settingsCustomization.RenderNonTargetedMonsters && !largeMonster.IsTargeted) continue;
-			if(!settingsCustomization.RenderPinnedMonster && largeMonster.IsPinOn) continue;
-			if(!settingsCustomization.RenderNonPinnedMonsters && !largeMonster.IsPinOn) continue;
+			if(!settingsCustomization.RenderPinnedMonster && largeMonster.IsPinned) continue;
+			if(!settingsCustomization.RenderNonPinnedMonsters && !largeMonster.IsPinned) continue;
 
 			newLargeMonsters.Add(largeMonster);
 		}
@@ -126,8 +126,8 @@ internal sealed class LargeMonsterUiManager : IDisposable
 			if(!settingsCustomization.RenderDeadMonsters && !largeMonster.IsAlive) continue;
 			if(!settingsCustomization.RenderTargetedMonster && largeMonster.IsTargeted) continue;
 			if(!settingsCustomization.RenderNonTargetedMonsters && !largeMonster.IsTargeted) continue;
-			if(!settingsCustomization.RenderPinnedMonster && largeMonster.IsPinOn) continue;
-			if(!settingsCustomization.RenderNonPinnedMonsters && !largeMonster.IsPinOn) continue;
+			if(!settingsCustomization.RenderPinnedMonster && largeMonster.IsPinned) continue;
+			if(!settingsCustomization.RenderNonPinnedMonsters && !largeMonster.IsPinned) continue;
 
 			newLargeMonsters.Add(largeMonster);
 		}
@@ -141,21 +141,21 @@ internal sealed class LargeMonsterUiManager : IDisposable
 				case Sorting.Id:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByIdReversed);
 					break;
+				case Sorting.Name:
+					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByNameReversed);
+					break;
 				case Sorting.Health:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByHealthReversed);
 					break;
 				case Sorting.MaxHealth:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByMaxHealthReversed);
 					break;
-				case Sorting.HealthPercentage:
-					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByHealthPercentageReversed);
-					break;
 				case Sorting.Distance:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByDistanceReversed);
 					break;
-				case Sorting.Name:
+				case Sorting.HealthPercentage:
 				default:
-					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByNameReversed);
+					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByHealthPercentageReversed);
 					break;
 			}
 		}
@@ -166,21 +166,22 @@ internal sealed class LargeMonsterUiManager : IDisposable
 				case Sorting.Id:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareById);
 					break;
+				case Sorting.Name:
+					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByName);
+					break;
 				case Sorting.Health:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByHealth);
 					break;
 				case Sorting.MaxHealth:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByMaxHealth);
 					break;
-				case Sorting.HealthPercentage:
-					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByHealthPercentage);
-					break;
+
 				case Sorting.Distance:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByDistance);
 					break;
-				case Sorting.Name:
+				case Sorting.HealthPercentage:
 				default:
-					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByName);
+					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByHealthPercentage);
 					break;
 			}
 		}
@@ -224,13 +225,13 @@ internal sealed class LargeMonsterUiManager : IDisposable
 			return;
 		}
 
-		if(!settingsCustomization.RenderPinnedMonster && newTargetedLargeMonster.IsPinOn)
+		if(!settingsCustomization.RenderPinnedMonster && newTargetedLargeMonster.IsPinned)
 		{
 			_targetedLargeMonster = null;
 			return;
 		}
 
-		if(!settingsCustomization.RenderNonPinnedMonsters && !newTargetedLargeMonster.IsPinOn)
+		if(!settingsCustomization.RenderNonPinnedMonsters && !newTargetedLargeMonster.IsPinned)
 		{
 			_targetedLargeMonster = null;
 			return;
@@ -251,7 +252,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 			return;
 		}
 
-		var newPinnedLargeMonster = MonsterManager.Instance.LargeMonsters.FirstOrDefault(largeMonsterPair => largeMonsterPair.Value.IsPinOn).Value;
+		var newPinnedLargeMonster = MonsterManager.Instance.LargeMonsters.FirstOrDefault(largeMonsterPair => largeMonsterPair.Value.IsPinned).Value;
 		if(newPinnedLargeMonster is null)
 		{
 			_pinnedLargeMonster = null;
@@ -276,13 +277,13 @@ internal sealed class LargeMonsterUiManager : IDisposable
 			return;
 		}
 
-		if(!settingsCustomization.RenderPinnedMonster && newPinnedLargeMonster.IsPinOn)
+		if(!settingsCustomization.RenderPinnedMonster && newPinnedLargeMonster.IsPinned)
 		{
 			_pinnedLargeMonster = null;
 			return;
 		}
 
-		if(!settingsCustomization.RenderNonPinnedMonsters && !newPinnedLargeMonster.IsPinOn)
+		if(!settingsCustomization.RenderNonPinnedMonsters && !newPinnedLargeMonster.IsPinned)
 		{
 			_pinnedLargeMonster = null;
 			return;

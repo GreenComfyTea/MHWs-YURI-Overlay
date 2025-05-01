@@ -30,6 +30,20 @@ internal sealed class MonsterManager : IDisposable
 	{
 		try
 		{
+			var customization = ConfigManager.Instance.ActiveConfig.Data;
+
+			if(!customization.LargeMonsterUI.Enabled
+			   && !customization.LargeMonsterUI.Dynamic.Enabled
+			   && !customization.LargeMonsterUI.Static.Enabled
+			   && !customization.LargeMonsterUI.Targeted.Enabled
+			   && !customization.LargeMonsterUI.MapPin.Enabled
+			   && !customization.SmallMonsterUI.Enabled
+			   && !customization.EndemicLifeUI.Enabled)
+			{
+				return PreHookResult.Continue;
+			}
+
+
 			var enemyCharacterPtr = args[1];
 
 			var enemyCharacter = ManagedObject.ToManagedObject(enemyCharacterPtr).As<EnemyCharacter>();
@@ -54,7 +68,12 @@ internal sealed class MonsterManager : IDisposable
 			}
 
 			var isLargeMonster = enemyContext.IsBoss;
-			if(isLargeMonster)
+			if(isLargeMonster
+			   && customization.LargeMonsterUI.Enabled
+			   && (customization.LargeMonsterUI.Dynamic.Enabled
+				   || customization.LargeMonsterUI.Static.Enabled
+				   || customization.LargeMonsterUI.Targeted.Enabled
+				   || customization.LargeMonsterUI.MapPin.Enabled))
 			{
 				var isFound = Instance.LargeMonsters.ContainsKey(enemyCharacter);
 				if(!isFound)
@@ -67,7 +86,7 @@ internal sealed class MonsterManager : IDisposable
 			}
 
 			var isSmallMonster = enemyContext.IsZako;
-			if(isSmallMonster)
+			if(isSmallMonster && customization.SmallMonsterUI.Enabled)
 			{
 				var isFound = Instance.SmallMonsters.ContainsKey(enemyCharacter);
 				if(!isFound)
@@ -80,7 +99,7 @@ internal sealed class MonsterManager : IDisposable
 			}
 
 			var isEndemicLife = enemyContext.IsAnimal;
-			if(isEndemicLife)
+			if(isEndemicLife && customization.EndemicLifeUI.Enabled)
 			{
 				var isFound = Instance.EndemicLifeEntities.ContainsKey(enemyCharacter);
 				if(!isFound)
@@ -180,19 +199,19 @@ internal sealed class MonsterManager : IDisposable
 	{
 		LogManager.Info("[LargeMonster] Disposing...");
 
-		foreach(var smallMonster in SmallMonsters.Values)
+		foreach(var largeMonsterPair in LargeMonsters)
 		{
-			smallMonster.Dispose();
+			largeMonsterPair.Value.Dispose();
 		}
 
-		foreach(var largeMonster in LargeMonsters.Values)
+		foreach(var smallMonsterPair in SmallMonsters)
 		{
-			largeMonster.Dispose();
+			smallMonsterPair.Value.Dispose();
 		}
 
-		foreach(var endemicLifeEntity in EndemicLifeEntities.Values)
+		foreach(var endemicLifeEntityPair in EndemicLifeEntities)
 		{
-			endemicLifeEntity.Dispose();
+			endemicLifeEntityPair.Value.Dispose();
 		}
 
 		LogManager.Info("[LargeMonster] Disposed!");

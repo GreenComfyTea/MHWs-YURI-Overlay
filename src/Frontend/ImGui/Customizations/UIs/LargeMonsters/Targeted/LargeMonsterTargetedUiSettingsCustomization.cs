@@ -22,8 +22,8 @@ internal sealed class LargeMonsterTargetedUiSettingsCustomization : Customizatio
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderDeadMonster}##{customizationName}", ref RenderDeadMonster, defaultCustomization?.RenderDeadMonster);
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderTargetedMonster}##{customizationName}", ref RenderTargetedMonster, defaultCustomization?.RenderTargetedMonster);
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderNonTargetedMonsters}##{customizationName}", ref RenderNonTargetedMonsters, defaultCustomization?.RenderNonTargetedMonsters);
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderPinnedMonster}##{customizationName}", ref RenderDeadMonster, defaultCustomization?.RenderPinnedMonster);
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderNonPinnedMonsters}##{customizationName}", ref RenderDeadMonster, defaultCustomization?.RenderNonPinnedMonsters);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderPinnedMonster}##{customizationName}", ref RenderPinnedMonster, defaultCustomization?.RenderPinnedMonster);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderNonPinnedMonsters}##{customizationName}", ref RenderNonPinnedMonsters, defaultCustomization?.RenderNonPinnedMonsters);
 
 			ImGui.TreePop();
 		}

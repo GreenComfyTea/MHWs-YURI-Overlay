@@ -19,6 +19,9 @@ internal sealed class CameraManager
 	public void Initialize()
 	{
 		LogManager.Info("[CameraManager] Initializing...");
+
+		UpdateCameraTarget();
+
 		LogManager.Info("[CameraManager] Initialized!");
 	}
 
@@ -26,7 +29,16 @@ internal sealed class CameraManager
 	{
 		try
 		{
-			LogManager.Debug("UpdateCameraTarget");
+			var customization = ConfigManager.Instance.ActiveConfig.Data;
+
+			if(!customization.LargeMonsterUI.Enabled
+			   && !customization.LargeMonsterUI.Dynamic.Enabled
+			   && !customization.LargeMonsterUI.Static.Enabled
+			   && !customization.LargeMonsterUI.Targeted.Enabled
+			   && !customization.LargeMonsterUI.MapPin.Enabled)
+			{
+				return;
+			}
 
 			var cameraManager = API.GetManagedSingletonT<app.CameraManager>();
 			if(cameraManager is null)
@@ -38,7 +50,7 @@ internal sealed class CameraManager
 			var masterPlayerCamera = cameraManager._MasterPlCamera;
 			if(masterPlayerCamera is null)
 			{
-				LogManager.Warn("[CameraManager.UpdateCameraTarget] No master player camera");
+				//LogManager.Warn("[CameraManager.UpdateCameraTarget] No master player camera");
 				return;
 			}
 
