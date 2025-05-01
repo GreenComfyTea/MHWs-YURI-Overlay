@@ -52,7 +52,7 @@ internal sealed class SmallMonsterUiManager : IDisposable
 
 	private void InitializeTimers()
 	{
-		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.SmallMonsters;
+		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.UIs;
 
 		foreach(var timer in _timers)
 		{
@@ -61,7 +61,7 @@ internal sealed class SmallMonsterUiManager : IDisposable
 
 		_timers.Clear();
 
-		_timers.Add(Timers.SetInterval(UpdateDynamic, Utils.SecondsToMilliseconds(updateDelays.DynamicList)));
+		_timers.Add(Timers.SetInterval(UpdateDynamic, Utils.SecondsToMilliseconds(updateDelays.SmallMonsters)));
 	}
 
 	private void UpdateDynamic()

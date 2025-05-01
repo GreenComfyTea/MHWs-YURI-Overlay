@@ -54,7 +54,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 	private void InitializeTimers()
 	{
-		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.LargeMonsters;
+		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.UIs;
 
 		foreach(var timer in _timers)
 		{
@@ -63,10 +63,10 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 		_timers.Clear();
 
-		_timers.Add(Timers.SetInterval(UpdateDynamic, Utils.SecondsToMilliseconds(updateDelays.DynamicList)));
-		_timers.Add(Timers.SetInterval(UpdateStatic, Utils.SecondsToMilliseconds(updateDelays.StaticList)));
-		_timers.Add(Timers.SetInterval(UpdateTargeted, Utils.SecondsToMilliseconds(updateDelays.Targeted)));
-		_timers.Add(Timers.SetInterval(UpdateMapPin, Utils.SecondsToMilliseconds(updateDelays.MapPin)));
+		_timers.Add(Timers.SetInterval(UpdateDynamic, Utils.SecondsToMilliseconds(updateDelays.LargeMonsterDynamic)));
+		_timers.Add(Timers.SetInterval(UpdateStatic, Utils.SecondsToMilliseconds(updateDelays.LargeMonsterStatic)));
+		_timers.Add(Timers.SetInterval(UpdateTargeted, Utils.SecondsToMilliseconds(updateDelays.LargeMonsterTargeted)));
+		_timers.Add(Timers.SetInterval(UpdateMapPin, Utils.SecondsToMilliseconds(updateDelays.LargeMonsterMapPin)));
 	}
 
 	private void UpdateDynamic()
@@ -314,7 +314,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		{
 			var largeMonster = _staticLargeMonsters[locationIndex];
 
-			if(largeMonster.IsPinOn) largeMonster.StaticUi.Draw(backgroundDrawList, locationIndex);
+			largeMonster.StaticUi.Draw(backgroundDrawList, locationIndex);
 		}
 	}
 

@@ -126,9 +126,10 @@ internal sealed class ImGuiLocalization
 
 	public string ScreenManager = "Screen Manager";
 	public string PlayerManager = "Player Manager";
-	public string LargeMonsters = "Large Monsters";
 	public string SmallMonsters = "Small Monsters";
+	public string LargeMonsters = "Large Monsters";
 	public string EndemicLife = "Endemic Life";
+	public string UIs = "UIs";
 
 	public string Name = "Name";
 	public string Health = "Health";
@@ -138,8 +139,10 @@ internal sealed class ImGuiLocalization
 	public string MissionBeaconOffset = "Mission Beacon Offset";
 	public string ModelRadius = "Model Radius";
 
-	public string DynamicList = "Dynamic List";
-	public string StaticList = "Static List";
+	public string LargeMonstersDynamic = "Large Monsters: Dynamic";
+	public string LargeMonstersStatic = "Large Monsters: Static";
+	public string LargeMonstersTargeted = "Large Monsters: Targeted";
+	public string LargeMonstersMapPin = "Large Monsters: Map Pin";
 
 	public string Update = "Update";
 

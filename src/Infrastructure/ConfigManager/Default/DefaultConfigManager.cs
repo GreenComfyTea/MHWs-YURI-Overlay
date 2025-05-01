@@ -36,18 +36,25 @@ internal partial class ConfigManager
 		globalSettingsConfig.Performance.UpdateDelays.LargeMonsters.Health = 0.1f;
 		globalSettingsConfig.Performance.UpdateDelays.LargeMonsters.Stamina = 0.25f;
 		globalSettingsConfig.Performance.UpdateDelays.LargeMonsters.Rage = 0.25f;
-		globalSettingsConfig.Performance.UpdateDelays.LargeMonsters.DynamicList = 0.1f;
-		globalSettingsConfig.Performance.UpdateDelays.LargeMonsters.StaticList = 0.1f;
+		globalSettingsConfig.Performance.UpdateDelays.LargeMonsters.MapPin = 0.25f;
+
 
 		globalSettingsConfig.Performance.UpdateDelays.SmallMonsters.Name = 5f;
 		globalSettingsConfig.Performance.UpdateDelays.SmallMonsters.MissionBeaconOffset = 5f;
 		globalSettingsConfig.Performance.UpdateDelays.SmallMonsters.ModelRadius = 5f;
 		globalSettingsConfig.Performance.UpdateDelays.SmallMonsters.Health = 0.5f;
-		globalSettingsConfig.Performance.UpdateDelays.LargeMonsters.DynamicList = 0.2f;
+
 
 		globalSettingsConfig.Performance.UpdateDelays.EndemicLife.Name = 5f;
 		globalSettingsConfig.Performance.UpdateDelays.EndemicLife.ModelRadius = 5f;
-		globalSettingsConfig.Performance.UpdateDelays.EndemicLife.DynamicList = 0.2f;
+
+
+		globalSettingsConfig.Performance.UpdateDelays.UIs.LargeMonsterDynamic = 0.1f;
+		globalSettingsConfig.Performance.UpdateDelays.UIs.LargeMonsterStatic = 0.1f;
+		globalSettingsConfig.Performance.UpdateDelays.UIs.LargeMonsterTargeted = 0.1f;
+		globalSettingsConfig.Performance.UpdateDelays.UIs.LargeMonsterMapPin = 0.1f;
+		globalSettingsConfig.Performance.UpdateDelays.UIs.SmallMonsters = 0.2f;
+		globalSettingsConfig.Performance.UpdateDelays.UIs.EndemicLife = 0.2f;
 	}
 
 	private static void ResetLargeMonsterUI(Config config)
@@ -67,6 +74,9 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Settings.RenderDeadMonsters = false;
 		largeMonsterDynamicUiConfig.Settings.RenderTargetedMonster = true;
 		largeMonsterDynamicUiConfig.Settings.RenderNonTargetedMonsters = true;
+		largeMonsterDynamicUiConfig.Settings.RenderPinnedMonster = true;
+		largeMonsterDynamicUiConfig.Settings.RenderNonPinnedMonsters = true;
+
 		largeMonsterDynamicUiConfig.Settings.AddMissionBeaconOffsetToWorldOffset = false;
 		largeMonsterDynamicUiConfig.Settings.AddModelRadiusToWorldOffsetY = true;
 		largeMonsterDynamicUiConfig.Settings.OpacityFalloff = true;
@@ -354,12 +364,14 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Settings.RenderDeadMonsters = false;
 		largeMonsterStaticUiConfig.Settings.RenderTargetedMonster = true;
 		largeMonsterStaticUiConfig.Settings.RenderNonTargetedMonsters = true;
+		largeMonsterStaticUiConfig.Settings.RenderPinnedMonster = true;
+		largeMonsterStaticUiConfig.Settings.RenderNonPinnedMonsters = true;
 
 		largeMonsterStaticUiConfig.Position.X = 89f;
-		largeMonsterStaticUiConfig.Position.Y = -32f;
+		largeMonsterStaticUiConfig.Position.Y = -26f;
 		largeMonsterStaticUiConfig.Position.Anchor = Anchor.BottomLeft;
 
-		largeMonsterStaticUiConfig.Spacing.X = 320f;
+		largeMonsterStaticUiConfig.Spacing.X = 311f;
 		largeMonsterStaticUiConfig.Spacing.Y = 0f;
 
 		largeMonsterStaticUiConfig.Sorting.Type = Sorting.Name;
@@ -636,11 +648,14 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Enabled = true;
 
 		largeMonsterTargetedUiConfig.Settings.RenderDeadMonster = false;
+		largeMonsterTargetedUiConfig.Settings.RenderTargetedMonster = true;
+		largeMonsterTargetedUiConfig.Settings.RenderNonTargetedMonsters = true;
+		largeMonsterTargetedUiConfig.Settings.RenderPinnedMonster = true;
+		largeMonsterTargetedUiConfig.Settings.RenderNonPinnedMonsters = true;
 
-		largeMonsterTargetedUiConfig.Position.X = -236f;
-		largeMonsterTargetedUiConfig.Position.Y = 54f;
-		largeMonsterTargetedUiConfig.Position.Anchor = Anchor.TopCenter;
-
+		largeMonsterTargetedUiConfig.Position.X = 477f;
+		largeMonsterTargetedUiConfig.Position.Y = -313f;
+		largeMonsterTargetedUiConfig.Position.Anchor = Anchor.BottomLeft;
 
 		largeMonsterTargetedUiConfig.NameLabel.Visible = true;
 		largeMonsterTargetedUiConfig.NameLabel.Format = "{0}";
@@ -908,281 +923,283 @@ internal partial class ConfigManager
 
 	private static void ResetLargeMonsterMapPinUI(Config config)
 	{
-		var largeMonsterTargetedUiConfig = config.LargeMonsterUI.MapPin;
+		var largeMonsterMapPinUiConfig = config.LargeMonsterUI.MapPin;
 
-		largeMonsterTargetedUiConfig.Enabled = true;
+		largeMonsterMapPinUiConfig.Enabled = true;
 
-		largeMonsterTargetedUiConfig.Settings.RenderDeadMonster = false;
+		largeMonsterMapPinUiConfig.Settings.RenderDeadMonster = false;
+		largeMonsterMapPinUiConfig.Settings.RenderTargetedMonster = true;
+		largeMonsterMapPinUiConfig.Settings.RenderNonTargetedMonsters = true;
+		largeMonsterMapPinUiConfig.Settings.RenderPinnedMonster = true;
+		largeMonsterMapPinUiConfig.Settings.RenderNonPinnedMonsters = true;
 
-		largeMonsterTargetedUiConfig.Position.X = -236f;
-		largeMonsterTargetedUiConfig.Position.Y = 54f;
-		largeMonsterTargetedUiConfig.Position.Anchor = Anchor.TopCenter;
+		largeMonsterMapPinUiConfig.Position.X = 477f;
+		largeMonsterMapPinUiConfig.Position.Y = -218f;
+		largeMonsterMapPinUiConfig.Position.Anchor = Anchor.BottomLeft;
 
+		largeMonsterMapPinUiConfig.NameLabel.Visible = true;
+		largeMonsterMapPinUiConfig.NameLabel.Format = "{0}";
+		largeMonsterMapPinUiConfig.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+		largeMonsterMapPinUiConfig.NameLabel.Offset.X = 7f;
+		largeMonsterMapPinUiConfig.NameLabel.Offset.Y = 2f;
+		largeMonsterMapPinUiConfig.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		largeMonsterTargetedUiConfig.NameLabel.Visible = true;
-		largeMonsterTargetedUiConfig.NameLabel.Format = "{0}";
-		largeMonsterTargetedUiConfig.NameLabel.Settings.Alignment = Anchor.BottomLeft;
-		largeMonsterTargetedUiConfig.NameLabel.Offset.X = 7f;
-		largeMonsterTargetedUiConfig.NameLabel.Offset.Y = 2f;
-		largeMonsterTargetedUiConfig.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+		largeMonsterMapPinUiConfig.NameLabel.Shadow.Visible = true;
+		largeMonsterMapPinUiConfig.NameLabel.Shadow.Offset.X = 2f;
+		largeMonsterMapPinUiConfig.NameLabel.Shadow.Offset.Y = 2f;
+		largeMonsterMapPinUiConfig.NameLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		largeMonsterTargetedUiConfig.NameLabel.Shadow.Visible = true;
-		largeMonsterTargetedUiConfig.NameLabel.Shadow.Offset.X = 2f;
-		largeMonsterTargetedUiConfig.NameLabel.Shadow.Offset.Y = 2f;
-		largeMonsterTargetedUiConfig.NameLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+		largeMonsterMapPinUiConfig.Health.Visible = true;
 
-		largeMonsterTargetedUiConfig.Health.Visible = true;
+		largeMonsterMapPinUiConfig.Health.Offset.X = 0f;
+		largeMonsterMapPinUiConfig.Health.Offset.Y = 0f;
 
-		largeMonsterTargetedUiConfig.Health.Offset.X = 0f;
-		largeMonsterTargetedUiConfig.Health.Offset.Y = 0f;
+		largeMonsterMapPinUiConfig.Health.ValueLabel.Visible = true;
+		largeMonsterMapPinUiConfig.Health.ValueLabel.Format = "{0:F1}/{1:F0}";
+		largeMonsterMapPinUiConfig.Health.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterMapPinUiConfig.Health.ValueLabel.Offset.X = 7f;
+		largeMonsterMapPinUiConfig.Health.ValueLabel.Offset.Y = 9f;
+		largeMonsterMapPinUiConfig.Health.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		largeMonsterTargetedUiConfig.Health.ValueLabel.Visible = true;
-		largeMonsterTargetedUiConfig.Health.ValueLabel.Format = "{0:F1}/{1:F0}";
-		largeMonsterTargetedUiConfig.Health.ValueLabel.Settings.Alignment = Anchor.TopLeft;
-		largeMonsterTargetedUiConfig.Health.ValueLabel.Offset.X = 7f;
-		largeMonsterTargetedUiConfig.Health.ValueLabel.Offset.Y = 9f;
-		largeMonsterTargetedUiConfig.Health.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+		largeMonsterMapPinUiConfig.Health.ValueLabel.Shadow.Visible = true;
+		largeMonsterMapPinUiConfig.Health.ValueLabel.Shadow.Offset.X = 2f;
+		largeMonsterMapPinUiConfig.Health.ValueLabel.Shadow.Offset.Y = 2f;
+		largeMonsterMapPinUiConfig.Health.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		largeMonsterTargetedUiConfig.Health.ValueLabel.Shadow.Visible = true;
-		largeMonsterTargetedUiConfig.Health.ValueLabel.Shadow.Offset.X = 2f;
-		largeMonsterTargetedUiConfig.Health.ValueLabel.Shadow.Offset.Y = 2f;
-		largeMonsterTargetedUiConfig.Health.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+		largeMonsterMapPinUiConfig.Health.PercentageLabel.Visible = true;
+		largeMonsterMapPinUiConfig.Health.PercentageLabel.Format = "{0:P1}";
+		largeMonsterMapPinUiConfig.Health.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterMapPinUiConfig.Health.PercentageLabel.Offset.X = 290f;
+		largeMonsterMapPinUiConfig.Health.PercentageLabel.Offset.Y = 9f;
+		largeMonsterMapPinUiConfig.Health.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		largeMonsterTargetedUiConfig.Health.PercentageLabel.Visible = true;
-		largeMonsterTargetedUiConfig.Health.PercentageLabel.Format = "{0:P1}";
-		largeMonsterTargetedUiConfig.Health.PercentageLabel.Settings.Alignment = Anchor.TopRight;
-		largeMonsterTargetedUiConfig.Health.PercentageLabel.Offset.X = 290f;
-		largeMonsterTargetedUiConfig.Health.PercentageLabel.Offset.Y = 9f;
-		largeMonsterTargetedUiConfig.Health.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+		largeMonsterMapPinUiConfig.Health.PercentageLabel.Shadow.Visible = true;
+		largeMonsterMapPinUiConfig.Health.PercentageLabel.Shadow.Offset.X = 2f;
+		largeMonsterMapPinUiConfig.Health.PercentageLabel.Shadow.Offset.Y = 2f;
+		largeMonsterMapPinUiConfig.Health.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		largeMonsterTargetedUiConfig.Health.PercentageLabel.Shadow.Visible = true;
-		largeMonsterTargetedUiConfig.Health.PercentageLabel.Shadow.Offset.X = 2f;
-		largeMonsterTargetedUiConfig.Health.PercentageLabel.Shadow.Offset.Y = 2f;
-		largeMonsterTargetedUiConfig.Health.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+		largeMonsterMapPinUiConfig.Health.Bar.Visible = true;
+		largeMonsterMapPinUiConfig.Health.Bar.Settings.FillDirection = FillDirection.LeftToRight;
+		largeMonsterMapPinUiConfig.Health.Bar.Settings.Inverted = false;
+		largeMonsterMapPinUiConfig.Health.Bar.Offset.X = 0f;
+		largeMonsterMapPinUiConfig.Health.Bar.Offset.Y = 0f;
+		largeMonsterMapPinUiConfig.Health.Bar.Size.Width = 297f;
+		largeMonsterMapPinUiConfig.Health.Bar.Size.Height = 12f;
 
-		largeMonsterTargetedUiConfig.Health.Bar.Visible = true;
-		largeMonsterTargetedUiConfig.Health.Bar.Settings.FillDirection = FillDirection.LeftToRight;
-		largeMonsterTargetedUiConfig.Health.Bar.Settings.Inverted = false;
-		largeMonsterTargetedUiConfig.Health.Bar.Offset.X = 0f;
-		largeMonsterTargetedUiConfig.Health.Bar.Offset.Y = 0f;
-		largeMonsterTargetedUiConfig.Health.Bar.Size.Width = 297f;
-		largeMonsterTargetedUiConfig.Health.Bar.Size.Height = 12f;
+		largeMonsterMapPinUiConfig.Health.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Health.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x004016CC;
+		largeMonsterMapPinUiConfig.Health.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x004016CC;
+		largeMonsterMapPinUiConfig.Health.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Health.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0x34FF4ECC;
+		largeMonsterMapPinUiConfig.Health.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0x34FF4ECC;
 
-		largeMonsterTargetedUiConfig.Health.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Health.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x004016CC;
-		largeMonsterTargetedUiConfig.Health.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x004016CC;
-		largeMonsterTargetedUiConfig.Health.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Health.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0x34FF4ECC;
-		largeMonsterTargetedUiConfig.Health.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0x34FF4ECC;
+		largeMonsterMapPinUiConfig.Health.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Health.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Health.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Health.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Health.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Health.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
-		largeMonsterTargetedUiConfig.Health.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Health.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
-		largeMonsterTargetedUiConfig.Health.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
-		largeMonsterTargetedUiConfig.Health.Bar.Colors.Background.End.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Health.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
-		largeMonsterTargetedUiConfig.Health.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Health.Bar.Outline.Visible = true;
+		largeMonsterMapPinUiConfig.Health.Bar.Outline.Thickness = 2f;
+		largeMonsterMapPinUiConfig.Health.Bar.Outline.Offset = 0f;
+		largeMonsterMapPinUiConfig.Health.Bar.Outline.Style = OutlineStyle.Inside;
+		largeMonsterMapPinUiConfig.Health.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
 
-		largeMonsterTargetedUiConfig.Health.Bar.Outline.Visible = true;
-		largeMonsterTargetedUiConfig.Health.Bar.Outline.Thickness = 2f;
-		largeMonsterTargetedUiConfig.Health.Bar.Outline.Offset = 0f;
-		largeMonsterTargetedUiConfig.Health.Bar.Outline.Style = OutlineStyle.Inside;
-		largeMonsterTargetedUiConfig.Health.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
+		largeMonsterMapPinUiConfig.Stamina.Visible = true;
 
-		largeMonsterTargetedUiConfig.Stamina.Visible = true;
+		largeMonsterMapPinUiConfig.Stamina.Offset.X = 140f;
+		largeMonsterMapPinUiConfig.Stamina.Offset.Y = 10f;
 
-		largeMonsterTargetedUiConfig.Stamina.Offset.X = 140f;
-		largeMonsterTargetedUiConfig.Stamina.Offset.Y = 10f;
+		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Visible = false;
+		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Format = "{0:F1}/{1:F0}";
+		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Offset.X = 7f;
+		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Offset.Y = 5f;
+		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Visible = false;
-		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Format = "{0:F1}/{1:F0}";
-		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Settings.Alignment = Anchor.TopLeft;
-		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Offset.X = 7f;
-		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Offset.Y = 5f;
-		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Shadow.Visible = true;
+		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Shadow.Offset.X = 2f;
+		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Shadow.Offset.Y = 2f;
+		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Shadow.Visible = true;
-		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Shadow.Offset.X = 2f;
-		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Shadow.Offset.Y = 2f;
-		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Visible = false;
+		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Format = "{0:P1}";
+		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Offset.X = 87f;
+		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Offset.Y = 5f;
+		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Visible = false;
-		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Format = "{0:P1}";
-		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Settings.Alignment = Anchor.TopRight;
-		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Offset.X = 87f;
-		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Offset.Y = 5f;
-		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Shadow.Visible = true;
+		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Shadow.Offset.X = 2f;
+		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Shadow.Offset.Y = 2f;
+		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Shadow.Visible = true;
-		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Shadow.Offset.X = 2f;
-		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Shadow.Offset.Y = 2f;
-		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Visible = true;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Settings.FillDirection = FillDirection.LeftToRight;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Settings.Inverted = false;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Offset.X = 0f;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Offset.Y = 0f;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Size.Width = 94f;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Size.Height = 8f;
 
-		largeMonsterTargetedUiConfig.Stamina.Bar.Visible = true;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Settings.FillDirection = FillDirection.LeftToRight;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Settings.Inverted = false;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Offset.X = 0f;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Offset.Y = 0f;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Size.Width = 94f;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Size.Height = 8f;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x403100CC;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x403100CC;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xFFDA33CC;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xFFDA33CC;
 
-		largeMonsterTargetedUiConfig.Stamina.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x403100CC;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x403100CC;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xFFDA33CC;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xFFDA33CC;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
-		largeMonsterTargetedUiConfig.Stamina.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Colors.Background.End.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Outline.Visible = true;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Outline.Thickness = 2f;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Outline.Offset = 0f;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Outline.Style = OutlineStyle.Inside;
+		largeMonsterMapPinUiConfig.Stamina.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
 
-		largeMonsterTargetedUiConfig.Stamina.Bar.Outline.Visible = true;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Outline.Thickness = 2f;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Outline.Offset = 0f;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Outline.Style = OutlineStyle.Inside;
-		largeMonsterTargetedUiConfig.Stamina.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
+		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Visible = false;
+		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Format = "{0}";
+		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Offset.X = 87f;
+		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Offset.Y = 5f;
+		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Visible = false;
-		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Format = "{0}";
-		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Settings.Alignment = Anchor.TopRight;
-		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Offset.X = 87f;
-		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Offset.Y = 5f;
-		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Shadow.Visible = true;
+		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Shadow.Offset.X = 2f;
+		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Shadow.Offset.Y = 2f;
+		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Shadow.Visible = true;
-		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Shadow.Offset.X = 2f;
-		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Shadow.Offset.Y = 2f;
-		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Visible = true;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Settings.FillDirection = FillDirection.LeftToRight;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Settings.Inverted = true;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Offset.X = 0f;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Offset.Y = 0f;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Size.Width = 94f;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Size.Height = 8f;
 
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Visible = true;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Settings.FillDirection = FillDirection.LeftToRight;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Settings.Inverted = true;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Offset.X = 0f;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Offset.Y = 0f;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Size.Width = 94f;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Size.Height = 8f;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x403100CC;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x403100CC;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Colors.Foreground.End.ColorInfo1.Rgba = 0xFFDA33CC;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Colors.Foreground.End.ColorInfo2.Rgba = 0xFFDA33CC;
 
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Colors.Foreground.Start.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x403100CC;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x403100CC;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Colors.Foreground.End.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Colors.Foreground.End.ColorInfo1.Rgba = 0xFFDA33CC;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Colors.Foreground.End.ColorInfo2.Rgba = 0xFFDA33CC;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Colors.Background.Start.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Colors.Background.End.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Colors.Background.Start.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Colors.Background.End.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Outline.Visible = true;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Outline.Thickness = 2f;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Outline.Offset = 0f;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Outline.Style = OutlineStyle.Inside;
+		largeMonsterMapPinUiConfig.Stamina.TimerBar.Outline.Color.ColorInfo.Rgba = 0xFFD00080;
 
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Outline.Visible = true;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Outline.Thickness = 2f;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Outline.Offset = 0f;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Outline.Style = OutlineStyle.Inside;
-		largeMonsterTargetedUiConfig.Stamina.TimerBar.Outline.Color.ColorInfo.Rgba = 0xFFD00080;
+		largeMonsterMapPinUiConfig.Rage.Visible = true;
 
-		largeMonsterTargetedUiConfig.Rage.Visible = true;
+		largeMonsterMapPinUiConfig.Rage.Offset.X = 152f;
+		largeMonsterMapPinUiConfig.Rage.Offset.Y = 16f;
 
-		largeMonsterTargetedUiConfig.Rage.Offset.X = 152f;
-		largeMonsterTargetedUiConfig.Rage.Offset.Y = 16f;
+		largeMonsterMapPinUiConfig.Rage.ValueLabel.Visible = false;
+		largeMonsterMapPinUiConfig.Rage.ValueLabel.Format = "{0:F1}/{1:F0}";
+		largeMonsterMapPinUiConfig.Rage.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterMapPinUiConfig.Rage.ValueLabel.Offset.X = 7f;
+		largeMonsterMapPinUiConfig.Rage.ValueLabel.Offset.Y = 5f;
+		largeMonsterMapPinUiConfig.Rage.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		largeMonsterTargetedUiConfig.Rage.ValueLabel.Visible = false;
-		largeMonsterTargetedUiConfig.Rage.ValueLabel.Format = "{0:F1}/{1:F0}";
-		largeMonsterTargetedUiConfig.Rage.ValueLabel.Settings.Alignment = Anchor.TopLeft;
-		largeMonsterTargetedUiConfig.Rage.ValueLabel.Offset.X = 7f;
-		largeMonsterTargetedUiConfig.Rage.ValueLabel.Offset.Y = 5f;
-		largeMonsterTargetedUiConfig.Rage.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+		largeMonsterMapPinUiConfig.Rage.ValueLabel.Shadow.Visible = true;
+		largeMonsterMapPinUiConfig.Rage.ValueLabel.Shadow.Offset.X = 2f;
+		largeMonsterMapPinUiConfig.Rage.ValueLabel.Shadow.Offset.Y = 2f;
+		largeMonsterMapPinUiConfig.Rage.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		largeMonsterTargetedUiConfig.Rage.ValueLabel.Shadow.Visible = true;
-		largeMonsterTargetedUiConfig.Rage.ValueLabel.Shadow.Offset.X = 2f;
-		largeMonsterTargetedUiConfig.Rage.ValueLabel.Shadow.Offset.Y = 2f;
-		largeMonsterTargetedUiConfig.Rage.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Visible = false;
+		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Format = "{0:P1}";
+		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Offset.X = 67f;
+		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Offset.Y = 5f;
+		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Visible = false;
-		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Format = "{0:P1}";
-		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Settings.Alignment = Anchor.TopRight;
-		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Offset.X = 67f;
-		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Offset.Y = 5f;
-		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Shadow.Visible = true;
+		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Shadow.Offset.X = 2f;
+		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Shadow.Offset.Y = 2f;
+		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Shadow.Visible = true;
-		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Shadow.Offset.X = 2f;
-		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Shadow.Offset.Y = 2f;
-		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+		largeMonsterMapPinUiConfig.Rage.Bar.Visible = true;
+		largeMonsterMapPinUiConfig.Rage.Bar.Settings.FillDirection = FillDirection.LeftToRight;
+		largeMonsterMapPinUiConfig.Rage.Bar.Settings.Inverted = false;
+		largeMonsterMapPinUiConfig.Rage.Bar.Offset.X = 0f;
+		largeMonsterMapPinUiConfig.Rage.Bar.Offset.Y = 0f;
+		largeMonsterMapPinUiConfig.Rage.Bar.Size.Width = 74f;
+		largeMonsterMapPinUiConfig.Rage.Bar.Size.Height = 8f;
 
-		largeMonsterTargetedUiConfig.Rage.Bar.Visible = true;
-		largeMonsterTargetedUiConfig.Rage.Bar.Settings.FillDirection = FillDirection.LeftToRight;
-		largeMonsterTargetedUiConfig.Rage.Bar.Settings.Inverted = false;
-		largeMonsterTargetedUiConfig.Rage.Bar.Offset.X = 0f;
-		largeMonsterTargetedUiConfig.Rage.Bar.Offset.Y = 0f;
-		largeMonsterTargetedUiConfig.Rage.Bar.Size.Width = 74f;
-		largeMonsterTargetedUiConfig.Rage.Bar.Size.Height = 8f;
+		largeMonsterMapPinUiConfig.Rage.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Rage.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x40000BCC;
+		largeMonsterMapPinUiConfig.Rage.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x40000BCC;
+		largeMonsterMapPinUiConfig.Rage.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Rage.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xFF4242CC;
+		largeMonsterMapPinUiConfig.Rage.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xFF4242CC;
 
-		largeMonsterTargetedUiConfig.Rage.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Rage.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x40000BCC;
-		largeMonsterTargetedUiConfig.Rage.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x40000BCC;
-		largeMonsterTargetedUiConfig.Rage.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Rage.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xFF4242CC;
-		largeMonsterTargetedUiConfig.Rage.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xFF4242CC;
+		largeMonsterMapPinUiConfig.Rage.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Rage.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Rage.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Rage.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Rage.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Rage.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
-		largeMonsterTargetedUiConfig.Rage.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Rage.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
-		largeMonsterTargetedUiConfig.Rage.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
-		largeMonsterTargetedUiConfig.Rage.Bar.Colors.Background.End.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Rage.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
-		largeMonsterTargetedUiConfig.Rage.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Rage.Bar.Outline.Visible = true;
+		largeMonsterMapPinUiConfig.Rage.Bar.Outline.Thickness = 2f;
+		largeMonsterMapPinUiConfig.Rage.Bar.Outline.Offset = 0f;
+		largeMonsterMapPinUiConfig.Rage.Bar.Outline.Style = OutlineStyle.Inside;
+		largeMonsterMapPinUiConfig.Rage.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
 
-		largeMonsterTargetedUiConfig.Rage.Bar.Outline.Visible = true;
-		largeMonsterTargetedUiConfig.Rage.Bar.Outline.Thickness = 2f;
-		largeMonsterTargetedUiConfig.Rage.Bar.Outline.Offset = 0f;
-		largeMonsterTargetedUiConfig.Rage.Bar.Outline.Style = OutlineStyle.Inside;
-		largeMonsterTargetedUiConfig.Rage.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
+		largeMonsterMapPinUiConfig.Rage.TimerLabel.Visible = false;
+		largeMonsterMapPinUiConfig.Rage.TimerLabel.Format = "{0}";
+		largeMonsterMapPinUiConfig.Rage.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterMapPinUiConfig.Rage.TimerLabel.Offset.X = 67f;
+		largeMonsterMapPinUiConfig.Rage.TimerLabel.Offset.Y = 5f;
+		largeMonsterMapPinUiConfig.Rage.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		largeMonsterTargetedUiConfig.Rage.TimerLabel.Visible = false;
-		largeMonsterTargetedUiConfig.Rage.TimerLabel.Format = "{0}";
-		largeMonsterTargetedUiConfig.Rage.TimerLabel.Settings.Alignment = Anchor.TopRight;
-		largeMonsterTargetedUiConfig.Rage.TimerLabel.Offset.X = 67f;
-		largeMonsterTargetedUiConfig.Rage.TimerLabel.Offset.Y = 5f;
-		largeMonsterTargetedUiConfig.Rage.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+		largeMonsterMapPinUiConfig.Rage.TimerLabel.Shadow.Visible = true;
+		largeMonsterMapPinUiConfig.Rage.TimerLabel.Shadow.Offset.X = 2f;
+		largeMonsterMapPinUiConfig.Rage.TimerLabel.Shadow.Offset.Y = 2f;
+		largeMonsterMapPinUiConfig.Rage.TimerLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		largeMonsterTargetedUiConfig.Rage.TimerLabel.Shadow.Visible = true;
-		largeMonsterTargetedUiConfig.Rage.TimerLabel.Shadow.Offset.X = 2f;
-		largeMonsterTargetedUiConfig.Rage.TimerLabel.Shadow.Offset.Y = 2f;
-		largeMonsterTargetedUiConfig.Rage.TimerLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Visible = true;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Settings.FillDirection = FillDirection.LeftToRight;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Settings.Inverted = false;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Offset.X = 0f;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Offset.Y = 0f;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Size.Width = 74f;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Size.Height = 8f;
 
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Visible = true;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Settings.FillDirection = FillDirection.LeftToRight;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Settings.Inverted = false;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Offset.X = 0f;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Offset.Y = 0f;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Size.Width = 74f;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Size.Height = 8f;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x40000BCC;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x40000BCC;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Colors.Foreground.End.ColorInfo1.Rgba = 0xFF4242CC;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Colors.Foreground.End.ColorInfo2.Rgba = 0xFF4242CC;
 
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Colors.Foreground.Start.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x40000BCC;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x40000BCC;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Colors.Foreground.End.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Colors.Foreground.End.ColorInfo1.Rgba = 0xFF4242CC;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Colors.Foreground.End.ColorInfo2.Rgba = 0xFF4242CC;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Colors.Background.Start.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Colors.Background.End.SplitIntoTwoColors = false;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Colors.Background.Start.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Colors.Background.End.SplitIntoTwoColors = false;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
-
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Outline.Visible = true;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Outline.Thickness = 2f;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Outline.Offset = 0f;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Outline.Style = OutlineStyle.Inside;
-		largeMonsterTargetedUiConfig.Rage.TimerBar.Outline.Color.ColorInfo.Rgba = 0xFF000080;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Outline.Visible = true;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Outline.Thickness = 2f;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Outline.Offset = 0f;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Outline.Style = OutlineStyle.Inside;
+		largeMonsterMapPinUiConfig.Rage.TimerBar.Outline.Color.ColorInfo.Rgba = 0xFF000080;
 	}
-
 
 	private static void ResetSmallMonsterUI(Config config)
 	{
