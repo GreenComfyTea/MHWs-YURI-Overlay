@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.5.0](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.4.0...v1.5.0) (2025-05-01)
+
+
+### Features
+
+* Decreased small monster health bar default height ([1d4af77](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/1d4af770c89e4e6fbd23800cf06483e73fd0ddfd))
+* Disabled updating monsters and endemic life when respective UIs are disabled ([20493ae](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/20493aec35abf5e969ab1872d671812d0310a5be))
+* Finalized migration to auto-generated assemblies ([bb447f5](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/bb447f572775c4dd2122ead6ad368977ba0df1b1))
+* Map Pin Large Monster UI ([e8041d3](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/e8041d367670c6bd32f3b280d6fa8b412c3586d0))
+* Targeted Large Monster UI ([906854d](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/906854dc2ad7158080cf2a4bd1c9792bc7dd1faf))
+* Updated Simplified Chinese localization to v1.4.0 by [@squareblue](https://github.com/squareblue) ([10ee484](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/10ee4846d535380590f0ccde7f11e87b6d96b66f))
+
+
+### Bug Fixes
+
+* Fixed an issue of screen manager timer delay not being applied ([7fee1fc](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/7fee1fc4adb176e7bfd91181c425961d24b1b4a8))
+* Fixed an issue that cause monster timers to not being disposed ([5660fd3](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/5660fd38fc005c31609c625b541697b2c055ad69))
+* Fixed Endemic Life Update Delays customization ([8e192b1](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/8e192b1758ad57feb1f96d4780072feec3c83041))
+* Fixed Small Monster Update Delays customization ([4e4eb82](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/4e4eb822a31bad94f8ee480eabcfc2483a6bdf1e))
+
 ## [1.4.0](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.3.0...v1.4.0) (2025-04-08)
 
 
