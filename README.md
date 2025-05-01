@@ -179,8 +179,8 @@ The mod has support for localizations. If you wish to translate the mod, follow 
 ## Credits
 **[GreenComfyTea](https://github.com/GreenComfyTea)** - creator of the mod and it's main contributor;  
 **[praydog](https://github.com/praydog)** - creator of [REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93), [REFramework.NET](https://github.com/praydog/REFramework);  
-**[cursey](https://github.com/cursey)** - contributor of [REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93);
-**[squareblue](https://github.com/squareblue)** - Simplified Chinese localization;
+**[cursey](https://github.com/cursey)** - contributor of [REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93);  
+**[squareblue](https://github.com/squareblue)** - Simplified Chinese localization;  
 **[Krude](https://github.com/Krude)** - German localization.
 
 ## Roadmap
