@@ -112,6 +112,17 @@ internal sealed class ImGuiLocalization
 
 	public string ReversedOrder = "Reversed Order";
 
+	public string TargetedMonsterPriority = "Targeted Monster Priority";
+	public string PinnedMonsterPriority = "Pinned Monster Priority";
+
+	public string Lower3 = "Lower (-3)";
+	public string Lower2 = "Lower (-2)";
+	public string Lower1 = "Lower (-1)";
+	public string Normal = "Normal";
+	public string Higher1 = "Higher (+1)";
+	public string Higher2 = "Higher (+2)";
+	public string Higher3 = "Higher (+3)";
+
 	// Global Settings
 
 	public string GlobalSettings = "Global Settings";
@@ -223,15 +234,6 @@ internal sealed class ImGuiLocalization
 	public string AddModelRadiusToWorldOffsetY = "Add Model Radius to World Offset Y";
 	public string OpacityFalloff = "Opacity Falloff";
 	public string MaxDistance = "Max Distance";
-
-	public string TargetedMonsterPriority = "Targeted Monster Priority";
-	public string Lower3 = "Lower (-3)";
-	public string Lower2 = "Lower (-2)";
-	public string Lower1 = "Lower (-1)";
-	public string Normal = "Normal";
-	public string Higher1 = "Higher (+1)";
-	public string Higher2 = "Higher (+2)";
-	public string Higher3 = "Higher (+3)";
 }
 
 internal sealed class Localization
