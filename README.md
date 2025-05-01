@@ -186,7 +186,7 @@ The mod has support for localizations. If you wish to translate the mod, follow 
 2. [x] Large Monster Dynamic UI;
 3. [x] Large Monster Stamina and Rage;
 4. [x] Small Monster UI (Dynamic);
-5. [ ] Large Monster Map Pin + Camera Target UIs;
+5. [x] Large Monster Map Pin + Targeted UIs;
 6. [ ] Font Management;
 7. [ ] Unicode Support (Partial by REFramework);
 8. [ ] Damage Meter UI;
