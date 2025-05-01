@@ -10,13 +10,12 @@ internal static class Constants
 	public const string ModName = "YURI Overlay";
 	public const string ModNameNoWhitespaces = "YURI_Overlay";
 
-	public const string Version = "1.4.0";
+	public const string Version = "1.5.0";
 
 	public const string DataPath = @"reframework\data\";
 	public const string PluginDataPath = $@"{DataPath}{ModNameNoWhitespaces}\";
 	public const string FontsPath = @"reframework\fonts\";
 	public const string LocalizationsPath = $@"{PluginDataPath}localizations\";
-	public const string ReframeworkConfigWithExtension = "re2_fw_config.txt";
 
 	public const string ConfigsPath = $@"{PluginDataPath}configs\";
 
@@ -29,11 +28,6 @@ internal static class Constants
 	public const string DefaultConfigFilePathName = $"{PluginDataPath}{DefaultConfigWithExtension}";
 
 	public const string DefaultLocalization = "en-US";
-
-	public const float DragFloatSpeed = 0.1f;
-	public const float DragFloatMax = 15360f;
-	public const float DragFloatMin = -DragFloatMax;
-	public const string DragFloatFormat = "0.0";
 
 	public const string NexusModsLink = "https://www.nexusmods.com/monsterhunterwilds/mods/62";
 	public const string GithubRepoLink = "https://github.com/GreenComfyTea/MHWs-YURI-Overlay";
