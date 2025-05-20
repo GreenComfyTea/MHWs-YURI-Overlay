@@ -5,7 +5,7 @@
 
 ### Bug Fixes
 
-* Fixed a bug that caused CTD when going back to title menu ([5ab2aab](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/5ab2aab8405b4ba37d15b9fd078acaeffde2f227))
+* Fixed a bug that caused a CTD when returning to the title menu ([5ab2aab](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/5ab2aab8405b4ba37d15b9fd078acaeffde2f227))
 
 ## [1.5.0](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.4.0...v1.5.0) (2025-05-01)
 
