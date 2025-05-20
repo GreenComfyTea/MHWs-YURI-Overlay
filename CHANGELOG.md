@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.5.1](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.0...v1.5.1) (2025-05-20)
+
+
+### Bug Fixes
+
+* Fixed a bug that caused a CTD when returning to the title menu ([5ab2aab](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/5ab2aab8405b4ba37d15b9fd078acaeffde2f227))
+
+### Misc
+
+* Bumped Simplified Chinese localization to v1.4.0 by @Squarelan ([82f629a](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/82f629a9ba53174a9f471022a4b8701d37dcbd1f))
+
 ## [1.5.0](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.4.0...v1.5.0) (2025-05-01)
 
 
