@@ -9,7 +9,7 @@
 
 ### Misc
 
-* Bumped Simplified Chinese localization to v1.4.0 by @Squarelan ([82f629a](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/82f629a9ba53174a9f471022a4b8701d37dcbd1f))
+* Updated Simplified Chinese localization to v1.4.0 by @Squarelan ([82f629a](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/82f629a9ba53174a9f471022a4b8701d37dcbd1f))
 
 ## [1.5.0](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.4.0...v1.5.0) (2025-05-01)
 
