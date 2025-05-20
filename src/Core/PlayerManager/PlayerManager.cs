@@ -75,8 +75,10 @@ internal sealed class PlayerManager : IDisposable
 			Update();
 
 			if(_masterPlayerCharacter is null)
+			{
 				//LogManager.Warn("[PlayerManager.GameUpdate] No master player character");
 				return;
+			}
 
 			var playerPosition = _masterPlayerCharacter.Pos;
 			if(playerPosition is null)
@@ -106,18 +108,25 @@ internal sealed class PlayerManager : IDisposable
 			if(playerManager is null)
 			{
 				LogManager.Warn("[PlayerManager.Update] No player manager");
+				_masterPlayerCharacter = null;
 				return;
 			}
 
 			var masterPlayer = playerManager.getMasterPlayer();
 			if(masterPlayer is null)
+			{
 				//LogManager.Warn("[PlayerManager.Update] No master player");
+				_masterPlayerCharacter = null;
 				return;
+			}
 
 			var masterPlayerCharacter = masterPlayer.Character;
 			if(masterPlayerCharacter is null)
+			{
 				//LogManager.Warn("[PlayerManager.Update] No master player character");
+				_masterPlayerCharacter = null;
 				return;
+			}
 
 			_masterPlayerCharacter = masterPlayerCharacter;
 		}
@@ -136,5 +145,13 @@ internal sealed class PlayerManager : IDisposable
 	private static void OnPostUpdate(ref ulong returnValue)
 	{
 		Instance.GameUpdate();
+	}
+
+	// When returning to title screen, the cached master player character becomes invalid, so we have to delete it
+	[MethodHook(typeof(app.PlayerManager), nameof(app.PlayerManager.unregisterPlayer), MethodHookType.Post)]
+	private static void OnPostUnregisterPlayer(ref ulong returnValue)
+	{
+		Instance._masterPlayerCharacter = null;
+		Instance._isUpdatePending = true;
 	}
 }
