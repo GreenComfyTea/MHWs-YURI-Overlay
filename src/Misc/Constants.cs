@@ -10,7 +10,7 @@ internal static class Constants
 	public const string ModName = "YURI Overlay";
 	public const string ModNameNoWhitespaces = "YURI_Overlay";
 
-	public const string Version = "1.5.1";
+	public const string Version = "1.5.2";
 
 	public const string DataPath = @"reframework\data\";
 	public const string PluginDataPath = $@"{DataPath}{ModNameNoWhitespaces}\";
