@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.2](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.1...v1.5.2) (2025-05-30)
+
+
+### Misc
+
+* Updated dependencies for game version 1.011.00.00 ([03f92c4](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/03f92c4c95de6484f0e235aaccbc0ca3eccb07d1))
+
 ## [1.5.1](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.0...v1.5.1) (2025-05-20)
 
 
