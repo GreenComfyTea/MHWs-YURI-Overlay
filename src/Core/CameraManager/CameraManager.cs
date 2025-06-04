@@ -86,7 +86,7 @@ internal sealed class CameraManager
 		}
 	}
 
-	[MethodHook(typeof(PlayerCameraController), "<updateTargetSelector>b__131_0", MethodHookType.Post)]
+	[MethodHook(typeof(PlayerCameraController), "<updateTargetSelector>b__135_0", MethodHookType.Post)]
 	private static void OnPostUpdateTargetSelector(ref ulong returnValue)
 	{
 		Instance.UpdateCameraTarget();
