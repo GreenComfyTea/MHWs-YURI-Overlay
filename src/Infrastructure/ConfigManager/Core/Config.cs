@@ -6,4 +6,5 @@ internal sealed class Config
 	public LargeMonsterUiCustomization LargeMonsterUI = new();
 	public SmallMonsterDynamicUiCustomization SmallMonsterUI = new();
 	public EndemicLifeDynamicUiCustomization EndemicLifeUI = new();
+	public DamageMeterStaticUiCustomization DamageMeterUI = new();
 }

@@ -114,6 +114,7 @@ internal sealed class ImGuiLocalization
 
 	public string TargetedMonsterPriority = "Targeted Monster Priority";
 	public string PinnedMonsterPriority = "Pinned Monster Priority";
+	public string LocalPlayerPriority = "Local Player Priority";
 
 	public string Lower3 = "Lower (-3)";
 	public string Lower2 = "Lower (-2)";
@@ -185,6 +186,11 @@ internal sealed class ImGuiLocalization
 	public string PercentageLabel = "Percentage Label";
 	public string TimerLabel = "Timer Label";
 
+	public string HunterMasterRanksLabel = "Hunter Rank/Master Rank Label";
+	public string DpsLabel = "DPS Label";
+	public string DamageLabel = "Damage Label";
+	public string DamagePercentageLabel = "Damage Percentage Label";
+
 	// Bar
 
 	public string Bar = "Bar";
@@ -211,6 +217,9 @@ internal sealed class ImGuiLocalization
 
 	public string TimerBar = "Timer Bar";
 
+	public string DpsBar = "DPS Bar";
+	public string DamageBar = "Damage Bar";
+
 	// Monsters and Entities
 	public string LargeMonstersUI = "Large Monsters UI";
 	public string SmallMonsterUI = "Small Monster UI";
@@ -234,6 +243,14 @@ internal sealed class ImGuiLocalization
 	public string AddModelRadiusToWorldOffsetY = "Add Model Radius to World Offset Y";
 	public string OpacityFalloff = "Opacity Falloff";
 	public string MaxDistance = "Max Distance";
+
+	// Damage Meter
+
+	public string DamageMeter = "Damage Meter";
+
+	public string LocalPlayer = "Local Player";
+	public string OtherPlayers = "Other Players";
+	public string SupportHunters = "Support Hunters";
 }
 
 internal sealed class Localization

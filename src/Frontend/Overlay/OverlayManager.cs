@@ -11,6 +11,7 @@ internal sealed class OverlayManager
 	private LargeMonsterUiManager _largeMonsterUiManager;
 	private SmallMonsterUiManager _smallMonsterUiManager;
 	private EndemicLifeUiManager _endemicLifeUiManager;
+	private DamageMeterUiManager _damageMeterUiManager;
 
 	private OverlayManager()
 	{
@@ -21,6 +22,7 @@ internal sealed class OverlayManager
 		_largeMonsterUiManager = new LargeMonsterUiManager();
 		_smallMonsterUiManager = new SmallMonsterUiManager();
 		_endemicLifeUiManager = new EndemicLifeUiManager();
+		_damageMeterUiManager = new DamageMeterUiManager();
 	}
 
 	public void Draw()
@@ -42,6 +44,7 @@ internal sealed class OverlayManager
 			_largeMonsterUiManager.Draw(backgroundDrawList);
 			_smallMonsterUiManager.Draw(backgroundDrawList);
 			_endemicLifeUiManager.Draw(backgroundDrawList);
+			_damageMeterUiManager.Draw(backgroundDrawList);
 
 			ImGui.End();
 		}

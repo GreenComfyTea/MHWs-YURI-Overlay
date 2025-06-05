@@ -36,6 +36,16 @@ internal enum Sorting
 	Distance,
 }
 
+internal enum DamageMeterSorting
+{
+	HunterRank,
+	MasterRank,
+	Name,
+	Dps,
+	Damage,
+	DamagePercentage
+}
+
 internal enum Anchor
 {
 	TopLeft,
