@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.3](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.2...v1.5.3) (2025-06-04)
+
+
+### Bug Fixes
+
+* Fixed large monster camera target UI not working ([4b2ff5e](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/4b2ff5e68b46b4da3e4a5628ce25fc94610486a8))
+
 ## [1.5.2](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.1...v1.5.2) (2025-05-30)
 
 
