@@ -28,11 +28,6 @@ internal sealed class EndemicLifeUiManager : IDisposable
 		LogManager.Info("[EndemicLifeUiManager] Initialized!");
 	}
 
-	public void Update()
-	{
-		UpdateDynamic();
-	}
-
 	public void Draw(ImDrawListPtr backgroundDrawList)
 	{
 		DrawDynamicUi(backgroundDrawList);
@@ -67,7 +62,6 @@ internal sealed class EndemicLifeUiManager : IDisposable
 	private void UpdateDynamic()
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.EndemicLifeUI;
-		var settings = customization.Settings;
 
 		if(!customization.Enabled)
 		{

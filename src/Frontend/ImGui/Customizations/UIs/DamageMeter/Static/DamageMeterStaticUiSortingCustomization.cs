@@ -36,7 +36,7 @@ internal sealed class DamageMeterStaticUiSortingCustomization : Customization
 		if(ImGuiHelper.ResettableTreeNode($"{localization.Sorting}##{customizationName}", customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.ReversedOrder}##{customizationName}", ref ReversedOrder, defaultCustomization?.ReversedOrder);
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Type}##{customizationName}", ref _typeIndex, localizationHelper.Sortings, defaultCustomization?._typeIndex);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Type}##{customizationName}", ref _typeIndex, localizationHelper.DamageMeterSortings, defaultCustomization?._typeIndex);
 			isChanged |= ImGuiHelper.ResettableCombo($"{localization.LocalPlayerPriority}##{customizationName}", ref _localPlayerPriorityIndex, localizationHelper.Priorities, defaultCustomization?._localPlayerPriorityIndex);
 
 			ImGui.TreePop();

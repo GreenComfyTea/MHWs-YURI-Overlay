@@ -23,11 +23,11 @@ internal sealed class LargeMonsterStaminaComponentCustomization : Customization
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
 			isChanged |= Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
-			isChanged |= ValueLabel.RenderImGui(localization.ValueLabel, customizationName, defaultCustomization?.ValueLabel);
-			isChanged |= PercentageLabel.RenderImGui(localization.PercentageLabel, customizationName, defaultCustomization?.PercentageLabel);
-			isChanged |= Bar.RenderImGui(localization.Bar, customizationName, defaultCustomization?.Bar);
-			isChanged |= TimerLabel.RenderImGui(localization.TimerLabel, customizationName, defaultCustomization?.TimerLabel);
-			isChanged |= TimerBar.RenderImGui(localization.TimerBar, customizationName, defaultCustomization?.TimerBar);
+			isChanged |= ValueLabel.RenderImGui(localization.ValueLabel, $"{customizationName}-value-label", defaultCustomization?.ValueLabel);
+			isChanged |= PercentageLabel.RenderImGui(localization.PercentageLabel, $"{customizationName}-percentage-label", defaultCustomization?.PercentageLabel);
+			isChanged |= Bar.RenderImGui(localization.Bar, $"{customizationName}-bar", defaultCustomization?.Bar);
+			isChanged |= TimerLabel.RenderImGui(localization.TimerLabel, $"{customizationName}-timer-label", defaultCustomization?.TimerLabel);
+			isChanged |= TimerBar.RenderImGui(localization.TimerBar, $"{customizationName}-timer-bar", defaultCustomization?.TimerBar);
 
 			ImGui.TreePop();
 		}

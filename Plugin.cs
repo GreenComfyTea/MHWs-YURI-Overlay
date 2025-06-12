@@ -87,7 +87,7 @@ public class Plugin
 			LogManager.Info("Callbacks: Initializing...");
 
 			UpdateBehavior.Post += OnUpdate;
-			ImGuiDrawUI.Post += OnImGuiDrawUI;
+			ImGuiDrawUI.Post += OnImGuiDrawUi;
 			ImGuiRender.Post += OnImGuiRender;
 
 			IsInitialized = true;
@@ -112,7 +112,7 @@ public class Plugin
 		ScreenManager.Instance.GameUpdate();
 	}
 
-	private static void OnImGuiDrawUI()
+	private static void OnImGuiDrawUi()
 	{
 		if(!IsInitialized) return;
 

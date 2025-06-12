@@ -173,4 +173,39 @@ internal static class ImGuiHelper
 
 		return ImGui.TreeNode($"{label}##${customizationName}");
 	}
+
+	public static string TruncateTextByMaxWidth(string text, float maxWidth, Vector2? textSize)
+	{
+		if(Utils.IsApproximatelyEqual(maxWidth, 0f))
+		{
+			return text;
+		}
+
+		if(text.Length == 0)
+		{
+			return text;
+		}
+
+		var textSizeInternal = textSize ??= ImGui.CalcTextSize(text);
+
+		if(textSizeInternal.X <= maxWidth)
+		{
+			return text;
+		}
+
+		var truncatedText = text;
+
+		for(var i = 1; textSizeInternal.X > maxWidth; i++)
+		{
+			truncatedText = $"{text[..^i]}...";
+			textSizeInternal = ImGui.CalcTextSize(truncatedText);
+
+			if(truncatedText.Length <= 3)
+			{
+				return truncatedText;
+			}
+		}
+
+		return truncatedText;
+	}
 }

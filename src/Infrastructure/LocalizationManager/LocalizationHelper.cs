@@ -2,24 +2,27 @@
 
 internal sealed class LocalizationHelper
 {
-	private static readonly Lazy<LocalizationHelper> _lazy = new(() => new LocalizationHelper());
+	private static readonly Lazy<LocalizationHelper> Lazy = new(() => new LocalizationHelper());
 
-	public static LocalizationHelper Instance => _lazy.Value;
+	public static LocalizationHelper Instance => Lazy.Value;
 
-	public string[] DefaultFillDirections = new string[4];
-	public string[] FillDirections = new string[4];
+	public string[] DefaultFillDirections = [];
+	public string[] FillDirections = [];
 
-	public string[] DefaultOutlineStyles = new string[3];
-	public string[] OutlineStyles = new string[3];
+	public string[] DefaultOutlineStyles = [];
+	public string[] OutlineStyles = [];
 
-	public string[] DefaultSortings = new string[6];
-	public string[] Sortings = new string[6];
+	public string[] DefaultSortings = [];
+	public string[] Sortings = [];
 
-	public string[] DefaultPriorities = new string[6];
-	public string[] Priorities = new string[6];
+	public string[] DefaultDamageMeterSortings = [];
+	public string[] DamageMeterSortings = [];
 
-	public string[] DefaultAnchors = new string[9];
-	public string[] Anchors = new string[9];
+	public string[] DefaultPriorities = [];
+	public string[] Priorities = [];
+
+	public string[] DefaultAnchors = [];
+	public string[] Anchors = [];
 
 	public string DefaultDefinedByLocalization = "";
 	public string DefinedByLocalization = "";
@@ -55,6 +58,18 @@ internal sealed class LocalizationHelper
 			defaultLocalization.MaxHealth,
 			defaultLocalization.HealthPercentage,
 			defaultLocalization.Distance,
+		];
+
+		DefaultSortings =
+		[
+			defaultLocalization.Id,
+			defaultLocalization.Name,
+			defaultLocalization.HunterRank,
+			defaultLocalization.MasterRank,
+			defaultLocalization.Damage,
+			defaultLocalization.DamagePercentage,
+			defaultLocalization.DPS,
+			defaultLocalization.DPSPercentage,
 		];
 
 		DefaultPriorities =
@@ -105,6 +120,28 @@ internal sealed class LocalizationHelper
 			localization.Outside,
 		];
 
+		Sortings =
+		[
+			localization.Id,
+			localization.Name,
+			localization.Health,
+			localization.MaxHealth,
+			localization.HealthPercentage,
+			localization.Distance,
+		];
+
+		DamageMeterSortings =
+		[
+			localization.Id,
+			localization.Name,
+			localization.HunterRank,
+			localization.MasterRank,
+			localization.Damage,
+			localization.DamagePercentage,
+			localization.DPS,
+			localization.DPSPercentage,
+		];
+
 		Priorities =
 		[
 			localization.Higher3,
@@ -114,16 +151,6 @@ internal sealed class LocalizationHelper
 			localization.Lower1,
 			localization.Lower2,
 			localization.Lower3,
-		];
-
-		Sortings =
-		[
-			localization.Id,
-			localization.Name,
-			localization.Health,
-			localization.MaxHealth,
-			localization.HealthPercentage,
-			localization.Distance,
 		];
 
 		Anchors =

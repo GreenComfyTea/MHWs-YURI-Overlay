@@ -38,12 +38,14 @@ internal enum Sorting
 
 internal enum DamageMeterSorting
 {
+	Id,
 	HunterRank,
 	MasterRank,
 	Name,
-	Dps,
 	Damage,
-	DamagePercentage
+	DamagePercentage,
+	Dps,
+	DpsPercentage,
 }
 
 internal enum Anchor

@@ -28,11 +28,6 @@ internal sealed class SmallMonsterUiManager : IDisposable
 		LogManager.Info("[SmallMonsterUiManager] Initialized!");
 	}
 
-	public void Update()
-	{
-		UpdateDynamic();
-	}
-
 	public void Draw(ImDrawListPtr backgroundDrawList)
 	{
 		DrawDynamicUi(backgroundDrawList);

@@ -14,6 +14,8 @@ internal sealed class LabelElementSettingsCustomization : Customization
 		set => _alignmentIndex = (int) value;
 	}
 
+	public float MaxWidth = 0f;
+
 	public bool RenderImGui(string parentName = "", LabelElementSettingsCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
@@ -25,6 +27,7 @@ internal sealed class LabelElementSettingsCustomization : Customization
 		if(ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Alignment}##{customizationName}", ref _alignmentIndex, localizationHelper.Anchors, defaultCustomization?._alignmentIndex);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MaxWidth}##${customizationName}", ref MaxWidth, 0.1f, 0f, 4096f, "%.1f", defaultCustomization?.MaxWidth);
 
 			ImGui.TreePop();
 		}
@@ -37,5 +40,6 @@ internal sealed class LabelElementSettingsCustomization : Customization
 		if(defaultCustomization is null) return;
 
 		Alignment = defaultCustomization.Alignment;
+		MaxWidth = defaultCustomization.MaxWidth;
 	}
 }

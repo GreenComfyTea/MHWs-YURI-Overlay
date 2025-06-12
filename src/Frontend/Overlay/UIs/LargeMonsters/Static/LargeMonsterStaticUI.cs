@@ -27,10 +27,10 @@ internal sealed class LargeMonsterStaticUi
 	{
 		var customization = _customizationAccessor();
 
+		if(!customization.Enabled) return;
+
 		var spacing = customization.Spacing;
-
 		var anchoredPosition = customization.Position;
-
 		var positionScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.PositionScaleModifier;
 
 		// TODO: Can be cached

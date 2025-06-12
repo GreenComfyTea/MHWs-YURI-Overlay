@@ -5,8 +5,6 @@ namespace YURI_Overlay;
 
 internal sealed class DamageMeterUiManager : IDisposable
 {
-	private List<SmallMonster> _staticSmallMonsters = [];
-
 	private readonly List<Timer> _timers = [];
 
 	public DamageMeterUiManager()
@@ -21,16 +19,11 @@ internal sealed class DamageMeterUiManager : IDisposable
 
 	public void Initialize()
 	{
-		LogManager.Info("[SmallMonsterUiManager] Initializing...");
+		LogManager.Info("[DamageMeterUiManager] Initializing...");
 
 		InitializeTimers();
 
-		LogManager.Info("[SmallMonsterUiManager] Initialized!");
-	}
-
-	public void Update()
-	{
-		UpdateStatic();
+		LogManager.Info("[DamageMeterUiManager] Initialized!");
 	}
 
 	public void Draw(ImDrawListPtr backgroundDrawList)
@@ -40,14 +33,14 @@ internal sealed class DamageMeterUiManager : IDisposable
 
 	public void Dispose()
 	{
-		LogManager.Info("[SmallMonsterUiManager] Disposing...");
+		LogManager.Info("[DamageMeterUiManager] Disposing...");
 
 		foreach(var timer in _timers)
 		{
 			timer.Dispose();
 		}
 
-		LogManager.Info("[SmallMonsterUiManager] Disposed!");
+		LogManager.Info("[DamageMeterUiManager] Disposed!");
 	}
 
 	private void InitializeTimers()
@@ -61,49 +54,36 @@ internal sealed class DamageMeterUiManager : IDisposable
 
 		_timers.Clear();
 
-		_timers.Add(Timers.SetInterval(UpdateStatic, Utils.SecondsToMilliseconds(updateDelays.SmallMonsters)));
+		_timers.Add(Timers.SetInterval(UpdateStatic, Utils.SecondsToMilliseconds(updateDelays.DamageMeter)));
 	}
 
 	private void UpdateStatic()
 	{
-		var customization = ConfigManager.Instance.ActiveConfig.Data.SmallMonsterUI;
+		var customization = ConfigManager.Instance.ActiveConfig.Data.DamageMeterUI;
 		var settings = customization.Settings;
 
 		if(!customization.Enabled)
 		{
-			_staticSmallMonsters = [];
 			return;
 		}
-
-		List<SmallMonster> newSmallMonsters = [];
-
-		// Filter out dead and captured
-
-		foreach(var smallMonsterPair in MonsterManager.Instance.SmallMonsters)
-		{
-			var smallMonster = smallMonsterPair.Value;
-
-			if(!settings.RenderDeadMonsters && !smallMonster.IsAlive) continue;
-
-			newSmallMonsters.Add(smallMonster);
-		}
-
-		// Sort by distance
-		// Closest are drawn last
-		newSmallMonsters.Sort(SmallMonsterSorting.CompareByDistanceReversed);
-
-		_staticSmallMonsters = newSmallMonsters;
 	}
 
 	private void DrawStaticUi(ImDrawListPtr backgroundDrawList)
 	{
-		var customization = ConfigManager.Instance.ActiveConfig.Data.SmallMonsterUI;
+		var customization = ConfigManager.Instance.ActiveConfig.Data.DamageMeterUI;
 
 		if(!customization.Enabled) return;
 
-		foreach(var smallMonster in _staticSmallMonsters)
-		{
-			smallMonster.DynamicUi.Draw(backgroundDrawList);
-		}
+		var localPlayerUi = new DamageMeterStaticUi(0);
+		var otherPlayerUi = new DamageMeterStaticUi(1);
+		var supportHunterUi = new DamageMeterStaticUi(2);
+
+		localPlayerUi.Draw(backgroundDrawList, 0);
+		otherPlayerUi.Draw(backgroundDrawList, 1);
+		otherPlayerUi.Draw(backgroundDrawList, 2);
+		otherPlayerUi.Draw(backgroundDrawList, 3);
+		supportHunterUi.Draw(backgroundDrawList, 4);
+		supportHunterUi.Draw(backgroundDrawList, 5);
+		supportHunterUi.Draw(backgroundDrawList, 6);
 	}
 }

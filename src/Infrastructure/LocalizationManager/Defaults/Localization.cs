@@ -110,6 +110,11 @@ internal sealed class ImGuiLocalization
 	public string HealthPercentage = "Health Percentage";
 	public string Distance = "Distance";
 
+	public string HunterRank = "Hunter Rank";
+	public string MasterRank = "Master Rank";
+	public string DamagePercentage = "Damage Percentage";
+	public string DPSPercentage = "DPS Percentage";
+
 	public string ReversedOrder = "Reversed Order";
 
 	public string TargetedMonsterPriority = "Targeted Monster Priority";
@@ -178,6 +183,7 @@ internal sealed class ImGuiLocalization
 	public string Label = "Label";
 
 	public string Format = "Format";
+	public string MaxWidth = "Max Width";
 	public string Alignment = "Alignment";
 	public string Shadow = "Shadow";
 
@@ -187,9 +193,6 @@ internal sealed class ImGuiLocalization
 	public string TimerLabel = "Timer Label";
 
 	public string HunterMasterRanksLabel = "Hunter Rank/Master Rank Label";
-	public string DpsLabel = "DPS Label";
-	public string DamageLabel = "Damage Label";
-	public string DamagePercentageLabel = "Damage Percentage Label";
 
 	// Bar
 
@@ -246,11 +249,14 @@ internal sealed class ImGuiLocalization
 
 	// Damage Meter
 
-	public string DamageMeter = "Damage Meter";
+	public string DamageMeterUI = "Damage Meter UI";
 
 	public string LocalPlayer = "Local Player";
 	public string OtherPlayers = "Other Players";
 	public string SupportHunters = "Support Hunters";
+
+	public string Damage = "Damage";
+	public string DPS = "DPS";
 }
 
 internal sealed class Localization

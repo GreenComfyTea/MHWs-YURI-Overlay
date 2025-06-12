@@ -14,13 +14,10 @@ internal sealed class GradientColorCustomization : Customization
 
 		if(ImGuiHelper.ResettableTreeNode(name, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			if(ImGui.TreeNode($"{name}##${customizationName}"))
-			{
-				isChanged |= Start.RenderImGui(customizationName, defaultCustomization?.Start);
-				isChanged |= End.RenderImGui(customizationName, defaultCustomization?.End);
+			isChanged |= Start.RenderImGui(customizationName, defaultCustomization?.Start);
+			isChanged |= End.RenderImGui(customizationName, defaultCustomization?.End);
 
-				ImGui.TreePop();
-			}
+			ImGui.TreePop();
 		}
 
 		return isChanged;

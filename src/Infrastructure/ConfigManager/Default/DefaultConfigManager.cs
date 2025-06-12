@@ -11,9 +11,10 @@ internal partial class ConfigManager
 	public static void ResetToDefault(Config config)
 	{
 		ResetGlobalSettings(config);
-		ResetLargeMonsterUI(config);
-		ResetSmallMonsterUI(config);
-		ResetEndemicLifeUI(config);
+		ResetLargeMonsterUi(config);
+		ResetSmallMonsterUi(config);
+		ResetEndemicLifeUi(config);
+		ResetDamageMeterUI(config);
 	}
 
 	private static void ResetGlobalSettings(Config config)
@@ -57,15 +58,15 @@ internal partial class ConfigManager
 		globalSettingsConfig.Performance.UpdateDelays.UIs.EndemicLife = 0.2f;
 	}
 
-	private static void ResetLargeMonsterUI(Config config)
+	private static void ResetLargeMonsterUi(Config config)
 	{
-		ResetLargeMonsterDynamicUI(config);
-		ResetLargeMonsterStaticUI(config);
-		ResetLargeMonsterTargetedUI(config);
-		ResetLargeMonsterMapPinUI(config);
+		ResetLargeMonsterDynamicUi(config);
+		ResetLargeMonsterStaticUi(config);
+		ResetLargeMonsterTargetedUi(config);
+		ResetLargeMonsterMapPinUi(config);
 	}
 
-	private static void ResetLargeMonsterDynamicUI(Config config)
+	private static void ResetLargeMonsterDynamicUi(Config config)
 	{
 		var largeMonsterDynamicUiConfig = config.LargeMonsterUI.Dynamic;
 
@@ -92,6 +93,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.NameLabel.Visible = true;
 		largeMonsterDynamicUiConfig.NameLabel.Format = "{0}";
 		largeMonsterDynamicUiConfig.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+		largeMonsterDynamicUiConfig.NameLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.NameLabel.Offset.X = 7f;
 		largeMonsterDynamicUiConfig.NameLabel.Offset.Y = 2f;
 		largeMonsterDynamicUiConfig.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -109,6 +111,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Health.ValueLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Health.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterDynamicUiConfig.Health.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterDynamicUiConfig.Health.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.Health.ValueLabel.Offset.X = 7f;
 		largeMonsterDynamicUiConfig.Health.ValueLabel.Offset.Y = 9f;
 
@@ -122,6 +125,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Health.PercentageLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Health.PercentageLabel.Format = "{0:P1}";
 		largeMonsterDynamicUiConfig.Health.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterDynamicUiConfig.Health.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.Health.PercentageLabel.Offset.X = 290f;
 		largeMonsterDynamicUiConfig.Health.PercentageLabel.Offset.Y = 9f;
 		largeMonsterDynamicUiConfig.Health.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -168,6 +172,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Format = "{0:F0}/{1:F0}";
 		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Offset.X = 7f;
 		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Offset.Y = 5f;
 		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -180,6 +185,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Format = "{0:P0}";
 		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Offset.X = 121f;
 		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Offset.Y = 5f;
 		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -220,6 +226,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Format = "{0}";
 		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Offset.X = 121f;
 		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Offset.Y = 5f;
 		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -265,6 +272,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Rage.ValueLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Rage.ValueLabel.Format = "{0:F0}/{1:F0}";
 		largeMonsterDynamicUiConfig.Rage.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterDynamicUiConfig.Rage.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.Rage.ValueLabel.Offset.X = 7f;
 		largeMonsterDynamicUiConfig.Rage.ValueLabel.Offset.Y = 5f;
 		largeMonsterDynamicUiConfig.Rage.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -277,6 +285,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Format = "{0:P1}";
 		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Offset.X = 87f;
 		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Offset.Y = 5f;
 		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -317,6 +326,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Rage.TimerLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Rage.TimerLabel.Format = "{0}";
 		largeMonsterDynamicUiConfig.Rage.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterDynamicUiConfig.Rage.TimerLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.Rage.TimerLabel.Offset.X = 87f;
 		largeMonsterDynamicUiConfig.Rage.TimerLabel.Offset.Y = 5f;
 		largeMonsterDynamicUiConfig.Rage.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -355,7 +365,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Rage.TimerBar.Outline.Color.ColorInfo.Rgba = 0xFF000080;
 	}
 
-	private static void ResetLargeMonsterStaticUI(Config config)
+	private static void ResetLargeMonsterStaticUi(Config config)
 	{
 		var largeMonsterStaticUiConfig = config.LargeMonsterUI.Static;
 
@@ -382,6 +392,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.NameLabel.Visible = true;
 		largeMonsterStaticUiConfig.NameLabel.Format = "{0}";
 		largeMonsterStaticUiConfig.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+		largeMonsterStaticUiConfig.NameLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.NameLabel.Offset.X = 7f;
 		largeMonsterStaticUiConfig.NameLabel.Offset.Y = 2f;
 		largeMonsterStaticUiConfig.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -399,6 +410,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Health.ValueLabel.Visible = true;
 		largeMonsterStaticUiConfig.Health.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterStaticUiConfig.Health.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterStaticUiConfig.Health.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.Health.ValueLabel.Offset.X = 7f;
 		largeMonsterStaticUiConfig.Health.ValueLabel.Offset.Y = 9f;
 		largeMonsterStaticUiConfig.Health.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -411,6 +423,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Health.PercentageLabel.Visible = true;
 		largeMonsterStaticUiConfig.Health.PercentageLabel.Format = "{0:P1}";
 		largeMonsterStaticUiConfig.Health.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterStaticUiConfig.Health.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.Health.PercentageLabel.Offset.X = 290f;
 		largeMonsterStaticUiConfig.Health.PercentageLabel.Offset.Y = 9f;
 		largeMonsterStaticUiConfig.Health.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -456,6 +469,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Stamina.ValueLabel.Visible = false;
 		largeMonsterStaticUiConfig.Stamina.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterStaticUiConfig.Stamina.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterStaticUiConfig.Stamina.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.Stamina.ValueLabel.Offset.X = 7f;
 		largeMonsterStaticUiConfig.Stamina.ValueLabel.Offset.Y = 5f;
 		largeMonsterStaticUiConfig.Stamina.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -468,6 +482,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Visible = false;
 		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Format = "{0:P1}";
 		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Offset.X = 87f;
 		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Offset.Y = 5f;
 		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -508,6 +523,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Stamina.TimerLabel.Visible = false;
 		largeMonsterStaticUiConfig.Stamina.TimerLabel.Format = "{0}";
 		largeMonsterStaticUiConfig.Stamina.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterStaticUiConfig.Stamina.TimerLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.Stamina.TimerLabel.Offset.X = 87f;
 		largeMonsterStaticUiConfig.Stamina.TimerLabel.Offset.Y = 5f;
 		largeMonsterStaticUiConfig.Stamina.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -553,6 +569,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Rage.ValueLabel.Visible = false;
 		largeMonsterStaticUiConfig.Rage.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterStaticUiConfig.Rage.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterStaticUiConfig.Rage.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.Rage.ValueLabel.Offset.X = 7f;
 		largeMonsterStaticUiConfig.Rage.ValueLabel.Offset.Y = 5f;
 		largeMonsterStaticUiConfig.Rage.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -565,6 +582,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Rage.PercentageLabel.Visible = false;
 		largeMonsterStaticUiConfig.Rage.PercentageLabel.Format = "{0:P1}";
 		largeMonsterStaticUiConfig.Rage.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterStaticUiConfig.Rage.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.Rage.PercentageLabel.Offset.X = 67f;
 		largeMonsterStaticUiConfig.Rage.PercentageLabel.Offset.Y = 5f;
 		largeMonsterStaticUiConfig.Rage.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -605,6 +623,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Rage.TimerLabel.Visible = false;
 		largeMonsterStaticUiConfig.Rage.TimerLabel.Format = "{0}";
 		largeMonsterStaticUiConfig.Rage.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterStaticUiConfig.Rage.TimerLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.Rage.TimerLabel.Offset.X = 67f;
 		largeMonsterStaticUiConfig.Rage.TimerLabel.Offset.Y = 5f;
 		largeMonsterStaticUiConfig.Rage.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -643,7 +662,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Rage.TimerBar.Outline.Color.ColorInfo.Rgba = 0xFF000080;
 	}
 
-	private static void ResetLargeMonsterTargetedUI(Config config)
+	private static void ResetLargeMonsterTargetedUi(Config config)
 	{
 		var largeMonsterTargetedUiConfig = config.LargeMonsterUI.Targeted;
 
@@ -662,6 +681,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.NameLabel.Visible = true;
 		largeMonsterTargetedUiConfig.NameLabel.Format = "{0}";
 		largeMonsterTargetedUiConfig.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+		largeMonsterTargetedUiConfig.NameLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.NameLabel.Offset.X = 7f;
 		largeMonsterTargetedUiConfig.NameLabel.Offset.Y = 2f;
 		largeMonsterTargetedUiConfig.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -679,6 +699,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Health.ValueLabel.Visible = true;
 		largeMonsterTargetedUiConfig.Health.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterTargetedUiConfig.Health.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterTargetedUiConfig.Health.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.Health.ValueLabel.Offset.X = 7f;
 		largeMonsterTargetedUiConfig.Health.ValueLabel.Offset.Y = 9f;
 		largeMonsterTargetedUiConfig.Health.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -691,6 +712,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Health.PercentageLabel.Visible = true;
 		largeMonsterTargetedUiConfig.Health.PercentageLabel.Format = "{0:P1}";
 		largeMonsterTargetedUiConfig.Health.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterTargetedUiConfig.Health.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.Health.PercentageLabel.Offset.X = 290f;
 		largeMonsterTargetedUiConfig.Health.PercentageLabel.Offset.Y = 9f;
 		largeMonsterTargetedUiConfig.Health.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -736,6 +758,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Visible = false;
 		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Offset.X = 7f;
 		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Offset.Y = 5f;
 		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -748,6 +771,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Visible = false;
 		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Format = "{0:P1}";
 		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Offset.X = 87f;
 		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Offset.Y = 5f;
 		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -788,6 +812,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Visible = false;
 		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Format = "{0}";
 		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Offset.X = 87f;
 		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Offset.Y = 5f;
 		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -833,6 +858,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Rage.ValueLabel.Visible = false;
 		largeMonsterTargetedUiConfig.Rage.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterTargetedUiConfig.Rage.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterTargetedUiConfig.Rage.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.Rage.ValueLabel.Offset.X = 7f;
 		largeMonsterTargetedUiConfig.Rage.ValueLabel.Offset.Y = 5f;
 		largeMonsterTargetedUiConfig.Rage.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -845,6 +871,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Visible = false;
 		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Format = "{0:P1}";
 		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Offset.X = 67f;
 		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Offset.Y = 5f;
 		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -885,6 +912,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Rage.TimerLabel.Visible = false;
 		largeMonsterTargetedUiConfig.Rage.TimerLabel.Format = "{0}";
 		largeMonsterTargetedUiConfig.Rage.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterTargetedUiConfig.Rage.TimerLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.Rage.TimerLabel.Offset.X = 67f;
 		largeMonsterTargetedUiConfig.Rage.TimerLabel.Offset.Y = 5f;
 		largeMonsterTargetedUiConfig.Rage.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -923,7 +951,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Rage.TimerBar.Outline.Color.ColorInfo.Rgba = 0xFF000080;
 	}
 
-	private static void ResetLargeMonsterMapPinUI(Config config)
+	private static void ResetLargeMonsterMapPinUi(Config config)
 	{
 		var largeMonsterMapPinUiConfig = config.LargeMonsterUI.MapPin;
 
@@ -942,6 +970,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.NameLabel.Visible = true;
 		largeMonsterMapPinUiConfig.NameLabel.Format = "{0}";
 		largeMonsterMapPinUiConfig.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+		largeMonsterMapPinUiConfig.NameLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.NameLabel.Offset.X = 7f;
 		largeMonsterMapPinUiConfig.NameLabel.Offset.Y = 2f;
 		largeMonsterMapPinUiConfig.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -959,6 +988,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.Health.ValueLabel.Visible = true;
 		largeMonsterMapPinUiConfig.Health.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterMapPinUiConfig.Health.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterMapPinUiConfig.Health.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.Health.ValueLabel.Offset.X = 7f;
 		largeMonsterMapPinUiConfig.Health.ValueLabel.Offset.Y = 9f;
 		largeMonsterMapPinUiConfig.Health.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -971,6 +1001,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.Health.PercentageLabel.Visible = true;
 		largeMonsterMapPinUiConfig.Health.PercentageLabel.Format = "{0:P1}";
 		largeMonsterMapPinUiConfig.Health.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterMapPinUiConfig.Health.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.Health.PercentageLabel.Offset.X = 290f;
 		largeMonsterMapPinUiConfig.Health.PercentageLabel.Offset.Y = 9f;
 		largeMonsterMapPinUiConfig.Health.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -1016,6 +1047,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Visible = false;
 		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Offset.X = 7f;
 		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Offset.Y = 5f;
 		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -1028,6 +1060,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Visible = false;
 		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Format = "{0:P1}";
 		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Offset.X = 87f;
 		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Offset.Y = 5f;
 		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -1068,6 +1101,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Visible = false;
 		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Format = "{0}";
 		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Offset.X = 87f;
 		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Offset.Y = 5f;
 		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -1113,6 +1147,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.Rage.ValueLabel.Visible = false;
 		largeMonsterMapPinUiConfig.Rage.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterMapPinUiConfig.Rage.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterMapPinUiConfig.Rage.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.Rage.ValueLabel.Offset.X = 7f;
 		largeMonsterMapPinUiConfig.Rage.ValueLabel.Offset.Y = 5f;
 		largeMonsterMapPinUiConfig.Rage.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -1125,6 +1160,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Visible = false;
 		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Format = "{0:P1}";
 		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Offset.X = 67f;
 		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Offset.Y = 5f;
 		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -1165,6 +1201,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.Rage.TimerLabel.Visible = false;
 		largeMonsterMapPinUiConfig.Rage.TimerLabel.Format = "{0}";
 		largeMonsterMapPinUiConfig.Rage.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterMapPinUiConfig.Rage.TimerLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.Rage.TimerLabel.Offset.X = 67f;
 		largeMonsterMapPinUiConfig.Rage.TimerLabel.Offset.Y = 5f;
 		largeMonsterMapPinUiConfig.Rage.TimerLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -1203,12 +1240,12 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.Rage.TimerBar.Outline.Color.ColorInfo.Rgba = 0xFF000080;
 	}
 
-	private static void ResetSmallMonsterUI(Config config)
+	private static void ResetSmallMonsterUi(Config config)
 	{
-		ResetSmallMonsterDynamicUI(config);
+		ResetSmallMonsterDynamicUi(config);
 	}
 
-	private static void ResetSmallMonsterDynamicUI(Config config)
+	private static void ResetSmallMonsterDynamicUi(Config config)
 	{
 		var smallMonsterDynamicUiConfig = config.SmallMonsterUI;
 
@@ -1230,6 +1267,7 @@ internal partial class ConfigManager
 		smallMonsterDynamicUiConfig.NameLabel.Visible = true;
 		smallMonsterDynamicUiConfig.NameLabel.Format = "{0}";
 		smallMonsterDynamicUiConfig.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+		smallMonsterDynamicUiConfig.NameLabel.Settings.MaxWidth = 0f;
 		smallMonsterDynamicUiConfig.NameLabel.Offset.X = 7f;
 		smallMonsterDynamicUiConfig.NameLabel.Offset.Y = 2f;
 		smallMonsterDynamicUiConfig.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -1247,6 +1285,7 @@ internal partial class ConfigManager
 		smallMonsterDynamicUiConfig.Health.ValueLabel.Visible = false;
 		smallMonsterDynamicUiConfig.Health.ValueLabel.Format = "{0:F1}/{1:F0}";
 		smallMonsterDynamicUiConfig.Health.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		smallMonsterDynamicUiConfig.Health.ValueLabel.Settings.MaxWidth = 0f;
 		smallMonsterDynamicUiConfig.Health.ValueLabel.Offset.X = 7f;
 		smallMonsterDynamicUiConfig.Health.ValueLabel.Offset.Y = 9f;
 		smallMonsterDynamicUiConfig.Health.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -1259,6 +1298,7 @@ internal partial class ConfigManager
 		smallMonsterDynamicUiConfig.Health.PercentageLabel.Visible = false;
 		smallMonsterDynamicUiConfig.Health.PercentageLabel.Format = "{0:P1}";
 		smallMonsterDynamicUiConfig.Health.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		smallMonsterDynamicUiConfig.Health.PercentageLabel.Settings.MaxWidth = 0f;
 		smallMonsterDynamicUiConfig.Health.PercentageLabel.Offset.X = 155f;
 		smallMonsterDynamicUiConfig.Health.PercentageLabel.Offset.Y = 9f;
 		smallMonsterDynamicUiConfig.Health.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -1297,12 +1337,12 @@ internal partial class ConfigManager
 		smallMonsterDynamicUiConfig.Health.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
 	}
 
-	private static void ResetEndemicLifeUI(Config config)
+	private static void ResetEndemicLifeUi(Config config)
 	{
-		ResetEndemicLifeDynamicUI(config);
+		ResetEndemicLifeDynamicUi(config);
 	}
 
-	private static void ResetEndemicLifeDynamicUI(Config config)
+	private static void ResetEndemicLifeDynamicUi(Config config)
 	{
 		var endemicLifeDynamicUiConfig = config.EndemicLifeUI;
 
@@ -1322,6 +1362,7 @@ internal partial class ConfigManager
 		endemicLifeDynamicUiConfig.NameLabel.Visible = true;
 		endemicLifeDynamicUiConfig.NameLabel.Format = "{0}";
 		endemicLifeDynamicUiConfig.NameLabel.Settings.Alignment = Anchor.BottomCenter;
+		endemicLifeDynamicUiConfig.NameLabel.Settings.MaxWidth = 0f;
 		endemicLifeDynamicUiConfig.NameLabel.Offset.X = 7f;
 		endemicLifeDynamicUiConfig.NameLabel.Offset.Y = 0f;
 		endemicLifeDynamicUiConfig.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
@@ -1330,5 +1371,567 @@ internal partial class ConfigManager
 		endemicLifeDynamicUiConfig.NameLabel.Shadow.Offset.X = 2f;
 		endemicLifeDynamicUiConfig.NameLabel.Shadow.Offset.Y = 2f;
 		endemicLifeDynamicUiConfig.NameLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	}
+
+	private static void ResetDamageMeterUI(Config config)
+	{
+		ResetDamageMeterStaticUI(config);
+	}
+
+	private static void ResetDamageMeterStaticUI(Config config)
+	{
+		var damageMeterStaticUiConfig = config.DamageMeterUI;
+
+		damageMeterStaticUiConfig.Enabled = true;
+
+		damageMeterStaticUiConfig.Position.X = -18f;
+		damageMeterStaticUiConfig.Position.Y = -62f;
+		damageMeterStaticUiConfig.Position.Anchor = Anchor.BottomCenter;
+
+		damageMeterStaticUiConfig.Spacing.X = 0f;
+		damageMeterStaticUiConfig.Spacing.Y = -29f;
+
+		damageMeterStaticUiConfig.Sorting.ReversedOrder = true;
+		damageMeterStaticUiConfig.Sorting.Type = DamageMeterSorting.Damage;
+		damageMeterStaticUiConfig.Sorting.LocalPlayerPriority = Priority.Normal;
+
+		damageMeterStaticUiConfig.LocalPlayer.Enabled = true;
+
+		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Visible = false;
+		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Format = "[{0}:{1}]";
+
+		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Settings.Alignment = Anchor.BottomRight;
+		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Settings.MaxWidth = 0f;
+
+		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Offset.X = -7f;
+		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Visible = true;
+		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Format = "[{1}:{2}] {0}";
+
+		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Settings.MaxWidth = 140f;
+
+		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Offset.X = 7f;
+		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Visible = true;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Offset.X = 0f;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Offset.Y = 0f;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Visible = true;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Format = "{0:F1}";
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Settings.MaxWidth = 0f;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Offset.X = 286f;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Visible = true;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Format = "{0:P1}";
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Settings.MaxWidth = 0f;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Offset.X = 353f;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Visible = true;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Offset.X = 0f;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Offset.Y = 0f;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Size.Width = 360f;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Size.Height = 10f;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x401F0CCC;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x401F0CCC;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xF1955ECC; // Same as InGameColor_070_GUI_Psolo = 0xFFF1955E (ARGB)
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xF1955ECC; // Same as InGameColor_070_GUI_Psolo = 0xFFF1955E (ARGB)
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Outline.Visible = true;
+
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Outline.Thickness = 2f;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Outline.Offset = 0f;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Outline.Style = OutlineStyle.Inside;
+		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Visible = true;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Offset.X = 0f;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Offset.Y = 0f;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Visible = true;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Format = "{0:F1}";
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Settings.MaxWidth = 0f;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Offset.X = 198f;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Visible = false;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Format = "{0:P1}";
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Settings.MaxWidth = 0f;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Offset.X = 353f;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Offset.Y = 23f;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Visible = false;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Offset.X = 0f;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Offset.Y = 7f;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Size.Width = 360f;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Size.Height = 10f;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x401F0CCC;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x401F0CCC;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xF1955ECC; // Same as InGameColor_070_GUI_Psolo = 0xFFF1955E (ARGB)
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xF1955ECC; // Same as InGameColor_070_GUI_Psolo = 0xFFF1955E (ARGB)
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Outline.Visible = true;
+
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Outline.Thickness = 2f;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Outline.Offset = 0f;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Outline.Style = OutlineStyle.Inside;
+		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
+
+		damageMeterStaticUiConfig.OtherPlayers.Enabled = true;
+
+		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Visible = false;
+		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Format = "[{0}:{1}]";
+
+		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Settings.Alignment = Anchor.BottomRight;
+		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Settings.MaxWidth = 0f;
+
+		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Offset.X = -7f;
+		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Visible = true;
+		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Format = "[{1}:{2}] {0}";
+
+		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Settings.MaxWidth = 140f;
+
+		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Offset.X = 7f;
+		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Visible = true;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Offset.X = 0f;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Offset.Y = 0f;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Visible = true;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Format = "{0:F1}";
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Settings.MaxWidth = 0f;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Offset.X = 286f;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Visible = true;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Format = "{0:P1}";
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Settings.MaxWidth = 0f;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Offset.X = 353f;
+		;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Visible = true;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Offset.X = 0f;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Offset.Y = 0f;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Size.Width = 360f;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Size.Height = 10f;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x0D2740CC;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x0D2740CC;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0x61ACF2CC; // Same as InGameColor_072_GUI_P2 = 0xFF61ACF2 (ARGB)
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0x61ACF2CC; // Same as InGameColor_072_GUI_P2 = 0xFF61ACF2 (ARGB)
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Outline.Visible = true;
+
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Outline.Thickness = 2f;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Outline.Offset = 0f;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Outline.Style = OutlineStyle.Inside;
+		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Visible = true;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Offset.X = 0f;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Offset.Y = 0f;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Visible = true;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Format = "{0:F1}";
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Settings.MaxWidth = 0f;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Offset.X = 198f;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Visible = false;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Format = "{0:P1}";
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Settings.MaxWidth = 0f;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Offset.X = 353f;
+		;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Offset.Y = 23f;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Visible = false;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Offset.X = 0f;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Offset.Y = 7f;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Size.Width = 360f;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Size.Height = 10f;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x0D2740CC;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x0D2740CC;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0x61ACF2CC; // Same as InGameColor_072_GUI_P2 = 0xFF61ACF2 (ARGB)
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0x61ACF2CC; // Same as InGameColor_072_GUI_P2 = 0xFF61ACF2 (ARGB)
+
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Outline.Visible = true;
+
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Outline.Thickness = 2f;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Outline.Offset = 0f;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Outline.Style = OutlineStyle.Inside;
+		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
+
+		damageMeterStaticUiConfig.SupportHunters.Enabled = true;
+
+		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Visible = false;
+		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Format = "[{0}:{1}]";
+
+		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Settings.Alignment = Anchor.BottomRight;
+		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Settings.MaxWidth = 0f;
+
+		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Offset.X = -7f;
+		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.SupportHunters.NameLabel.Visible = true;
+		damageMeterStaticUiConfig.SupportHunters.NameLabel.Format = "[{1}:{2}] {0}";
+
+		damageMeterStaticUiConfig.SupportHunters.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+		damageMeterStaticUiConfig.SupportHunters.NameLabel.Settings.MaxWidth = 140f;
+
+		damageMeterStaticUiConfig.SupportHunters.NameLabel.Offset.X = 7f;
+		damageMeterStaticUiConfig.SupportHunters.NameLabel.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.SupportHunters.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.SupportHunters.NameLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.SupportHunters.NameLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.SupportHunters.NameLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.SupportHunters.NameLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.Visible = true;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.Offset.X = 0f;
+		damageMeterStaticUiConfig.SupportHunters.Damage.Offset.Y = 0f;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Visible = true;
+		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Format = "{0:F1}";
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Settings.MaxWidth = 0f;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Offset.X = 286f;
+		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Visible = true;
+		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Format = "{0:P1}";
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Settings.MaxWidth = 0f;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Offset.X = 353f;
+		;
+		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Visible = true;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Offset.X = 0f;
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Offset.Y = 0f;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Size.Width = 360f;
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Size.Height = 10f;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x1D1621CC;
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x1D1621CC;
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xCAB7D4CC; // Same as InGameColor_075_GUI_PNPC = 0xFFCAB7D4 (ARGB)
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xCAB7D4CC; // Same as InGameColor_075_GUI_PNPC = 0xFFCAB7D4 (ARGB)
+
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Outline.Visible = true;
+
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Outline.Thickness = 2f;
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Outline.Offset = 0f;
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Outline.Style = OutlineStyle.Inside;
+		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.Visible = true;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.Offset.X = 0f;
+		damageMeterStaticUiConfig.SupportHunters.DPS.Offset.Y = 0f;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Visible = true;
+		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Format = "{0:F1}";
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Settings.MaxWidth = 0f;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Offset.X = 198f;
+		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Visible = false;
+		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Format = "{0:P1}";
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Settings.MaxWidth = 0f;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Offset.X = 353f;
+		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Offset.Y = 23f;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Shadow.Visible = true;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Shadow.Offset.X = 2f;
+		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Shadow.Offset.Y = 2f;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Visible = false;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Offset.X = 0f;
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Offset.Y = 7f;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Size.Width = 360f;
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Size.Height = 10f;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x1D1621CC;
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x1D1621CC;
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xCAB7D4CC; // Same as InGameColor_075_GUI_PNPC = 0xFFCAB7D4 (ARGB)
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xCAB7D4CC; // Same as InGameColor_075_GUI_PNPC = 0xFFCAB7D4 (ARGB)
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Outline.Visible = true;
+
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Outline.Thickness = 2f;
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Outline.Offset = 0f;
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Outline.Style = OutlineStyle.Inside;
+		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
 	}
 }

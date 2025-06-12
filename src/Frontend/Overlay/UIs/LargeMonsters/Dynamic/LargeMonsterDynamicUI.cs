@@ -27,6 +27,9 @@ internal sealed class LargeMonsterDynamicUi
 	public void Draw(ImDrawListPtr backgroundDrawList)
 	{
 		var customization = _customizationAccessor();
+
+		if(!customization.Enabled) return;
+
 		var settings = customization.Settings;
 
 		var monsterPosition = _largeMonster.Position;

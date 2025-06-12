@@ -10,9 +10,9 @@ internal sealed class DamageMeterStaticUiCustomization : Customization
 	public SpacingCustomization Spacing = new();
 	public DamageMeterStaticUiSortingCustomization Sorting = new();
 
-	public DamageMeterPlayerUiCustomization LocalPlayer = new();
-	public DamageMeterPlayerUiCustomization OtherPlayers = new();
-	public DamageMeterPlayerUiCustomization SupportHunters = new();
+	public DamageMeterPlayerWidgetCustomization LocalPlayer = new();
+	public DamageMeterPlayerWidgetCustomization OtherPlayers = new();
+	public DamageMeterPlayerWidgetCustomization SupportHunters = new();
 
 	public bool RenderImGui(string parentName = "", DamageMeterStaticUiCustomization defaultCustomization = null)
 	{
@@ -21,7 +21,7 @@ internal sealed class DamageMeterStaticUiCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}";
 
-		if(ImGuiHelper.ResettableTreeNode($"{localization.DamageMeter}##{customizationName}", customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode($"{localization.DamageMeterUI}##{customizationName}", customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
 

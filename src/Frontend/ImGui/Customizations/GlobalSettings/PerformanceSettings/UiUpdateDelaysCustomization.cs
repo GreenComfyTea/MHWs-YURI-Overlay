@@ -15,6 +15,7 @@ internal sealed class UiUpdateDelaysCustomization
 	public float LargeMonsterMapPin = 0.1f;
 	public float SmallMonsters = 0.2f;
 	public float EndemicLife = 0.2f;
+	public float DamageMeter = 0.1f;
 
 
 	public bool RenderImGui(string parentName = "", UiUpdateDelaysCustomization defaultCustomization = null)
@@ -32,6 +33,7 @@ internal sealed class UiUpdateDelaysCustomization
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.LargeMonstersTargeted}##{customizationName}", ref LargeMonsterTargeted, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.LargeMonsterTargeted);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.LargeMonstersMapPin}##{customizationName}", ref LargeMonsterMapPin, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.LargeMonsterMapPin);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.EndemicLife}##{customizationName}", ref EndemicLife, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.EndemicLife);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.DamageMeterUI}##{customizationName}", ref DamageMeter, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.DamageMeter);
 
 			ImGui.TreePop();
 		}
@@ -49,5 +51,6 @@ internal sealed class UiUpdateDelaysCustomization
 		LargeMonsterTargeted = defaultCustomization.LargeMonsterTargeted;
 		LargeMonsterMapPin = defaultCustomization.LargeMonsterMapPin;
 		EndemicLife = defaultCustomization.EndemicLife;
+		DamageMeter = defaultCustomization.DamageMeter;
 	}
 }

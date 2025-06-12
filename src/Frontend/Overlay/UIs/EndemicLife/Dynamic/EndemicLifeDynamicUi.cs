@@ -21,6 +21,9 @@ internal sealed class EndemicLifeDynamicUi
 	public void Draw(ImDrawListPtr backgroundDrawList)
 	{
 		var customization = _customizationAccessor();
+
+		if(!customization.Enabled) return;
+
 		var settings = customization.Settings;
 
 		var entityPosition = _endemicLifeEntity.Position;

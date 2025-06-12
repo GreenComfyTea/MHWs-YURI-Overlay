@@ -34,7 +34,7 @@ internal sealed class BarElementOutlineCustomization : Customization
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Thickness}##{customizationName}", ref Thickness, 0.1f, 0, 1024f, "%.1f", defaultCustomization?.Thickness);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Offset}##{customizationName}", ref Offset, 0.1f, -1024f, 1024f, "%.1f", defaultCustomization?.Offset);
 			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Style}##{customizationName}", ref _styleIndex, localizationHelper.OutlineStyles, defaultCustomization?._styleIndex);
-			isChanged |= Color.RenderImGui(customizationName);
+			isChanged |= Color.RenderImGui(customizationName, defaultCustomization?.Color);
 
 			ImGui.TreePop();
 		}
