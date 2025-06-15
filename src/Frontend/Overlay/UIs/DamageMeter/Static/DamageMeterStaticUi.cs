@@ -8,25 +8,25 @@ internal sealed class DamageMeterStaticUi
 
 	private readonly DamageMeterPlayerWidget _playerWidget;
 
-	public DamageMeterStaticUi(int type = 0)
+	public DamageMeterStaticUi(DamageMeterEntity damageMeterEntity)
 	{
 		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data.DamageMeterUI;
 
-		if(type == 0)
+		if(damageMeterEntity.Type == DamageMeterEntityType.LocalPlayer)
 		{
-			_playerWidget = new DamageMeterPlayerWidget(() => _customizationAccessor().LocalPlayer);
+			_playerWidget = new DamageMeterPlayerWidget(damageMeterEntity, () => _customizationAccessor().LocalPlayer);
 			return;
 		}
 
-		if(type == 1)
+		if(damageMeterEntity.Type == DamageMeterEntityType.OtherPlayer)
 		{
-			_playerWidget = new DamageMeterPlayerWidget(() => _customizationAccessor().OtherPlayers);
+			_playerWidget = new DamageMeterPlayerWidget(damageMeterEntity, () => _customizationAccessor().OtherPlayers);
 			return;
 		}
 
-		if(type == 2)
+		if(damageMeterEntity.Type == DamageMeterEntityType.SupportHunter)
 		{
-			_playerWidget = new DamageMeterPlayerWidget(() => _customizationAccessor().SupportHunters);
+			_playerWidget = new DamageMeterPlayerWidget(damageMeterEntity, () => _customizationAccessor().SupportHunters);
 		}
 	}
 

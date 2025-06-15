@@ -17,9 +17,9 @@ internal static class EndemicLifeSorting
 		if(nameComparison != 0) return nameComparison;
 
 		var distanceDifference = a.Distance - b.Distance;
-		if(Utils.IsApproximatelyEqual(distanceDifference, 0f)) return 0;
+		if(!Utils.IsApproximatelyEqual(distanceDifference, 0f)) return distanceDifference < 0f ? -1 : 1;
 
-		return distanceDifference < 0f ? -1 : 1;
+		return 0;
 	}
 
 	public static int CompareByDistance(EndemicLifeEntity a, EndemicLifeEntity b)
@@ -71,9 +71,9 @@ internal static class EndemicLifeSorting
 		if(nameComparison != 0) return nameComparison;
 
 		var distanceDifference = a.Distance - b.Distance;
-		if(Utils.IsApproximatelyEqual(distanceDifference, 0f)) return 0;
+		if(!Utils.IsApproximatelyEqual(distanceDifference, 0f)) return distanceDifference < 0f ? -1 : 1;
 
-		return distanceDifference < 0f ? -1 : 1;
+		return 0;
 	}
 
 	public static int CompareByDistanceReversed(EndemicLifeEntity a, EndemicLifeEntity b)

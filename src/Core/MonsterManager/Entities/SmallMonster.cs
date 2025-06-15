@@ -10,6 +10,8 @@ internal sealed class SmallMonster : IDisposable
 	public EnemyCharacter EnemyCharacter;
 	public cEnemyContext EnemyContext;
 
+	public SmallMonsterDynamicUi DynamicUi;
+
 	public EnemyDef.ID Id = 0;
 	public EnemyDef.ROLE_ID RoleId = 0;
 	public EnemyDef.LEGENDARY_ID LegendaryId = 0;
@@ -17,17 +19,16 @@ internal sealed class SmallMonster : IDisposable
 	public string Name = "Small Monster";
 
 	public Vector3 MissionBeaconOffset = Vector3.Zero;
-	public float ModelRadius;
+	public float ModelRadius = 0f;
 
 	public Vector3 Position = Vector3.Zero;
-	public float Distance;
+	public float Distance = 0f;
 
-	public bool IsAlive;
+	public bool IsAlive = true;
 	public float Health = -1;
 	public float MaxHealth = -1;
 	public float HealthPercentage = -1;
 
-	public SmallMonsterDynamicUi DynamicUi;
 
 	private bool _isUpdateNamePending = true;
 	private bool _isUpdateMissionBeaconOffsetPending = true;

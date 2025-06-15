@@ -10,14 +10,17 @@ namespace YURI_Overlay;
 
 internal sealed class DamageMeterDpsComponent
 {
+	private readonly DamageMeterEntity _damageMeterEntity;
+
 	private readonly LabelElement _dpsValueLabelElement;
 	private readonly LabelElement _dpsPercentageLabelElement;
 	private readonly BarElement _dpsBarElement;
 
 	private readonly Func<DamageMeterDpsComponentCustomization> _customizationAccessor;
 
-	public DamageMeterDpsComponent(Func<DamageMeterDpsComponentCustomization> customizationAccessor)
+	public DamageMeterDpsComponent(DamageMeterEntity damageMeterEntity, Func<DamageMeterDpsComponentCustomization> customizationAccessor)
 	{
+		_damageMeterEntity = damageMeterEntity;
 		_customizationAccessor = customizationAccessor;
 
 		_dpsValueLabelElement = new LabelElement(() => customizationAccessor().ValueLabel);
@@ -36,8 +39,8 @@ internal sealed class DamageMeterDpsComponent
 		var offset = customization.Offset;
 		var offsetPosition = new Vector2(position.X + sizeScaleModifier * offset.X, position.Y + sizeScaleModifier * offset.Y);
 
-		_dpsBarElement.Draw(backgroundDrawList, offsetPosition, 0.69f, opacityScale);
-		_dpsPercentageLabelElement.Draw(backgroundDrawList, offsetPosition, opacityScale, 8.888f);
-		_dpsValueLabelElement.Draw(backgroundDrawList, offsetPosition, opacityScale, 8888.8f);
+		_dpsBarElement.Draw(backgroundDrawList, offsetPosition, _damageMeterEntity.DisplayedDpsPercentage, opacityScale);
+		_dpsPercentageLabelElement.Draw(backgroundDrawList, offsetPosition, opacityScale, _damageMeterEntity.DisplayedDpsPercentage);
+		_dpsValueLabelElement.Draw(backgroundDrawList, offsetPosition, opacityScale, _damageMeterEntity.DisplayedDps);
 	}
 }

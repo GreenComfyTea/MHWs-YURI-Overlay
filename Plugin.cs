@@ -31,6 +31,7 @@ public class Plugin
 	{
 		LogManager.Info("Disposing...");
 
+		DamageMeterManager.Instance.Dispose();
 		MonsterManager.Instance.Dispose();
 
 		PlayerManager.Instance.Dispose();
@@ -66,6 +67,7 @@ public class Plugin
 
 			var monsterManager = MonsterManager.Instance;
 			var cameraManager = CameraManager.Instance;
+			var damageMeterManager = DamageMeterManager.Instance;
 
 			configManager.Initialize();
 			localizationManager.Initialize();
@@ -82,6 +84,7 @@ public class Plugin
 
 			monsterManager.Initialize();
 			cameraManager.Initialize();
+			damageMeterManager.Initialize();
 
 			LogManager.Info("Managers: Initialized!");
 			LogManager.Info("Callbacks: Initializing...");
@@ -110,6 +113,7 @@ public class Plugin
 		//}
 
 		ScreenManager.Instance.GameUpdate();
+		DamageMeterManager.Instance.Update();
 	}
 
 	private static void OnImGuiDrawUi()

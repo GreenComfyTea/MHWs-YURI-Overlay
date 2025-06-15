@@ -4,9 +4,9 @@ namespace YURI_Overlay;
 
 internal sealed class DamageMeterStaticUiSettingsCustomization : Customization
 {
-	//public bool RenderLocalPlayer = true;
-	//public bool RenderOtherPlayers = true;
-	//public bool RenderSupportHunters = true;
+	public bool RenderLocalPlayer = true;
+	public bool RenderOtherPlayers = true;
+	public bool RenderSupportHunters = true;
 
 	public bool RenderImGui(string parentName = "", DamageMeterStaticUiSettingsCustomization defaultCustomization = null)
 	{
@@ -17,9 +17,9 @@ internal sealed class DamageMeterStaticUiSettingsCustomization : Customization
 
 		if(ImGuiHelper.ResettableTreeNode($"{localization.Settings}##{customizationName}", customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			//isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderLocalPlayer}##{customizationName}", ref RenderLocalPlayer, defaultCustomization?.RenderLocalPlayer);
-			//isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderOtherPlayers}##{customizationName}", ref RenderOtherPlayers, defaultCustomization?.RenderOtherPlayers);
-			//isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderSupportHunters}##{customizationName}", ref RenderSupportHunters, defaultCustomization?.RenderSupportHunters);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderLocalPlayer}##{customizationName}", ref RenderLocalPlayer, defaultCustomization?.RenderLocalPlayer);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderOtherPlayers}##{customizationName}", ref RenderOtherPlayers, defaultCustomization?.RenderOtherPlayers);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderSupportHunters}##{customizationName}", ref RenderSupportHunters, defaultCustomization?.RenderSupportHunters);
 
 			ImGui.TreePop();
 		}
@@ -31,6 +31,8 @@ internal sealed class DamageMeterStaticUiSettingsCustomization : Customization
 	{
 		if(defaultCustomization is null) return;
 
-		//RenderDeadMonsters = defaultCustomization.RenderDeadMonsters;
+		RenderLocalPlayer = defaultCustomization.RenderLocalPlayer;
+		RenderOtherPlayers = defaultCustomization.RenderOtherPlayers;
+		RenderSupportHunters = defaultCustomization.RenderSupportHunters;
 	}
 }

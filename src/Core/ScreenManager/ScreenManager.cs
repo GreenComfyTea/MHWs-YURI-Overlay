@@ -221,7 +221,15 @@ internal sealed class ScreenManager : IDisposable
 			}
 
 			var mainViewPtr = (ulong) mainViewObject.Ptr();
-			var mainView = ManagedObject.ToManagedObject(mainViewPtr).As<SceneView>();
+
+			var mainViewManagedObject = ManagedObject.ToManagedObject(mainViewPtr);
+			if(mainViewManagedObject is null)
+			{
+				LogManager.Warn("[ScreenManager.Update] No main view managed object");
+				return;
+			}
+
+			var mainView = mainViewManagedObject.As<SceneView>();
 			if(mainView is null)
 			{
 				LogManager.Warn("[ScreenManager.Update] No main view");

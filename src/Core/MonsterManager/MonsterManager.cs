@@ -46,7 +46,14 @@ internal sealed class MonsterManager : IDisposable
 
 			var enemyCharacterPtr = args[1];
 
-			var enemyCharacter = ManagedObject.ToManagedObject(enemyCharacterPtr).As<EnemyCharacter>();
+			var enemyCharacterManagedObject = ManagedObject.ToManagedObject(enemyCharacterPtr);
+			if(enemyCharacterManagedObject is null)
+			{
+				LogManager.Warn("[MonsterManager.OnPreDoUpdateEnd] No enemy character managed object");
+				return PreHookResult.Continue;
+			}
+
+			var enemyCharacter = enemyCharacterManagedObject.As<EnemyCharacter>();
 			if(enemyCharacter is null)
 			{
 				LogManager.Warn("[MonsterManager.OnPreDoUpdateEnd] No enemy character");
@@ -127,7 +134,14 @@ internal sealed class MonsterManager : IDisposable
 		{
 			var enemyCharacterPtr = args[1];
 
-			var enemyCharacter = ManagedObject.ToManagedObject(enemyCharacterPtr).As<EnemyCharacter>();
+			var enemyCharacterManagedObject = ManagedObject.ToManagedObject(enemyCharacterPtr);
+			if(enemyCharacterManagedObject is null)
+			{
+				LogManager.Warn("[MonsterManager.OnPreDoOnDestroy] No enemy character managed object");
+				return PreHookResult.Continue;
+			}
+
+			var enemyCharacter = enemyCharacterManagedObject.As<EnemyCharacter>();
 			if(enemyCharacter is null)
 			{
 				LogManager.Warn("[MonsterManager.OnPreDoOnDestroy] No enemy character");

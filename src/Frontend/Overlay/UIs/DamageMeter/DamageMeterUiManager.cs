@@ -5,6 +5,8 @@ namespace YURI_Overlay;
 
 internal sealed class DamageMeterUiManager : IDisposable
 {
+	private List<DamageMeterEntity> _damageMeterEntities = [];
+
 	private readonly List<Timer> _timers = [];
 
 	public DamageMeterUiManager()
@@ -60,12 +62,111 @@ internal sealed class DamageMeterUiManager : IDisposable
 	private void UpdateStatic()
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.DamageMeterUI;
-		var settings = customization.Settings;
+		var settingsCustomization = customization.Settings;
 
 		if(!customization.Enabled)
 		{
+			_damageMeterEntities = [];
 			return;
 		}
+
+		List<DamageMeterEntity> newDamageMeterEntities = [];
+
+		// Filters
+
+		if(settingsCustomization.RenderLocalPlayer && DamageMeterManager.Instance.LocalPlayer is not null)
+		{
+			newDamageMeterEntities.Add(DamageMeterManager.Instance.LocalPlayer);
+		}
+
+		if(settingsCustomization.RenderOtherPlayers)
+		{
+			foreach(var otherPlayerPair in DamageMeterManager.Instance.OtherPlayers)
+			{
+				var otherPlayer = otherPlayerPair.Value;
+
+				newDamageMeterEntities.Add(otherPlayer);
+			}
+		}
+
+		if(settingsCustomization.RenderSupportHunters)
+		{
+			foreach(var supportHunterPair in DamageMeterManager.Instance.SupportHunters)
+			{
+				var supportHunter = supportHunterPair.Value;
+
+				if(!settingsCustomization.RenderSupportHunters) continue;
+
+				newDamageMeterEntities.Add(supportHunter);
+			}
+		}
+
+		// Sort
+
+		if(customization.Sorting.ReversedOrder)
+		{
+			switch(customization.Sorting.Type)
+			{
+				case DamageMeterSortingEnum.Id:
+					newDamageMeterEntities.Sort(DamageMeterStaticSorting.CompareByIdReversed);
+					break;
+				case DamageMeterSortingEnum.Name:
+					newDamageMeterEntities.Sort(DamageMeterStaticSorting.CompareByNameReversed);
+					break;
+				case DamageMeterSortingEnum.HunterRank:
+					newDamageMeterEntities.Sort(DamageMeterStaticSorting.CompareByHunterRankReversed);
+					break;
+				case DamageMeterSortingEnum.MasterRank:
+					newDamageMeterEntities.Sort(DamageMeterStaticSorting.CompareByMasterRankReversed);
+					break;
+				case DamageMeterSortingEnum.DamagePercentage:
+					newDamageMeterEntities.Sort(DamageMeterStaticSorting.CompareByDamagePercentageReversed);
+					break;
+				case DamageMeterSortingEnum.Dps:
+					newDamageMeterEntities.Sort(DamageMeterStaticSorting.CompareByDpsReversed);
+					break;
+				case DamageMeterSortingEnum.DpsPercentage:
+					newDamageMeterEntities.Sort(DamageMeterStaticSorting.CompareByDpsPercentageReversed);
+					break;
+				case DamageMeterSortingEnum.Damage:
+				default:
+					newDamageMeterEntities.Sort(DamageMeterStaticSorting.CompareByDamageReversed);
+					break;
+			}
+		}
+		else
+		{
+			switch(customization.Sorting.Type)
+			{
+				case DamageMeterSortingEnum.Id:
+					newDamageMeterEntities.Sort(DamageMeterStaticSorting.CompareById);
+					break;
+				case DamageMeterSortingEnum.Name:
+					newDamageMeterEntities.Sort(DamageMeterStaticSorting.CompareByName);
+					break;
+				case DamageMeterSortingEnum.HunterRank:
+					newDamageMeterEntities.Sort(DamageMeterStaticSorting.CompareByHunterRank);
+					break;
+				case DamageMeterSortingEnum.MasterRank:
+					newDamageMeterEntities.Sort(DamageMeterStaticSorting.CompareByMasterRank);
+					break;
+				case DamageMeterSortingEnum.DamagePercentage:
+					newDamageMeterEntities.Sort(DamageMeterStaticSorting.CompareByDamagePercentage);
+					break;
+				case DamageMeterSortingEnum.Dps:
+					newDamageMeterEntities.Sort(DamageMeterStaticSorting.CompareByDps);
+					break;
+				case DamageMeterSortingEnum.DpsPercentage:
+					newDamageMeterEntities.Sort(DamageMeterStaticSorting.CompareByDpsPercentage);
+					break;
+				case DamageMeterSortingEnum.Damage:
+				default:
+					newDamageMeterEntities.Sort(DamageMeterStaticSorting.CompareByDamage);
+					break;
+			}
+		}
+
+		_damageMeterEntities = newDamageMeterEntities;
 	}
 
 	private void DrawStaticUi(ImDrawListPtr backgroundDrawList)
@@ -74,16 +175,11 @@ internal sealed class DamageMeterUiManager : IDisposable
 
 		if(!customization.Enabled) return;
 
-		var localPlayerUi = new DamageMeterStaticUi(0);
-		var otherPlayerUi = new DamageMeterStaticUi(1);
-		var supportHunterUi = new DamageMeterStaticUi(2);
+		for(var locationIndex = 0; locationIndex < _damageMeterEntities.Count; locationIndex++)
+		{
+			var damageMeterEntity = _damageMeterEntities[locationIndex];
 
-		localPlayerUi.Draw(backgroundDrawList, 0);
-		otherPlayerUi.Draw(backgroundDrawList, 1);
-		otherPlayerUi.Draw(backgroundDrawList, 2);
-		otherPlayerUi.Draw(backgroundDrawList, 3);
-		supportHunterUi.Draw(backgroundDrawList, 4);
-		supportHunterUi.Draw(backgroundDrawList, 5);
-		supportHunterUi.Draw(backgroundDrawList, 6);
+			damageMeterEntity.StaticUi.Draw(backgroundDrawList, locationIndex);
+		}
 	}
 }

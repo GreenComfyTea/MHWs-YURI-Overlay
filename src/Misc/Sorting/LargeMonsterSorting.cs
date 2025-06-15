@@ -26,9 +26,9 @@ internal static class LargeMonsterSorting
 		if(!Utils.IsApproximatelyEqual(maxHealthDifference, 0f)) return maxHealthDifference < 0f ? -1 : 1;
 
 		var distanceDifference = a.Distance - b.Distance;
-		if(Utils.IsApproximatelyEqual(distanceDifference, 0f)) return 0;
+		if(!Utils.IsApproximatelyEqual(distanceDifference, 0f)) return distanceDifference < 0f ? -1 : 1;
 
-		return distanceDifference < 0f ? -1 : 1;
+		return 0;
 	}
 
 	public static int CompareByName(LargeMonster a, LargeMonster b)
@@ -185,9 +185,9 @@ internal static class LargeMonsterSorting
 		if(!Utils.IsApproximatelyEqual(maxHealthDifference, 0f)) return maxHealthDifference < 0f ? -1 : 1;
 
 		var distanceDifference = a.Distance - b.Distance;
-		if(Utils.IsApproximatelyEqual(distanceDifference, 0f)) return 0;
+		if(!Utils.IsApproximatelyEqual(distanceDifference, 0f)) return distanceDifference < 0f ? -1 : 1;
 
-		return distanceDifference < 0f ? -1 : 1;
+		return 0;
 	}
 
 	public static int CompareByNameReversed(LargeMonster a, LargeMonster b)

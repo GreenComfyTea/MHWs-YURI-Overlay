@@ -18,10 +18,10 @@ internal sealed class EndemicLifeEntity : IDisposable
 
 	public string Name = "Endemic Life";
 
-	public float ModelRadius;
+	public float ModelRadius = 0f;
 
 	public Vector3 Position = Vector3.Zero;
-	public float Distance;
+	public float Distance = 0f;
 
 	private readonly List<Timer> _timers = [];
 

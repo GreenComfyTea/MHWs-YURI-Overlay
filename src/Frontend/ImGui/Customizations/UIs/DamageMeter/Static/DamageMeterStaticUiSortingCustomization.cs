@@ -7,12 +7,12 @@ internal sealed class DamageMeterStaticUiSortingCustomization : Customization
 {
 	public bool ReversedOrder;
 
-	private int _typeIndex = (int) DamageMeterSorting.Name;
+	private int _typeIndex = (int) DamageMeterSortingEnum.Name;
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public DamageMeterSorting Type
+	public DamageMeterSortingEnum Type
 	{
-		get => (DamageMeterSorting) _typeIndex;
+		get => (DamageMeterSortingEnum) _typeIndex;
 		set => _typeIndex = (int) value;
 	}
 

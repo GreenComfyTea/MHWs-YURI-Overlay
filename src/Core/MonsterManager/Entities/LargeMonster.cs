@@ -27,18 +27,18 @@ internal sealed class LargeMonster : IDisposable
 	public int StaticSortingPriority = 0;
 
 	public Vector3 MissionBeaconOffset = Vector3.Zero;
-	public float ModelRadius;
+	public float ModelRadius = 0f;
 
 	public Vector3 Position = Vector3.Zero;
-	public float Distance;
+	public float Distance = 0f;
 
 	public bool IsAlive;
 	public float Health = -1;
 	public float MaxHealth = -1;
 	public float HealthPercentage = -1;
 
-	public bool IsStaminaValid;
-	public bool IsTired;
+	public bool IsStaminaValid = true;
+	public bool IsTired = false;
 	public float Stamina = -1;
 	public float MaxStamina = -1;
 	public float StaminaPercentage = -1;
@@ -50,8 +50,8 @@ internal sealed class LargeMonster : IDisposable
 	public string StaminaRemainingTimerString = "0:00";
 
 
-	public bool IsRageValid;
-	public bool IsEnraged;
+	public bool IsRageValid = true;
+	public bool IsEnraged = false;
 	public float Rage = -1;
 	public float MaxRage = -1;
 	public float RagePercentage = -1;

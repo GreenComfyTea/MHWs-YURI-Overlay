@@ -13,11 +13,16 @@ internal sealed class PlayerManager : IDisposable
 
 	public Vector3 Position = Vector3.Zero;
 
+	public EventHandler MasterPlayerChanged = delegate { };
+
+	public cPlayerManageInfo MasterPlayer;
+
 	private readonly List<Timer> _timers = [];
 
 	private HunterCharacter _masterPlayerCharacter;
 
 	private bool _isUpdatePending = true;
+
 
 	private PlayerManager()
 	{
@@ -108,7 +113,11 @@ internal sealed class PlayerManager : IDisposable
 			if(playerManager is null)
 			{
 				LogManager.Warn("[PlayerManager.Update] No player manager");
+
+				MasterPlayer = null;
 				_masterPlayerCharacter = null;
+				EmitMasterPlayerChanged();
+
 				return;
 			}
 
@@ -116,19 +125,30 @@ internal sealed class PlayerManager : IDisposable
 			if(masterPlayer is null)
 			{
 				//LogManager.Warn("[PlayerManager.Update] No master player");
+
+				MasterPlayer = null;
 				_masterPlayerCharacter = null;
+				EmitMasterPlayerChanged();
+
 				return;
 			}
+
+			MasterPlayer = masterPlayer;
 
 			var masterPlayerCharacter = masterPlayer.Character;
 			if(masterPlayerCharacter is null)
 			{
 				//LogManager.Warn("[PlayerManager.Update] No master player character");
+
+				MasterPlayer = null;
 				_masterPlayerCharacter = null;
+				EmitMasterPlayerChanged();
+
 				return;
 			}
 
 			_masterPlayerCharacter = masterPlayerCharacter;
+			EmitMasterPlayerChanged();
 		}
 		catch(Exception exception)
 		{
@@ -141,17 +161,23 @@ internal sealed class PlayerManager : IDisposable
 		InitializeTimers();
 	}
 
+	private void EmitMasterPlayerChanged()
+	{
+		Utils.EmitEvents(this, MasterPlayerChanged);
+	}
+
 	[MethodHook(typeof(app.PlayerManager), nameof(app.PlayerManager.update), MethodHookType.Post)]
 	private static void OnPostUpdate(ref ulong returnValue)
 	{
 		Instance.GameUpdate();
 	}
 
-	// When returning to title screen, the cached master player character becomes invalid, so we have to delete it
+	// When returning to title screen, the cached master player character becomes invalid, so we have to discard it
 	[MethodHook(typeof(app.PlayerManager), nameof(app.PlayerManager.unregisterPlayer), MethodHookType.Post)]
 	private static void OnPostUnregisterPlayer(ref ulong returnValue)
 	{
 		Instance._masterPlayerCharacter = null;
 		Instance._isUpdatePending = true;
+		Instance.EmitMasterPlayerChanged();
 	}
 }

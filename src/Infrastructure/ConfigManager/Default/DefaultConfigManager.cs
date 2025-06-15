@@ -1384,6 +1384,10 @@ internal partial class ConfigManager
 
 		damageMeterStaticUiConfig.Enabled = true;
 
+		damageMeterStaticUiConfig.Settings.RenderLocalPlayer = true;
+		damageMeterStaticUiConfig.Settings.RenderOtherPlayers = false;
+		damageMeterStaticUiConfig.Settings.RenderSupportHunters = false;
+
 		damageMeterStaticUiConfig.Position.X = -18f;
 		damageMeterStaticUiConfig.Position.Y = -62f;
 		damageMeterStaticUiConfig.Position.Anchor = Anchor.BottomCenter;
@@ -1392,7 +1396,7 @@ internal partial class ConfigManager
 		damageMeterStaticUiConfig.Spacing.Y = -29f;
 
 		damageMeterStaticUiConfig.Sorting.ReversedOrder = true;
-		damageMeterStaticUiConfig.Sorting.Type = DamageMeterSorting.Damage;
+		damageMeterStaticUiConfig.Sorting.Type = DamageMeterSortingEnum.Damage;
 		damageMeterStaticUiConfig.Sorting.LocalPlayerPriority = Priority.Normal;
 
 		damageMeterStaticUiConfig.LocalPlayer.Enabled = true;
@@ -1416,7 +1420,7 @@ internal partial class ConfigManager
 		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
 		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Visible = true;
-		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Format = "[{1}:{2}] {0}";
+		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Format = "[{2}:{3}] {0}";
 
 		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Settings.Alignment = Anchor.BottomLeft;
 		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Settings.MaxWidth = 140f;
@@ -1594,7 +1598,7 @@ internal partial class ConfigManager
 		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
 		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Visible = true;
-		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Format = "[{1}:{2}] {0}";
+		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Format = "[{2}:{3}] {0}";
 
 		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Settings.Alignment = Anchor.BottomLeft;
 		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Settings.MaxWidth = 140f;
@@ -1775,7 +1779,7 @@ internal partial class ConfigManager
 		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
 		damageMeterStaticUiConfig.SupportHunters.NameLabel.Visible = true;
-		damageMeterStaticUiConfig.SupportHunters.NameLabel.Format = "[{1}:{2}] {0}";
+		damageMeterStaticUiConfig.SupportHunters.NameLabel.Format = "[{2}:{3}] {0}";
 
 		damageMeterStaticUiConfig.SupportHunters.NameLabel.Settings.Alignment = Anchor.BottomLeft;
 		damageMeterStaticUiConfig.SupportHunters.NameLabel.Settings.MaxWidth = 140f;

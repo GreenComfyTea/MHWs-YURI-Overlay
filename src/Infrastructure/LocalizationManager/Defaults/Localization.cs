@@ -257,6 +257,10 @@ internal sealed class ImGuiLocalization
 
 	public string Damage = "Damage";
 	public string DPS = "DPS";
+
+	public string RenderLocalPlayer = "Render Local Player";
+	public string RenderOtherPlayers = "Render Other Players";
+	public string RenderSupportHunters = "Render Support Hunters";
 }
 
 internal sealed class Localization

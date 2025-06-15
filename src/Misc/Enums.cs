@@ -36,12 +36,13 @@ internal enum Sorting
 	Distance,
 }
 
-internal enum DamageMeterSorting
+internal enum DamageMeterSortingEnum
 {
 	Id,
+	Name,
 	HunterRank,
 	MasterRank,
-	Name,
+
 	Damage,
 	DamagePercentage,
 	Dps,
@@ -59,4 +60,12 @@ internal enum Anchor
 	BottomLeft,
 	BottomCenter,
 	BottomRight,
+}
+
+internal enum DamageMeterEntityType
+{
+	LocalPlayer,
+	OtherPlayer,
+	SupportHunter,
+	TotalDamage,
 }
