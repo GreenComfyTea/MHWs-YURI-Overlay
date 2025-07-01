@@ -14,7 +14,7 @@ internal partial class ConfigManager
 		ResetLargeMonsterUi(config);
 		ResetSmallMonsterUi(config);
 		ResetEndemicLifeUi(config);
-		ResetDamageMeterUI(config);
+		//ResetDamageMeterUI(config);
 	}
 
 	private static void ResetGlobalSettings(Config config)
@@ -1373,569 +1373,569 @@ internal partial class ConfigManager
 		endemicLifeDynamicUiConfig.NameLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 	}
 
-	private static void ResetDamageMeterUI(Config config)
-	{
-		ResetDamageMeterStaticUI(config);
-	}
+	//private static void ResetDamageMeterUI(Config config)
+	//{
+	//	ResetDamageMeterStaticUI(config);
+	//}
 
-	private static void ResetDamageMeterStaticUI(Config config)
-	{
-		var damageMeterStaticUiConfig = config.DamageMeterUI;
+	//private static void ResetDamageMeterStaticUI(Config config)
+	//{
+	//	var damageMeterStaticUiConfig = config.DamageMeterUI;
 
-		damageMeterStaticUiConfig.Enabled = true;
+	//	damageMeterStaticUiConfig.Enabled = true;
 
-		damageMeterStaticUiConfig.Settings.RenderLocalPlayer = true;
-		damageMeterStaticUiConfig.Settings.RenderOtherPlayers = false;
-		damageMeterStaticUiConfig.Settings.RenderSupportHunters = false;
+	//	damageMeterStaticUiConfig.Settings.RenderLocalPlayer = true;
+	//	damageMeterStaticUiConfig.Settings.RenderOtherPlayers = false;
+	//	damageMeterStaticUiConfig.Settings.RenderSupportHunters = false;
 
-		damageMeterStaticUiConfig.Position.X = -18f;
-		damageMeterStaticUiConfig.Position.Y = -62f;
-		damageMeterStaticUiConfig.Position.Anchor = Anchor.BottomCenter;
+	//	damageMeterStaticUiConfig.Position.X = -18f;
+	//	damageMeterStaticUiConfig.Position.Y = -62f;
+	//	damageMeterStaticUiConfig.Position.Anchor = Anchor.BottomCenter;
 
-		damageMeterStaticUiConfig.Spacing.X = 0f;
-		damageMeterStaticUiConfig.Spacing.Y = -29f;
+	//	damageMeterStaticUiConfig.Spacing.X = 0f;
+	//	damageMeterStaticUiConfig.Spacing.Y = -29f;
 
-		damageMeterStaticUiConfig.Sorting.ReversedOrder = true;
-		damageMeterStaticUiConfig.Sorting.Type = DamageMeterSortingEnum.Damage;
-		damageMeterStaticUiConfig.Sorting.LocalPlayerPriority = Priority.Normal;
+	//	damageMeterStaticUiConfig.Sorting.ReversedOrder = true;
+	//	damageMeterStaticUiConfig.Sorting.Type = DamageMeterSortingEnum.Damage;
+	//	damageMeterStaticUiConfig.Sorting.LocalPlayerPriority = Priority.Normal;
 
-		damageMeterStaticUiConfig.LocalPlayer.Enabled = true;
+	//	damageMeterStaticUiConfig.LocalPlayer.Enabled = true;
 
-		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Visible = false;
-		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Format = "[{0}:{1}]";
+	//	damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Visible = false;
+	//	damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Format = "[{0}:{1}]";
 
-		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Settings.Alignment = Anchor.BottomRight;
-		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Settings.MaxWidth = 0f;
+	//	damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Settings.Alignment = Anchor.BottomRight;
+	//	damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Settings.MaxWidth = 0f;
 
-		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Offset.X = -7f;
-		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Offset.X = -7f;
+	//	damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Visible = true;
-		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Format = "[{2}:{3}] {0}";
+	//	damageMeterStaticUiConfig.LocalPlayer.NameLabel.Visible = true;
+	//	damageMeterStaticUiConfig.LocalPlayer.NameLabel.Format = "[{2}:{3}] {0}";
 
-		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Settings.Alignment = Anchor.BottomLeft;
-		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Settings.MaxWidth = 140f;
+	//	damageMeterStaticUiConfig.LocalPlayer.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+	//	damageMeterStaticUiConfig.LocalPlayer.NameLabel.Settings.MaxWidth = 140f;
 
-		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Offset.X = 7f;
-		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.NameLabel.Offset.X = 7f;
+	//	damageMeterStaticUiConfig.LocalPlayer.NameLabel.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.LocalPlayer.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.LocalPlayer.NameLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.NameLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.NameLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.LocalPlayer.NameLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.LocalPlayer.NameLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Visible = true;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Visible = true;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Offset.X = 0f;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Offset.Y = 0f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Offset.X = 0f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Offset.Y = 0f;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Visible = true;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Format = "{0:F1}";
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Visible = true;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Format = "{0:F1}";
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Settings.Alignment = Anchor.BottomRight;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Settings.MaxWidth = 0f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Settings.MaxWidth = 0f;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Offset.X = 286f;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Offset.X = 286f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Visible = true;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Format = "{0:P1}";
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Visible = true;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Format = "{0:P1}";
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Settings.MaxWidth = 0f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Settings.MaxWidth = 0f;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Offset.X = 353f;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Offset.X = 353f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Visible = true;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Visible = true;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Offset.X = 0f;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Offset.Y = 0f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Offset.X = 0f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Offset.Y = 0f;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Size.Width = 360f;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Size.Height = 10f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Size.Width = 360f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Size.Height = 10f;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x401F0CCC;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x401F0CCC;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xF1955ECC; // Same as InGameColor_070_GUI_Psolo = 0xFFF1955E (ARGB)
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xF1955ECC; // Same as InGameColor_070_GUI_Psolo = 0xFFF1955E (ARGB)
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x401F0CCC;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x401F0CCC;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xF1955ECC; // Same as InGameColor_070_GUI_Psolo = 0xFFF1955E (ARGB)
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xF1955ECC; // Same as InGameColor_070_GUI_Psolo = 0xFFF1955E (ARGB)
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.End.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Outline.Visible = true;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Outline.Visible = true;
 
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Outline.Thickness = 2f;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Outline.Offset = 0f;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Outline.Style = OutlineStyle.Inside;
-		damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Outline.Thickness = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Outline.Offset = 0f;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Outline.Style = OutlineStyle.Inside;
+	//	damageMeterStaticUiConfig.LocalPlayer.Damage.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Visible = true;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Visible = true;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Offset.X = 0f;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Offset.Y = 0f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Offset.X = 0f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Offset.Y = 0f;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Visible = true;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Format = "{0:F1}";
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Visible = true;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Format = "{0:F1}";
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Settings.Alignment = Anchor.BottomRight;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Settings.MaxWidth = 0f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Settings.MaxWidth = 0f;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Offset.X = 198f;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Offset.X = 198f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Visible = false;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Format = "{0:P1}";
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Visible = false;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Format = "{0:P1}";
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Settings.MaxWidth = 0f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Settings.MaxWidth = 0f;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Offset.X = 353f;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Offset.Y = 23f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Offset.X = 353f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Offset.Y = 23f;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Visible = false;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Visible = false;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Offset.X = 0f;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Offset.Y = 7f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Offset.X = 0f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Offset.Y = 7f;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Size.Width = 360f;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Size.Height = 10f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Size.Width = 360f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Size.Height = 10f;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x401F0CCC;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x401F0CCC;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xF1955ECC; // Same as InGameColor_070_GUI_Psolo = 0xFFF1955E (ARGB)
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xF1955ECC; // Same as InGameColor_070_GUI_Psolo = 0xFFF1955E (ARGB)
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x401F0CCC;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x401F0CCC;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xF1955ECC; // Same as InGameColor_070_GUI_Psolo = 0xFFF1955E (ARGB)
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xF1955ECC; // Same as InGameColor_070_GUI_Psolo = 0xFFF1955E (ARGB)
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.End.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Outline.Visible = true;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Outline.Visible = true;
 
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Outline.Thickness = 2f;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Outline.Offset = 0f;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Outline.Style = OutlineStyle.Inside;
-		damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Outline.Thickness = 2f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Outline.Offset = 0f;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Outline.Style = OutlineStyle.Inside;
+	//	damageMeterStaticUiConfig.LocalPlayer.DPS.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
 
-		damageMeterStaticUiConfig.OtherPlayers.Enabled = true;
+	//	damageMeterStaticUiConfig.OtherPlayers.Enabled = true;
 
-		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Visible = false;
-		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Format = "[{0}:{1}]";
+	//	damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Visible = false;
+	//	damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Format = "[{0}:{1}]";
 
-		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Settings.Alignment = Anchor.BottomRight;
-		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Settings.MaxWidth = 0f;
+	//	damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Settings.Alignment = Anchor.BottomRight;
+	//	damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Settings.MaxWidth = 0f;
 
-		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Offset.X = -7f;
-		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Offset.X = -7f;
+	//	damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Visible = true;
-		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Format = "[{2}:{3}] {0}";
+	//	damageMeterStaticUiConfig.OtherPlayers.NameLabel.Visible = true;
+	//	damageMeterStaticUiConfig.OtherPlayers.NameLabel.Format = "[{2}:{3}] {0}";
 
-		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Settings.Alignment = Anchor.BottomLeft;
-		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Settings.MaxWidth = 140f;
+	//	damageMeterStaticUiConfig.OtherPlayers.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+	//	damageMeterStaticUiConfig.OtherPlayers.NameLabel.Settings.MaxWidth = 140f;
 
-		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Offset.X = 7f;
-		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.NameLabel.Offset.X = 7f;
+	//	damageMeterStaticUiConfig.OtherPlayers.NameLabel.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.OtherPlayers.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.OtherPlayers.NameLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.NameLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.NameLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.OtherPlayers.NameLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.OtherPlayers.NameLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Visible = true;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Visible = true;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Offset.X = 0f;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Offset.Y = 0f;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Offset.X = 0f;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Offset.Y = 0f;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Visible = true;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Format = "{0:F1}";
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Visible = true;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Format = "{0:F1}";
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Settings.Alignment = Anchor.BottomRight;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Settings.MaxWidth = 0f;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Settings.MaxWidth = 0f;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Offset.X = 286f;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Offset.X = 286f;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Visible = true;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Format = "{0:P1}";
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Visible = true;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Format = "{0:P1}";
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Settings.MaxWidth = 0f;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Settings.MaxWidth = 0f;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Offset.X = 353f;
-		;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Offset.X = 353f;
+	//	;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Visible = true;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Visible = true;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Offset.X = 0f;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Offset.Y = 0f;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Offset.X = 0f;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Offset.Y = 0f;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Size.Width = 360f;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Size.Height = 10f;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Size.Width = 360f;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Size.Height = 10f;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x0D2740CC;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x0D2740CC;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0x61ACF2CC; // Same as InGameColor_072_GUI_P2 = 0xFF61ACF2 (ARGB)
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0x61ACF2CC; // Same as InGameColor_072_GUI_P2 = 0xFF61ACF2 (ARGB)
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x0D2740CC;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x0D2740CC;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0x61ACF2CC; // Same as InGameColor_072_GUI_P2 = 0xFF61ACF2 (ARGB)
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0x61ACF2CC; // Same as InGameColor_072_GUI_P2 = 0xFF61ACF2 (ARGB)
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.End.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Outline.Visible = true;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Outline.Visible = true;
 
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Outline.Thickness = 2f;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Outline.Offset = 0f;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Outline.Style = OutlineStyle.Inside;
-		damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Outline.Thickness = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Outline.Offset = 0f;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Outline.Style = OutlineStyle.Inside;
+	//	damageMeterStaticUiConfig.OtherPlayers.Damage.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Visible = true;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Visible = true;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Offset.X = 0f;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Offset.Y = 0f;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Offset.X = 0f;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Offset.Y = 0f;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Visible = true;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Format = "{0:F1}";
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Visible = true;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Format = "{0:F1}";
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Settings.Alignment = Anchor.BottomRight;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Settings.MaxWidth = 0f;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Settings.MaxWidth = 0f;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Offset.X = 198f;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Offset.X = 198f;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Visible = false;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Format = "{0:P1}";
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Visible = false;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Format = "{0:P1}";
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Settings.MaxWidth = 0f;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Settings.MaxWidth = 0f;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Offset.X = 353f;
-		;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Offset.Y = 23f;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Offset.X = 353f;
+	//	;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Offset.Y = 23f;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Visible = false;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Visible = false;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Offset.X = 0f;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Offset.Y = 7f;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Offset.X = 0f;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Offset.Y = 7f;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Size.Width = 360f;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Size.Height = 10f;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Size.Width = 360f;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Size.Height = 10f;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x0D2740CC;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x0D2740CC;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0x61ACF2CC; // Same as InGameColor_072_GUI_P2 = 0xFF61ACF2 (ARGB)
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0x61ACF2CC; // Same as InGameColor_072_GUI_P2 = 0xFF61ACF2 (ARGB)
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x0D2740CC;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x0D2740CC;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0x61ACF2CC; // Same as InGameColor_072_GUI_P2 = 0xFF61ACF2 (ARGB)
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0x61ACF2CC; // Same as InGameColor_072_GUI_P2 = 0xFF61ACF2 (ARGB)
 
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.End.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Outline.Visible = true;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Outline.Visible = true;
 
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Outline.Thickness = 2f;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Outline.Offset = 0f;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Outline.Style = OutlineStyle.Inside;
-		damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Outline.Thickness = 2f;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Outline.Offset = 0f;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Outline.Style = OutlineStyle.Inside;
+	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
 
-		damageMeterStaticUiConfig.SupportHunters.Enabled = true;
+	//	damageMeterStaticUiConfig.SupportHunters.Enabled = true;
 
-		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Visible = false;
-		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Format = "[{0}:{1}]";
+	//	damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Visible = false;
+	//	damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Format = "[{0}:{1}]";
 
-		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Settings.Alignment = Anchor.BottomRight;
-		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Settings.MaxWidth = 0f;
+	//	damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Settings.Alignment = Anchor.BottomRight;
+	//	damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Settings.MaxWidth = 0f;
 
-		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Offset.X = -7f;
-		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Offset.X = -7f;
+	//	damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.SupportHunters.NameLabel.Visible = true;
-		damageMeterStaticUiConfig.SupportHunters.NameLabel.Format = "[{2}:{3}] {0}";
+	//	damageMeterStaticUiConfig.SupportHunters.NameLabel.Visible = true;
+	//	damageMeterStaticUiConfig.SupportHunters.NameLabel.Format = "[{2}:{3}] {0}";
 
-		damageMeterStaticUiConfig.SupportHunters.NameLabel.Settings.Alignment = Anchor.BottomLeft;
-		damageMeterStaticUiConfig.SupportHunters.NameLabel.Settings.MaxWidth = 140f;
+	//	damageMeterStaticUiConfig.SupportHunters.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+	//	damageMeterStaticUiConfig.SupportHunters.NameLabel.Settings.MaxWidth = 140f;
 
-		damageMeterStaticUiConfig.SupportHunters.NameLabel.Offset.X = 7f;
-		damageMeterStaticUiConfig.SupportHunters.NameLabel.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.NameLabel.Offset.X = 7f;
+	//	damageMeterStaticUiConfig.SupportHunters.NameLabel.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.SupportHunters.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.SupportHunters.NameLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.SupportHunters.NameLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.SupportHunters.NameLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.SupportHunters.NameLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.SupportHunters.NameLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.NameLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.NameLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.SupportHunters.NameLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.SupportHunters.NameLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.Visible = true;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Visible = true;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.Offset.X = 0f;
-		damageMeterStaticUiConfig.SupportHunters.Damage.Offset.Y = 0f;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Offset.X = 0f;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Offset.Y = 0f;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Visible = true;
-		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Format = "{0:F1}";
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Visible = true;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Format = "{0:F1}";
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Settings.Alignment = Anchor.BottomRight;
-		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Settings.MaxWidth = 0f;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Settings.MaxWidth = 0f;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Offset.X = 286f;
-		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Offset.X = 286f;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Visible = true;
-		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Format = "{0:P1}";
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Visible = true;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Format = "{0:P1}";
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
-		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Settings.MaxWidth = 0f;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Settings.MaxWidth = 0f;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Offset.X = 353f;
-		;
-		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Offset.X = 353f;
+	//	;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Visible = true;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Visible = true;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Offset.X = 0f;
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Offset.Y = 0f;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Offset.X = 0f;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Offset.Y = 0f;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Size.Width = 360f;
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Size.Height = 10f;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Size.Width = 360f;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Size.Height = 10f;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x1D1621CC;
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x1D1621CC;
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xCAB7D4CC; // Same as InGameColor_075_GUI_PNPC = 0xFFCAB7D4 (ARGB)
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xCAB7D4CC; // Same as InGameColor_075_GUI_PNPC = 0xFFCAB7D4 (ARGB)
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x1D1621CC;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x1D1621CC;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xCAB7D4CC; // Same as InGameColor_075_GUI_PNPC = 0xFFCAB7D4 (ARGB)
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xCAB7D4CC; // Same as InGameColor_075_GUI_PNPC = 0xFFCAB7D4 (ARGB)
 
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.End.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Outline.Visible = true;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Outline.Visible = true;
 
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Outline.Thickness = 2f;
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Outline.Offset = 0f;
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Outline.Style = OutlineStyle.Inside;
-		damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Outline.Thickness = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Outline.Offset = 0f;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Outline.Style = OutlineStyle.Inside;
+	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.Visible = true;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Visible = true;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.Offset.X = 0f;
-		damageMeterStaticUiConfig.SupportHunters.DPS.Offset.Y = 0f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Offset.X = 0f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Offset.Y = 0f;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Visible = true;
-		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Format = "{0:F1}";
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Visible = true;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Format = "{0:F1}";
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Settings.Alignment = Anchor.BottomRight;
-		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Settings.MaxWidth = 0f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Settings.MaxWidth = 0f;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Offset.X = 198f;
-		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Offset.X = 198f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Visible = false;
-		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Format = "{0:P1}";
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Visible = false;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Format = "{0:P1}";
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
-		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Settings.MaxWidth = 0f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Settings.MaxWidth = 0f;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Offset.X = 353f;
-		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Offset.Y = 23f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Offset.X = 353f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Offset.Y = 23f;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Color.ColorInfo.Rgba = 0xFFFFFFFF;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Shadow.Visible = true;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Shadow.Visible = true;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Shadow.Offset.X = 2f;
-		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Shadow.Offset.Y = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Shadow.Offset.X = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Shadow.Offset.Y = 2f;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Shadow.Color.ColorInfo.Rgba = 0x000000FF;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Visible = false;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Visible = false;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Offset.X = 0f;
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Offset.Y = 7f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Offset.X = 0f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Offset.Y = 7f;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Size.Width = 360f;
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Size.Height = 10f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Size.Width = 360f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Size.Height = 10f;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x1D1621CC;
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x1D1621CC;
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xCAB7D4CC; // Same as InGameColor_075_GUI_PNPC = 0xFFCAB7D4 (ARGB)
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xCAB7D4CC; // Same as InGameColor_075_GUI_PNPC = 0xFFCAB7D4 (ARGB)
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.Start.ColorInfo1.Rgba = 0x1D1621CC;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.Start.ColorInfo2.Rgba = 0x1D1621CC;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.End.ColorInfo1.Rgba = 0xCAB7D4CC; // Same as InGameColor_075_GUI_PNPC = 0xFFCAB7D4 (ARGB)
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Foreground.End.ColorInfo2.Rgba = 0xCAB7D4CC; // Same as InGameColor_075_GUI_PNPC = 0xFFCAB7D4 (ARGB)
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.End.SplitIntoTwoColors = false;
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.End.SplitIntoTwoColors = false;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Outline.Visible = true;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Outline.Visible = true;
 
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Outline.Thickness = 2f;
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Outline.Offset = 0f;
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Outline.Style = OutlineStyle.Inside;
-		damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
-	}
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Outline.Thickness = 2f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Outline.Offset = 0f;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Outline.Style = OutlineStyle.Inside;
+	//	damageMeterStaticUiConfig.SupportHunters.DPS.Bar.Outline.Color.ColorInfo.Rgba = 0x00000080;
+	//}
 }

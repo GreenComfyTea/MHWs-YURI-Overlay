@@ -10,7 +10,7 @@ internal sealed class DamageMeterStaticUi
 
 	public DamageMeterStaticUi(DamageMeterEntity damageMeterEntity)
 	{
-		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data.DamageMeterUI;
+		//_customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data.DamageMeterUI;
 
 		if(damageMeterEntity.Type == DamageMeterEntityType.LocalPlayer)
 		{

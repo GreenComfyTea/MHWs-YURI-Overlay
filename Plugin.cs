@@ -31,7 +31,7 @@ public class Plugin
 	{
 		LogManager.Info("Disposing...");
 
-		DamageMeterManager.Instance.Dispose();
+		//DamageMeterManager.Instance.Dispose();
 		MonsterManager.Instance.Dispose();
 
 		PlayerManager.Instance.Dispose();
@@ -67,7 +67,7 @@ public class Plugin
 
 			var monsterManager = MonsterManager.Instance;
 			var cameraManager = CameraManager.Instance;
-			var damageMeterManager = DamageMeterManager.Instance;
+			//var damageMeterManager = DamageMeterManager.Instance;
 
 			configManager.Initialize();
 			localizationManager.Initialize();
@@ -84,7 +84,7 @@ public class Plugin
 
 			monsterManager.Initialize();
 			cameraManager.Initialize();
-			damageMeterManager.Initialize();
+			//damageMeterManager.Initialize();
 
 			LogManager.Info("Managers: Initialized!");
 			LogManager.Info("Callbacks: Initializing...");

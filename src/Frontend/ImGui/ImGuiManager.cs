@@ -113,7 +113,7 @@ internal sealed class ImGuiManager
 			changed |= configManager.ActiveConfig.Data.LargeMonsterUI.RenderImGui("large-monster-ui", defaultConfig.LargeMonsterUI);
 			changed |= configManager.ActiveConfig.Data.SmallMonsterUI.RenderImGui("small-monster-ui", defaultConfig.SmallMonsterUI);
 			changed |= configManager.ActiveConfig.Data.EndemicLifeUI.RenderImGui("endemic-life-ui", defaultConfig.EndemicLifeUI);
-			changed |= configManager.ActiveConfig.Data.DamageMeterUI.RenderImGui("damage-meter-ui", defaultConfig.DamageMeterUI);
+			//changed |= configManager.ActiveConfig.Data.DamageMeterUI.RenderImGui("damage-meter-ui", defaultConfig.DamageMeterUI);
 
 			//ImGui.ShowDemoWindow();
 			//ImGui.ShowAboutWindow();
