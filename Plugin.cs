@@ -113,7 +113,7 @@ public class Plugin
 		//}
 
 		ScreenManager.Instance.GameUpdate();
-		DamageMeterManager.Instance.Update();
+		//DamageMeterManager.Instance.Update();
 	}
 
 	private static void OnImGuiDrawUi()
