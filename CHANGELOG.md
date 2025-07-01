@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.6.0](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.3...v1.6.0) (2025-07-01)
+
+
+### Features
+
+* Added Damager Meter UI visuals ([fb6a4e4](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/fb6a4e4456f25dd8c7a70f5bf64917c7f1395d0b))
+* finalize damage meter UI ([b2f3f11](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/b2f3f1112a07a23eab9e448ee7e8f43648dcf905))
+* Updated for TU2 ([a54a3a3](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/a54a3a3243a6d2dd12e940d6319283b732ce96b2))
+
 ## [1.5.3](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.2...v1.5.3) (2025-06-04)
 
 
