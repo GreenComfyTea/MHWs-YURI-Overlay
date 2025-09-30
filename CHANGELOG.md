@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.5](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.4...v1.5.5) (2025-09-30)
+
+
+### Bug Fixes
+
+* Updated camera target hook for TU3 ([6a0315e](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/6a0315e76f14c90231568132d1ed83bec4af4f60))
+
 ## [1.5.4](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.3...v1.5.4) (2025-07-01)
 
 
