@@ -13,7 +13,7 @@ internal static class Constants
 	private const string ReleaseVersion = "1.5.5";
 
 #if DEBUG
-	public static readonly string Version = $"{ReleaseVersion}-debug-{DateTime.Now:yyyy-MM-dd---HH-mm-ss}";
+	public static readonly string Version = $"{ReleaseVersion}-debug-{DateTime.Now:yyyy-MM-dd---HH:mm:ss}";
 #else
 	public const string Version = ReleaseVersion;
 #endif
