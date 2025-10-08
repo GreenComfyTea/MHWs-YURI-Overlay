@@ -12,6 +12,8 @@ internal sealed class ImGuiManager
 	public float ComboBoxWidth = 100f;
 	public float ColorPickerWidth = 100f;
 
+	public float ReframeworkFontSize = Constants.DefaultReframeworkFontSize;
+
 	private bool _isOpened;
 	private bool _isForceModInfoOpen = true;
 	private string _modTitle = string.Empty;
@@ -44,6 +46,8 @@ internal sealed class ImGuiManager
 			var isClicked = ImGui.Button($"{_modTitle}##button");
 			if(isClicked) _isOpened = !_isOpened;
 
+			ReframeworkFontSize = ImGui.GetFontSize();
+
 			if(!_isOpened) return;
 
 			var configManager = ConfigManager.Instance;
@@ -54,13 +58,13 @@ internal sealed class ImGuiManager
 			ImGui.SetNextWindowPos(Constants.DefaultWindowPosition, ImGuiCond.FirstUseEver);
 			ImGui.SetNextWindowSize(Constants.DefaultWindowSize, ImGuiCond.FirstUseEver);
 
-			var menuFont = LuaFontManager.Instance.ActiveMenuFont;
+			//var menuFont = LuaFontManager.Instance.ActiveMenuFont;
 
-			if(menuFont != null)
-			{
-				//LogManager.Debug($"Will push: {menuFont}");
-				//ImGui.PushFont(menuFont.Value.Item2);
-			}
+			//if(menuFont != null)
+			//{
+			//	//LogManager.Debug($"Will push: {menuFont}");
+			//	//ImGui.PushFont(menuFont.Value.Item2);
+			//}
 
 			ImGui.Begin($"{_modTitle}##window", ref _isOpened);
 
@@ -118,10 +122,10 @@ internal sealed class ImGuiManager
 
 			Debug();
 
-			if(menuFont != null)
-			{
-				//ImGui.PopFont();
-			}
+			//if(menuFont != null)
+			//{
+			//	//ImGui.PopFont();
+			//}
 
 			ImGui.End();
 
@@ -155,10 +159,12 @@ internal sealed class ImGuiManager
 		ImGui.ShowDemoWindow();
 		ImGui.ShowAboutWindow();
 		ImGui.ShowDebugLogWindow();
-		ImGui.ShowFontSelector("font-selector");
 		ImGui.ShowMetricsWindow();
-		ImGui.ShowStyleEditor();
-		ImGui.ShowUserGuide();
+
+		// No separate windows
+		//ImGui.ShowFontSelector("font-selector");
+		// ImGui.ShowStyleEditor();
+		// ImGui.ShowUserGuide();
 #endif
 	}
 

@@ -61,6 +61,8 @@ internal static class Constants
 
 	public const uint MaxConfigNameLength = 64;
 
+	public const float DefaultReframeworkFontSize = 16f;
+
 	public static readonly Vector2 DefaultWindowPosition = new(480, 60);
 	public static readonly Vector2 DefaultWindowSize = new(600, 500);
 

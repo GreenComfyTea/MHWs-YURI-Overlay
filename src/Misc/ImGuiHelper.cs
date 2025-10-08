@@ -57,7 +57,7 @@ internal static class ImGuiHelper
 		return isChanged;
 	}
 
-	public static bool ResettableDragFloat(string label, ref float value, float speed, float minValue, float maxValue, string format, float? defaultValue = null)
+	public static bool ResettableDragFloat(string label, ref float value, float speed = 0.1f, float minValue = -4096f, float maxValue = 4096f, string format = "%.1f", float? defaultValue = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
@@ -73,6 +73,26 @@ internal static class ImGuiHelper
 		}
 
 		isChanged |= ImGui.DragFloat(label, ref value, speed, minValue, maxValue, format);
+
+		return isChanged;
+	}
+
+	public static bool ResettableSliderInt(string label, ref int value, int minValue = -4096, int maxValue = 4096, string format = "%d", float? defaultValue = null)
+	{
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
+
+		var isChanged = false;
+
+		if(defaultValue is not null)
+		{
+			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
+			if(isChanged) value = (int) defaultValue;
+
+			Tooltip(localization.ResetToDefault);
+			ImGui.SameLine();
+		}
+
+		isChanged |= ImGui.SliderInt(label, ref value, minValue, maxValue, format);
 
 		return isChanged;
 	}

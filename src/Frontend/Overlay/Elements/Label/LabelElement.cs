@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
 using ImGuiNET;
+using static app.cGUISystemModuleOption;
 
 namespace YURI_Overlay;
 
@@ -24,7 +25,9 @@ internal sealed class LabelElement
 
 		if(string.IsNullOrEmpty(text)) return;
 
-		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier;
+		var globalScaleCustomization = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale;
+		var sizeScaleModifier = globalScaleCustomization.SizeScaleModifier;
+		var overlayFontScale = globalScaleCustomization.FontScale.OverlayFontScale;
 
 		var offset = customization.Offset;
 		var shadowOffset = customization.Shadow.Offset;
@@ -48,18 +51,27 @@ internal sealed class LabelElement
 		Vector2 textPosition = new(textPositionX + alignmentX, textPositionY + alignmentY);
 		Vector2 shadowPosition = new(shadowPositionX + alignmentX, shadowPositionY + alignmentY);
 
+		var font = ImGui.GetFont();
+		var fontSize = customization.Settings.FontSize * overlayFontScale.OverlayFontScaleModifier;
+
+		if(overlayFontScale.ScaleWithReframeworkFontSize)
+		{
+			fontSize *= ImGuiManager.Instance.ReframeworkFontSize / Constants.DefaultReframeworkFontSize;
+		}
+
 		if(customization.Shadow.Visible)
 		{
 			var shadowColor = customization.Shadow.Color.ColorInfo.Abgr;
 			if(opacityScale < 1) shadowColor = Utils.ScaleColorOpacityAbgr(shadowColor, opacityScale);
 
-			backgroundDrawList.AddText(shadowPosition, shadowColor, text);
+			backgroundDrawList.AddText(font, fontSize, shadowPosition, shadowColor, text);
 		}
 
 		var color = customization.Color.ColorInfo.Abgr;
 		if(opacityScale < 1) color = Utils.ScaleColorOpacityAbgr(color, opacityScale);
 
-		backgroundDrawList.AddText(textPosition, color, text);
+		//backgroundDrawList.AddText(textPosition, color, text);
+		backgroundDrawList.AddText(font, fontSize, textPosition, color, text);
 	}
 
 	private static (float, float, Vector2?) GetAlignmentShifts(string text, Anchor alignment)

@@ -172,11 +172,15 @@ internal sealed class ImGuiLocalization
 	public string HorizontalOversample = "Horizontal Oversample";
 	public string VerticalOversample = "Vertical Oversample";
 
-	public string MenuFont = "Menu Font";
-
 	public string FontScale = "Font Scale";
 	public string DefinedByLocalization = "Defined by Localization";
 	public string GlobalFonts = "Global Fonts";
+
+	public string ScaleWithREFrameworkFontSize = "Scale with REFramework Font Size";
+	public string MenuFontScale = "Menu Font Scale";
+	public string OverlayFontScale = "Overlay Font Scale";
+	public string MenuFontScaleModifier = "Menu Font Scale Modifier";
+	public string OverlayFontScaleModifier = "Overlay Font Scale Modifier";
 
 	// Label
 

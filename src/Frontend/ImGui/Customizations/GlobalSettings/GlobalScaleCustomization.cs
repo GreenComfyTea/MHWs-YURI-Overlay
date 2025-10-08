@@ -7,6 +7,8 @@ internal sealed class GlobalScaleCustomization : Customization
 	public float PositionScaleModifier = 1f;
 	public float SizeScaleModifier = 1f;
 
+	public FontScaleCustomization FontScale = new();
+
 	public bool RenderImGui(string parentName = "", GlobalScaleCustomization defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
@@ -18,6 +20,7 @@ internal sealed class GlobalScaleCustomization : Customization
 		{
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.PositionScaleModifier}##{customizationName}", ref PositionScaleModifier, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.PositionScaleModifier);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.SizeScaleModifier}##{customizationName}", ref SizeScaleModifier, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.SizeScaleModifier);
+			isChanged |= FontScale.RenderImGui(customizationName, defaultCustomization?.FontScale);
 
 			ImGui.TreePop();
 		}
@@ -31,5 +34,6 @@ internal sealed class GlobalScaleCustomization : Customization
 
 		PositionScaleModifier = defaultCustomization.PositionScaleModifier;
 		SizeScaleModifier = defaultCustomization.SizeScaleModifier;
+		FontScale.Reset(defaultCustomization.FontScale);
 	}
 }
