@@ -59,7 +59,7 @@ internal sealed class ImGuiLocalization
 	public string Enabled = "Enabled";
 	public string Visible = "Visible";
 
-	public string ResetIcon = "\uF0E2";
+	public string ResetIcon = "\u21BA";
 	public string ResetToDefault = "Reset to Default";
 
 	// Position and Offset
