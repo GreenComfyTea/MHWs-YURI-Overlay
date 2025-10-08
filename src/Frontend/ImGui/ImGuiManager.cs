@@ -1,4 +1,5 @@
 using ImGuiNET;
+using System.Diagnostics;
 
 namespace YURI_Overlay;
 
@@ -115,13 +116,7 @@ internal sealed class ImGuiManager
 			changed |= configManager.ActiveConfig.Data.EndemicLifeUI.RenderImGui("endemic-life-ui", defaultConfig.EndemicLifeUI);
 			//changed |= configManager.ActiveConfig.Data.DamageMeterUI.RenderImGui("damage-meter-ui", defaultConfig.DamageMeterUI);
 
-			//ImGui.ShowDemoWindow();
-			//ImGui.ShowAboutWindow();
-			//ImGui.ShowDebugLogWindow();
-			//ImGui.ShowFontSelector("font-selector");
-			//ImGui.ShowMetricsWindow();
-			//ImGui.ShowStyleEditor();
-			//ImGui.ShowUserGuide();
+			Debug();
 
 			if(menuFont != null)
 			{
@@ -152,6 +147,19 @@ internal sealed class ImGuiManager
 		var maxColorPickerWidthByWindowHeight = Constants.ColorPickerWidthToHeightRatio * windowSize.Y;
 
 		ColorPickerWidth = Math.Min(maxColorPickerWidthByWindowWidth, maxColorPickerWidthByWindowHeight);
+	}
+
+	private void Debug()
+	{
+#if DEBUG
+		ImGui.ShowDemoWindow();
+		ImGui.ShowAboutWindow();
+		ImGui.ShowDebugLogWindow();
+		ImGui.ShowFontSelector("font-selector");
+		ImGui.ShowMetricsWindow();
+		ImGui.ShowStyleEditor();
+		ImGui.ShowUserGuide();
+#endif
 	}
 
 	private void OnConfigChangedEmit()
