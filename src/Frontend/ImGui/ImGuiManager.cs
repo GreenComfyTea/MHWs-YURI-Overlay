@@ -1,5 +1,6 @@
 using ImGuiNET;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace YURI_Overlay;
 
@@ -57,14 +58,6 @@ internal sealed class ImGuiManager
 
 			ImGui.SetNextWindowPos(Constants.DefaultWindowPosition, ImGuiCond.FirstUseEver);
 			ImGui.SetNextWindowSize(Constants.DefaultWindowSize, ImGuiCond.FirstUseEver);
-
-			//var menuFont = LuaFontManager.Instance.ActiveMenuFont;
-
-			//if(menuFont != null)
-			//{
-			//	//LogManager.Debug($"Will push: {menuFont}");
-			//	//ImGui.PushFont(menuFont.Value.Item2);
-			//}
 
 			ImGui.Begin($"{_modTitle}##window", ref _isOpened);
 
@@ -128,6 +121,8 @@ internal sealed class ImGuiManager
 			//}
 
 			ImGui.End();
+
+			//io.FontGlobalScale = oldFontGlobalScale;
 
 			if(changed)
 			{

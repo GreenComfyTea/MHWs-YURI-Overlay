@@ -93,6 +93,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.NameLabel.Visible = true;
 		largeMonsterDynamicUiConfig.NameLabel.Format = "{0}";
 		largeMonsterDynamicUiConfig.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+		largeMonsterDynamicUiConfig.NameLabel.Settings.FontSize = 16f;
 		largeMonsterDynamicUiConfig.NameLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.NameLabel.Offset.X = 7f;
 		largeMonsterDynamicUiConfig.NameLabel.Offset.Y = 2f;
@@ -111,6 +112,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Health.ValueLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Health.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterDynamicUiConfig.Health.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterDynamicUiConfig.Health.ValueLabel.Settings.FontSize = 16f;
 		largeMonsterDynamicUiConfig.Health.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.Health.ValueLabel.Offset.X = 7f;
 		largeMonsterDynamicUiConfig.Health.ValueLabel.Offset.Y = 9f;
@@ -125,6 +127,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Health.PercentageLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Health.PercentageLabel.Format = "{0:P1}";
 		largeMonsterDynamicUiConfig.Health.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterDynamicUiConfig.Health.PercentageLabel.Settings.FontSize = 16f;
 		largeMonsterDynamicUiConfig.Health.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.Health.PercentageLabel.Offset.X = 290f;
 		largeMonsterDynamicUiConfig.Health.PercentageLabel.Offset.Y = 9f;
@@ -172,6 +175,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Format = "{0:F0}/{1:F0}";
 		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Settings.FontSize = 16f;
 		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Offset.X = 7f;
 		largeMonsterDynamicUiConfig.Stamina.ValueLabel.Offset.Y = 5f;
@@ -185,6 +189,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Format = "{0:P0}";
 		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Settings.FontSize = 16f;
 		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Offset.X = 121f;
 		largeMonsterDynamicUiConfig.Stamina.PercentageLabel.Offset.Y = 5f;
@@ -226,6 +231,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Format = "{0}";
 		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Settings.FontSize = 16f;
 		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Offset.X = 121f;
 		largeMonsterDynamicUiConfig.Stamina.TimerLabel.Offset.Y = 5f;
@@ -272,6 +278,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Rage.ValueLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Rage.ValueLabel.Format = "{0:F0}/{1:F0}";
 		largeMonsterDynamicUiConfig.Rage.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterDynamicUiConfig.Rage.ValueLabel.Settings.FontSize = 16f;
 		largeMonsterDynamicUiConfig.Rage.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.Rage.ValueLabel.Offset.X = 7f;
 		largeMonsterDynamicUiConfig.Rage.ValueLabel.Offset.Y = 5f;
@@ -285,6 +292,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Format = "{0:P1}";
 		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Settings.FontSize = 16f;
 		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Offset.X = 87f;
 		largeMonsterDynamicUiConfig.Rage.PercentageLabel.Offset.Y = 5f;
@@ -326,6 +334,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Rage.TimerLabel.Visible = false;
 		largeMonsterDynamicUiConfig.Rage.TimerLabel.Format = "{0}";
 		largeMonsterDynamicUiConfig.Rage.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterDynamicUiConfig.Rage.TimerLabel.Settings.FontSize = 16f;
 		largeMonsterDynamicUiConfig.Rage.TimerLabel.Settings.MaxWidth = 0f;
 		largeMonsterDynamicUiConfig.Rage.TimerLabel.Offset.X = 87f;
 		largeMonsterDynamicUiConfig.Rage.TimerLabel.Offset.Y = 5f;
@@ -392,6 +401,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.NameLabel.Visible = true;
 		largeMonsterStaticUiConfig.NameLabel.Format = "{0}";
 		largeMonsterStaticUiConfig.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+		largeMonsterStaticUiConfig.NameLabel.Settings.FontSize = 16f;
 		largeMonsterStaticUiConfig.NameLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.NameLabel.Offset.X = 7f;
 		largeMonsterStaticUiConfig.NameLabel.Offset.Y = 2f;
@@ -410,6 +420,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Health.ValueLabel.Visible = true;
 		largeMonsterStaticUiConfig.Health.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterStaticUiConfig.Health.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterStaticUiConfig.Health.ValueLabel.Settings.FontSize = 16f;
 		largeMonsterStaticUiConfig.Health.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.Health.ValueLabel.Offset.X = 7f;
 		largeMonsterStaticUiConfig.Health.ValueLabel.Offset.Y = 9f;
@@ -423,6 +434,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Health.PercentageLabel.Visible = true;
 		largeMonsterStaticUiConfig.Health.PercentageLabel.Format = "{0:P1}";
 		largeMonsterStaticUiConfig.Health.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterStaticUiConfig.Health.PercentageLabel.Settings.FontSize = 16f;
 		largeMonsterStaticUiConfig.Health.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.Health.PercentageLabel.Offset.X = 290f;
 		largeMonsterStaticUiConfig.Health.PercentageLabel.Offset.Y = 9f;
@@ -469,6 +481,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Stamina.ValueLabel.Visible = false;
 		largeMonsterStaticUiConfig.Stamina.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterStaticUiConfig.Stamina.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterStaticUiConfig.Stamina.ValueLabel.Settings.FontSize = 16f;
 		largeMonsterStaticUiConfig.Stamina.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.Stamina.ValueLabel.Offset.X = 7f;
 		largeMonsterStaticUiConfig.Stamina.ValueLabel.Offset.Y = 5f;
@@ -482,6 +495,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Visible = false;
 		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Format = "{0:P1}";
 		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Settings.FontSize = 16f;
 		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Offset.X = 87f;
 		largeMonsterStaticUiConfig.Stamina.PercentageLabel.Offset.Y = 5f;
@@ -523,6 +537,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Stamina.TimerLabel.Visible = false;
 		largeMonsterStaticUiConfig.Stamina.TimerLabel.Format = "{0}";
 		largeMonsterStaticUiConfig.Stamina.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterStaticUiConfig.Stamina.TimerLabel.Settings.FontSize = 16f;
 		largeMonsterStaticUiConfig.Stamina.TimerLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.Stamina.TimerLabel.Offset.X = 87f;
 		largeMonsterStaticUiConfig.Stamina.TimerLabel.Offset.Y = 5f;
@@ -569,6 +584,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Rage.ValueLabel.Visible = false;
 		largeMonsterStaticUiConfig.Rage.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterStaticUiConfig.Rage.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterStaticUiConfig.Rage.ValueLabel.Settings.FontSize = 16f;
 		largeMonsterStaticUiConfig.Rage.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.Rage.ValueLabel.Offset.X = 7f;
 		largeMonsterStaticUiConfig.Rage.ValueLabel.Offset.Y = 5f;
@@ -582,6 +598,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Rage.PercentageLabel.Visible = false;
 		largeMonsterStaticUiConfig.Rage.PercentageLabel.Format = "{0:P1}";
 		largeMonsterStaticUiConfig.Rage.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterStaticUiConfig.Rage.PercentageLabel.Settings.FontSize = 16f;
 		largeMonsterStaticUiConfig.Rage.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.Rage.PercentageLabel.Offset.X = 67f;
 		largeMonsterStaticUiConfig.Rage.PercentageLabel.Offset.Y = 5f;
@@ -623,6 +640,7 @@ internal partial class ConfigManager
 		largeMonsterStaticUiConfig.Rage.TimerLabel.Visible = false;
 		largeMonsterStaticUiConfig.Rage.TimerLabel.Format = "{0}";
 		largeMonsterStaticUiConfig.Rage.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterStaticUiConfig.Rage.TimerLabel.Settings.FontSize = 16f;
 		largeMonsterStaticUiConfig.Rage.TimerLabel.Settings.MaxWidth = 0f;
 		largeMonsterStaticUiConfig.Rage.TimerLabel.Offset.X = 67f;
 		largeMonsterStaticUiConfig.Rage.TimerLabel.Offset.Y = 5f;
@@ -681,6 +699,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.NameLabel.Visible = true;
 		largeMonsterTargetedUiConfig.NameLabel.Format = "{0}";
 		largeMonsterTargetedUiConfig.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+		largeMonsterTargetedUiConfig.NameLabel.Settings.FontSize = 16f;
 		largeMonsterTargetedUiConfig.NameLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.NameLabel.Offset.X = 7f;
 		largeMonsterTargetedUiConfig.NameLabel.Offset.Y = 2f;
@@ -699,6 +718,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Health.ValueLabel.Visible = true;
 		largeMonsterTargetedUiConfig.Health.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterTargetedUiConfig.Health.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterTargetedUiConfig.Health.ValueLabel.Settings.FontSize = 16f;
 		largeMonsterTargetedUiConfig.Health.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.Health.ValueLabel.Offset.X = 7f;
 		largeMonsterTargetedUiConfig.Health.ValueLabel.Offset.Y = 9f;
@@ -712,6 +732,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Health.PercentageLabel.Visible = true;
 		largeMonsterTargetedUiConfig.Health.PercentageLabel.Format = "{0:P1}";
 		largeMonsterTargetedUiConfig.Health.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterTargetedUiConfig.Health.PercentageLabel.Settings.FontSize = 16f;
 		largeMonsterTargetedUiConfig.Health.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.Health.PercentageLabel.Offset.X = 290f;
 		largeMonsterTargetedUiConfig.Health.PercentageLabel.Offset.Y = 9f;
@@ -758,6 +779,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Visible = false;
 		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Settings.FontSize = 16f;
 		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Offset.X = 7f;
 		largeMonsterTargetedUiConfig.Stamina.ValueLabel.Offset.Y = 5f;
@@ -771,6 +793,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Visible = false;
 		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Format = "{0:P1}";
 		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Settings.FontSize = 16f;
 		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Offset.X = 87f;
 		largeMonsterTargetedUiConfig.Stamina.PercentageLabel.Offset.Y = 5f;
@@ -812,6 +835,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Visible = false;
 		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Format = "{0}";
 		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Settings.FontSize = 16f;
 		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Offset.X = 87f;
 		largeMonsterTargetedUiConfig.Stamina.TimerLabel.Offset.Y = 5f;
@@ -858,6 +882,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Rage.ValueLabel.Visible = false;
 		largeMonsterTargetedUiConfig.Rage.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterTargetedUiConfig.Rage.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterTargetedUiConfig.Rage.ValueLabel.Settings.FontSize = 16f;
 		largeMonsterTargetedUiConfig.Rage.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.Rage.ValueLabel.Offset.X = 7f;
 		largeMonsterTargetedUiConfig.Rage.ValueLabel.Offset.Y = 5f;
@@ -871,6 +896,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Visible = false;
 		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Format = "{0:P1}";
 		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Settings.FontSize = 16f;
 		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Offset.X = 67f;
 		largeMonsterTargetedUiConfig.Rage.PercentageLabel.Offset.Y = 5f;
@@ -912,6 +938,7 @@ internal partial class ConfigManager
 		largeMonsterTargetedUiConfig.Rage.TimerLabel.Visible = false;
 		largeMonsterTargetedUiConfig.Rage.TimerLabel.Format = "{0}";
 		largeMonsterTargetedUiConfig.Rage.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterTargetedUiConfig.Rage.TimerLabel.Settings.FontSize = 16f;
 		largeMonsterTargetedUiConfig.Rage.TimerLabel.Settings.MaxWidth = 0f;
 		largeMonsterTargetedUiConfig.Rage.TimerLabel.Offset.X = 67f;
 		largeMonsterTargetedUiConfig.Rage.TimerLabel.Offset.Y = 5f;
@@ -970,6 +997,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.NameLabel.Visible = true;
 		largeMonsterMapPinUiConfig.NameLabel.Format = "{0}";
 		largeMonsterMapPinUiConfig.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+		largeMonsterMapPinUiConfig.NameLabel.Settings.FontSize = 16f;
 		largeMonsterMapPinUiConfig.NameLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.NameLabel.Offset.X = 7f;
 		largeMonsterMapPinUiConfig.NameLabel.Offset.Y = 2f;
@@ -988,6 +1016,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.Health.ValueLabel.Visible = true;
 		largeMonsterMapPinUiConfig.Health.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterMapPinUiConfig.Health.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterMapPinUiConfig.Health.ValueLabel.Settings.FontSize = 16f;
 		largeMonsterMapPinUiConfig.Health.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.Health.ValueLabel.Offset.X = 7f;
 		largeMonsterMapPinUiConfig.Health.ValueLabel.Offset.Y = 9f;
@@ -1001,6 +1030,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.Health.PercentageLabel.Visible = true;
 		largeMonsterMapPinUiConfig.Health.PercentageLabel.Format = "{0:P1}";
 		largeMonsterMapPinUiConfig.Health.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterMapPinUiConfig.Health.PercentageLabel.Settings.FontSize = 16f;
 		largeMonsterMapPinUiConfig.Health.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.Health.PercentageLabel.Offset.X = 290f;
 		largeMonsterMapPinUiConfig.Health.PercentageLabel.Offset.Y = 9f;
@@ -1047,6 +1077,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Visible = false;
 		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Settings.FontSize = 16f;
 		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Offset.X = 7f;
 		largeMonsterMapPinUiConfig.Stamina.ValueLabel.Offset.Y = 5f;
@@ -1060,6 +1091,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Visible = false;
 		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Format = "{0:P1}";
 		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Settings.FontSize = 16f;
 		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Offset.X = 87f;
 		largeMonsterMapPinUiConfig.Stamina.PercentageLabel.Offset.Y = 5f;
@@ -1101,6 +1133,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Visible = false;
 		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Format = "{0}";
 		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Settings.FontSize = 16f;
 		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Offset.X = 87f;
 		largeMonsterMapPinUiConfig.Stamina.TimerLabel.Offset.Y = 5f;
@@ -1147,6 +1180,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.Rage.ValueLabel.Visible = false;
 		largeMonsterMapPinUiConfig.Rage.ValueLabel.Format = "{0:F1}/{1:F0}";
 		largeMonsterMapPinUiConfig.Rage.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		largeMonsterMapPinUiConfig.Rage.ValueLabel.Settings.FontSize = 16f;
 		largeMonsterMapPinUiConfig.Rage.ValueLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.Rage.ValueLabel.Offset.X = 7f;
 		largeMonsterMapPinUiConfig.Rage.ValueLabel.Offset.Y = 5f;
@@ -1160,6 +1194,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Visible = false;
 		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Format = "{0:P1}";
 		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Settings.FontSize = 16f;
 		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Offset.X = 67f;
 		largeMonsterMapPinUiConfig.Rage.PercentageLabel.Offset.Y = 5f;
@@ -1201,6 +1236,7 @@ internal partial class ConfigManager
 		largeMonsterMapPinUiConfig.Rage.TimerLabel.Visible = false;
 		largeMonsterMapPinUiConfig.Rage.TimerLabel.Format = "{0}";
 		largeMonsterMapPinUiConfig.Rage.TimerLabel.Settings.Alignment = Anchor.TopRight;
+		largeMonsterMapPinUiConfig.Rage.TimerLabel.Settings.FontSize = 16f;
 		largeMonsterMapPinUiConfig.Rage.TimerLabel.Settings.MaxWidth = 0f;
 		largeMonsterMapPinUiConfig.Rage.TimerLabel.Offset.X = 67f;
 		largeMonsterMapPinUiConfig.Rage.TimerLabel.Offset.Y = 5f;
@@ -1267,6 +1303,7 @@ internal partial class ConfigManager
 		smallMonsterDynamicUiConfig.NameLabel.Visible = true;
 		smallMonsterDynamicUiConfig.NameLabel.Format = "{0}";
 		smallMonsterDynamicUiConfig.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+		smallMonsterDynamicUiConfig.NameLabel.Settings.FontSize = 16f;
 		smallMonsterDynamicUiConfig.NameLabel.Settings.MaxWidth = 0f;
 		smallMonsterDynamicUiConfig.NameLabel.Offset.X = 7f;
 		smallMonsterDynamicUiConfig.NameLabel.Offset.Y = 2f;
@@ -1285,6 +1322,7 @@ internal partial class ConfigManager
 		smallMonsterDynamicUiConfig.Health.ValueLabel.Visible = false;
 		smallMonsterDynamicUiConfig.Health.ValueLabel.Format = "{0:F1}/{1:F0}";
 		smallMonsterDynamicUiConfig.Health.ValueLabel.Settings.Alignment = Anchor.TopLeft;
+		smallMonsterDynamicUiConfig.Health.ValueLabel.Settings.FontSize = 16f;
 		smallMonsterDynamicUiConfig.Health.ValueLabel.Settings.MaxWidth = 0f;
 		smallMonsterDynamicUiConfig.Health.ValueLabel.Offset.X = 7f;
 		smallMonsterDynamicUiConfig.Health.ValueLabel.Offset.Y = 9f;
@@ -1298,6 +1336,7 @@ internal partial class ConfigManager
 		smallMonsterDynamicUiConfig.Health.PercentageLabel.Visible = false;
 		smallMonsterDynamicUiConfig.Health.PercentageLabel.Format = "{0:P1}";
 		smallMonsterDynamicUiConfig.Health.PercentageLabel.Settings.Alignment = Anchor.TopRight;
+		smallMonsterDynamicUiConfig.Health.PercentageLabel.Settings.FontSize = 16f;
 		smallMonsterDynamicUiConfig.Health.PercentageLabel.Settings.MaxWidth = 0f;
 		smallMonsterDynamicUiConfig.Health.PercentageLabel.Offset.X = 155f;
 		smallMonsterDynamicUiConfig.Health.PercentageLabel.Offset.Y = 9f;
@@ -1362,6 +1401,7 @@ internal partial class ConfigManager
 		endemicLifeDynamicUiConfig.NameLabel.Visible = true;
 		endemicLifeDynamicUiConfig.NameLabel.Format = "{0}";
 		endemicLifeDynamicUiConfig.NameLabel.Settings.Alignment = Anchor.BottomCenter;
+		endemicLifeDynamicUiConfig.NameLabel.Settings.FontSize = 16f;
 		endemicLifeDynamicUiConfig.NameLabel.Settings.MaxWidth = 0f;
 		endemicLifeDynamicUiConfig.NameLabel.Offset.X = 7f;
 		endemicLifeDynamicUiConfig.NameLabel.Offset.Y = 0f;
@@ -1405,6 +1445,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Format = "[{0}:{1}]";
 
 	//	damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Settings.Alignment = Anchor.BottomRight;
+	//  damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Settings.MaxWidth = 0f;
 
 	//	damageMeterStaticUiConfig.LocalPlayer.HunterMasterRanksLabel.Offset.X = -7f;
@@ -1423,6 +1464,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.LocalPlayer.NameLabel.Format = "[{2}:{3}] {0}";
 
 	//	damageMeterStaticUiConfig.LocalPlayer.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+	//  damageMeterStaticUiConfig.LocalPlayer.NameLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.LocalPlayer.NameLabel.Settings.MaxWidth = 140f;
 
 	//	damageMeterStaticUiConfig.LocalPlayer.NameLabel.Offset.X = 7f;
@@ -1446,6 +1488,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Format = "{0:F1}";
 
 	//	damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+	//  damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Settings.MaxWidth = 0f;
 
 	//	damageMeterStaticUiConfig.LocalPlayer.Damage.ValueLabel.Offset.X = 286f;
@@ -1464,6 +1507,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Format = "{0:P1}";
 
 	//	damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+	//  damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Settings.MaxWidth = 0f;
 
 	//	damageMeterStaticUiConfig.LocalPlayer.Damage.PercentageLabel.Offset.X = 353f;
@@ -1516,6 +1560,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Format = "{0:F1}";
 
 	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+//  damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Settings.MaxWidth = 0f;
 
 	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Offset.X = 198f;
@@ -1534,6 +1579,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Format = "{0:P1}";
 
 	//	damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+	//  damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Settings.MaxWidth = 0f;
 
 	//	damageMeterStaticUiConfig.LocalPlayer.DPS.PercentageLabel.Offset.X = 353f;
@@ -1583,6 +1629,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Format = "[{0}:{1}]";
 
 	//	damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Settings.Alignment = Anchor.BottomRight;
+	//  damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Settings.MaxWidth = 0f;
 
 	//	damageMeterStaticUiConfig.OtherPlayers.HunterMasterRanksLabel.Offset.X = -7f;
@@ -1601,6 +1648,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.OtherPlayers.NameLabel.Format = "[{2}:{3}] {0}";
 
 	//	damageMeterStaticUiConfig.OtherPlayers.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+	//  damageMeterStaticUiConfig.OtherPlayers.NameLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.OtherPlayers.NameLabel.Settings.MaxWidth = 140f;
 
 	//	damageMeterStaticUiConfig.OtherPlayers.NameLabel.Offset.X = 7f;
@@ -1624,6 +1672,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Format = "{0:F1}";
 
 	//	damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+	//  damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Settings.MaxWidth = 0f;
 
 	//	damageMeterStaticUiConfig.OtherPlayers.Damage.ValueLabel.Offset.X = 286f;
@@ -1642,6 +1691,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Format = "{0:P1}";
 
 	//	damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+	//  damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Settings.MaxWidth = 0f;
 
 	//	damageMeterStaticUiConfig.OtherPlayers.Damage.PercentageLabel.Offset.X = 353f;
@@ -1695,6 +1745,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Format = "{0:F1}";
 
 	//	damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+	//  damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Settings.MaxWidth = 0f;
 
 	//	damageMeterStaticUiConfig.OtherPlayers.DPS.ValueLabel.Offset.X = 198f;
@@ -1713,6 +1764,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Format = "{0:P1}";
 
 	//	damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+	//  damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Settings.MaxWidth = 0f;
 
 	//	damageMeterStaticUiConfig.OtherPlayers.DPS.PercentageLabel.Offset.X = 353f;
@@ -1764,6 +1816,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Format = "[{0}:{1}]";
 
 	//	damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Settings.Alignment = Anchor.BottomRight;
+	//  damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Settings.MaxWidth = 0f;
 
 	//	damageMeterStaticUiConfig.SupportHunters.HunterMasterRanksLabel.Offset.X = -7f;
@@ -1782,6 +1835,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.SupportHunters.NameLabel.Format = "[{2}:{3}] {0}";
 
 	//	damageMeterStaticUiConfig.SupportHunters.NameLabel.Settings.Alignment = Anchor.BottomLeft;
+	//  damageMeterStaticUiConfig.SupportHunters.NameLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.SupportHunters.NameLabel.Settings.MaxWidth = 140f;
 
 	//	damageMeterStaticUiConfig.SupportHunters.NameLabel.Offset.X = 7f;
@@ -1805,6 +1859,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Format = "{0:F1}";
 
 	//	damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+	//  damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Settings.MaxWidth = 0f;
 
 	//	damageMeterStaticUiConfig.SupportHunters.Damage.ValueLabel.Offset.X = 286f;
@@ -1823,6 +1878,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Format = "{0:P1}";
 
 	//	damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+	//  damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Settings.MaxWidth = 0f;
 
 	//	damageMeterStaticUiConfig.SupportHunters.Damage.PercentageLabel.Offset.X = 353f;
@@ -1877,6 +1933,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Format = "{0:F1}";
 
 	//	damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Settings.Alignment = Anchor.BottomRight;
+	//  damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Settings.MaxWidth = 0f;
 
 	//	damageMeterStaticUiConfig.SupportHunters.DPS.ValueLabel.Offset.X = 198f;
@@ -1895,6 +1952,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Format = "{0:P1}";
 
 	//	damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Settings.Alignment = Anchor.BottomRight;
+	//  damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Settings.MaxWidth = 0f;
 
 	//	damageMeterStaticUiConfig.SupportHunters.DPS.PercentageLabel.Offset.X = 353f;

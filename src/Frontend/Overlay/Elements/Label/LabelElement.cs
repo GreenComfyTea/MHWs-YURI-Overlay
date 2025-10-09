@@ -27,7 +27,7 @@ internal sealed class LabelElement
 
 		var globalScaleCustomization = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale;
 		var sizeScaleModifier = globalScaleCustomization.SizeScaleModifier;
-		var overlayFontScale = globalScaleCustomization.FontScale.OverlayFontScale;
+		var overlayFontScale = globalScaleCustomization.OverlayFontScale;
 
 		var offset = customization.Offset;
 		var shadowOffset = customization.Shadow.Offset;
