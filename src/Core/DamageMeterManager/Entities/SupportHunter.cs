@@ -14,7 +14,7 @@ internal class SupportHunter : DamageMeterEntity
 
 		StaticUi = new DamageMeterStaticUi(this);
 
-		Type = DamageMeterEntityType.SupportHunter;
+		Type = DamageMeterEntityTypeEnum.SupportHunter;
 	}
 
 	public override void Dispose()

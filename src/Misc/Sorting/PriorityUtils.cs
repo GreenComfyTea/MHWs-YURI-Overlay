@@ -8,23 +8,25 @@ namespace YURI_Overlay;
 
 internal sealed class PriorityUtils
 {
-	public static int ConvertPriorityToValue(Priority priority)
+	public static int ConvertPriorityToValue(PriorityEnum? priority)
 	{
+		if(priority is null) return 0;
+
 		switch(priority)
 		{
-			case Priority.Higher3:
+			case PriorityEnum.Higher3:
 				return 3;
-			case Priority.Higher2:
+			case PriorityEnum.Higher2:
 				return 2;
-			case Priority.Higher1:
+			case PriorityEnum.Higher1:
 				return 1;
-			case Priority.Lower1:
+			case PriorityEnum.Lower1:
 				return -1;
-			case Priority.Lower2:
+			case PriorityEnum.Lower2:
 				return -2;
-			case Priority.Lower3:
+			case PriorityEnum.Lower3:
 				return -3;
-			case Priority.Normal:
+			case PriorityEnum.Normal:
 			default:
 				return 0;
 		}

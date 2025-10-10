@@ -19,8 +19,8 @@ internal sealed class ImGuiManager
 	private bool _isForceModInfoOpen = true;
 	private string _modTitle = string.Empty;
 
-	private Debouncer _onConfigChangedEmitDebouncer;
-	private Debouncer _onConfigChangedSaveDebouncer;
+	private Debouncer? _onConfigChangedEmitDebouncer;
+	private Debouncer? _onConfigChangedSaveDebouncer;
 
 	private ImGuiManager()
 	{
@@ -53,7 +53,7 @@ internal sealed class ImGuiManager
 
 			var configManager = ConfigManager.Instance;
 
-			var activeLocalization = localizationManager.ActiveLocalization.Data;
+			var activeLocalization = localizationManager.ActiveLocalization?.Data;
 			var changed = false;
 
 			ImGui.SetNextWindowPos(Constants.DefaultWindowPosition, ImGuiCond.FirstUseEver);
@@ -65,35 +65,35 @@ internal sealed class ImGuiManager
 
 			if(_isForceModInfoOpen) ImGui.SetNextItemOpen(true);
 
-			if(ImGui.TreeNode(activeLocalization.ImGui.ModInfo))
+			if(ImGui.TreeNode(activeLocalization?.ImGui.ModInfo))
 			{
-				ImGui.Text(activeLocalization.ImGui.MadeBy);
+				ImGui.Text(activeLocalization?.ImGui.MadeBy);
 				ImGui.SameLine();
 				ImGui.TextColored(Constants.ModAuthorColor, Constants.ModAuthor);
 
-				if(ImGui.Button(activeLocalization.ImGui.NexusMods)) Utils.OpenLink(Constants.NexusModsLink);
+				if(ImGui.Button(activeLocalization?.ImGui.NexusMods)) Utils.OpenLink(Constants.NexusModsLink);
 
 				ImGui.SameLine();
-				if(ImGui.Button(activeLocalization.ImGui.GitHubRepo)) Utils.OpenLink(Constants.GithubRepoLink);
+				if(ImGui.Button(activeLocalization?.ImGui.GitHubRepo)) Utils.OpenLink(Constants.GithubRepoLink);
 
-				if(ImGui.Button(activeLocalization.ImGui.Twitch)) Utils.OpenLink(Constants.TwitchLink);
-
-				ImGui.SameLine();
-				if(ImGui.Button(activeLocalization.ImGui.Twitter)) Utils.OpenLink(Constants.TwitterLink);
+				if(ImGui.Button(activeLocalization?.ImGui.Twitch)) Utils.OpenLink(Constants.TwitchLink);
 
 				ImGui.SameLine();
-				if(ImGui.Button(activeLocalization.ImGui.ArtStation)) Utils.OpenLink(Constants.ArtStationLink);
-
-				ImGui.Text(activeLocalization.ImGui.DonationMessage1);
-				ImGui.Text(activeLocalization.ImGui.DonationMessage2);
-
-				if(ImGui.Button(activeLocalization.ImGui.Donate)) Utils.OpenLink(Constants.StreamElementsTipLink);
+				if(ImGui.Button(activeLocalization?.ImGui.Twitter)) Utils.OpenLink(Constants.TwitterLink);
 
 				ImGui.SameLine();
-				if(ImGui.Button(activeLocalization.ImGui.PayPal)) Utils.OpenLink(Constants.PaypalLink);
+				if(ImGui.Button(activeLocalization?.ImGui.ArtStation)) Utils.OpenLink(Constants.ArtStationLink);
+
+				ImGui.Text(activeLocalization?.ImGui.DonationMessage1);
+				ImGui.Text(activeLocalization?.ImGui.DonationMessage2);
+
+				if(ImGui.Button(activeLocalization?.ImGui.Donate)) Utils.OpenLink(Constants.StreamElementsTipLink);
 
 				ImGui.SameLine();
-				if(ImGui.Button(activeLocalization.ImGui.BuyMeATea)) Utils.OpenLink(Constants.KofiLink);
+				if(ImGui.Button(activeLocalization?.ImGui.PayPal)) Utils.OpenLink(Constants.PaypalLink);
+
+				ImGui.SameLine();
+				if(ImGui.Button(activeLocalization?.ImGui.BuyMeATea)) Utils.OpenLink(Constants.KofiLink);
 
 				ImGui.TreePop();
 			}
@@ -106,16 +106,16 @@ internal sealed class ImGuiManager
 
 			var defaultConfig = ConfigManager.Instance.DefaultConfig;
 
-			changed |= configManager.Customization.RenderImGui("config-settings");
-			changed |= configManager.ActiveConfig.Data.GlobalSettings.RenderImGui("global-settings", defaultConfig.GlobalSettings);
-			changed |= configManager.ActiveConfig.Data.LargeMonsterUI.RenderImGui("large-monster-ui", defaultConfig.LargeMonsterUI);
-			changed |= configManager.ActiveConfig.Data.SmallMonsterUI.RenderImGui("small-monster-ui", defaultConfig.SmallMonsterUI);
-			changed |= configManager.ActiveConfig.Data.EndemicLifeUI.RenderImGui("endemic-life-ui", defaultConfig.EndemicLifeUI);
+			if(configManager.Customization is not null) changed |= configManager.Customization.RenderImGui("config-settings");
+			if(configManager.ActiveConfig?.Data is not null) changed |= configManager.ActiveConfig.Data.GlobalSettings.RenderImGui("global-settings", defaultConfig?.GlobalSettings);
+			if(configManager.ActiveConfig?.Data is not null) changed |= configManager.ActiveConfig.Data.LargeMonsterUI.RenderImGui("large-monster-ui", defaultConfig?.LargeMonsterUI);
+			if(configManager.ActiveConfig?.Data is not null) changed |= configManager.ActiveConfig.Data.SmallMonsterUI.RenderImGui("small-monster-ui", defaultConfig?.SmallMonsterUI);
+			if(configManager.ActiveConfig?.Data is not null) changed |= configManager.ActiveConfig.Data.EndemicLifeUI.RenderImGui("endemic-life-ui", defaultConfig?.EndemicLifeUI);
 			//changed |= configManager.ActiveConfig.Data.DamageMeterUI.RenderImGui("damage-meter-ui", defaultConfig.DamageMeterUI);
 
 			Debug();
 
-			//if(menuFont != null)
+			//if(menuFont is not null)
 			//{
 			//	//ImGui.PopFont();
 			//}
@@ -126,8 +126,8 @@ internal sealed class ImGuiManager
 
 			if(changed)
 			{
-				_onConfigChangedEmitDebouncer.Debounce(OnConfigChangedEmit, 25);
-				_onConfigChangedSaveDebouncer.Debounce(OnConfigChangedSave, 100);
+				_onConfigChangedEmitDebouncer?.Debounce(OnConfigChangedEmit, 25);
+				_onConfigChangedSaveDebouncer?.Debounce(OnConfigChangedSave, 100);
 			}
 		}
 		catch(Exception exception)
@@ -172,6 +172,6 @@ internal sealed class ImGuiManager
 	{
 		LogManager.Info("[ImGuiManager] Config changed.");
 
-		ConfigManager.Instance.ActiveConfig.Save();
+		ConfigManager.Instance.ActiveConfig?.Save();
 	}
 }

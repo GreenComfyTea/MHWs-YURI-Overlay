@@ -1,4 +1,4 @@
-﻿using app;
+using app;
 using REFrameworkNET.Attributes;
 using REFrameworkNET;
 
@@ -10,7 +10,7 @@ internal sealed class CameraManager
 
 	public static CameraManager Instance => Lazy.Value;
 
-	public LargeMonster TargetedLargeMonster = null;
+	public LargeMonster? TargetedLargeMonster = null;
 
 	public CameraManager()
 	{
@@ -29,13 +29,15 @@ internal sealed class CameraManager
 	{
 		try
 		{
-			var customization = ConfigManager.Instance.ActiveConfig.Data;
+			var customization = ConfigManager.Instance.ActiveConfig?.Data;
 
-			if(!customization.LargeMonsterUI.Enabled
-			   && !customization.LargeMonsterUI.Dynamic.Enabled
-			   && !customization.LargeMonsterUI.Static.Enabled
-			   && !customization.LargeMonsterUI.Targeted.Enabled
-			   && !customization.LargeMonsterUI.MapPin.Enabled)
+			if(customization is null) return;
+
+			if(customization.LargeMonsterUI.Enabled != true
+			   && customization.LargeMonsterUI.Dynamic.Enabled != true
+			   && customization.LargeMonsterUI.Static.Enabled != true
+			   && customization.LargeMonsterUI.Targeted.Enabled != true
+			   && customization.LargeMonsterUI.MapPin.Enabled != true)
 			{
 				return;
 			}

@@ -30,15 +30,20 @@ internal sealed class MonsterManager : IDisposable
 	{
 		try
 		{
-			var customization = ConfigManager.Instance.ActiveConfig.Data;
+			var customization = ConfigManager.Instance.ActiveConfig?.Data;
 
-			if(!customization.LargeMonsterUI.Enabled
-			   && !customization.LargeMonsterUI.Dynamic.Enabled
-			   && !customization.LargeMonsterUI.Static.Enabled
-			   && !customization.LargeMonsterUI.Targeted.Enabled
-			   && !customization.LargeMonsterUI.MapPin.Enabled
-			   && !customization.SmallMonsterUI.Enabled
-			   && !customization.EndemicLifeUI.Enabled)
+			if(customization is null)
+			{
+				return PreHookResult.Continue;
+			}
+
+			if(customization.LargeMonsterUI.Enabled != true
+			   && customization.LargeMonsterUI.Dynamic.Enabled != true
+			   && customization.LargeMonsterUI.Static.Enabled != true
+			   && customization.LargeMonsterUI.Targeted.Enabled != true
+			   && customization.LargeMonsterUI.MapPin.Enabled != true
+			   && customization.SmallMonsterUI.Enabled != true
+			   && customization.EndemicLifeUI.Enabled != true)
 			{
 				return PreHookResult.Continue;
 			}
@@ -76,11 +81,11 @@ internal sealed class MonsterManager : IDisposable
 
 			var isLargeMonster = enemyContext.IsBoss;
 			if(isLargeMonster
-			   && customization.LargeMonsterUI.Enabled
-			   && (customization.LargeMonsterUI.Dynamic.Enabled
-				   || customization.LargeMonsterUI.Static.Enabled
-				   || customization.LargeMonsterUI.Targeted.Enabled
-				   || customization.LargeMonsterUI.MapPin.Enabled))
+			   && customization.LargeMonsterUI.Enabled == true
+			   && (customization.LargeMonsterUI.Dynamic.Enabled == true
+				   || customization.LargeMonsterUI.Static.Enabled == true
+				   || customization.LargeMonsterUI.Targeted.Enabled == true
+				   || customization.LargeMonsterUI.MapPin.Enabled == true))
 			{
 				var isFound = Instance.LargeMonsters.ContainsKey(enemyCharacter);
 				if(!isFound)
@@ -93,7 +98,7 @@ internal sealed class MonsterManager : IDisposable
 			}
 
 			var isSmallMonster = enemyContext.IsZako;
-			if(isSmallMonster && customization.SmallMonsterUI.Enabled)
+			if(isSmallMonster && customization.SmallMonsterUI.Enabled == true)
 			{
 				var isFound = Instance.SmallMonsters.ContainsKey(enemyCharacter);
 				if(!isFound)
@@ -106,7 +111,7 @@ internal sealed class MonsterManager : IDisposable
 			}
 
 			var isEndemicLife = enemyContext.IsAnimal;
-			if(isEndemicLife && customization.EndemicLifeUI.Enabled)
+			if(isEndemicLife && customization.EndemicLifeUI.Enabled == true)
 			{
 				var isFound = Instance.EndemicLifeEntities.ContainsKey(enemyCharacter);
 				if(!isFound)

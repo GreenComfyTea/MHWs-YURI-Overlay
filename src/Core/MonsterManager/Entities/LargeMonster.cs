@@ -10,10 +10,10 @@ internal sealed class LargeMonster : IDisposable
 	public EnemyCharacter EnemyCharacter;
 	public cEnemyContext EnemyContext;
 
-	public LargeMonsterDynamicUi DynamicUi;
-	public LargeMonsterStaticUi StaticUi;
-	public LargeMonsterTargetedUi TargetedUi;
-	public LargeMonsterMapPinUi MapPinUi;
+	public LargeMonsterDynamicUi? DynamicUi;
+	public LargeMonsterStaticUi? StaticUi;
+	public LargeMonsterTargetedUi? TargetedUi;
+	public LargeMonsterMapPinUi? MapPinUi;
 
 	public EnemyDef.ID Id = 0;
 	public EnemyDef.ROLE_ID RoleId = 0;
@@ -72,9 +72,9 @@ internal sealed class LargeMonster : IDisposable
 	private bool _isUpdateRagePending = true;
 	private bool _isUpdateMapPinPending = true;
 
-	private Type _stringType;
+	private Type? _stringType;
 
-	private Method _nameStringMethod;
+	private Method? _nameStringMethod;
 
 	public bool IsPinned = false;
 
@@ -147,14 +147,14 @@ internal sealed class LargeMonster : IDisposable
 
 	public void UpdateSortingPriorities()
 	{
-		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
+		var customization = ConfigManager.Instance.ActiveConfig?.Data?.LargeMonsterUI;
 
 		// Targeted Dynamic UI should be rendered last to be on top
 		DynamicSortingPriority = IsTargeted ? 3 : 0;
 
-		var sortingCustomization = customization.Static.Sorting;
-		var targetedMonsterPriorityValue = PriorityUtils.ConvertPriorityToValue(sortingCustomization.TargetedMonsterPriority);
-		var pinnedMonsterPriorityValue = PriorityUtils.ConvertPriorityToValue(sortingCustomization.PinnedMonsterPriority);
+		var sortingCustomization = customization?.Static.Sorting;
+		var targetedMonsterPriorityValue = PriorityUtils.ConvertPriorityToValue(sortingCustomization?.TargetedMonsterPriority);
+		var pinnedMonsterPriorityValue = PriorityUtils.ConvertPriorityToValue(sortingCustomization?.PinnedMonsterPriority);
 
 
 		if(IsTargeted && IsPinned)
@@ -202,7 +202,7 @@ internal sealed class LargeMonster : IDisposable
 
 	private void InitializeTimers()
 	{
-		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.LargeMonsters;
+		var updateDelays = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.Performance.UpdateDelays.LargeMonsters;
 
 		foreach(var timer in _timers)
 		{
@@ -211,14 +211,14 @@ internal sealed class LargeMonster : IDisposable
 
 		_timers.Clear();
 
-		_timers.Add(Timers.SetInterval(SetUpdateNamePending, Utils.SecondsToMilliseconds(updateDelays.Name)));
+		_timers.Add(Timers.SetInterval(SetUpdateNamePending, Utils.SecondsToMilliseconds(updateDelays?.Name)));
 		_timers.Add(Timers.SetInterval(SetUpdateMissionBeaconOffset,
-			Utils.SecondsToMilliseconds(updateDelays.MissionBeaconOffset)));
-		_timers.Add(Timers.SetInterval(SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays.ModelRadius)));
-		_timers.Add(Timers.SetInterval(SetUpdateHealthPending, Utils.SecondsToMilliseconds(updateDelays.Health)));
-		_timers.Add(Timers.SetInterval(SetUpdateStaminaPending, Utils.SecondsToMilliseconds(updateDelays.Stamina)));
-		_timers.Add(Timers.SetInterval(SetUpdateRagePending, Utils.SecondsToMilliseconds(updateDelays.Rage)));
-		_timers.Add(Timers.SetInterval(SetUpdateMapPinPending, Utils.SecondsToMilliseconds(updateDelays.MapPin)));
+			Utils.SecondsToMilliseconds(updateDelays?.MissionBeaconOffset)));
+		_timers.Add(Timers.SetInterval(SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays?.ModelRadius)));
+		_timers.Add(Timers.SetInterval(SetUpdateHealthPending, Utils.SecondsToMilliseconds(updateDelays?.Health)));
+		_timers.Add(Timers.SetInterval(SetUpdateStaminaPending, Utils.SecondsToMilliseconds(updateDelays?.Stamina)));
+		_timers.Add(Timers.SetInterval(SetUpdateRagePending, Utils.SecondsToMilliseconds(updateDelays?.Rage)));
+		_timers.Add(Timers.SetInterval(SetUpdateMapPinPending, Utils.SecondsToMilliseconds(updateDelays?.MapPin)));
 	}
 
 	private void SetUpdateNamePending()
@@ -310,7 +310,7 @@ internal sealed class LargeMonster : IDisposable
 			if(!_isUpdateNamePending) return;
 			_isUpdateNamePending = false;
 
-			var name = (string) _nameStringMethod.InvokeBoxed(_stringType, null, [Id, RoleId, LegendaryId]);
+			var name = (string?) _nameStringMethod?.InvokeBoxed(_stringType, null, [Id, RoleId, LegendaryId]);
 			if(name is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateName] No enemy name");
@@ -391,7 +391,7 @@ internal sealed class LargeMonster : IDisposable
 		}
 	}
 
-	private cEmModuleConditions UpdateStamina()
+	private cEmModuleConditions? UpdateStamina()
 	{
 		try
 		{
@@ -446,7 +446,7 @@ internal sealed class LargeMonster : IDisposable
 		}
 	}
 
-	private void UpdateRage(cEmModuleConditions conditionsModule)
+	private void UpdateRage(cEmModuleConditions? conditionsModule)
 	{
 		try
 		{
@@ -533,7 +533,7 @@ internal sealed class LargeMonster : IDisposable
 		}
 	}
 
-	private void OnAnyConfigChanged(object sender, EventArgs e)
+	private void OnAnyConfigChanged(object? sender, EventArgs e)
 	{
 		InitializeTimers();
 	}

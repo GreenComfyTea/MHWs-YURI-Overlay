@@ -4,22 +4,22 @@ namespace YURI_Overlay;
 
 internal sealed class BarElementCustomization : Customization
 {
-	public bool Visible = true;
+	public bool? Visible = null;
 	public BarElementSettingsCustomization Settings = new();
 	public OffsetCustomization Offset = new();
 	public SizeCustomization Size = new();
 	public BarElementColorsCustomization Colors = new();
 	public BarElementOutlineCustomization Outline = new();
 
-	public bool RenderImGui(string visibleName, string customizationName = "bar", BarElementCustomization defaultCustomization = null)
+	public bool RenderImGui(string? visibleName = "", string customizationName = "bar", BarElementCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
 
 		var isChanged = false;
 
 		if(ImGuiHelper.ResettableTreeNode(visibleName, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
 
 			isChanged |= Settings.RenderImGui(customizationName, defaultCustomization?.Settings);
 			isChanged |= Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
@@ -33,7 +33,7 @@ internal sealed class BarElementCustomization : Customization
 		return isChanged;
 	}
 
-	public void Reset(BarElementCustomization defaultCustomization = null)
+	public void Reset(BarElementCustomization? defaultCustomization = null)
 	{
 		if(defaultCustomization is null) return;
 

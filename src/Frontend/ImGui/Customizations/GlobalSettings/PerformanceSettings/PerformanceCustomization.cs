@@ -4,19 +4,19 @@ namespace YURI_Overlay;
 
 internal sealed class PerformanceCustomization : Customization
 {
-	public bool CalculationCaching = true;
+	public bool? CalculationCaching = null;
 	public UpdateDelaysCustomization UpdateDelays = new();
 
-	public bool RenderImGui(string parentName = "", PerformanceCustomization defaultCustomization = null)
+	public bool RenderImGui(string? parentName = "", PerformanceCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-performance";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.Performance, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization?.Performance, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.CalculationCaching}##{customizationName}", ref CalculationCaching, defaultCustomization?.CalculationCaching);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.CalculationCaching}##{customizationName}", ref CalculationCaching, defaultCustomization?.CalculationCaching);
 			isChanged |= UpdateDelays.RenderImGui(customizationName, defaultCustomization?.UpdateDelays);
 
 			ImGui.TreePop();
@@ -25,7 +25,7 @@ internal sealed class PerformanceCustomization : Customization
 		return isChanged;
 	}
 
-	public void Reset(PerformanceCustomization defaultCustomization = null)
+	public void Reset(PerformanceCustomization? defaultCustomization = null)
 	{
 		if(defaultCustomization is null) return;
 

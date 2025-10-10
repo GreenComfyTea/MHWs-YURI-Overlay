@@ -6,10 +6,10 @@ namespace YURI_Overlay;
 internal sealed class ColorInfo
 {
 	public Vector4 vector;
-	private uint _rgba;
-	private uint _abgr;
-	private string _rgbaHex;
-	private string _abgrHex;
+	private uint _rgba = 0x000000FF;
+	private uint _abgr = 0XFF000000;
+	private string _rgbaHex = "0x000000FF";
+	private string _abgrHex = "0xFF000000";
 
 	public Vector4 Vector
 	{

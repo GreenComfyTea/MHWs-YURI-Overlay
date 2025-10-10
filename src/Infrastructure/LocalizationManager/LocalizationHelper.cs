@@ -33,7 +33,13 @@ internal sealed class LocalizationHelper
 
 		localizationManager.ActiveLocalizationChanged += OnActiveLocalizationChanged;
 
-		var defaultLocalization = localizationManager.DefaultLocalization.Data.ImGui;
+		var defaultLocalization = localizationManager.DefaultLocalization?.Data?.ImGui;
+
+		if(defaultLocalization is null)
+		{
+			LogManager.Warn("LocalizationHelper Initialization Failed! No Default Localization!");
+			return;
+		}
 
 		DefaultFillDirections =
 		[
@@ -103,7 +109,13 @@ internal sealed class LocalizationHelper
 
 	public void Update()
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
+
+		if(localization is null)
+		{
+			LogManager.Warn("LocalizationHelper Update Failed! No Localization!");
+			return;
+		}
 
 		FillDirections =
 		[
@@ -169,7 +181,7 @@ internal sealed class LocalizationHelper
 		DefinedByLocalization = localization.DefinedByLocalization;
 	}
 
-	private void OnActiveLocalizationChanged(object sender, EventArgs e)
+	private void OnActiveLocalizationChanged(object? sender, EventArgs e)
 	{
 		Update();
 	}

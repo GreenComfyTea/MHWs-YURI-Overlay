@@ -8,9 +8,9 @@ namespace YURI_Overlay;
 
 internal abstract class DamageMeterEntity : IDisposable
 {
-	public DamageMeterStaticUi StaticUi;
+	public DamageMeterStaticUi? StaticUi;
 
-	public DamageMeterEntityType Type;
+	public DamageMeterEntityTypeEnum Type;
 
 	public string Name = "Hatsune Miku";
 

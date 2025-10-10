@@ -5,49 +5,49 @@ namespace YURI_Overlay;
 
 internal sealed class LargeMonsterStaticUiSortingCustomization : Customization
 {
-	public bool ReversedOrder;
+	public bool? ReversedOrder;
 
-	private int _typeIndex = (int) Sorting.Name;
-
-	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public Sorting Type
-	{
-		get => (Sorting) _typeIndex;
-		set => _typeIndex = (int) value;
-	}
-
-	private int _targetedMonsterPriorityIndex = (int) Priority.Higher2;
+	private int? _typeIndex = null;
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public Priority TargetedMonsterPriority
+	public SortingEnum? Type
 	{
-		get => (Priority) _targetedMonsterPriorityIndex;
-		set => _targetedMonsterPriorityIndex = (int) value;
+		get => _typeIndex.HasValue ? (SortingEnum) _typeIndex : null;
+		set => _typeIndex = value.HasValue ? (int) value.Value : null;
 	}
 
-	private int _pinnedMonsterPriorityIndex = (int) Priority.Higher1;
+	private int? _targetedMonsterPriorityIndex = null;
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public Priority PinnedMonsterPriority
+	public PriorityEnum? TargetedMonsterPriority
 	{
-		get => (Priority) _pinnedMonsterPriorityIndex;
-		set => _pinnedMonsterPriorityIndex = (int) value;
+		get => _targetedMonsterPriorityIndex.HasValue ? (PriorityEnum) _targetedMonsterPriorityIndex : null;
+		set => _targetedMonsterPriorityIndex = value.HasValue ? (int) value.Value : null;
 	}
 
-	public bool RenderImGui(string parentName = "", LargeMonsterStaticUiSortingCustomization defaultCustomization = null)
+	private int? _pinnedMonsterPriorityIndex = null;
+
+	[JsonConverter(typeof(JsonStringEnumConverter))]
+	public PriorityEnum? PinnedMonsterPriority
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
+		get => _pinnedMonsterPriorityIndex.HasValue ? (PriorityEnum) _pinnedMonsterPriorityIndex.Value : null;
+		set => _pinnedMonsterPriorityIndex = value.HasValue ? (int) value.Value : null;
+	}
+
+	public bool RenderImGui(string? parentName = "", LargeMonsterStaticUiSortingCustomization? defaultCustomization = null)
+	{
+		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
 		var localizationHelper = LocalizationHelper.Instance;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-settings";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.Sorting, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization?.Sorting, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.ReversedOrder}##{customizationName}", ref ReversedOrder, defaultCustomization?.ReversedOrder);
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Type}##{customizationName}", ref _typeIndex, localizationHelper.Sortings, defaultCustomization?._typeIndex);
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization.TargetedMonsterPriority}##{customizationName}", ref _targetedMonsterPriorityIndex, localizationHelper.Priorities, defaultCustomization?._targetedMonsterPriorityIndex);
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization.PinnedMonsterPriority}##{customizationName}", ref _pinnedMonsterPriorityIndex, localizationHelper.Priorities, defaultCustomization?._pinnedMonsterPriorityIndex);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.ReversedOrder}##{customizationName}", ref ReversedOrder, defaultCustomization?.ReversedOrder);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization?.Type}##{customizationName}", ref _typeIndex, localizationHelper.Sortings, defaultCustomization?._typeIndex);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization?.TargetedMonsterPriority}##{customizationName}", ref _targetedMonsterPriorityIndex, localizationHelper.Priorities, defaultCustomization?._targetedMonsterPriorityIndex);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization?.PinnedMonsterPriority}##{customizationName}", ref _pinnedMonsterPriorityIndex, localizationHelper.Priorities, defaultCustomization?._pinnedMonsterPriorityIndex);
 
 			ImGui.TreePop();
 		}
@@ -55,7 +55,7 @@ internal sealed class LargeMonsterStaticUiSortingCustomization : Customization
 		return isChanged;
 	}
 
-	public void Reset(LargeMonsterStaticUiSortingCustomization defaultCustomization = null)
+	public void Reset(LargeMonsterStaticUiSortingCustomization? defaultCustomization = null)
 	{
 		if(defaultCustomization is null) return;
 

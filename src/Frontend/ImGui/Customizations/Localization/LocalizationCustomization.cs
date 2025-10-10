@@ -11,16 +11,17 @@ internal sealed class LocalizationCustomization : Customization
 	private string[] _localizationNames = [];
 	private string[] _localizationIsoCodes = [];
 
-	[JsonIgnore] private Vector4 TranslatorColor { get; set; } = Constants.ModAuthorColor;
+	[JsonIgnore]
+	private Vector4 TranslatorColor { get; set; } = Constants.ModAuthorColor;
 
 	public LocalizationCustomization()
 	{
 		var localizationManager = LocalizationManager.Instance;
 
-		_localizationNames = localizationManager.Localizations.Values.Select(localization => localization.Data.LocalizationInfo.Name).ToArray();
+		_localizationNames = localizationManager.Localizations.Values.Select(localization => localization.Data?.LocalizationInfo.Name ?? "").ToArray();
 		_localizationIsoCodes = localizationManager.Localizations.Values.Select(localization => localization.Name).ToArray();
 
-		_activeLocalizationIndex = Array.IndexOf(_localizationIsoCodes, localizationManager.ActiveLocalization.Name);
+		_activeLocalizationIndex = Array.IndexOf(_localizationIsoCodes, localizationManager.ActiveLocalization?.Name);
 
 		UpdateTranslatorColor();
 
@@ -28,29 +29,29 @@ internal sealed class LocalizationCustomization : Customization
 		localizationManager.AnyLocalizationChanged += OnAnyLocalizationChanged;
 	}
 
-	public bool RenderImGui(string parentName = "")
+	public bool RenderImGui(string? parentName = "")
 	{
 		var localizationManager = LocalizationManager.Instance;
 		var configManager = ConfigManager.Instance;
-		var localization = localizationManager.ActiveLocalization.Data.ImGui;
+		var localization = localizationManager.ActiveLocalization?.Data?.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-language";
 
 		var englishLocalizationIndex = Array.IndexOf(_localizationIsoCodes, Constants.DefaultLocalization);
 
-		if(ImGuiHelper.ResettableTreeNode(localization.Language, customizationName, ref isChanged, englishLocalizationIndex, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization?.Language, customizationName, ref isChanged, englishLocalizationIndex, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Language}##{customizationName}", ref _activeLocalizationIndex, _localizationNames, englishLocalizationIndex);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization?.Language}##{customizationName}", ref _activeLocalizationIndex, _localizationNames, englishLocalizationIndex);
 			if(isChanged)
 			{
-				configManager.ActiveConfig.Data.GlobalSettings.Localization = _localizationIsoCodes[_activeLocalizationIndex];
+				if(configManager.ActiveConfig?.Data is not null) configManager.ActiveConfig.Data.GlobalSettings.Localization = _localizationIsoCodes[_activeLocalizationIndex];
 				localizationManager.ActivateLocalization(_localizationIsoCodes[_activeLocalizationIndex]);
 			}
 
-			ImGui.Text($"{LocalizationManager.Instance.ActiveLocalization.Data.ImGui.Translators}:");
+			ImGui.Text($"{LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui.Translators}:");
 			ImGui.SameLine();
-			ImGui.TextColored(TranslatorColor, localizationManager.ActiveLocalization.Data.LocalizationInfo.Translators);
+			ImGui.TextColored(TranslatorColor, localizationManager.ActiveLocalization?.Data?.LocalizationInfo.Translators);
 
 			ImGui.TreePop();
 		}
@@ -68,25 +69,30 @@ internal sealed class LocalizationCustomization : Customization
 
 	private void UpdateTranslatorColor()
 	{
+		if(LocalizationManager.Instance.ActiveLocalization?.Data is null)
+		{
+			return;
+		}
+
 		TranslatorColor =
 			LocalizationManager.Instance.ActiveLocalization.Data.LocalizationInfo.Translators.Equals(Constants.ModAuthor)
 				? Constants.ModAuthorColor
 				: Constants.ImGuiUserNameColor;
 	}
 
-	private void OnAnyLocalizationChanged(object sender, EventArgs eventArgs)
+	private void OnAnyLocalizationChanged(object? sender, EventArgs eventArgs)
 	{
 		var localizationManager = LocalizationManager.Instance;
 
-		_localizationNames = localizationManager.Localizations.Values.Select(localization => localization.Data.LocalizationInfo.Name).ToArray();
+		_localizationNames = localizationManager.Localizations.Values.Select(localization => localization.Data?.LocalizationInfo.Name ?? "").ToArray();
 		_localizationIsoCodes = localizationManager.Localizations.Values.Select(localization => localization.Name).ToArray();
 	}
 
-	private void OnActiveLocalizationChanged(object sender, EventArgs eventArgs)
+	private void OnActiveLocalizationChanged(object? sender, EventArgs eventArgs)
 	{
 		var localizationManager = LocalizationManager.Instance;
 
-		_activeLocalizationIndex = Array.IndexOf(_localizationIsoCodes, localizationManager.ActiveLocalization.Name);
+		_activeLocalizationIndex = Array.IndexOf(_localizationIsoCodes, localizationManager.ActiveLocalization?.Name);
 		UpdateTranslatorColor();
 	}
 }

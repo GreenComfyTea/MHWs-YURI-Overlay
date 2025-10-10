@@ -31,7 +31,7 @@ internal sealed class LocalPlayer : DamageMeterEntity
 		{
 			Initialize();
 
-			Type = DamageMeterEntityType.LocalPlayer;
+			Type = DamageMeterEntityTypeEnum.LocalPlayer;
 			StaticUi = new DamageMeterStaticUi(this);
 
 			LogManager.Info($"[DamageMeter] Initialized Local Player: {Name}!");
@@ -157,7 +157,7 @@ internal sealed class LocalPlayer : DamageMeterEntity
 
 	private void InitializeTimers()
 	{
-		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.LargeMonsters;
+		var updateDelays = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.Performance.UpdateDelays.LargeMonsters;
 
 		foreach(var timer in _timers)
 		{

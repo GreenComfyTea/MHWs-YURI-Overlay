@@ -4,11 +4,11 @@ namespace YURI_Overlay;
 
 internal sealed class ConfigWatcher : IDisposable
 {
-	private readonly FileSystemWatcher _watcher;
+	private readonly FileSystemWatcher? _watcher;
 	private readonly Dictionary<string, DateTime> _lastEventTimes = [];
 
 	private bool _disabled;
-	private Timer _delayedEnableTimer;
+	private Timer? _delayedEnableTimer;
 
 	public ConfigWatcher()
 	{
@@ -80,12 +80,12 @@ internal sealed class ConfigWatcher : IDisposable
 	{
 		LogManager.Info("[ConfigWatcher] Disposing...");
 
-		_watcher.Dispose();
+		_watcher?.Dispose();
 
 		LogManager.Info("[ConfigWatcher] Disposed!");
 	}
 
-	private void OnConfigFileChanged(object sender, FileSystemEventArgs e)
+	private void OnConfigFileChanged(object? sender, FileSystemEventArgs e)
 	{
 		try
 		{
@@ -117,13 +117,18 @@ internal sealed class ConfigWatcher : IDisposable
 		}
 	}
 
-	private void OnConfigFileCreated(object sender, FileSystemEventArgs e)
+	private void OnConfigFileCreated(object? sender, FileSystemEventArgs e)
 	{
 		try
 		{
 			if(_disabled) return;
 
 			var name = Path.GetFileNameWithoutExtension(e.Name);
+			if(name is null)
+			{
+				LogManager.Warn("Invalid config name.");
+				return;
+			}
 
 			LogManager.Info($"Config \"{name}\": Created.");
 
@@ -135,7 +140,7 @@ internal sealed class ConfigWatcher : IDisposable
 		}
 	}
 
-	private void OnConfigFileDeleted(object sender, FileSystemEventArgs e)
+	private void OnConfigFileDeleted(object? sender, FileSystemEventArgs e)
 	{
 		try
 		{
@@ -151,7 +156,7 @@ internal sealed class ConfigWatcher : IDisposable
 		}
 	}
 
-	private void OnConfigFileRenamed(object sender, RenamedEventArgs e)
+	private void OnConfigFileRenamed(object? sender, RenamedEventArgs e)
 	{
 		try
 		{
@@ -168,7 +173,7 @@ internal sealed class ConfigWatcher : IDisposable
 		}
 	}
 
-	private void OnConfigFileError(object sender, ErrorEventArgs e)
+	private void OnConfigFileError(object? sender, ErrorEventArgs e)
 	{
 		if(_disabled) return;
 

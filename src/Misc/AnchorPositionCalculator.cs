@@ -13,41 +13,41 @@ internal static class AnchorPositionCalculator
 
 		return anchoredPositionCustomization.Anchor switch
 		{
-			Anchor.TopCenter => new Vector2(
-				displayWidth / 2f + anchoredPositionCustomization.X * positionScaleModifier,
-				anchoredPositionCustomization.Y * positionScaleModifier
+			AnchorEnum.TopCenter => new Vector2(
+				displayWidth / 2f + (anchoredPositionCustomization.X ?? 0f) * positionScaleModifier,
+				(anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier
 			),
-			Anchor.TopRight => new Vector2(
-				displayWidth + anchoredPositionCustomization.X * positionScaleModifier,
-				anchoredPositionCustomization.Y * positionScaleModifier
+			AnchorEnum.TopRight => new Vector2(
+				displayWidth + (anchoredPositionCustomization.X ?? 0f) * positionScaleModifier,
+				(anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier
 			),
-			Anchor.CenterLeft => new Vector2(
-				anchoredPositionCustomization.X * positionScaleModifier,
-				displayHeight / 2f + anchoredPositionCustomization.Y * positionScaleModifier
+			AnchorEnum.CenterLeft => new Vector2(
+				(anchoredPositionCustomization.X ?? 0f) * positionScaleModifier,
+				displayHeight / 2f + (anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier
 			),
-			Anchor.Center => new Vector2(
-				displayWidth / 2f + anchoredPositionCustomization.X * positionScaleModifier,
-				displayHeight / 2f + anchoredPositionCustomization.Y * positionScaleModifier
+			AnchorEnum.Center => new Vector2(
+				displayWidth / 2f + (anchoredPositionCustomization.X ?? 0f) * positionScaleModifier,
+				displayHeight / 2f + (anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier
 			),
-			Anchor.CenterRight => new Vector2(
-				displayWidth + anchoredPositionCustomization.X * positionScaleModifier,
-				displayHeight / 2f + anchoredPositionCustomization.Y * positionScaleModifier
+			AnchorEnum.CenterRight => new Vector2(
+				displayWidth + (anchoredPositionCustomization.X ?? 0f) * positionScaleModifier,
+				displayHeight / 2f + (anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier
 			),
-			Anchor.BottomLeft => new Vector2(
-				anchoredPositionCustomization.X * positionScaleModifier,
-				displayHeight + anchoredPositionCustomization.Y * positionScaleModifier
+			AnchorEnum.BottomLeft => new Vector2(
+				(anchoredPositionCustomization.X ?? 0f) * positionScaleModifier,
+				displayHeight + (anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier
 			),
-			Anchor.BottomCenter => new Vector2(
-				displayWidth / 2f + anchoredPositionCustomization.X * positionScaleModifier,
-				displayHeight + anchoredPositionCustomization.Y * positionScaleModifier
+			AnchorEnum.BottomCenter => new Vector2(
+				displayWidth / 2f + (anchoredPositionCustomization.X ?? 0f) * positionScaleModifier,
+				displayHeight + (anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier
 			),
-			Anchor.BottomRight => new Vector2(
-				displayWidth + anchoredPositionCustomization.X * positionScaleModifier,
-				displayHeight + anchoredPositionCustomization.Y * positionScaleModifier
+			AnchorEnum.BottomRight => new Vector2(
+				displayWidth + (anchoredPositionCustomization.X ?? 0f) * positionScaleModifier,
+				displayHeight + (anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier
 			),
 			_ => new Vector2(
-				anchoredPositionCustomization.X * positionScaleModifier,
-				anchoredPositionCustomization.Y * positionScaleModifier
+				(anchoredPositionCustomization.X ?? 0f) * positionScaleModifier,
+				(anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier
 			),
 		};
 	}

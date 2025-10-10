@@ -10,7 +10,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 	public EnemyCharacter EnemyCharacter;
 	public cEnemyContext EnemyContext;
 
-	public EndemicLifeDynamicUi DynamicUi;
+	public EndemicLifeDynamicUi? DynamicUi;
 
 	public EnemyDef.ID Id = 0;
 	public EnemyDef.ROLE_ID RoleId = 0;
@@ -28,9 +28,9 @@ internal sealed class EndemicLifeEntity : IDisposable
 	private bool _isUpdateNamePending = true;
 	private bool _isUpdateModelRadiusPending = true;
 
-	private Type _stringType;
+	private Type? _stringType;
 
-	private Method _nameStringMethod;
+	private Method? _nameStringMethod;
 
 	public EndemicLifeEntity(EnemyCharacter enemyCharacter, cEnemyContext enemyContext)
 	{
@@ -100,7 +100,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 
 	private void InitializeTimers()
 	{
-		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.EndemicLife;
+		var updateDelays = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.Performance.UpdateDelays.EndemicLife;
 
 		foreach(var timer in _timers)
 		{
@@ -109,8 +109,8 @@ internal sealed class EndemicLifeEntity : IDisposable
 
 		_timers.Clear();
 
-		_timers.Add(Timers.SetInterval(SetUpdateNamePending, Utils.SecondsToMilliseconds(updateDelays.Name)));
-		_timers.Add(Timers.SetInterval(SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays.ModelRadius)));
+		_timers.Add(Timers.SetInterval(SetUpdateNamePending, Utils.SecondsToMilliseconds(updateDelays?.Name)));
+		_timers.Add(Timers.SetInterval(SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays?.ModelRadius)));
 	}
 
 	private void SetUpdateNamePending()
@@ -177,7 +177,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 			if(!_isUpdateNamePending) return;
 			_isUpdateNamePending = false;
 
-			var name = (string) _nameStringMethod.InvokeBoxed(_stringType, null, [Id, RoleId, LegendaryId]);
+			var name = (string?) _nameStringMethod?.InvokeBoxed(_stringType, null, [Id, RoleId, LegendaryId]);
 			if(name is null)
 			{
 				LogManager.Warn("[EndemicLife.UpdateName] No enemy name");
@@ -224,7 +224,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 		}
 	}
 
-	private void OnAnyConfigChanged(object sender, EventArgs e)
+	private void OnAnyConfigChanged(object? sender, EventArgs e)
 	{
 		InitializeTimers();
 	}

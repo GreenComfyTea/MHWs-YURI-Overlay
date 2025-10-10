@@ -2,7 +2,7 @@
 
 internal sealed class Debouncer
 {
-	private CancellationTokenSource _cancellationTokenSource;
+	private CancellationTokenSource? _cancellationTokenSource;
 
 	public void Debounce(Action action, int delayMilliseconds)
 	{

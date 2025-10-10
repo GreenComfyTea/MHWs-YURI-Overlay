@@ -149,7 +149,7 @@ internal sealed class LuaFontManager
 		_isGameUpdatePending = true;
 	}
 
-	private void OnAnyConfigChanged(object sender, EventArgs args)
+	private void OnAnyConfigChanged(object? sender, EventArgs args)
 	{
 		UpdateActiveFonts();
 	}

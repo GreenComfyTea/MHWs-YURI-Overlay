@@ -4,7 +4,7 @@ namespace YURI_Overlay;
 
 internal sealed class DamageMeterStaticUiCustomization : Customization
 {
-	public bool Enabled = true;
+	public bool? Enabled = null;
 	public DamageMeterStaticUiSettingsCustomization Settings = new();
 	public AnchoredPositionCustomization Position = new();
 	public SpacingCustomization Spacing = new();
@@ -14,25 +14,25 @@ internal sealed class DamageMeterStaticUiCustomization : Customization
 	public DamageMeterPlayerWidgetCustomization OtherPlayers = new();
 	public DamageMeterPlayerWidgetCustomization SupportHunters = new();
 
-	public bool RenderImGui(string parentName = "", DamageMeterStaticUiCustomization defaultCustomization = null)
+	public bool RenderImGui(string? parentName = "", DamageMeterStaticUiCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}";
 
-		if(ImGuiHelper.ResettableTreeNode($"{localization.DamageMeterUI}##{customizationName}", customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode($"{localization?.DamageMeterUI}##{customizationName}", customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
 
 			isChanged |= Settings.RenderImGui(customizationName, defaultCustomization?.Settings);
 			isChanged |= Position.RenderImGui(customizationName, defaultCustomization?.Position);
 			isChanged |= Spacing.RenderImGui(customizationName, defaultCustomization?.Spacing);
 			isChanged |= Sorting.RenderImGui(customizationName, defaultCustomization?.Sorting);
 
-			isChanged |= LocalPlayer.RenderImGui(localization.LocalPlayer, $"{customizationName}-local-player", defaultCustomization?.LocalPlayer);
-			isChanged |= OtherPlayers.RenderImGui(localization.OtherPlayers, $"{customizationName}-other-players", defaultCustomization?.OtherPlayers);
-			isChanged |= SupportHunters.RenderImGui(localization.SupportHunters, $"{customizationName}-support-hunters", defaultCustomization?.SupportHunters);
+			isChanged |= LocalPlayer.RenderImGui(localization?.LocalPlayer, $"{customizationName}-local-player", defaultCustomization?.LocalPlayer);
+			isChanged |= OtherPlayers.RenderImGui(localization?.OtherPlayers, $"{customizationName}-other-players", defaultCustomization?.OtherPlayers);
+			isChanged |= SupportHunters.RenderImGui(localization?.SupportHunters, $"{customizationName}-support-hunters", defaultCustomization?.SupportHunters);
 
 			ImGui.TreePop();
 		}
@@ -40,7 +40,7 @@ internal sealed class DamageMeterStaticUiCustomization : Customization
 		return isChanged;
 	}
 
-	public void Reset(DamageMeterStaticUiCustomization defaultCustomization = null)
+	public void Reset(DamageMeterStaticUiCustomization? defaultCustomization = null)
 	{
 		if(defaultCustomization is null) return;
 

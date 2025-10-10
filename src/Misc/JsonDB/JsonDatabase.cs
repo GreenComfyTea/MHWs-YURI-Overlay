@@ -7,9 +7,9 @@ internal sealed class JsonDatabase<T> : IDisposable where T : class, new()
 	public string Name = string.Empty;
 	public string FilePath = Constants.PluginDataPath;
 
-	public T Data;
-	public FileSync FileSyncInstance;
-	public JsonWatcher<T> JsonWatcherInstance;
+	public T? Data;
+	public FileSync? FileSyncInstance;
+	public JsonWatcher<T>? JsonWatcherInstance;
 
 	public EventHandler Changed = delegate { };
 	public EventHandler Renamed = delegate { };
@@ -18,7 +18,7 @@ internal sealed class JsonDatabase<T> : IDisposable where T : class, new()
 	public EventHandler Deleted = delegate { };
 	public EventHandler Error = delegate { };
 
-	public JsonDatabase(string path, string name, T data = null)
+	public JsonDatabase(string path, string name, T? data = null)
 	{
 		try
 		{
@@ -43,17 +43,22 @@ internal sealed class JsonDatabase<T> : IDisposable where T : class, new()
 		Dispose();
 	}
 
-	public T Load(T data = null)
+	public T? Load(T? data = null)
 	{
 		try
 		{
 			JsonWatcherInstance?.Disable();
 			LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Loading... ${data}");
 
-			var json = data is null ? FileSyncInstance.Read() : JsonSerializer.Serialize(data, Constants.JsonSerializerOptionsInstance);
+			var json = data is null ? FileSyncInstance?.Read() : JsonSerializer.Serialize(data, Constants.JsonSerializerOptionsInstance);
+
+			if(json is null)
+			{
+				throw new Exception($"[JsonDatabase] File \"{Name}.json\": Read() returned null!");
+			}
 
 			Data = JsonSerializer.Deserialize<T>(json, Constants.JsonSerializerOptionsInstance);
-			FileSyncInstance.Write(json);
+			FileSyncInstance?.Write(json);
 
 			LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Loaded!");
 			JsonWatcherInstance?.DelayedEnable();
@@ -77,7 +82,7 @@ internal sealed class JsonDatabase<T> : IDisposable where T : class, new()
 
 			var json = JsonSerializer.Serialize(Data, Constants.JsonSerializerOptionsInstance);
 
-			var isSuccess = FileSyncInstance.Write(json);
+			var isSuccess = FileSyncInstance?.Write(json) ?? false;
 
 			if(isSuccess)
 				LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Saved!");
@@ -98,7 +103,7 @@ internal sealed class JsonDatabase<T> : IDisposable where T : class, new()
 	{
 		LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Deleting...");
 		Dispose();
-		FileSyncInstance.Delete();
+		FileSyncInstance?.Delete();
 		LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Deleted!");
 	}
 
@@ -128,7 +133,7 @@ internal sealed class JsonDatabase<T> : IDisposable where T : class, new()
 	{
 		LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Disposing...");
 
-		JsonWatcherInstance.Dispose();
+		JsonWatcherInstance?.Dispose();
 
 		LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Disposed!");
 	}

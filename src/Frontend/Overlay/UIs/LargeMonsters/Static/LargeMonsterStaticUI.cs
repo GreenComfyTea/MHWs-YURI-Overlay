@@ -5,7 +5,7 @@ namespace YURI_Overlay;
 internal sealed class LargeMonsterStaticUi
 {
 	private readonly LargeMonster _largeMonster;
-	private readonly Func<LargeMonsterStaticUiCustomization> _customizationAccessor;
+	private readonly Func<LargeMonsterStaticUiCustomization?> _customizationAccessor;
 
 	private readonly LabelElement _nameLabelElement;
 	private readonly LargeMonsterHealthComponent _healthComponent;
@@ -15,29 +15,29 @@ internal sealed class LargeMonsterStaticUi
 	public LargeMonsterStaticUi(LargeMonster largeMonster)
 	{
 		_largeMonster = largeMonster;
-		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI.Static;
+		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig?.Data?.LargeMonsterUI.Static;
 
-		_nameLabelElement = new LabelElement(() => _customizationAccessor().NameLabel);
-		_healthComponent = new LargeMonsterHealthComponent(largeMonster, () => _customizationAccessor().Health);
-		_staminaComponent = new LargeMonsterStaminaComponent(largeMonster, () => _customizationAccessor().Stamina);
-		_rageComponent = new LargeMonsterRageComponent(largeMonster, () => _customizationAccessor().Rage);
+		_nameLabelElement = new LabelElement(() => _customizationAccessor()?.NameLabel);
+		_healthComponent = new LargeMonsterHealthComponent(largeMonster, () => _customizationAccessor()?.Health);
+		_staminaComponent = new LargeMonsterStaminaComponent(largeMonster, () => _customizationAccessor()?.Stamina);
+		_rageComponent = new LargeMonsterRageComponent(largeMonster, () => _customizationAccessor()?.Rage);
 	}
 
 	public void Draw(ImDrawListPtr backgroundDrawList, int locationIndex)
 	{
 		var customization = _customizationAccessor();
 
-		if(!customization.Enabled) return;
+		if(customization?.Enabled != true) return;
 
 		var spacing = customization.Spacing;
 		var anchoredPosition = customization.Position;
-		var positionScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.PositionScaleModifier;
+		var positionScaleModifier = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.GlobalScale.PositionScaleModifier ?? 1f;
 
 		// TODO: Can be cached
 		var position = AnchorPositionCalculator.Convert(anchoredPosition, positionScaleModifier);
 
-		position.X += spacing.X * positionScaleModifier * locationIndex;
-		position.Y += spacing.Y * positionScaleModifier * locationIndex;
+		position.X += (spacing.X ?? 0f) * positionScaleModifier * locationIndex;
+		position.Y += (spacing.Y ?? 0f) * positionScaleModifier * locationIndex;
 
 		_rageComponent.Draw(backgroundDrawList, position);
 		_staminaComponent.Draw(backgroundDrawList, position);

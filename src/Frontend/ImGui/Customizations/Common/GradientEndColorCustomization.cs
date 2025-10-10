@@ -5,8 +5,10 @@ namespace YURI_Overlay;
 
 internal sealed class GradientEndColorCustomization : Customization
 {
-	public bool SplitIntoTwoColors;
-	[JsonIgnore] public ColorInfo ColorInfo1 { get; set; } = new();
+	public bool? SplitIntoTwoColors = null;
+
+	[JsonIgnore]
+	public ColorInfo ColorInfo1 { get; set; } = new();
 
 	public string _1
 	{
@@ -14,7 +16,8 @@ internal sealed class GradientEndColorCustomization : Customization
 		set => ColorInfo1.RgbaHex = value;
 	}
 
-	[JsonIgnore] public ColorInfo ColorInfo2 { get; set; } = new();
+	[JsonIgnore]
+	public ColorInfo ColorInfo2 { get; set; } = new();
 
 	public string _2
 	{
@@ -22,18 +25,18 @@ internal sealed class GradientEndColorCustomization : Customization
 		set => ColorInfo2.RgbaHex = value;
 	}
 
-	public bool RenderImGui(string parentName = "", GradientEndColorCustomization defaultCustomization = null)
+	public bool RenderImGui(string? parentName = "", GradientEndColorCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-end";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.End, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization?.End, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox(localization.SplitIntoTwoColors, ref SplitIntoTwoColors, defaultCustomization?.SplitIntoTwoColors);
+			isChanged |= ImGuiHelper.ResettableCheckbox(localization?.SplitIntoTwoColors, ref SplitIntoTwoColors, defaultCustomization?.SplitIntoTwoColors);
 
-			if(!SplitIntoTwoColors)
+			if(SplitIntoTwoColors == false)
 			{
 				var isStart1Changed = ImGuiHelper.ResettableColorPicker4($"##${customizationName}", ref ColorInfo1.vector, defaultCustomization?.ColorInfo1.vector);
 				isChanged |= isStart1Changed;
@@ -49,7 +52,7 @@ internal sealed class GradientEndColorCustomization : Customization
 				return isChanged;
 			}
 
-			if(ImGui.TreeNode($"{localization._1}##${customizationName}"))
+			if(ImGui.TreeNode($"{localization?._1}##${customizationName}"))
 			{
 				var isStart1Changed = ImGuiHelper.ResettableColorPicker4($"##${customizationName}-1", ref ColorInfo1.vector, defaultCustomization?.ColorInfo1.vector);
 				isChanged |= isStart1Changed;
@@ -59,7 +62,7 @@ internal sealed class GradientEndColorCustomization : Customization
 				ImGui.TreePop();
 			}
 
-			if(ImGui.TreeNode($"{localization._2}##${customizationName}"))
+			if(ImGui.TreeNode($"{localization?._2}##${customizationName}"))
 			{
 				var isStart2Changed = ImGuiHelper.ResettableColorPicker4($"##${customizationName}-2", ref ColorInfo2.vector, defaultCustomization?.ColorInfo2.vector);
 				isChanged |= isStart2Changed;
@@ -75,7 +78,7 @@ internal sealed class GradientEndColorCustomization : Customization
 		return isChanged;
 	}
 
-	public void Reset(GradientEndColorCustomization defaultCustomization = null)
+	public void Reset(GradientEndColorCustomization? defaultCustomization = null)
 	{
 		if(defaultCustomization is null) return;
 

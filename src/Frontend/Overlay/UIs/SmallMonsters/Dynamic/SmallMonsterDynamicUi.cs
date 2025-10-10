@@ -6,7 +6,7 @@ namespace YURI_Overlay;
 internal sealed class SmallMonsterDynamicUi
 {
 	private readonly SmallMonster _largeMonster;
-	private readonly Func<SmallMonsterDynamicUiCustomization> _customizationAccessor;
+	private readonly Func<SmallMonsterDynamicUiCustomization?> _customizationAccessor;
 
 	private readonly LabelElement _nameLabelElement;
 	private readonly SmallMonsterHealthComponent _healthComponent;
@@ -14,17 +14,17 @@ internal sealed class SmallMonsterDynamicUi
 	public SmallMonsterDynamicUi(SmallMonster largeMonster)
 	{
 		_largeMonster = largeMonster;
-		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data.SmallMonsterUI;
+		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig?.Data?.SmallMonsterUI;
 
-		_nameLabelElement = new LabelElement(() => _customizationAccessor().NameLabel);
-		_healthComponent = new SmallMonsterHealthComponent(largeMonster, () => _customizationAccessor().Health);
+		_nameLabelElement = new LabelElement(() => _customizationAccessor()?.NameLabel);
+		_healthComponent = new SmallMonsterHealthComponent(largeMonster, () => _customizationAccessor()?.Health);
 	}
 
 	public void Draw(ImDrawListPtr backgroundDrawList)
 	{
 		var customization = _customizationAccessor();
 
-		if(!customization.Enabled) return;
+		if(customization?.Enabled != true) return;
 
 		var settings = customization.Settings;
 
@@ -32,33 +32,35 @@ internal sealed class SmallMonsterDynamicUi
 		var worldOffset = customization.WorldOffset;
 
 		var targetWorldPosition = new Vector3(
-			monsterPosition.X + worldOffset.X,
-			monsterPosition.Y + worldOffset.Y,
-			monsterPosition.Z + worldOffset.Z
+			monsterPosition.X + (worldOffset.X ?? 0f),
+			monsterPosition.Y + (worldOffset.Y ?? 0f),
+			monsterPosition.Z + (worldOffset.Z ?? 0f)
 		);
 
-		if(settings.AddMissionBeaconOffsetToWorldOffset) targetWorldPosition += _largeMonster.MissionBeaconOffset;
+		if(settings.AddMissionBeaconOffsetToWorldOffset == true) targetWorldPosition += _largeMonster.MissionBeaconOffset;
 
-		if(settings.AddModelRadiusToWorldOffsetY) targetWorldPosition.Y += _largeMonster.ModelRadius;
+		if(settings.AddModelRadiusToWorldOffsetY == true) targetWorldPosition.Y += _largeMonster.ModelRadius;
 
 		var maybeScreenPosition = ScreenManager.Instance.ConvertWorldPositionToScreenPosition(targetWorldPosition);
 
 		// Not on screen
 		if(maybeScreenPosition is null) return;
 
+		var maxDistance = settings.MaxDistance ?? 0f;
+
 		var opacityScale =
-			settings.OpacityFalloff && settings.MaxDistance > 0f
-				? float.Clamp((settings.MaxDistance - _largeMonster.Distance) / settings.MaxDistance, 0f, 1f)
+			settings.OpacityFalloff == true && maxDistance > 0f
+				? float.Clamp((maxDistance - _largeMonster.Distance) / maxDistance, 0f, 1f)
 				: 1f;
 
 		if(Utils.IsApproximatelyEqual(opacityScale, 0f)) return;
 
 		var screenPosition = (Vector2) maybeScreenPosition;
 
-		var positionScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.PositionScaleModifier;
+		var positionScaleModifier = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.GlobalScale.PositionScaleModifier ?? 1f;
 
-		screenPosition.X += customization.Offset.X * positionScaleModifier;
-		screenPosition.Y += customization.Offset.Y * positionScaleModifier;
+		screenPosition.X += (customization.Offset.X ?? 0f) * positionScaleModifier;
+		screenPosition.Y += (customization.Offset.Y ?? 0f) * positionScaleModifier;
 
 		_healthComponent.Draw(backgroundDrawList, screenPosition, opacityScale);
 		_nameLabelElement.Draw(backgroundDrawList, screenPosition, opacityScale, _largeMonster.Name);

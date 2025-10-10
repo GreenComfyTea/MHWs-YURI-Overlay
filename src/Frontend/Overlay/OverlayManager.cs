@@ -8,10 +8,10 @@ internal sealed class OverlayManager
 
 	public static OverlayManager Instance => Lazy.Value;
 
-	private LargeMonsterUiManager _largeMonsterUiManager;
-	private SmallMonsterUiManager _smallMonsterUiManager;
-	private EndemicLifeUiManager _endemicLifeUiManager;
-	//private DamageMeterUiManager _damageMeterUiManager;
+	private LargeMonsterUiManager? _largeMonsterUiManager = null;
+	private SmallMonsterUiManager? _smallMonsterUiManager = null;
+	private EndemicLifeUiManager? _endemicLifeUiManager = null;
+	//private DamageMeterUiManager? _damageMeterUiManager = null;
 
 	private OverlayManager()
 	{
@@ -41,10 +41,10 @@ internal sealed class OverlayManager
 
 			var backgroundDrawList = ImGui.GetBackgroundDrawList();
 
-			_largeMonsterUiManager.Draw(backgroundDrawList);
-			_smallMonsterUiManager.Draw(backgroundDrawList);
-			_endemicLifeUiManager.Draw(backgroundDrawList);
-			//_damageMeterUiManager.Draw(backgroundDrawList);
+			_largeMonsterUiManager?.Draw(backgroundDrawList);
+			_smallMonsterUiManager?.Draw(backgroundDrawList);
+			_endemicLifeUiManager?.Draw(backgroundDrawList);
+			//_damageMeterUiManager?.Draw(backgroundDrawList);
 
 			ImGui.End();
 		}

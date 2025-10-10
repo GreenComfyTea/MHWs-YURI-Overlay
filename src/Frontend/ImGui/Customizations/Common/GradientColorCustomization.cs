@@ -7,7 +7,7 @@ internal sealed class GradientColorCustomization : Customization
 	public GradientStartColorCustomization Start = new();
 	public GradientEndColorCustomization End = new();
 
-	public bool RenderImGui(string name = "", string parentName = "", GradientColorCustomization defaultCustomization = null)
+	public bool RenderImGui(string? name = "", string? parentName = "", GradientColorCustomization? defaultCustomization = null)
 	{
 		var isChanged = false;
 		var customizationName = $"{parentName}-gradient-color";
@@ -23,7 +23,7 @@ internal sealed class GradientColorCustomization : Customization
 		return isChanged;
 	}
 
-	public void Reset(GradientColorCustomization defaultCustomization = null)
+	public void Reset(GradientColorCustomization? defaultCustomization = null)
 	{
 		if(defaultCustomization is null) return;
 

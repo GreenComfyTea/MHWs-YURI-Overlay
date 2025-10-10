@@ -4,11 +4,11 @@ namespace YURI_Overlay;
 
 internal sealed class LocalizationWatcher : IDisposable
 {
-	private readonly FileSystemWatcher _watcher;
+	private readonly FileSystemWatcher? _watcher;
 	private readonly Dictionary<string, DateTime> _lastEventTimes = [];
 
 	private bool _disabled;
-	private Timer _delayedEnableTimer;
+	private Timer? _delayedEnableTimer;
 
 	public LocalizationWatcher()
 	{
@@ -76,12 +76,12 @@ internal sealed class LocalizationWatcher : IDisposable
 	{
 		LogManager.Info("[LocalizationWatcher] Disposing...");
 
-		_watcher.Dispose();
+		_watcher?.Dispose();
 
 		LogManager.Info("[LocalizationWatcher] Disposed!");
 	}
 
-	private void OnLocalizationFileChanged(object sender, FileSystemEventArgs e)
+	private void OnLocalizationFileChanged(object? sender, FileSystemEventArgs e)
 	{
 		try
 		{
@@ -107,13 +107,18 @@ internal sealed class LocalizationWatcher : IDisposable
 		}
 	}
 
-	private void OnLocalizationFileCreated(object sender, FileSystemEventArgs e)
+	private void OnLocalizationFileCreated(object? sender, FileSystemEventArgs e)
 	{
 		try
 		{
 			if(_disabled) return;
 
 			var name = Path.GetFileNameWithoutExtension(e.Name);
+			if(name is null)
+			{
+				LogManager.Warn("Invalid localization name.");
+				return;
+			}
 
 			LogManager.Info($"Localization \"{name}\": Created.");
 
@@ -125,7 +130,7 @@ internal sealed class LocalizationWatcher : IDisposable
 		}
 	}
 
-	private void OnLocalizationFileDeleted(object sender, FileSystemEventArgs e)
+	private void OnLocalizationFileDeleted(object? sender, FileSystemEventArgs e)
 	{
 		try
 		{
@@ -141,7 +146,7 @@ internal sealed class LocalizationWatcher : IDisposable
 		}
 	}
 
-	private void OnLocalizationFileRenamed(object sender, RenamedEventArgs e)
+	private void OnLocalizationFileRenamed(object? sender, RenamedEventArgs e)
 	{
 		try
 		{
@@ -158,7 +163,7 @@ internal sealed class LocalizationWatcher : IDisposable
 		}
 	}
 
-	private void OnLocalizationFileError(object sender, ErrorEventArgs e)
+	private void OnLocalizationFileError(object? sender, ErrorEventArgs e)
 	{
 		if(_disabled) return;
 

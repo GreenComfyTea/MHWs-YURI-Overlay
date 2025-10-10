@@ -13,7 +13,7 @@ internal sealed class ScreenManager : IDisposable
 	public Vector2 WindowSize = new(1920f, 1080f);
 	public Vector3 CameraPosition = Vector3.Zero;
 
-	private Camera _primaryCamera;
+	private Camera? _primaryCamera;
 	private Matrix4x4 _viewProjectionMatrix = Matrix4x4.Identity;
 
 	private Vector3 _cameraForward = Vector3.Zero;
@@ -25,9 +25,9 @@ internal sealed class ScreenManager : IDisposable
 
 	private readonly List<Timer> _timers = [];
 
-	private Type _sceneViewType;
+	private Type? _sceneViewType;
 
-	private Method _getMainViewMethod;
+	private Method? _getMainViewMethod;
 
 	private ScreenManager()
 	{
@@ -182,7 +182,7 @@ internal sealed class ScreenManager : IDisposable
 
 	private void InitializeTimers()
 	{
-		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.ScreenManager;
+		var updateDelays = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.Performance.UpdateDelays.ScreenManager;
 
 		foreach(var timer in _timers)
 		{
@@ -191,7 +191,7 @@ internal sealed class ScreenManager : IDisposable
 
 		_timers.Clear();
 
-		_timers.Add(Timers.SetInterval(SetIsUpdatePending, Utils.SecondsToMilliseconds(updateDelays.Update)));
+		_timers.Add(Timers.SetInterval(SetIsUpdatePending, Utils.SecondsToMilliseconds(updateDelays?.Update)));
 	}
 
 	private void SetIsUpdatePending()
@@ -213,7 +213,7 @@ internal sealed class ScreenManager : IDisposable
 				return;
 			}
 
-			var mainViewObject = (ManagedObject) _getMainViewMethod.InvokeBoxed(_sceneViewType, sceneManager, []);
+			var mainViewObject = (ManagedObject?) _getMainViewMethod?.InvokeBoxed(_sceneViewType, sceneManager, []);
 			if(mainViewObject is null)
 			{
 				LogManager.Warn("[ScreenManager.Update] No main view");
@@ -278,7 +278,7 @@ internal sealed class ScreenManager : IDisposable
 		}
 	}
 
-	private void OnAnyConfigChanged(object sender, EventArgs e)
+	private void OnAnyConfigChanged(object? sender, EventArgs e)
 	{
 		InitializeTimers();
 	}

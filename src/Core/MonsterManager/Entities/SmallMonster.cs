@@ -10,7 +10,7 @@ internal sealed class SmallMonster : IDisposable
 	public EnemyCharacter EnemyCharacter;
 	public cEnemyContext EnemyContext;
 
-	public SmallMonsterDynamicUi DynamicUi;
+	public SmallMonsterDynamicUi? DynamicUi;
 
 	public EnemyDef.ID Id = 0;
 	public EnemyDef.ROLE_ID RoleId = 0;
@@ -37,9 +37,9 @@ internal sealed class SmallMonster : IDisposable
 
 	private readonly List<Timer> _timers = [];
 
-	private Type _stringType;
+	private Type? _stringType;
 
-	private Method _nameStringMethod;
+	private Method? _nameStringMethod;
 
 	public SmallMonster(EnemyCharacter enemyCharacter, cEnemyContext enemyContext)
 	{
@@ -112,7 +112,7 @@ internal sealed class SmallMonster : IDisposable
 
 	private void InitializeTimers()
 	{
-		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.SmallMonsters;
+		var updateDelays = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.Performance.UpdateDelays.SmallMonsters;
 
 		foreach(var timer in _timers)
 		{
@@ -121,10 +121,10 @@ internal sealed class SmallMonster : IDisposable
 
 		_timers.Clear();
 
-		_timers.Add(Timers.SetInterval(SetUpdateNamePending, Utils.SecondsToMilliseconds(updateDelays.Name)));
-		_timers.Add(Timers.SetInterval(SetUpdateMissionBeaconOffset, Utils.SecondsToMilliseconds(updateDelays.MissionBeaconOffset)));
-		_timers.Add(Timers.SetInterval(SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays.ModelRadius)));
-		_timers.Add(Timers.SetInterval(SetUpdateHealthPending, Utils.SecondsToMilliseconds(updateDelays.Health)));
+		_timers.Add(Timers.SetInterval(SetUpdateNamePending, Utils.SecondsToMilliseconds(updateDelays?.Name)));
+		_timers.Add(Timers.SetInterval(SetUpdateMissionBeaconOffset, Utils.SecondsToMilliseconds(updateDelays?.MissionBeaconOffset)));
+		_timers.Add(Timers.SetInterval(SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays?.ModelRadius)));
+		_timers.Add(Timers.SetInterval(SetUpdateHealthPending, Utils.SecondsToMilliseconds(updateDelays?.Health)));
 	}
 
 	private void SetUpdateNamePending()
@@ -201,7 +201,7 @@ internal sealed class SmallMonster : IDisposable
 			if(!_isUpdateNamePending) return;
 			_isUpdateNamePending = false;
 
-			var name = (string) _nameStringMethod.InvokeBoxed(_stringType, null, [Id, RoleId, LegendaryId]);
+			var name = (string?) _nameStringMethod?.InvokeBoxed(_stringType, null, [Id, RoleId, LegendaryId]);
 			if(name is null)
 			{
 				LogManager.Warn("[SmallMonster.UpdateName] No enemy name");
@@ -299,7 +299,7 @@ internal sealed class SmallMonster : IDisposable
 		}
 	}
 
-	private void OnAnyConfigChanged(object sender, EventArgs e)
+	private void OnAnyConfigChanged(object? sender, EventArgs e)
 	{
 		InitializeTimers();
 	}

@@ -6,7 +6,7 @@ namespace YURI_Overlay;
 internal sealed class LargeMonsterDynamicUi
 {
 	private readonly LargeMonster _largeMonster;
-	private readonly Func<LargeMonsterDynamicUiCustomization> _customizationAccessor;
+	private readonly Func<LargeMonsterDynamicUiCustomization?> _customizationAccessor;
 
 	private readonly LabelElement _nameLabelElement;
 	private readonly LargeMonsterHealthComponent _healthComponent;
@@ -16,19 +16,19 @@ internal sealed class LargeMonsterDynamicUi
 	public LargeMonsterDynamicUi(LargeMonster largeMonster)
 	{
 		_largeMonster = largeMonster;
-		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI.Dynamic;
+		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig?.Data?.LargeMonsterUI.Dynamic;
 
-		_nameLabelElement = new LabelElement(() => _customizationAccessor().NameLabel);
-		_healthComponent = new LargeMonsterHealthComponent(largeMonster, () => _customizationAccessor().Health);
-		_staminaComponent = new LargeMonsterStaminaComponent(largeMonster, () => _customizationAccessor().Stamina);
-		_rageComponent = new LargeMonsterRageComponent(largeMonster, () => _customizationAccessor().Rage);
+		_nameLabelElement = new LabelElement(() => _customizationAccessor()?.NameLabel);
+		_healthComponent = new LargeMonsterHealthComponent(largeMonster, () => _customizationAccessor()?.Health);
+		_staminaComponent = new LargeMonsterStaminaComponent(largeMonster, () => _customizationAccessor()?.Stamina);
+		_rageComponent = new LargeMonsterRageComponent(largeMonster, () => _customizationAccessor()?.Rage);
 	}
 
 	public void Draw(ImDrawListPtr backgroundDrawList)
 	{
 		var customization = _customizationAccessor();
 
-		if(!customization.Enabled) return;
+		if(customization?.Enabled != true) return;
 
 		var settings = customization.Settings;
 
@@ -36,33 +36,35 @@ internal sealed class LargeMonsterDynamicUi
 		var worldOffset = customization.WorldOffset;
 
 		var targetWorldPosition = new Vector3(
-			monsterPosition.X + worldOffset.X,
-			monsterPosition.Y + worldOffset.Y,
-			monsterPosition.Z + worldOffset.Z
+			monsterPosition.X + (worldOffset.X ?? 0f),
+			monsterPosition.Y + (worldOffset.Y ?? 0f),
+			monsterPosition.Z + (worldOffset.Z ?? 0f)
 		);
 
-		if(settings.AddMissionBeaconOffsetToWorldOffset) targetWorldPosition += _largeMonster.MissionBeaconOffset;
+		if(settings.AddMissionBeaconOffsetToWorldOffset == true) targetWorldPosition += _largeMonster.MissionBeaconOffset;
 
-		if(settings.AddModelRadiusToWorldOffsetY) targetWorldPosition.Y += _largeMonster.ModelRadius;
+		if(settings.AddModelRadiusToWorldOffsetY == true) targetWorldPosition.Y += _largeMonster.ModelRadius;
 
 		var maybeScreenPosition = ScreenManager.Instance.ConvertWorldPositionToScreenPosition(targetWorldPosition);
 
 		// Not on screen
 		if(maybeScreenPosition is null) return;
 
+		var maxDistance = settings.MaxDistance ?? 0f;
+
 		var opacityScale =
-			settings.OpacityFalloff && settings.MaxDistance > 0f
-				? float.Clamp((settings.MaxDistance - _largeMonster.Distance) / settings.MaxDistance, 0f, 1f)
+			settings.OpacityFalloff == true && maxDistance > 0f
+				? float.Clamp((maxDistance - _largeMonster.Distance) / maxDistance, 0f, 1f)
 				: 1f;
 
 		if(Utils.IsApproximatelyEqual(opacityScale, 0f)) return;
 
 		var screenPosition = (Vector2) maybeScreenPosition;
 
-		var positionScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.PositionScaleModifier;
+		var positionScaleModifier = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.GlobalScale.PositionScaleModifier ?? 1f;
 
-		screenPosition.X += customization.Offset.X * positionScaleModifier;
-		screenPosition.Y += customization.Offset.Y * positionScaleModifier;
+		screenPosition.X += (customization.Offset.X ?? 0f) * positionScaleModifier;
+		screenPosition.Y += (customization.Offset.Y ?? 0f) * positionScaleModifier;
 
 		_rageComponent.Draw(backgroundDrawList, screenPosition, opacityScale);
 		_staminaComponent.Draw(backgroundDrawList, screenPosition, opacityScale);

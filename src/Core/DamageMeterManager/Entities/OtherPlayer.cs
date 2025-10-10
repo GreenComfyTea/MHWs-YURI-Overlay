@@ -14,7 +14,7 @@ internal class OtherPlayer : DamageMeterEntity
 
 		StaticUi = new DamageMeterStaticUi(this);
 
-		Type = DamageMeterEntityType.OtherPlayer;
+		Type = DamageMeterEntityTypeEnum.OtherPlayer;
 	}
 
 	public override void Dispose()

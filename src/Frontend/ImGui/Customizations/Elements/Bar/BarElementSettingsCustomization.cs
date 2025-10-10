@@ -5,29 +5,30 @@ namespace YURI_Overlay;
 
 internal sealed class BarElementSettingsCustomization : Customization
 {
-	[JsonIgnore] private int _fillDirectionIndex = (int) FillDirection.LeftToRight;
+	[JsonIgnore]
+	private int? _fillDirectionIndex = null;
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
-	public FillDirection FillDirection
+	public FillDirectionEnum? FillDirection
 	{
-		get => (FillDirection) _fillDirectionIndex;
-		set => _fillDirectionIndex = (int) value;
+		get => _fillDirectionIndex.HasValue ? (FillDirectionEnum?) _fillDirectionIndex.Value : null;
+		set => _fillDirectionIndex = value.HasValue ? (int) value.Value : null;
 	}
 
-	public bool Inverted;
+	public bool? Inverted = null;
 
-	public bool RenderImGui(string parentName = "", BarElementSettingsCustomization defaultCustomization = null)
+	public bool RenderImGui(string? parentName = "", BarElementSettingsCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
 		var localizationHelper = LocalizationHelper.Instance;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-settings";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization?.Settings, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization.FillDirection}##{customizationName}", ref _fillDirectionIndex, localizationHelper.FillDirections, defaultCustomization?._fillDirectionIndex);
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Inverted}##{customizationName}", ref Inverted, defaultCustomization?.Inverted);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization?.FillDirection}##{customizationName}", ref _fillDirectionIndex, localizationHelper.FillDirections, defaultCustomization?._fillDirectionIndex);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.Inverted}##{customizationName}", ref Inverted, defaultCustomization?.Inverted);
 
 			ImGui.TreePop();
 		}
@@ -35,7 +36,7 @@ internal sealed class BarElementSettingsCustomization : Customization
 		return isChanged;
 	}
 
-	public void Reset(BarElementSettingsCustomization defaultCustomization = null)
+	public void Reset(BarElementSettingsCustomization? defaultCustomization = null)
 	{
 		if(defaultCustomization is null) return;
 

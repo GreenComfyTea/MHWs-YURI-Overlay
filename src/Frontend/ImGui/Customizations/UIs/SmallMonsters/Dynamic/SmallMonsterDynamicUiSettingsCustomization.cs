@@ -4,28 +4,28 @@ namespace YURI_Overlay;
 
 internal sealed class SmallMonsterDynamicUiSettingsCustomization : Customization
 {
-	public bool RenderDeadMonsters;
+	public bool? RenderDeadMonsters = null;
 
-	public bool AddMissionBeaconOffsetToWorldOffset;
-	public bool AddModelRadiusToWorldOffsetY = true;
+	public bool? AddMissionBeaconOffsetToWorldOffset = null;
+	public bool? AddModelRadiusToWorldOffsetY = null;
 
-	public bool OpacityFalloff = true;
-	public float MaxDistance = 200f;
+	public bool? OpacityFalloff = null;
+	public float? MaxDistance = null;
 
-	public bool RenderImGui(string parentName = "", SmallMonsterDynamicUiSettingsCustomization defaultCustomization = null)
+	public bool RenderImGui(string? parentName = "", SmallMonsterDynamicUiSettingsCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-settings";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization?.Settings, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderDeadMonsters}##{customizationName}", ref RenderDeadMonsters, defaultCustomization?.RenderDeadMonsters);
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.AddMissionBeaconOffsetToWorldOffset}##{customizationName}", ref AddMissionBeaconOffsetToWorldOffset, defaultCustomization?.AddMissionBeaconOffsetToWorldOffset);
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.AddModelRadiusToWorldOffsetY}##{customizationName}", ref AddModelRadiusToWorldOffsetY, defaultCustomization?.AddModelRadiusToWorldOffsetY);
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.OpacityFalloff}##{customizationName}", ref OpacityFalloff, defaultCustomization?.OpacityFalloff);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MaxDistance}##{customizationName}", ref MaxDistance, 0.1f, 0, 65536f, "%.1f", defaultCustomization?.MaxDistance);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.RenderDeadMonsters}##{customizationName}", ref RenderDeadMonsters, defaultCustomization?.RenderDeadMonsters);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.AddMissionBeaconOffsetToWorldOffset}##{customizationName}", ref AddMissionBeaconOffsetToWorldOffset, defaultCustomization?.AddMissionBeaconOffsetToWorldOffset);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.AddModelRadiusToWorldOffsetY}##{customizationName}", ref AddModelRadiusToWorldOffsetY, defaultCustomization?.AddModelRadiusToWorldOffsetY);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.OpacityFalloff}##{customizationName}", ref OpacityFalloff, defaultCustomization?.OpacityFalloff);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization?.MaxDistance}##{customizationName}", ref MaxDistance, 0.1f, 0, 65536f, "%.1f", defaultCustomization?.MaxDistance);
 
 			ImGui.TreePop();
 		}
@@ -33,7 +33,7 @@ internal sealed class SmallMonsterDynamicUiSettingsCustomization : Customization
 		return isChanged;
 	}
 
-	public void Reset(SmallMonsterDynamicUiSettingsCustomization defaultCustomization = null)
+	public void Reset(SmallMonsterDynamicUiSettingsCustomization? defaultCustomization = null)
 	{
 		if(defaultCustomization is null) return;
 

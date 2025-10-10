@@ -11,14 +11,14 @@ internal sealed class UpdateDelaysCustomization : Customization
 	public EndemicLifeUpdateDelaysCustomization EndemicLife = new();
 	public UiUpdateDelaysCustomization UIs = new();
 
-	public bool RenderImGui(string parentName = "", UpdateDelaysCustomization defaultCustomization = null)
+	public bool RenderImGui(string? parentName = "", UpdateDelaysCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-update-delays";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.UpdateDelaysSeconds, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization?.UpdateDelaysSeconds, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ScreenManager.RenderImGui(customizationName, defaultCustomization?.ScreenManager);
 			isChanged |= PlayerManager.RenderImGui(customizationName, defaultCustomization?.PlayerManager);
@@ -33,7 +33,7 @@ internal sealed class UpdateDelaysCustomization : Customization
 		return isChanged;
 	}
 
-	public void Reset(UpdateDelaysCustomization defaultCustomization = null)
+	public void Reset(UpdateDelaysCustomization? defaultCustomization = null)
 	{
 		if(defaultCustomization is null) return;
 

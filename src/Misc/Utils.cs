@@ -54,7 +54,7 @@ internal static class Utils
 		ImGui.NewLine();
 	}
 
-	public static void EmitEvents(object sender, EventHandler eventHandler)
+	public static void EmitEvents(object? sender, EventHandler eventHandler)
 	{
 		foreach(var subscriber in eventHandler.GetInvocationList())
 		{
@@ -132,15 +132,15 @@ internal static class Utils
 		return $"{minutes}:{seconds:D2}";
 	}
 
-	public static ManagedObject ProxyToManagedObject(object proxyObject)
+	public static ManagedObject? ProxyToManagedObject(object? proxyObject)
 	{
 		if(proxyObject is null) return null;
 
 		return (proxyObject as IProxy)!.GetInstance() as ManagedObject;
 	}
 
-	public static int SecondsToMilliseconds(float seconds)
+	public static int SecondsToMilliseconds(float? seconds)
 	{
-		return (int) Math.Round(1000f * seconds);
+		return (int) Math.Round(1000f * (seconds ?? 0f));
 	}
 }

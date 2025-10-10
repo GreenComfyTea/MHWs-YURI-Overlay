@@ -4,22 +4,22 @@ namespace YURI_Overlay;
 
 internal sealed class GlobalSettingsCustomization : Customization
 {
-	public string Localization = Constants.DefaultLocalization;
+	public string? Localization = null;
 
 	//public GlobalFontsCustomization GlobalFonts = new();
 	public GlobalScaleCustomization GlobalScale = new();
 	public PerformanceCustomization Performance = new();
 
-	public bool RenderImGui(string parentName = "", GlobalSettingsCustomization defaultCustomization = null)
+	public bool RenderImGui(string? parentName = "", GlobalSettingsCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-global-settings";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.GlobalSettings, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization?.GlobalSettings, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= LocalizationManager.Instance.Customization.RenderImGui(customizationName);
+			if(LocalizationManager.Instance.Customization is not null) isChanged |= LocalizationManager.Instance.Customization.RenderImGui(customizationName);
 			//isChanged |= GlobalFonts.RenderImGui(customizationName);
 			isChanged |= GlobalScale.RenderImGui(customizationName, defaultCustomization?.GlobalScale);
 			isChanged |= Performance.RenderImGui(customizationName, defaultCustomization?.Performance);
@@ -30,7 +30,7 @@ internal sealed class GlobalSettingsCustomization : Customization
 		return isChanged;
 	}
 
-	public void Reset(GlobalSettingsCustomization defaultCustomization = null)
+	public void Reset(GlobalSettingsCustomization? defaultCustomization = null)
 	{
 		if(defaultCustomization is null) return;
 

@@ -10,7 +10,7 @@ internal sealed class DamageMeterManager : IDisposable
 
 	public static DamageMeterManager Instance => Lazy.Value;
 
-	public LocalPlayer LocalPlayer;
+	public LocalPlayer? LocalPlayer;
 	public Dictionary<EnemyCharacter, OtherPlayer> OtherPlayers = [];
 	public Dictionary<EnemyCharacter, SupportHunter> SupportHunters = [];
 
@@ -80,7 +80,7 @@ internal sealed class DamageMeterManager : IDisposable
 		LocalPlayer = new LocalPlayer(playerManagerMasterPlayer);
 	}
 
-	private void OnMasterPlayerChanged(object sender, EventArgs e)
+	private void OnMasterPlayerChanged(object? sender, EventArgs e)
 	{
 		InitializeLocalPlayer();
 	}
@@ -244,8 +244,8 @@ internal sealed class DamageMeterManager : IDisposable
 
 			var attachOwner = hitInfo.AttackOwner;
 			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Attack Owner: {attachOwner}");
-			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Local player: {Instance.LocalPlayer.PlayerManageInfo}");
-			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Local player game object: {Instance.LocalPlayer.PlayerManageInfo.Character.GameObject}");
+			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Local player: {Instance.LocalPlayer?.PlayerManageInfo}");
+			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Local player game object: {Instance.LocalPlayer?.PlayerManageInfo.Character.GameObject}");
 
 
 			return PreHookResult.Continue;
@@ -401,8 +401,8 @@ internal sealed class DamageMeterManager : IDisposable
 
 			var attachOwner = hitInfo.AttackOwner;
 			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Attack Owner: {attachOwner}");
-			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Local player: {Instance.LocalPlayer.PlayerManageInfo}");
-			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Local player game object: {Instance.LocalPlayer.PlayerManageInfo.Character.GameObject}");
+			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Local player: {Instance.LocalPlayer?.PlayerManageInfo}");
+			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Local player game object: {Instance.LocalPlayer?.PlayerManageInfo.Character.GameObject}");
 
 
 			return PreHookResult.Continue;

@@ -5,10 +5,10 @@ namespace YURI_Overlay;
 
 internal sealed class BarElement
 {
-	private readonly Func<BarElementCustomization> _customizationAccessor;
+	private readonly Func<BarElementCustomization?> _customizationAccessor;
 
-	private (OutlineStyle, float, float, float, float, float, float, float, float, float) _cashingKeyByPosition1 = (OutlineStyle.Inside, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f);
-	private (FillDirection, float, float, float) _cashingKeyByProgress2 = (FillDirection.LeftToRight, 0f, 0f, 0f);
+	private (OutlineStyleEnum, float, float, float, float, float, float, float, float, float) _cashingKeyByPosition1 = (OutlineStyleEnum.Inside, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f);
+	private (FillDirectionEnum, float, float, float) _cashingKeyByProgress2 = (FillDirectionEnum.LeftToRight, 0f, 0f, 0f);
 
 	private float _outlinePositionX;
 	private float _outlinePositionY;
@@ -60,7 +60,7 @@ internal sealed class BarElement
 		_customizationAccessor = () => new BarElementCustomization();
 	}
 
-	public BarElement(Func<BarElementCustomization> customizationAccessor)
+	public BarElement(Func<BarElementCustomization?> customizationAccessor)
 	{
 		_customizationAccessor = customizationAccessor;
 	}
@@ -69,15 +69,15 @@ internal sealed class BarElement
 	{
 		var customization = _customizationAccessor();
 
-		if(!customization.Visible) return;
+		if(customization?.Visible != true) return;
 
 		progress = Math.Clamp(progress, 0f, 1f);
-		if(customization.Settings.Inverted) progress = 1 - progress;
+		if(customization.Settings.Inverted == true) progress = 1 - progress;
 
-		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier;
+		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
 
 		var outline = customization.Outline;
-		var outlineThickness = outline.Thickness * sizeScaleModifier;
+		var outlineThickness = (outline.Thickness ?? 1f) * sizeScaleModifier;
 
 		UpdateByPosition1(position);
 		UpdateByProgress2(progress);
@@ -106,7 +106,7 @@ internal sealed class BarElement
 
 		// Outline
 
-		if(outline.Visible && outlineThickness > 0f)
+		if(outline.Visible == true && outlineThickness > 0f)
 		{
 			backgroundDrawList.AddRect(
 				_outlineTopLeft,
@@ -122,26 +122,34 @@ internal sealed class BarElement
 	{
 		var customization = _customizationAccessor();
 
+		if(customization is null) return;
+
 		var offset = customization.Offset;
 		var size = customization.Size;
 		var outline = customization.Outline;
 
-		var outlineThickness = outline.Thickness;
-		var outlineOffset = outline.Offset;
-		var outlineStyle = outline.Style;
+		var offsetX = offset.X ?? 0f;
+		var offsetY = offset.Y ?? 0f;
 
-		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier;
+		var width = size.Width ?? 0f;
+		var height = size.Height ?? 0f;
 
-		var cachingKey = (outlineStyle, position.X, position.Y, offset.X, offset.Y, size.Width, size.Height, outlineThickness, outlineOffset, sizeScaleModifier);
+		var outlineThickness = outline.Thickness ?? 1f;
+		var outlineOffset = outline.Offset ?? 0f;
+		var outlineStyle = outline.Style ?? OutlineStyleEnum.Outside;
 
-		var offsetX = offset.X * sizeScaleModifier;
-		var offsetY = offset.Y * sizeScaleModifier;
+		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
 
-		var width = size.Width * sizeScaleModifier;
-		var height = size.Height * sizeScaleModifier;
+		var cachingKey = (outlineStyle, position.X, position.Y, offsetX, offsetY, width, height, outlineThickness, outlineOffset, sizeScaleModifier);
 
-		outlineThickness = outline.Thickness * sizeScaleModifier;
-		outlineOffset = outline.Offset * sizeScaleModifier;
+		offsetX *= sizeScaleModifier;
+		offsetY *= sizeScaleModifier;
+
+		width *= sizeScaleModifier;
+		height *= sizeScaleModifier;
+
+		outlineThickness *= sizeScaleModifier;
+		outlineOffset *= sizeScaleModifier;
 
 		if(!disableCaching && cachingKey == _cashingKeyByPosition1) return;
 
@@ -152,7 +160,7 @@ internal sealed class BarElement
 
 		switch(outlineStyle)
 		{
-			case OutlineStyle.Outside:
+			case OutlineStyleEnum.Outside:
 				_positionX = position.X + offsetX;
 				_positionY = position.Y + offsetY;
 
@@ -166,7 +174,7 @@ internal sealed class BarElement
 				_outlineHeight = _height + outlineThickness + outlineOffset + outlineOffset;
 
 				break;
-			case OutlineStyle.Center:
+			case OutlineStyleEnum.Center:
 				_outlinePositionX = position.X + offsetX - halfOutlineOffset;
 				_outlinePositionY = position.Y + offsetY - halfOutlineOffset;
 
@@ -181,7 +189,7 @@ internal sealed class BarElement
 
 				break;
 
-			case OutlineStyle.Inside:
+			case OutlineStyleEnum.Inside:
 			default:
 				_outlinePositionX = position.X + offsetX + halfOutlineThickness;
 				_outlinePositionY = position.Y + offsetY + halfOutlineThickness;
@@ -203,7 +211,9 @@ internal sealed class BarElement
 	{
 		var customization = _customizationAccessor();
 
-		var fillDirection = customization.Settings.FillDirection;
+		if(customization is null) return;
+
+		var fillDirection = customization.Settings.FillDirection ?? FillDirectionEnum.LeftToRight;
 
 		var cachingKey = (fillDirection, _width, _height, progress);
 
@@ -213,7 +223,7 @@ internal sealed class BarElement
 
 		switch(fillDirection)
 		{
-			case FillDirection.RightToLeft:
+			case FillDirectionEnum.RightToLeft:
 				_foregroundWidth = _width * progress;
 				_foregroundHeight = _height;
 
@@ -222,7 +232,7 @@ internal sealed class BarElement
 
 				_foregroundShiftX = _backgroundWidth;
 				break;
-			case FillDirection.TopToBottom:
+			case FillDirectionEnum.TopToBottom:
 				_foregroundWidth = _width;
 				_foregroundHeight = _height * progress;
 
@@ -232,7 +242,7 @@ internal sealed class BarElement
 				_backgroundShiftY = _foregroundHeight;
 
 				break;
-			case FillDirection.BottomToTop:
+			case FillDirectionEnum.BottomToTop:
 				_foregroundWidth = _width;
 				_foregroundHeight = _height * progress;
 
@@ -242,7 +252,7 @@ internal sealed class BarElement
 				_foregroundShiftY = _backgroundHeight;
 
 				break;
-			case FillDirection.LeftToRight:
+			case FillDirectionEnum.LeftToRight:
 			default:
 				_foregroundWidth = _width * progress;
 				_foregroundHeight = _height;
@@ -259,6 +269,7 @@ internal sealed class BarElement
 	private void UpdateByOpacity3(float opacityScale = 1f)
 	{
 		var customization = _customizationAccessor();
+		if(customization is null) return;
 
 		var colors = customization.Colors;
 		var backgroundColor = colors.Background;
@@ -266,7 +277,7 @@ internal sealed class BarElement
 
 		switch(customization.Settings.FillDirection)
 		{
-			case FillDirection.RightToLeft:
+			case FillDirectionEnum.RightToLeft:
 				_backgroundColorTopRight = backgroundColor.Start.ColorInfo1.Abgr;
 				_backgroundColorBottomRight = backgroundColor.Start.ColorInfo2.Abgr;
 
@@ -279,7 +290,7 @@ internal sealed class BarElement
 				_foregroundColorTopLeft = foregroundColor.End.ColorInfo1.Abgr;
 				_foregroundColorBottomLeft = foregroundColor.End.ColorInfo2.Abgr;
 				break;
-			case FillDirection.TopToBottom:
+			case FillDirectionEnum.TopToBottom:
 				_backgroundColorTopLeft = backgroundColor.Start.ColorInfo1.Abgr;
 				_backgroundColorTopRight = backgroundColor.Start.ColorInfo2.Abgr;
 
@@ -292,7 +303,7 @@ internal sealed class BarElement
 				_foregroundColorBottomLeft = foregroundColor.End.ColorInfo1.Abgr;
 				_foregroundColorBottomRight = foregroundColor.End.ColorInfo2.Abgr;
 				break;
-			case FillDirection.BottomToTop:
+			case FillDirectionEnum.BottomToTop:
 				_backgroundColorBottomLeft = backgroundColor.Start.ColorInfo1.Abgr;
 				_backgroundColorBottomRight = backgroundColor.Start.ColorInfo2.Abgr;
 
@@ -305,7 +316,7 @@ internal sealed class BarElement
 				_foregroundColorTopLeft = foregroundColor.End.ColorInfo1.Abgr;
 				_foregroundColorTopRight = foregroundColor.End.ColorInfo2.Abgr;
 				break;
-			case FillDirection.LeftToRight:
+			case FillDirectionEnum.LeftToRight:
 			default:
 				_backgroundColorTopLeft = backgroundColor.Start.ColorInfo1.Abgr;
 				_backgroundColorBottomLeft = backgroundColor.Start.ColorInfo2.Abgr;
@@ -370,7 +381,7 @@ internal sealed class BarElement
 
 		// Outline
 
-		if(customization.Outline.Thickness > 0f)
+		if(customization?.Outline.Thickness > 0f)
 		{
 			_outlineTopLeft = new Vector2(
 				_outlinePositionX,

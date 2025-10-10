@@ -1,6 +1,6 @@
 ﻿namespace YURI_Overlay;
 
-internal enum FillDirection
+internal enum FillDirectionEnum
 {
 	LeftToRight,
 	RightToLeft,
@@ -8,14 +8,14 @@ internal enum FillDirection
 	BottomToTop,
 }
 
-internal enum OutlineStyle
+internal enum OutlineStyleEnum
 {
 	Inside,
 	Center,
 	Outside,
 }
 
-internal enum Priority
+internal enum PriorityEnum
 {
 	Higher3,
 	Higher2,
@@ -26,7 +26,7 @@ internal enum Priority
 	Lower3,
 }
 
-internal enum Sorting
+internal enum SortingEnum
 {
 	Id,
 	Name,
@@ -49,7 +49,7 @@ internal enum DamageMeterSortingEnum
 	DpsPercentage,
 }
 
-internal enum Anchor
+internal enum AnchorEnum
 {
 	TopLeft,
 	TopCenter,
@@ -62,7 +62,7 @@ internal enum Anchor
 	BottomRight,
 }
 
-internal enum DamageMeterEntityType
+internal enum DamageMeterEntityTypeEnum
 {
 	LocalPlayer,
 	OtherPlayer,
