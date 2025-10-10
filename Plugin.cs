@@ -31,6 +31,8 @@ public class Plugin
 	{
 		LogManager.Info("Disposing...");
 
+		MethodHookPatternAttribute.Dispose();
+
 		//DamageMeterManager.Instance.Dispose();
 		MonsterManager.Instance.Dispose();
 
@@ -51,6 +53,8 @@ public class Plugin
 		try
 		{
 			LogManager.Info("Managers: Initializing...");
+
+			MethodHookPatternAttribute.Initialize();
 
 			var configManager = ConfigManager.Instance;
 			var localizationManager = LocalizationManager.Instance;

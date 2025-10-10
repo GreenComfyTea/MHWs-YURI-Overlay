@@ -1,4 +1,4 @@
-using app;
+﻿using app;
 using REFrameworkNET.Attributes;
 using REFrameworkNET;
 
@@ -19,6 +19,7 @@ internal sealed class CameraManager
 	public void Initialize()
 	{
 		LogManager.Info("[CameraManager] Initializing...");
+
 
 		UpdateCameraTarget();
 
@@ -88,7 +89,7 @@ internal sealed class CameraManager
 		}
 	}
 
-	[MethodHook(typeof(PlayerCameraController), "<updateTargetSelector>b__140_0", MethodHookType.Post)]
+	[MethodHookPattern(typeof(PlayerCameraController), "<updateTargetSelector>", MethodHookType.Post)]
 	private static void OnPostUpdateTargetSelector(ref ulong returnValue)
 	{
 		Instance.UpdateCameraTarget();
