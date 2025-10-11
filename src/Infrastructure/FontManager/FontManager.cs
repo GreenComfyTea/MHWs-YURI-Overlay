@@ -59,7 +59,7 @@ internal sealed class FontManager
 
 	//public FontObject LoadFont(JsonDatabase<Localization> localization)
 	//{
-	//	var fontConfigs = ConfigManager.Instance.ActiveConfig.Data.Fonts;
+	//	var fontConfigs = ConfigManager.Instance.ActiveConfig.Data..Fonts;
 
 	//	var fontInfo = localization.Data.CustomizationFontInfo;
 	//	var fontName = fontInfo.Name;
@@ -114,12 +114,12 @@ internal sealed class FontManager
 
 	//	Fonts.TryGetValue(localization.Name, out ActiveFont);
 
-	//	ConfigManager.Instance.ActiveConfig.Data.Fonts.TryGetValue(localization.Data.CustomizationFontInfo.Name, out Customization);
+	//	ConfigManager.Instance.ActiveConfig.Data..Fonts.TryGetValue(localization.Data.CustomizationFontInfo.Name, out Customization);
 	//}
 
 	//public void RecreateFontCustomizations()
 	//{
-	//	var fontConfig = ConfigManager.Instance.ActiveConfig.Data.Fonts;
+	//	var fontConfig = ConfigManager.Instance.ActiveConfig.Data..Fonts;
 
 	//	foreach(var fontName in FontNames)
 	//	{

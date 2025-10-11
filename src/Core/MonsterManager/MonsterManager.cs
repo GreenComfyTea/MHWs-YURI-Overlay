@@ -30,7 +30,7 @@ internal sealed class MonsterManager : IDisposable
 	{
 		try
 		{
-			var customization = ConfigManager.Instance.ActiveConfig?.Data;
+			var customization = ConfigManager.Instance.ActiveConfig.Data;
 
 			if(customization is null)
 			{

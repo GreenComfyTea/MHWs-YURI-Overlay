@@ -32,7 +32,7 @@ internal sealed class LargeMonsterRageComponent
 	{
 		if(!_largeMonster.IsRageValid) return;
 
-		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
+		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
 
 		var offset = _customizationAccessor()?.Offset;
 		var offsetPosition = new Vector2(position.X + sizeScaleModifier * (offset?.X ?? 0f), position.Y + sizeScaleModifier * (offset?.Y ?? 0f));

@@ -47,7 +47,7 @@ internal sealed class DamageMeterUiManager : IDisposable
 
 	private void InitializeTimers()
 	{
-		var updateDelays = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.Performance.UpdateDelays.UIs;
+		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.UIs;
 
 		foreach(var timer in _timers)
 		{
@@ -61,7 +61,7 @@ internal sealed class DamageMeterUiManager : IDisposable
 
 	//private void UpdateStatic()
 	//{
-	//	var customization = ConfigManager.Instance.ActiveConfig.Data.DamageMeterUI;
+	//	var customization = ConfigManager.Instance.ActiveConfig.Data..DamageMeterUI;
 	//	var settingsCustomization = customization.Settings;
 
 	//	if(!customization.Enabled)
@@ -171,7 +171,7 @@ internal sealed class DamageMeterUiManager : IDisposable
 
 	//private void DrawStaticUi(ImDrawListPtr backgroundDrawList)
 	//{
-	//	var customization = ConfigManager.Instance.ActiveConfig.Data.DamageMeterUI;
+	//	var customization = ConfigManager.Instance.ActiveConfig.Data..DamageMeterUI;
 
 	//	if(!customization.Enabled) return;
 

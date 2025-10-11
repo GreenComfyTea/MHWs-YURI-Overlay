@@ -13,13 +13,13 @@ internal sealed class BarElementCustomization : Customization
 
 	public bool RenderImGui(string? visibleName = "", string customizationName = "bar", BarElementCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 
 		if(ImGuiHelper.ResettableTreeNode(visibleName, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
 
 			isChanged |= Settings.RenderImGui(customizationName, defaultCustomization?.Settings);
 			isChanged |= Offset.RenderImGui(customizationName, defaultCustomization?.Offset);

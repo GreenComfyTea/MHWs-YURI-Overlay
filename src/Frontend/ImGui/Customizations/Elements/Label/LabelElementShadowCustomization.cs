@@ -10,14 +10,14 @@ internal sealed class LabelElementShadowCustomization : Customization
 
 	public bool RenderImGui(string? parentName = "", LabelElementShadowCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-shadow";
 
-		if(ImGuiHelper.ResettableTreeNode(localization?.Shadow, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.Shadow, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.Visible}##{parentName}", ref Visible, defaultCustomization?.Visible);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{parentName}", ref Visible, defaultCustomization?.Visible);
 
 			isChanged |= Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
 			isChanged |= Color.RenderImGui(customizationName, defaultCustomization?.Color);

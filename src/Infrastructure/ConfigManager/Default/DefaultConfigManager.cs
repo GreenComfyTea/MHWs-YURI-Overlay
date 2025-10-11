@@ -4,8 +4,6 @@ internal partial class ConfigManager
 {
 	public static void ResetToDefault(JsonDatabase<Config> configDatabase)
 	{
-		if(configDatabase.Data is null) return;
-
 		ResetToDefault(configDatabase.Data);
 		configDatabase.Save();
 	}

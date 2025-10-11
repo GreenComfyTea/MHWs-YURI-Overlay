@@ -12,10 +12,10 @@ internal sealed class ConfigWatcher : IDisposable
 
 	public ConfigWatcher()
 	{
+		LogManager.Info("[ConfigWatcher] Initializing...");
+
 		try
 		{
-			LogManager.Info("[ConfigWatcher] Initializing...");
-
 			_watcher = new FileSystemWatcher(Constants.ConfigsPath);
 
 			_watcher.NotifyFilter = NotifyFilters.Attributes

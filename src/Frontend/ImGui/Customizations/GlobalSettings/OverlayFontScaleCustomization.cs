@@ -14,15 +14,15 @@ internal sealed class OverlayFontScaleCustomization : Customization
 
 	public bool RenderImGui(string? parentName = "", OverlayFontScaleCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-overlay-font";
 
-		if(ImGuiHelper.ResettableTreeNode(localization?.OverlayFontScale, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.OverlayFontScale, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.ScaleWithREFrameworkFontSize}##{customizationName}", ref ScaleWithReframeworkFontSize, defaultCustomization?.ScaleWithReframeworkFontSize);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization?.OverlayFontScaleModifier}##{customizationName}", ref OverlayFontScaleModifier, 0.001f, 1f, 128f, "%.3f", defaultCustomization?.OverlayFontScaleModifier);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.ScaleWithREFrameworkFontSize}##{customizationName}", ref ScaleWithReframeworkFontSize, defaultCustomization?.ScaleWithReframeworkFontSize);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.OverlayFontScaleModifier}##{customizationName}", ref OverlayFontScaleModifier, 0.001f, 1f, 128f, "%.3f", defaultCustomization?.OverlayFontScaleModifier);
 
 			ImGui.TreePop();
 		}

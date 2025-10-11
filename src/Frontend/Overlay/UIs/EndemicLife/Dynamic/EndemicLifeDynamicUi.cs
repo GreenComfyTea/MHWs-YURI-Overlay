@@ -13,7 +13,7 @@ internal sealed class EndemicLifeDynamicUi
 	public EndemicLifeDynamicUi(EndemicLifeEntity endemicLifeEntity)
 	{
 		_endemicLifeEntity = endemicLifeEntity;
-		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig?.Data?.EndemicLifeUI;
+		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data.EndemicLifeUI;
 
 		_nameLabelElement = new LabelElement(() => _customizationAccessor()?.NameLabel);
 	}
@@ -53,7 +53,7 @@ internal sealed class EndemicLifeDynamicUi
 
 		var screenPosition = (Vector2) maybeScreenPosition;
 
-		var positionScaleModifier = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.GlobalScale.PositionScaleModifier ?? 1f;
+		var positionScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.PositionScaleModifier ?? 1f;
 
 		screenPosition.X += (customization.Offset.X ?? 0f) * positionScaleModifier;
 		screenPosition.Y += (customization.Offset.Y ?? 0f) * positionScaleModifier;

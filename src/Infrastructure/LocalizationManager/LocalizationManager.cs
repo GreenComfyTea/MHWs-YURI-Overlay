@@ -6,18 +6,28 @@ internal sealed class LocalizationManager : IDisposable
 
 	public static LocalizationManager Instance => Lazy.Value;
 
-	public LocalizationCustomization? Customization;
+	public LocalizationCustomization Customization;
 
-	public JsonDatabase<Localization>? ActiveLocalization;
-	public JsonDatabase<Localization>? DefaultLocalization;
-	public Dictionary<string, JsonDatabase<Localization>> Localizations = [];
+	public JsonDatabase<Localization> DefaultLocalization;
+	public JsonDatabase<Localization> ActiveLocalization;
+
+	public Dictionary<string, JsonDatabase<Localization>> Localizations;
+
 	public EventHandler ActiveLocalizationChanged = delegate { };
 	public EventHandler AnyLocalizationChanged = delegate { };
 
-	private LocalizationWatcher? _localizationWatcherInstance;
+	private LocalizationWatcher _localizationWatcherInstance;
 
 	private LocalizationManager()
 	{
+		Customization = new LocalizationCustomization();
+
+		DefaultLocalization = new JsonDatabase<Localization>("", "", new Localization());
+		ActiveLocalization = DefaultLocalization;
+
+		Localizations = [];
+
+		_localizationWatcherInstance = new LocalizationWatcher();
 	}
 
 	~LocalizationManager()
@@ -32,11 +42,7 @@ internal sealed class LocalizationManager : IDisposable
 		var configManager = ConfigManager.Instance;
 
 		LoadAllLocalizations();
-
-		if(configManager.ActiveConfig?.Data is not null)
-		{
-			ActivateLocalization(configManager.ActiveConfig.Data.GlobalSettings.Localization);
-		}
+		ActivateLocalization(configManager.ActiveConfig.Data.GlobalSettings.Localization);
 
 		configManager.AnyConfigChanged += OnAnyConfigChanged;
 
@@ -46,13 +52,8 @@ internal sealed class LocalizationManager : IDisposable
 		LogManager.Info("[LocalizationManager] Initialized!");
 	}
 
-	public void ActivateLocalization(JsonDatabase<Localization>? localization)
+	public void ActivateLocalization(JsonDatabase<Localization> localization)
 	{
-		if(localization is null)
-		{
-			return;
-		}
-
 		LogManager.Info($"[LocalizationManager] Activating localization \"{localization.Name}\"...");
 
 		ActiveLocalization = localization;
@@ -73,7 +74,7 @@ internal sealed class LocalizationManager : IDisposable
 
 		var isGetConfigSuccess = Localizations.TryGetValue(name, out var localization);
 
-		if(!isGetConfigSuccess)
+		if(!isGetConfigSuccess || localization is null)
 		{
 			LogManager.Info($"[LocalizationManager] localization \"{name}\" is not found.");
 			LogManager.Info("[LocalizationManager] Activating default localization...");
@@ -92,14 +93,14 @@ internal sealed class LocalizationManager : IDisposable
 		LogManager.Info($"[LocalizationManager] Initializing localization \"{name}\"...");
 
 		JsonDatabase<Localization> newLocalization = new(Constants.LocalizationsPath, name);
-		if(newLocalization.Data is not null) newLocalization.Data.IsoCode = name;
+		newLocalization.Data.IsoCode = name;
 		newLocalization.Save();
 
-		newLocalization.Changed += OnLocalizationFileChanged!;
-		newLocalization.RenamedFrom += OnLocalizationFileRenamedFrom!;
-		newLocalization.RenamedTo += OnLocalizationFileRenamedTo!;
-		newLocalization.Deleted += OnLocalizationFileDeleted!;
-		newLocalization.Error += OnLocalizationFileError!;
+		newLocalization.Changed += OnLocalizationFileChanged;
+		newLocalization.RenamedFrom += OnLocalizationFileRenamedFrom;
+		newLocalization.RenamedTo += OnLocalizationFileRenamedTo;
+		newLocalization.Deleted += OnLocalizationFileDeleted;
+		newLocalization.Error += OnLocalizationFileError;
 
 		Localizations[name] = newLocalization;
 
@@ -110,7 +111,7 @@ internal sealed class LocalizationManager : IDisposable
 	{
 		LogManager.Info("[LocalizationManager] Disposing...");
 
-		_localizationWatcherInstance?.Dispose();
+		_localizationWatcherInstance.Dispose();
 
 		foreach(var localization in Localizations)
 		{
@@ -165,9 +166,6 @@ internal sealed class LocalizationManager : IDisposable
 	private void OnAnyConfigChanged(object? sender, EventArgs eventArgs)
 	{
 		var configManager = ConfigManager.Instance;
-
-		if(ActiveLocalization is null) return;
-		if(configManager.ActiveConfig?.Data is null) return;
 
 		if(ActiveLocalization.Name == configManager.ActiveConfig.Data.GlobalSettings.Localization) return;
 

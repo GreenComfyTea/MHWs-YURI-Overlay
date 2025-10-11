@@ -10,7 +10,7 @@ internal sealed class DamageMeterStaticUi
 
 	public DamageMeterStaticUi(DamageMeterEntity damageMeterEntity)
 	{
-		//_customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data.DamageMeter;
+		//_customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data..DamageMeter;
 		_customizationAccessor = () => new DamageMeterStaticUiCustomization();
 
 		if(damageMeterEntity.Type == DamageMeterEntityTypeEnum.LocalPlayer)
@@ -33,7 +33,7 @@ internal sealed class DamageMeterStaticUi
 
 	public void Draw(ImDrawListPtr backgroundDrawList, int locationIndex)
 	{
-		var customization = _customizationAccessor?.Invoke();
+		var customization = _customizationAccessor.Invoke();
 
 		if(customization?.Enabled != true) return;
 
@@ -41,7 +41,7 @@ internal sealed class DamageMeterStaticUi
 
 		var anchoredPosition = customization.Position;
 
-		var positionScaleModifier = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.GlobalScale.PositionScaleModifier ?? 1f;
+		var positionScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.PositionScaleModifier ?? 1f;
 
 		// TODO: Can be cached
 		var position = AnchorPositionCalculator.Convert(anchoredPosition, positionScaleModifier);

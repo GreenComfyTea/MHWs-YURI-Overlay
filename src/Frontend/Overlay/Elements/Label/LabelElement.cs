@@ -19,7 +19,7 @@ internal sealed class LabelElement
 
 		if(customization is null) return;
 
-		if(customization?.Visible != true) return;
+		if(customization.Visible != true) return;
 
 		if(args.Length == 0) return;
 
@@ -27,7 +27,7 @@ internal sealed class LabelElement
 
 		if(string.IsNullOrEmpty(text)) return;
 
-		var globalScaleCustomization = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.GlobalScale;
+		var globalScaleCustomization = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale;
 		var sizeScaleModifier = globalScaleCustomization?.SizeScaleModifier ?? 1f;
 		var overlayFontScale = globalScaleCustomization?.OverlayFontScale;
 

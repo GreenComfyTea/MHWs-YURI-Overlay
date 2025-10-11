@@ -56,7 +56,7 @@ internal sealed class PlayerManager : IDisposable
 
 	private void InitializeTimers()
 	{
-		var updateDelays = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.Performance.UpdateDelays.PlayerManager;
+		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.PlayerManager;
 
 		foreach(var timer in _timers)
 		{
@@ -65,7 +65,7 @@ internal sealed class PlayerManager : IDisposable
 
 		_timers.Clear();
 
-		_timers.Add(Timers.SetInterval(SetIsUpdatePending, Utils.SecondsToMilliseconds(updateDelays?.Update)));
+		_timers.Add(Timers.SetInterval(SetIsUpdatePending, Utils.SecondsToMilliseconds(updateDelays.Update)));
 	}
 
 	private void SetIsUpdatePending()

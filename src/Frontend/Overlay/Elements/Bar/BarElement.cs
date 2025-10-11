@@ -74,7 +74,7 @@ internal sealed class BarElement
 		progress = Math.Clamp(progress, 0f, 1f);
 		if(customization.Settings.Inverted == true) progress = 1 - progress;
 
-		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
+		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
 
 		var outline = customization.Outline;
 		var outlineThickness = (outline.Thickness ?? 1f) * sizeScaleModifier;
@@ -138,7 +138,7 @@ internal sealed class BarElement
 		var outlineOffset = outline.Offset ?? 0f;
 		var outlineStyle = outline.Style ?? OutlineStyleEnum.Outside;
 
-		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
+		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
 
 		var cachingKey = (outlineStyle, position.X, position.Y, offsetX, offsetY, width, height, outlineThickness, outlineOffset, sizeScaleModifier);
 

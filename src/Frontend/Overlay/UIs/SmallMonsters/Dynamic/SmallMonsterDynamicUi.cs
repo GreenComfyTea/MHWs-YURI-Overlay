@@ -14,7 +14,7 @@ internal sealed class SmallMonsterDynamicUi
 	public SmallMonsterDynamicUi(SmallMonster largeMonster)
 	{
 		_largeMonster = largeMonster;
-		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig?.Data?.SmallMonsterUI;
+		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data.SmallMonsterUI;
 
 		_nameLabelElement = new LabelElement(() => _customizationAccessor()?.NameLabel);
 		_healthComponent = new SmallMonsterHealthComponent(largeMonster, () => _customizationAccessor()?.Health);
@@ -57,7 +57,7 @@ internal sealed class SmallMonsterDynamicUi
 
 		var screenPosition = (Vector2) maybeScreenPosition;
 
-		var positionScaleModifier = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.GlobalScale.PositionScaleModifier ?? 1f;
+		var positionScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.PositionScaleModifier ?? 1f;
 
 		screenPosition.X += (customization.Offset.X ?? 0f) * positionScaleModifier;
 		screenPosition.Y += (customization.Offset.Y ?? 0f) * positionScaleModifier;

@@ -77,7 +77,7 @@ internal sealed class LuaFontManager
 	{
 		try
 		{
-			//var selectedMenuFontOption = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalFonts.MenuFont.FontName;
+			//var selectedMenuFontOption = ConfigManager.Instance.ActiveConfig.Data..GlobalSettings.GlobalFonts.MenuFont.FontName;
 
 			//var localization = LocalizationManager.Instance.ActiveLocalization.Data;
 

@@ -12,10 +12,10 @@ internal sealed class LocalizationWatcher : IDisposable
 
 	public LocalizationWatcher()
 	{
+		LogManager.Info("[LocalizationWatcher] Initializing...");
+
 		try
 		{
-			LogManager.Info("[LocalizationWatcher] Initializing...");
-
 			_watcher = new FileSystemWatcher(Constants.LocalizationsPath);
 
 			_watcher.NotifyFilter = NotifyFilters.Attributes

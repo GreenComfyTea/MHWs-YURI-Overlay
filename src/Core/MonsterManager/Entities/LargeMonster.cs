@@ -147,14 +147,14 @@ internal sealed class LargeMonster : IDisposable
 
 	public void UpdateSortingPriorities()
 	{
-		var customization = ConfigManager.Instance.ActiveConfig?.Data?.LargeMonsterUI;
+		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
 		// Targeted Dynamic UI should be rendered last to be on top
 		DynamicSortingPriority = IsTargeted ? 3 : 0;
 
-		var sortingCustomization = customization?.Static.Sorting;
-		var targetedMonsterPriorityValue = PriorityUtils.ConvertPriorityToValue(sortingCustomization?.TargetedMonsterPriority);
-		var pinnedMonsterPriorityValue = PriorityUtils.ConvertPriorityToValue(sortingCustomization?.PinnedMonsterPriority);
+		var sortingCustomization = customization.Static.Sorting;
+		var targetedMonsterPriorityValue = PriorityUtils.ConvertPriorityToValue(sortingCustomization.TargetedMonsterPriority);
+		var pinnedMonsterPriorityValue = PriorityUtils.ConvertPriorityToValue(sortingCustomization.PinnedMonsterPriority);
 
 
 		if(IsTargeted && IsPinned)
@@ -202,7 +202,7 @@ internal sealed class LargeMonster : IDisposable
 
 	private void InitializeTimers()
 	{
-		var updateDelays = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.Performance.UpdateDelays.LargeMonsters;
+		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.LargeMonsters;
 
 		foreach(var timer in _timers)
 		{
@@ -211,14 +211,14 @@ internal sealed class LargeMonster : IDisposable
 
 		_timers.Clear();
 
-		_timers.Add(Timers.SetInterval(SetUpdateNamePending, Utils.SecondsToMilliseconds(updateDelays?.Name)));
+		_timers.Add(Timers.SetInterval(SetUpdateNamePending, Utils.SecondsToMilliseconds(updateDelays.Name)));
 		_timers.Add(Timers.SetInterval(SetUpdateMissionBeaconOffset,
-			Utils.SecondsToMilliseconds(updateDelays?.MissionBeaconOffset)));
-		_timers.Add(Timers.SetInterval(SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays?.ModelRadius)));
-		_timers.Add(Timers.SetInterval(SetUpdateHealthPending, Utils.SecondsToMilliseconds(updateDelays?.Health)));
-		_timers.Add(Timers.SetInterval(SetUpdateStaminaPending, Utils.SecondsToMilliseconds(updateDelays?.Stamina)));
-		_timers.Add(Timers.SetInterval(SetUpdateRagePending, Utils.SecondsToMilliseconds(updateDelays?.Rage)));
-		_timers.Add(Timers.SetInterval(SetUpdateMapPinPending, Utils.SecondsToMilliseconds(updateDelays?.MapPin)));
+			Utils.SecondsToMilliseconds(updateDelays.MissionBeaconOffset)));
+		_timers.Add(Timers.SetInterval(SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays.ModelRadius)));
+		_timers.Add(Timers.SetInterval(SetUpdateHealthPending, Utils.SecondsToMilliseconds(updateDelays.Health)));
+		_timers.Add(Timers.SetInterval(SetUpdateStaminaPending, Utils.SecondsToMilliseconds(updateDelays.Stamina)));
+		_timers.Add(Timers.SetInterval(SetUpdateRagePending, Utils.SecondsToMilliseconds(updateDelays.Rage)));
+		_timers.Add(Timers.SetInterval(SetUpdateMapPinPending, Utils.SecondsToMilliseconds(updateDelays.MapPin)));
 	}
 
 	private void SetUpdateNamePending()
