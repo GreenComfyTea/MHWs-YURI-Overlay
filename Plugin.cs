@@ -98,6 +98,10 @@ public class Plugin
 			ImGuiRender.Post += OnImGuiRender;
 
 			IsInitialized = true;
+
+#if DEBUG
+			NullChecker.ValidateConfig();
+#endif
 		}
 		catch(Exception exception)
 		{
