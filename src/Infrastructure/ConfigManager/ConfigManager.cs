@@ -22,14 +22,10 @@ internal sealed partial class ConfigManager : IDisposable
 	private ConfigManager()
 	{
 		Customization = new ConfigCustomization(true);
-
 		DefaultConfig = new Config();
 		ActiveConfig = new JsonDatabase<Config>(true);
-
 		Configs = [];
-
 		ConfigWatcherInstance = new ConfigWatcher(true);
-
 		_currentConfigInstance = new JsonDatabase<CurrentConfig>(true);
 	}
 

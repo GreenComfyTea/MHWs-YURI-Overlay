@@ -1,4 +1,4 @@
-﻿namespace YURI_Overlay;
+namespace YURI_Overlay;
 
 internal sealed class LocalizationManager : IDisposable
 {
@@ -21,12 +21,9 @@ internal sealed class LocalizationManager : IDisposable
 	private LocalizationManager()
 	{
 		Customization = new LocalizationCustomization(true);
-
 		DefaultLocalization = new JsonDatabase<Localization>(true);
 		ActiveLocalization = DefaultLocalization;
-
 		Localizations = [];
-
 		_localizationWatcherInstance = new LocalizationWatcher(true);
 	}
 
