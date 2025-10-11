@@ -224,7 +224,7 @@ internal static class ImGuiHelper
 	{
 		isChanged |= ResetButton(customizationName, defaultCustomization, resetMethod);
 
-		return ImGui.TreeNode($"{label}##${customizationName}");
+		return ImGui.TreeNode($"{label}##{customizationName}");
 	}
 
 	public static string? TruncateTextByMaxWidth(string? text, float maxWidth, Vector2? textSize)

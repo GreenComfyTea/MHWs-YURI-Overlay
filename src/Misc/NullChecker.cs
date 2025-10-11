@@ -12,21 +12,34 @@ internal class NullChecker
 {
 	public static void ValidateConfig()
 	{
+		LogManager.Debug("Validating default config...");
+
 		var config = new Config();
 		ConfigManager.ResetToDefault(config);
 
-		Validate(config);
+		var isValid = Validate(config);
+
+		if(isValid)
+		{
+			LogManager.Debug("Default config is valid!");
+		}
+		else
+		{
+			LogManager.Error("Default config is invalid!");
+		}
 	}
 
-	public static void Validate(object obj, string path = "")
+	public static bool Validate(object obj, string path = "")
 	{
 		var type = obj.GetType();
 
 		// Avoid checking primitive types, strings, and enums
 		if(type.IsPrimitive || type == typeof(string) || type.IsEnum || type is { IsValueType: true, IsClass: false })
 		{
-			return;
+			return true;
 		}
+
+		var isValid = true;
 
 		// Handle collections (arrays, lists, etc.)
 		if(obj is IEnumerable enumerable and not string) // string is IEnumerable<char>, but we treat it as a primitive
@@ -34,11 +47,11 @@ internal class NullChecker
 			var index = 0;
 			foreach(var item in enumerable)
 			{
-				Validate(item, $"{path}[{index}]");
+				isValid &= Validate(item, $"{path}[{index}]");
 				index++;
 			}
 
-			return;
+			return isValid;
 		}
 
 		// Get all public instance properties
@@ -54,6 +67,7 @@ internal class NullChecker
 
 			// Get the property value
 			object? propertyValue = null;
+
 			try
 			{
 				propertyValue = property.GetValue(obj);
@@ -65,16 +79,18 @@ internal class NullChecker
 			}
 			catch(Exception ex)
 			{
-				Console.WriteLine($"Error getting value for property {path}.{property.Name}: {ex.Message}");
+				LogManager.Error($"Error getting value for property {path}.{property.Name}: {ex.Message}");
+				isValid = false;
 				continue;
 			}
 
 
-			string currentPath = string.IsNullOrEmpty(path) ? property.Name : $"{path}.{property.Name}";
+			var currentPath = string.IsNullOrEmpty(path) ? property.Name : $"{path}.{property.Name}";
 
-			if(propertyValue == null)
+			if(propertyValue is null)
 			{
-				Console.WriteLine($"{currentPath} is null.");
+				LogManager.Debug($"{currentPath} is null.");
+				isValid = false;
 			}
 			else
 			{
@@ -82,7 +98,7 @@ internal class NullChecker
 				// Ensure it's a reference type and not a string or a value type that isn't nullable itself
 				if(property.PropertyType.IsClass && property.PropertyType != typeof(string))
 				{
-					Validate(propertyValue, currentPath);
+					isValid &= Validate(propertyValue, currentPath);
 				}
 			}
 		}
@@ -98,23 +114,27 @@ internal class NullChecker
 			}
 			catch(Exception ex)
 			{
-				Console.WriteLine($"Error getting value for field {path}.{field.Name}: {ex.Message}");
+				LogManager.Error($"Error getting value for field {path}.{field.Name}: {ex.Message}");
+				isValid = false;
 				continue;
 			}
 
 			var currentPath = string.IsNullOrEmpty(path) ? field.Name : $"{path}.{field.Name}";
 
-			if(fieldValue == null)
+			if(fieldValue is null)
 			{
-				Console.WriteLine($"{currentPath} is null.");
+				LogManager.Debug($"{currentPath} is null.");
+				isValid = false;
 			}
 			else
 			{
 				if(field.FieldType.IsClass && field.FieldType != typeof(string))
 				{
-					Validate(fieldValue, currentPath);
+					isValid &= Validate(fieldValue, currentPath);
 				}
 			}
 		}
+
+		return isValid;
 	}
 }

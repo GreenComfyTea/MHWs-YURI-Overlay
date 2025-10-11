@@ -26,6 +26,9 @@ internal partial class ConfigManager
 		globalSettingsConfig.GlobalScale.PositionScaleModifier = 1f;
 		globalSettingsConfig.GlobalScale.SizeScaleModifier = 1f;
 
+		globalSettingsConfig.GlobalScale.OverlayFontScale.ScaleWithReframeworkFontSize = false;
+		globalSettingsConfig.GlobalScale.OverlayFontScale.OverlayFontScaleModifier = 1f;
+
 		globalSettingsConfig.Performance.CalculationCaching = true;
 
 		globalSettingsConfig.Performance.UpdateDelays.ScreenManager.Update = 1f;
@@ -39,16 +42,13 @@ internal partial class ConfigManager
 		globalSettingsConfig.Performance.UpdateDelays.LargeMonsters.Rage = 0.25f;
 		globalSettingsConfig.Performance.UpdateDelays.LargeMonsters.MapPin = 0.25f;
 
-
 		globalSettingsConfig.Performance.UpdateDelays.SmallMonsters.Name = 5f;
 		globalSettingsConfig.Performance.UpdateDelays.SmallMonsters.MissionBeaconOffset = 5f;
 		globalSettingsConfig.Performance.UpdateDelays.SmallMonsters.ModelRadius = 5f;
 		globalSettingsConfig.Performance.UpdateDelays.SmallMonsters.Health = 0.5f;
 
-
 		globalSettingsConfig.Performance.UpdateDelays.EndemicLife.Name = 5f;
 		globalSettingsConfig.Performance.UpdateDelays.EndemicLife.ModelRadius = 5f;
-
 
 		globalSettingsConfig.Performance.UpdateDelays.UIs.LargeMonsterDynamic = 0.1f;
 		globalSettingsConfig.Performance.UpdateDelays.UIs.LargeMonsterStatic = 0.1f;
@@ -56,10 +56,13 @@ internal partial class ConfigManager
 		globalSettingsConfig.Performance.UpdateDelays.UIs.LargeMonsterMapPin = 0.1f;
 		globalSettingsConfig.Performance.UpdateDelays.UIs.SmallMonsters = 0.2f;
 		globalSettingsConfig.Performance.UpdateDelays.UIs.EndemicLife = 0.2f;
+		globalSettingsConfig.Performance.UpdateDelays.UIs.DamageMeter = 0.5f;
 	}
 
 	private static void ResetLargeMonsterUi(Config config)
 	{
+		config.LargeMonsterUI.Enabled = true;
+
 		ResetLargeMonsterDynamicUi(config);
 		ResetLargeMonsterStaticUi(config);
 		ResetLargeMonsterTargetedUi(config);
@@ -218,7 +221,7 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Stamina.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
 		largeMonsterDynamicUiConfig.Stamina.Bar.Colors.Background.Start.ColorInfo1.Rgba = 0x0000004A;
 		largeMonsterDynamicUiConfig.Stamina.Bar.Colors.Background.Start.ColorInfo2.Rgba = 0x0000004A;
-		largeMonsterDynamicUiConfig.Stamina.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
+		largeMonsterDynamicUiConfig.Stamina.Bar.Colors.Background.End.SplitIntoTwoColors = false;
 		largeMonsterDynamicUiConfig.Stamina.Bar.Colors.Background.End.ColorInfo1.Rgba = 0x0000004A;
 		largeMonsterDynamicUiConfig.Stamina.Bar.Colors.Background.End.ColorInfo2.Rgba = 0x0000004A;
 

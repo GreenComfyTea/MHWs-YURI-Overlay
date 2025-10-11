@@ -28,8 +28,8 @@ internal sealed class LabelElementSettingsCustomization : Customization
 		if(ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Alignment}##{customizationName}", ref _alignmentIndex, localizationHelper.Anchors, defaultCustomization?._alignmentIndex);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.FontSize}##${customizationName}", ref FontSize, 0.1f, 1f, 128f, "%.1f", defaultCustomization?.FontSize);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MaxWidth}##${customizationName}", ref MaxWidth, 0.1f, 0f, 4096f, "%.1f", defaultCustomization?.MaxWidth);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.FontSize}##{customizationName}", ref FontSize, 0.1f, 1f, 128f, "%.1f", defaultCustomization?.FontSize);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MaxWidth}##{customizationName}", ref MaxWidth, 0.1f, 0f, 4096f, "%.1f", defaultCustomization?.MaxWidth);
 
 			ImGui.TreePop();
 		}

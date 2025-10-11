@@ -20,7 +20,7 @@ internal sealed class JsonDatabase<T> : IDisposable where T : class, new()
 
 	public JsonDatabase(bool stub)
 	{
-		LogManager.Info($"[JsonDatabase] Stub instance initializing... {typeof(T).FullName}");
+		LogManager.Info("[JsonDatabase] Stub instance initializing...");
 
 		Name = string.Empty;
 		FilePath = string.Empty;
@@ -62,7 +62,7 @@ internal sealed class JsonDatabase<T> : IDisposable where T : class, new()
 		try
 		{
 			JsonWatcherInstance.Disable();
-			LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Loading... ${data}");
+			LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Loading... {data}");
 
 			var json = data is null ? FileSyncInstance.Read() : JsonSerializer.Serialize(data, Constants.JsonSerializerOptionsInstance);
 			if(json is null)

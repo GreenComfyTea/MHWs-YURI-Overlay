@@ -16,8 +16,8 @@ internal sealed class OffsetCustomization : Customization
 
 		if(ImGuiHelper.ResettableTreeNode(localization.Offset, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.X}##${customizationName}", ref X, 0.1f, -4096f, 4096f, "%.1f", defaultCustomization?.X);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Y}##${customizationName}", ref Y, 0.1f, -4096f, 4096f, "%.1f", defaultCustomization?.Y);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.X}##{customizationName}", ref X, 0.1f, -4096f, 4096f, "%.1f", defaultCustomization?.X);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Y}##{customizationName}", ref Y, 0.1f, -4096f, 4096f, "%.1f", defaultCustomization?.Y);
 
 			ImGui.TreePop();
 		}
