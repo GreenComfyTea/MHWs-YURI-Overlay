@@ -114,4 +114,8 @@
   <ItemGroup>
     <Folder Include="src\Frontend\ImGui\Customizations\Font\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.4.0" />
+  </ItemGroup>
 </Project>
