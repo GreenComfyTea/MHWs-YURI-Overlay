@@ -22,18 +22,18 @@ internal sealed class BarElementOutlineCustomization : Customization
 
 	public bool RenderImGui(string? parentName = "", BarElementOutlineCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 		var localizationHelper = LocalizationHelper.Instance;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-outline";
 
-		if(ImGuiHelper.ResettableTreeNode(localization?.Outline, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.Outline, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization?.Thickness}##{customizationName}", ref Thickness, 0.1f, 0, 1024f, "%.1f", defaultCustomization?.Thickness);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization?.Offset}##{customizationName}", ref Offset, 0.1f, -1024f, 1024f, "%.1f", defaultCustomization?.Offset);
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization?.Style}##{customizationName}", ref _styleIndex, localizationHelper.OutlineStyles, defaultCustomization?._styleIndex);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Thickness}##{customizationName}", ref Thickness, 0.1f, 0, 1024f, "%.1f", defaultCustomization?.Thickness);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Offset}##{customizationName}", ref Offset, 0.1f, -1024f, 1024f, "%.1f", defaultCustomization?.Offset);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Style}##{customizationName}", ref _styleIndex, localizationHelper.OutlineStyles, defaultCustomization?._styleIndex);
 			isChanged |= Color.RenderImGui(customizationName, defaultCustomization?.Color);
 
 			ImGui.TreePop();

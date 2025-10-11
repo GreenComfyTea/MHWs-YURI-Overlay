@@ -17,20 +17,20 @@ internal sealed class LargeMonsterStaticUiCustomization : Customization
 
 	public bool RenderImGui(string? parentName = "", LargeMonsterStaticUiCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-static";
 
-		if(ImGuiHelper.ResettableTreeNode(localization?.Static, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.Static, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
 
 			isChanged |= Settings.RenderImGui(customizationName, defaultCustomization?.Settings);
 			isChanged |= Position.RenderImGui(customizationName, defaultCustomization?.Position);
 			isChanged |= Spacing.RenderImGui(customizationName, defaultCustomization?.Spacing);
 			isChanged |= Sorting.RenderImGui(customizationName, defaultCustomization?.Sorting);
-			isChanged |= NameLabel.RenderImGui(localization?.NameLabel, $"{customizationName}-name-label", defaultCustomization?.NameLabel);
+			isChanged |= NameLabel.RenderImGui(localization.NameLabel, $"{customizationName}-name-label", defaultCustomization?.NameLabel);
 			isChanged |= Health.RenderImGui(customizationName, defaultCustomization?.Health);
 			isChanged |= Stamina.RenderImGui(customizationName, defaultCustomization?.Stamina);
 			isChanged |= Rage.RenderImGui(customizationName, defaultCustomization?.Rage);

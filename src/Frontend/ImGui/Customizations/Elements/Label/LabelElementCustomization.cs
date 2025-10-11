@@ -13,14 +13,14 @@ internal sealed class LabelElementCustomization : Customization
 
 	public bool RenderImGui(string? visibleName = "", string customizationName = "label", LabelElementCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 
 		if(ImGuiHelper.ResettableTreeNode(visibleName, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
-			if(Format is not null) isChanged |= ImGuiHelper.ResettableInputText($"{localization?.Format}##{customizationName}", ref Format, defaultValue: defaultCustomization?.Format);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
+			if(Format is not null) isChanged |= ImGuiHelper.ResettableInputText($"{localization.Format}##{customizationName}", ref Format, defaultValue: defaultCustomization?.Format);
 
 			isChanged |= Settings.RenderImGui(customizationName, defaultCustomization?.Settings);
 			isChanged |= Offset.RenderImGui(customizationName, defaultCustomization?.Offset);

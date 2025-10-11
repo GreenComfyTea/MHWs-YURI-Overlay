@@ -13,14 +13,14 @@ internal sealed class LargeMonsterUiCustomization : Customization
 
 	public bool RenderImGui(string? parentName = "", LargeMonsterUiCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-large-monster";
 
-		if(ImGuiHelper.ResettableTreeNode(localization?.LargeMonstersUI, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.LargeMonstersUI, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
 
 			isChanged |= Dynamic.RenderImGui(customizationName, defaultCustomization?.Dynamic);
 			isChanged |= Static.RenderImGui(customizationName, defaultCustomization?.Static);

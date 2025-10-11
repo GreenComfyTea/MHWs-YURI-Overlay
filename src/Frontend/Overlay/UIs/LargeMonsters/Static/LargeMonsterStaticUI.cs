@@ -15,7 +15,7 @@ internal sealed class LargeMonsterStaticUi
 	public LargeMonsterStaticUi(LargeMonster largeMonster)
 	{
 		_largeMonster = largeMonster;
-		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig?.Data?.LargeMonsterUI.Static;
+		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI.Static;
 
 		_nameLabelElement = new LabelElement(() => _customizationAccessor()?.NameLabel);
 		_healthComponent = new LargeMonsterHealthComponent(largeMonster, () => _customizationAccessor()?.Health);
@@ -31,7 +31,7 @@ internal sealed class LargeMonsterStaticUi
 
 		var spacing = customization.Spacing;
 		var anchoredPosition = customization.Position;
-		var positionScaleModifier = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.GlobalScale.PositionScaleModifier ?? 1f;
+		var positionScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.PositionScaleModifier ?? 1f;
 
 		// TODO: Can be cached
 		var position = AnchorPositionCalculator.Convert(anchoredPosition, positionScaleModifier);

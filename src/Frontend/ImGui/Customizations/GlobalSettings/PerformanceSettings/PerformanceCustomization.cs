@@ -9,14 +9,14 @@ internal sealed class PerformanceCustomization : Customization
 
 	public bool RenderImGui(string? parentName = "", PerformanceCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-performance";
 
-		if(ImGuiHelper.ResettableTreeNode(localization?.Performance, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.Performance, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.CalculationCaching}##{customizationName}", ref CalculationCaching, defaultCustomization?.CalculationCaching);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.CalculationCaching}##{customizationName}", ref CalculationCaching, defaultCustomization?.CalculationCaching);
 			isChanged |= UpdateDelays.RenderImGui(customizationName, defaultCustomization?.UpdateDelays);
 
 			ImGui.TreePop();

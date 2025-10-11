@@ -36,18 +36,18 @@ internal sealed class LargeMonsterStaticUiSortingCustomization : Customization
 
 	public bool RenderImGui(string? parentName = "", LargeMonsterStaticUiSortingCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 		var localizationHelper = LocalizationHelper.Instance;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-settings";
 
-		if(ImGuiHelper.ResettableTreeNode(localization?.Sorting, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.Sorting, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.ReversedOrder}##{customizationName}", ref ReversedOrder, defaultCustomization?.ReversedOrder);
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization?.Type}##{customizationName}", ref _typeIndex, localizationHelper.Sortings, defaultCustomization?._typeIndex);
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization?.TargetedMonsterPriority}##{customizationName}", ref _targetedMonsterPriorityIndex, localizationHelper.Priorities, defaultCustomization?._targetedMonsterPriorityIndex);
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization?.PinnedMonsterPriority}##{customizationName}", ref _pinnedMonsterPriorityIndex, localizationHelper.Priorities, defaultCustomization?._pinnedMonsterPriorityIndex);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.ReversedOrder}##{customizationName}", ref ReversedOrder, defaultCustomization?.ReversedOrder);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Type}##{customizationName}", ref _typeIndex, localizationHelper.Sortings, defaultCustomization?._typeIndex);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization.TargetedMonsterPriority}##{customizationName}", ref _targetedMonsterPriorityIndex, localizationHelper.Priorities, defaultCustomization?._targetedMonsterPriorityIndex);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization.PinnedMonsterPriority}##{customizationName}", ref _pinnedMonsterPriorityIndex, localizationHelper.Priorities, defaultCustomization?._pinnedMonsterPriorityIndex);
 
 			ImGui.TreePop();
 		}

@@ -26,7 +26,7 @@ internal sealed class MethodHookPatternAttribute : Attribute
 	public static void Initialize()
 	{
 		foreach(var method in Assembly.GetExecutingAssembly().GetTypes()
-									  .SelectMany(type => type.GetMethods(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public))
+									  .SelectMany(type => type.GetMethods(BindingFlags.Static | BindingFlags.Public))
 									  .Where(method => method.GetCustomAttributes<MethodHookPatternAttribute>().Any()))
 		{
 			foreach(var attr in method.GetCustomAttributes<MethodHookPatternAttribute>())
@@ -51,13 +51,13 @@ internal sealed class MethodHookPatternAttribute : Attribute
 			var refTypeField = methodHookPatternAttribute.DeclaringType.GetField("REFType", BindingFlags.Static | BindingFlags.Public);
 			if(refTypeField is null)
 			{
-				throw new ArgumentException($"Type {methodHookPatternAttribute.DeclaringType.Name} does not have a REFrameworkNET.TypeDefinition field");
+				throw new ArgumentException($"Type does not have a REFrameworkNET.TypeDefinition field");
 			}
 
 			var typeDefinition = (TypeDefinition?) refTypeField.GetValue(null);
 			if(typeDefinition is null)
 			{
-				throw new ArgumentException($"Type {methodHookPatternAttribute.DeclaringType.Name} does not have a REFrameworkNET.TypeDefinition field");
+				throw new ArgumentException($"Type does not have a REFrameworkNET.TypeDefinition field");
 			}
 
 			var method = typeDefinition.Methods.Find((method) => method.Name.Contains(methodHookPatternAttribute.MethodSignaturePattern, StringComparison.Ordinal));

@@ -182,7 +182,7 @@ internal sealed class ScreenManager : IDisposable
 
 	private void InitializeTimers()
 	{
-		var updateDelays = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.Performance.UpdateDelays.ScreenManager;
+		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.ScreenManager;
 
 		foreach(var timer in _timers)
 		{
@@ -191,7 +191,7 @@ internal sealed class ScreenManager : IDisposable
 
 		_timers.Clear();
 
-		_timers.Add(Timers.SetInterval(SetIsUpdatePending, Utils.SecondsToMilliseconds(updateDelays?.Update)));
+		_timers.Add(Timers.SetInterval(SetIsUpdatePending, Utils.SecondsToMilliseconds(updateDelays.Update)));
 	}
 
 	private void SetIsUpdatePending()

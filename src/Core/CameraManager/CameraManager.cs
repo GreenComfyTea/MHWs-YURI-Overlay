@@ -30,9 +30,7 @@ internal sealed class CameraManager
 	{
 		try
 		{
-			var customization = ConfigManager.Instance.ActiveConfig?.Data;
-
-			if(customization is null) return;
+			var customization = ConfigManager.Instance.ActiveConfig.Data;
 
 			if(customization.LargeMonsterUI.Enabled != true
 			   && customization.LargeMonsterUI.Dynamic.Enabled != true

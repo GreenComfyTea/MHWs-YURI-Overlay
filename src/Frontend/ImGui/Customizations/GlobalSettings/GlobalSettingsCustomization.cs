@@ -12,12 +12,12 @@ internal sealed class GlobalSettingsCustomization : Customization
 
 	public bool RenderImGui(string? parentName = "", GlobalSettingsCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-global-settings";
 
-		if(ImGuiHelper.ResettableTreeNode(localization?.GlobalSettings, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.GlobalSettings, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			if(LocalizationManager.Instance.Customization is not null) isChanged |= LocalizationManager.Instance.Customization.RenderImGui(customizationName);
 			//isChanged |= GlobalFonts.RenderImGui(customizationName);

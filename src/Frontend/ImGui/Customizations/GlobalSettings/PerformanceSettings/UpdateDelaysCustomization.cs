@@ -13,12 +13,12 @@ internal sealed class UpdateDelaysCustomization : Customization
 
 	public bool RenderImGui(string? parentName = "", UpdateDelaysCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-update-delays";
 
-		if(ImGuiHelper.ResettableTreeNode(localization?.UpdateDelaysSeconds, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.UpdateDelaysSeconds, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ScreenManager.RenderImGui(customizationName, defaultCustomization?.ScreenManager);
 			isChanged |= PlayerManager.RenderImGui(customizationName, defaultCustomization?.PlayerManager);

@@ -47,7 +47,7 @@ internal sealed class EndemicLifeUiManager : IDisposable
 
 	private void InitializeTimers()
 	{
-		var updateDelays = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.Performance.UpdateDelays.UIs;
+		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.UIs;
 
 		foreach(var timer in _timers)
 		{
@@ -56,14 +56,14 @@ internal sealed class EndemicLifeUiManager : IDisposable
 
 		_timers.Clear();
 
-		_timers.Add(Timers.SetInterval(UpdateDynamic, Utils.SecondsToMilliseconds(updateDelays?.EndemicLife)));
+		_timers.Add(Timers.SetInterval(UpdateDynamic, Utils.SecondsToMilliseconds(updateDelays.EndemicLife)));
 	}
 
 	private void UpdateDynamic()
 	{
-		var customization = ConfigManager.Instance.ActiveConfig?.Data?.EndemicLifeUI;
+		var customization = ConfigManager.Instance.ActiveConfig.Data.EndemicLifeUI;
 
-		if(customization?.Enabled != true)
+		if(customization.Enabled != true)
 		{
 			_dynamicEndemicLifeEntities = [];
 			return;
@@ -89,9 +89,9 @@ internal sealed class EndemicLifeUiManager : IDisposable
 
 	private void DrawDynamicUi(ImDrawListPtr backgroundDrawList)
 	{
-		var customization = ConfigManager.Instance.ActiveConfig?.Data?.EndemicLifeUI;
+		var customization = ConfigManager.Instance.ActiveConfig.Data.EndemicLifeUI;
 
-		if(customization?.Enabled != true) return;
+		if(customization.Enabled != true) return;
 
 		foreach(var endemicLifeEntity in _dynamicEndemicLifeEntities)
 		{

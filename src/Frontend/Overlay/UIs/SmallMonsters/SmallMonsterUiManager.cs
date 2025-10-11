@@ -47,7 +47,7 @@ internal sealed class SmallMonsterUiManager : IDisposable
 
 	private void InitializeTimers()
 	{
-		var updateDelays = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.Performance.UpdateDelays.UIs;
+		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.UIs;
 
 		foreach(var timer in _timers)
 		{
@@ -56,15 +56,15 @@ internal sealed class SmallMonsterUiManager : IDisposable
 
 		_timers.Clear();
 
-		_timers.Add(Timers.SetInterval(UpdateDynamic, Utils.SecondsToMilliseconds(updateDelays?.SmallMonsters)));
+		_timers.Add(Timers.SetInterval(UpdateDynamic, Utils.SecondsToMilliseconds(updateDelays.SmallMonsters)));
 	}
 
 	private void UpdateDynamic()
 	{
-		var customization = ConfigManager.Instance.ActiveConfig?.Data?.SmallMonsterUI;
-		var settings = customization?.Settings;
+		var customization = ConfigManager.Instance.ActiveConfig.Data.SmallMonsterUI;
+		var settings = customization.Settings;
 
-		if(customization?.Enabled != true)
+		if(customization.Enabled != true)
 		{
 			_dynamicSmallMonsters = [];
 			return;
@@ -92,7 +92,7 @@ internal sealed class SmallMonsterUiManager : IDisposable
 
 	private void DrawDynamicUi(ImDrawListPtr backgroundDrawList)
 	{
-		var customization = ConfigManager.Instance.ActiveConfig?.Data?.SmallMonsterUI;
+		var customization = ConfigManager.Instance.ActiveConfig.Data.SmallMonsterUI;
 
 		if(customization?.Enabled != true) return;
 

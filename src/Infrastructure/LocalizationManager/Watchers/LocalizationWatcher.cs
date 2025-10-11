@@ -7,15 +7,19 @@ internal sealed class LocalizationWatcher : IDisposable
 	private readonly FileSystemWatcher? _watcher;
 	private readonly Dictionary<string, DateTime> _lastEventTimes = [];
 
-	private bool _disabled;
+	private bool _disabled = false;
 	private Timer? _delayedEnableTimer;
+
+	public LocalizationWatcher(bool stub)
+	{
+	}
 
 	public LocalizationWatcher()
 	{
+		LogManager.Info("[LocalizationWatcher] Initializing...");
+
 		try
 		{
-			LogManager.Info("[LocalizationWatcher] Initializing...");
-
 			_watcher = new FileSystemWatcher(Constants.LocalizationsPath);
 
 			_watcher.NotifyFilter = NotifyFilters.Attributes

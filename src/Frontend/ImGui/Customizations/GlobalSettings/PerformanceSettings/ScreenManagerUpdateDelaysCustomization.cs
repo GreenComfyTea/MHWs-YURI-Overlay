@@ -8,14 +8,14 @@ internal sealed class ScreenManagerUpdateDelaysCustomization : Customization
 
 	public bool RenderImGui(string? parentName = "", ScreenManagerUpdateDelaysCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-screen-manager";
 
-		if(ImGuiHelper.ResettableTreeNode(localization?.ScreenManager, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.ScreenManager, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization?.Update}##{customizationName}", ref Update, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Update);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Update}##{customizationName}", ref Update, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Update);
 
 			ImGui.TreePop();
 		}

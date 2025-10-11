@@ -16,12 +16,12 @@ internal sealed class ColorCustomization : Customization
 
 	public bool RenderImGui(string? parentName = "", ColorCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-color";
 
-		if(ImGuiHelper.ResettableTreeNode(localization?.Color, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.Color, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			var isColorChanged = ImGuiHelper.ResettableColorPicker4($"##${customizationName}", ref ColorInfo.vector, defaultCustomization?.ColorInfo.vector);
 			isChanged |= isColorChanged;

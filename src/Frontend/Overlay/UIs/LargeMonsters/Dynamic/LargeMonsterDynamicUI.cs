@@ -16,7 +16,7 @@ internal sealed class LargeMonsterDynamicUi
 	public LargeMonsterDynamicUi(LargeMonster largeMonster)
 	{
 		_largeMonster = largeMonster;
-		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig?.Data?.LargeMonsterUI.Dynamic;
+		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI.Dynamic;
 
 		_nameLabelElement = new LabelElement(() => _customizationAccessor()?.NameLabel);
 		_healthComponent = new LargeMonsterHealthComponent(largeMonster, () => _customizationAccessor()?.Health);
@@ -61,7 +61,7 @@ internal sealed class LargeMonsterDynamicUi
 
 		var screenPosition = (Vector2) maybeScreenPosition;
 
-		var positionScaleModifier = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.GlobalScale.PositionScaleModifier ?? 1f;
+		var positionScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.PositionScaleModifier ?? 1f;
 
 		screenPosition.X += (customization.Offset.X ?? 0f) * positionScaleModifier;
 		screenPosition.Y += (customization.Offset.Y ?? 0f) * positionScaleModifier;

@@ -100,7 +100,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 
 	private void InitializeTimers()
 	{
-		var updateDelays = ConfigManager.Instance.ActiveConfig?.Data?.GlobalSettings.Performance.UpdateDelays.EndemicLife;
+		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.EndemicLife;
 
 		foreach(var timer in _timers)
 		{
@@ -109,8 +109,8 @@ internal sealed class EndemicLifeEntity : IDisposable
 
 		_timers.Clear();
 
-		_timers.Add(Timers.SetInterval(SetUpdateNamePending, Utils.SecondsToMilliseconds(updateDelays?.Name)));
-		_timers.Add(Timers.SetInterval(SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays?.ModelRadius)));
+		_timers.Add(Timers.SetInterval(SetUpdateNamePending, Utils.SecondsToMilliseconds(updateDelays.Name)));
+		_timers.Add(Timers.SetInterval(SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays.ModelRadius)));
 	}
 
 	private void SetUpdateNamePending()

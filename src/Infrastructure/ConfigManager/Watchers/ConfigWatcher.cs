@@ -7,15 +7,19 @@ internal sealed class ConfigWatcher : IDisposable
 	private readonly FileSystemWatcher? _watcher;
 	private readonly Dictionary<string, DateTime> _lastEventTimes = [];
 
-	private bool _disabled;
+	private bool _disabled = false;
 	private Timer? _delayedEnableTimer;
+
+	public ConfigWatcher(bool stub)
+	{
+	}
 
 	public ConfigWatcher()
 	{
+		LogManager.Info("[ConfigWatcher] Initializing...");
+
 		try
 		{
-			LogManager.Info("[ConfigWatcher] Initializing...");
-
 			_watcher = new FileSystemWatcher(Constants.ConfigsPath);
 
 			_watcher.NotifyFilter = NotifyFilters.Attributes

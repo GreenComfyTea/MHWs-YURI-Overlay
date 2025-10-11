@@ -27,17 +27,17 @@ internal sealed class DamageMeterStaticUiSortingCustomization : Customization
 
 	public bool RenderImGui(string? parentName = "", DamageMeterStaticUiSortingCustomization? defaultCustomization = null)
 	{
-		var localization = LocalizationManager.Instance.ActiveLocalization?.Data?.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 		var localizationHelper = LocalizationHelper.Instance;
 
 		var isChanged = false;
 		var customizationName = $"{parentName}-sorting";
 
-		if(ImGuiHelper.ResettableTreeNode($"{localization?.Sorting}##{customizationName}", customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode($"{localization.Sorting}##{customizationName}", customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization?.ReversedOrder}##{customizationName}", ref ReversedOrder, defaultCustomization?.ReversedOrder);
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization?.Type}##{customizationName}", ref _typeIndex, localizationHelper.DamageMeterSortings, defaultCustomization?._typeIndex);
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization?.LocalPlayerPriority}##{customizationName}", ref _localPlayerPriorityIndex, localizationHelper.Priorities, defaultCustomization?._localPlayerPriorityIndex);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.ReversedOrder}##{customizationName}", ref ReversedOrder, defaultCustomization?.ReversedOrder);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Type}##{customizationName}", ref _typeIndex, localizationHelper.DamageMeterSortings, defaultCustomization?._typeIndex);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization.LocalPlayerPriority}##{customizationName}", ref _localPlayerPriorityIndex, localizationHelper.Priorities, defaultCustomization?._localPlayerPriorityIndex);
 
 			ImGui.TreePop();
 		}
