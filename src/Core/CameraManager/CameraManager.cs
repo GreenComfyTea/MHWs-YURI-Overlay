@@ -90,6 +90,7 @@ internal sealed class CameraManager
 	[MethodHookPattern(typeof(PlayerCameraController), "<updateTargetSelector>", MethodHookType.Post)]
 	private static void OnPostUpdateTargetSelector(ref ulong returnValue)
 	{
+		LogManager.Debug("[TESTING] OnPostUpdateTargetSelector");
 		Instance.UpdateCameraTarget();
 	}
 }

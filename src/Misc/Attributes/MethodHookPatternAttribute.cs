@@ -26,7 +26,7 @@ internal sealed class MethodHookPatternAttribute : Attribute
 	public static void Initialize()
 	{
 		foreach(var method in Assembly.GetExecutingAssembly().GetTypes()
-									  .SelectMany(type => type.GetMethods(BindingFlags.Static | BindingFlags.Public))
+									  .SelectMany(type => type.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
 									  .Where(method => method.GetCustomAttributes<MethodHookPatternAttribute>().Any()))
 		{
 			foreach(var attr in method.GetCustomAttributes<MethodHookPatternAttribute>())
