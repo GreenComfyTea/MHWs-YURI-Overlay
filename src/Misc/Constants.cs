@@ -10,7 +10,7 @@ internal static class Constants
 	public const string ModName = "YURI Overlay";
 	public const string ModNameNoWhitespaces = "YURI_Overlay";
 
-	private const string ReleaseVersion = "1.5.5";
+	private const string ReleaseVersion = "1.5.6";
 
 #if DEBUG
 	public static readonly string Version = $"{ReleaseVersion}-debug---{DateTime.Now:yyyy-MM-dd---HH:mm:ss}";
