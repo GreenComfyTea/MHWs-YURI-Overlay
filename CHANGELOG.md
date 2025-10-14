@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.5.6](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.5...v1.5.6) (2025-10-14)
+
+
+### Features
+
+* Added label font size and global font scale ([3015b98](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/3015b98749a9f604e7ca0270978039a234fda6fb))
+
+
+### Bug Fixes
+
+* Added missing default config values ([4490eb4](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/4490eb45e107df2c56db4f006bbc3946fdeade70))
+* **Customization menu:** Fixed reset icon being shown as "?" ([4fc4a28](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/4fc4a280fef247ac66009e7bd80a03f5e1c2af49))
+* Fixed new fields' default values not being applied to old configs ([60e4c61](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/60e4c6142cf646d71f214dc14bf14b9a0d010d33))
+
 ## [1.5.5](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.4...v1.5.5) (2025-09-30)
 
 
