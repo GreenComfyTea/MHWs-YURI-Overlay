@@ -64,13 +64,13 @@ internal sealed class LabelElement
 
 		if(customization.Shadow.Visible == true)
 		{
-			var shadowColor = customization.Shadow.Color.ColorInfo.Abgr;
+			var shadowColor = customization.Shadow.Color.ColorInfo?.Abgr ?? 0xFF000000;
 			if(opacityScale < 1) shadowColor = Utils.ScaleColorOpacityAbgr(shadowColor, opacityScale);
 
 			backgroundDrawList.AddText(font, fontSize, shadowPosition, shadowColor, text);
 		}
 
-		var color = customization.Color.ColorInfo.Abgr;
+		var color = customization.Color.ColorInfo?.Abgr ?? 0xFF000000;
 		if(opacityScale < 1) color = Utils.ScaleColorOpacityAbgr(color, opacityScale);
 
 		//backgroundDrawList.AddText(textPosition, color, text);

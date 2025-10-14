@@ -16,31 +16,6 @@ internal static class ImGuiHelper
 		return ImGui.InputText(label, ref input, maxLength);
 	}
 
-	public static bool ResettableCombo(string? label, ref int? currentItem, string[] items, int? defaultValue = null)
-	{
-		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
-
-		var isChanged = false;
-
-		if(defaultValue is not null)
-		{
-			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
-			if(isChanged) currentItem = (int) defaultValue;
-
-			Tooltip(localization.ResetToDefault);
-			ImGui.SameLine();
-		}
-
-		var nonNullCurrentItem = currentItem ?? 0;
-
-		ImGui.SetNextItemWidth(ImGuiManager.Instance.ComboBoxWidth);
-		isChanged |= Combo(label, ref nonNullCurrentItem, items);
-
-		currentItem = nonNullCurrentItem;
-
-		return isChanged;
-	}
-
 	public static bool ResettableCombo(string? label, ref int currentItem, string[] items, int? defaultValue = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
@@ -62,22 +37,48 @@ internal static class ImGuiHelper
 		return isChanged;
 	}
 
-	public static bool ResettableInputText(string? label, ref string input, uint maxLength = 256, string? defaultValue = null)
+	public static bool ResettableCombo(string? label, ref int? currentItem, string[] items, int? defaultValue = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
+		var nonNullCurrentItem = currentItem ?? 0;
 
 		if(defaultValue is not null)
 		{
 			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
-			if(isChanged) input = defaultValue;
+			if(isChanged) nonNullCurrentItem = (int) defaultValue;
 
 			Tooltip(localization.ResetToDefault);
 			ImGui.SameLine();
 		}
 
-		isChanged |= InputText(label, ref input, maxLength);
+		ImGui.SetNextItemWidth(ImGuiManager.Instance.ComboBoxWidth);
+		isChanged |= Combo(label, ref nonNullCurrentItem, items);
+
+		if(isChanged) currentItem = nonNullCurrentItem;
+
+		return isChanged;
+	}
+
+	public static bool ResettableInputText(string? label, ref string? input, uint maxLength = 256, string? defaultValue = null)
+	{
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
+
+		var isChanged = false;
+		var nonNullInput = input ?? string.Empty;
+
+		if(defaultValue is not null)
+		{
+			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
+			if(isChanged) nonNullInput = defaultValue;
+
+			Tooltip(localization.ResetToDefault);
+			ImGui.SameLine();
+		}
+
+		isChanged |= InputText(label, ref nonNullInput, maxLength);
+		if(isChanged) input = nonNullInput;
 
 		return isChanged;
 	}
@@ -87,26 +88,25 @@ internal static class ImGuiHelper
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
+		var nonNullValue = value ?? 0f;
 
 		if(defaultValue is not null)
 		{
 			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
-			if(isChanged) value = (float) defaultValue;
+			if(isChanged) nonNullValue = (float) defaultValue;
 
 			Tooltip(localization.ResetToDefault);
 			ImGui.SameLine();
 		}
 
-		var nonNullValue = value ?? 0f;
 
 		isChanged |= ImGui.DragFloat(label, ref nonNullValue, speed, minValue, maxValue, format);
-
-		value = nonNullValue;
+		if(isChanged) value = nonNullValue;
 
 		return isChanged;
 	}
 
-	public static bool ResettableSliderInt(string? label, ref int value, int minValue = -4096, int maxValue = 4096, string format = "%d", float? defaultValue = null)
+	public static bool ResettableSliderInt(string? label, ref int? value, int minValue = -4096, int maxValue = 4096, string format = "%d", int? defaultValue = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
@@ -115,13 +115,17 @@ internal static class ImGuiHelper
 		if(defaultValue is not null)
 		{
 			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
-			if(isChanged) value = (int) defaultValue;
+			if(isChanged) value = defaultValue;
 
 			Tooltip(localization.ResetToDefault);
 			ImGui.SameLine();
 		}
 
-		isChanged |= ImGui.SliderInt(label, ref value, minValue, maxValue, format);
+		var nonNullValue = value ?? 0;
+
+		isChanged |= ImGui.SliderInt(label, ref nonNullValue, minValue, maxValue, format);
+
+		value = nonNullValue;
 
 		return isChanged;
 	}
@@ -141,9 +145,34 @@ internal static class ImGuiHelper
 			ImGui.SameLine();
 		}
 
-		;
+
 		ImGui.SetNextItemWidth(ImGuiManager.Instance.ColorPickerWidth);
 		isChanged |= ImGui.ColorPicker4(label, ref value);
+
+		return isChanged;
+	}
+
+	public static bool ResettableColorPicker4(string? label, ref ColorInfo? value, ColorInfo? defaultValue = null)
+	{
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
+
+		var isChanged = false;
+		var nonNullValue = value ?? new ColorInfo();
+
+		if(defaultValue is not null)
+		{
+			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
+			if(isChanged) nonNullValue.vector = defaultValue.vector;
+
+			Tooltip(localization.ResetToDefault);
+			ImGui.SameLine();
+		}
+
+
+		ImGui.SetNextItemWidth(ImGuiManager.Instance.ColorPickerWidth);
+		isChanged |= ImGui.ColorPicker4(label, ref nonNullValue.vector);
+
+		if(isChanged) value = nonNullValue;
 
 		return isChanged;
 	}
@@ -153,41 +182,41 @@ internal static class ImGuiHelper
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
+		var nonNullValue = value ?? false;
 
 		if(defaultValue is not null)
 		{
 			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
-			if(isChanged) value = (bool) defaultValue;
+			if(isChanged) nonNullValue = (bool) defaultValue;
 
 			Tooltip(localization.ResetToDefault);
 			ImGui.SameLine();
 		}
 
-		var nonNullValue = value ?? false;
-
 		isChanged |= ImGui.Checkbox(label, ref nonNullValue);
-
-		value = nonNullValue;
+		if(isChanged) value = nonNullValue;
 
 		return isChanged;
 	}
 
-	public static bool ResettableInputInt(string? label, ref int value, int? defaultValue = null)
+	public static bool ResettableInputInt(string? label, ref int? value, int? defaultValue = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
+		var nonNullValue = value ?? 0;
 
 		if(defaultValue is not null)
 		{
 			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
-			if(isChanged) value = (int) defaultValue;
+			if(isChanged) nonNullValue = (int) defaultValue;
 
 			Tooltip(localization.ResetToDefault);
 			ImGui.SameLine();
 		}
 
-		isChanged |= ImGui.InputInt(label, ref value);
+		isChanged |= ImGui.InputInt(label, ref nonNullValue);
+		if(isChanged) value = nonNullValue;
 
 		return isChanged;
 	}

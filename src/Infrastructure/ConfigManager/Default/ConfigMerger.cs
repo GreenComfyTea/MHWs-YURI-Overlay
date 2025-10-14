@@ -79,7 +79,7 @@ internal partial class ConfigManager
 				if(sourceValue is null && destinationValue is not null)
 				{
 					// Create a new instance of the nested type. Ensure it's not null before passing to Merge.
-					var newNestedInstance = Activator.CreateInstance(property.PropertyType)!;
+					var newNestedInstance = Activator.CreateInstance(property.PropertyType);
 
 					// The recursive Merge call will return T?, but we expect a non-null result here
 					// because newNestedInstance is not null and destinationValue is not null.

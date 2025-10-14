@@ -112,7 +112,10 @@ internal sealed class ColorInfo
 
 	private void UpdateFromRgbaHex(string rgbaHex)
 	{
-		if(rgbaHex.Length != 9) return;
+		if(rgbaHex.Length != 9)
+		{
+			return;
+		}
 
 		_rgba = uint.Parse(rgbaHex[1..], NumberStyles.HexNumber);
 

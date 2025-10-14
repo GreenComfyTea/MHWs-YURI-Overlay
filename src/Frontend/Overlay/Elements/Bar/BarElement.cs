@@ -275,64 +275,65 @@ internal sealed class BarElement
 		var backgroundColor = colors.Background;
 		var foregroundColor = colors.Foreground;
 
+
 		switch(customization.Settings.FillDirection)
 		{
 			case FillDirectionEnum.RightToLeft:
-				_backgroundColorTopRight = backgroundColor.Start.ColorInfo1.Abgr;
-				_backgroundColorBottomRight = backgroundColor.Start.ColorInfo2.Abgr;
+				_backgroundColorTopRight = backgroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
+				_backgroundColorBottomRight = backgroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_backgroundColorTopLeft = backgroundColor.End.ColorInfo1.Abgr;
-				_backgroundColorBottomLeft = backgroundColor.End.ColorInfo2.Abgr;
+				_backgroundColorTopLeft = backgroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
+				_backgroundColorBottomLeft = backgroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_foregroundColorTopRight = foregroundColor.Start.ColorInfo1.Abgr;
-				_foregroundColorBottomRight = foregroundColor.Start.ColorInfo2.Abgr;
+				_foregroundColorTopRight = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
+				_foregroundColorBottomRight = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_foregroundColorTopLeft = foregroundColor.End.ColorInfo1.Abgr;
-				_foregroundColorBottomLeft = foregroundColor.End.ColorInfo2.Abgr;
+				_foregroundColorTopLeft = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
+				_foregroundColorBottomLeft = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
 				break;
 			case FillDirectionEnum.TopToBottom:
-				_backgroundColorTopLeft = backgroundColor.Start.ColorInfo1.Abgr;
-				_backgroundColorTopRight = backgroundColor.Start.ColorInfo2.Abgr;
+				_backgroundColorTopLeft = backgroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
+				_backgroundColorTopRight = backgroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_backgroundColorBottomLeft = backgroundColor.End.ColorInfo1.Abgr;
-				_backgroundColorBottomRight = backgroundColor.End.ColorInfo2.Abgr;
+				_backgroundColorBottomLeft = backgroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
+				_backgroundColorBottomRight = backgroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_foregroundColorTopLeft = foregroundColor.Start.ColorInfo1.Abgr;
-				_foregroundColorTopRight = foregroundColor.Start.ColorInfo2.Abgr;
+				_foregroundColorTopLeft = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
+				_foregroundColorTopRight = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_foregroundColorBottomLeft = foregroundColor.End.ColorInfo1.Abgr;
-				_foregroundColorBottomRight = foregroundColor.End.ColorInfo2.Abgr;
+				_foregroundColorBottomLeft = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
+				_foregroundColorBottomRight = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
 				break;
 			case FillDirectionEnum.BottomToTop:
-				_backgroundColorBottomLeft = backgroundColor.Start.ColorInfo1.Abgr;
-				_backgroundColorBottomRight = backgroundColor.Start.ColorInfo2.Abgr;
+				_backgroundColorBottomLeft = backgroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
+				_backgroundColorBottomRight = backgroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_backgroundColorTopLeft = backgroundColor.End.ColorInfo1.Abgr;
-				_backgroundColorTopRight = backgroundColor.End.ColorInfo2.Abgr;
+				_backgroundColorTopLeft = backgroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
+				_backgroundColorTopRight = backgroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_foregroundColorBottomLeft = foregroundColor.Start.ColorInfo1.Abgr;
-				_foregroundColorBottomRight = foregroundColor.Start.ColorInfo2.Abgr;
+				_foregroundColorBottomLeft = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
+				_foregroundColorBottomRight = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_foregroundColorTopLeft = foregroundColor.End.ColorInfo1.Abgr;
-				_foregroundColorTopRight = foregroundColor.End.ColorInfo2.Abgr;
+				_foregroundColorTopLeft = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
+				_foregroundColorTopRight = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
 				break;
 			case FillDirectionEnum.LeftToRight:
 			default:
-				_backgroundColorTopLeft = backgroundColor.Start.ColorInfo1.Abgr;
-				_backgroundColorBottomLeft = backgroundColor.Start.ColorInfo2.Abgr;
+				_backgroundColorTopLeft = backgroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
+				_backgroundColorBottomLeft = backgroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_backgroundColorTopRight = backgroundColor.End.ColorInfo1.Abgr;
-				_backgroundColorBottomRight = backgroundColor.End.ColorInfo2.Abgr;
+				_backgroundColorTopRight = backgroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
+				_backgroundColorBottomRight = backgroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_foregroundColorTopLeft = foregroundColor.Start.ColorInfo1.Abgr;
-				_foregroundColorBottomLeft = foregroundColor.Start.ColorInfo2.Abgr;
+				_foregroundColorTopLeft = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
+				_foregroundColorBottomLeft = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_foregroundColorTopRight = foregroundColor.End.ColorInfo1.Abgr;
-				_foregroundColorBottomRight = foregroundColor.End.ColorInfo2.Abgr;
+				_foregroundColorTopRight = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
+				_foregroundColorBottomRight = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
 				break;
 		}
 
-		_outlineColor = customization.Outline.Color.ColorInfo.Abgr;
+		_outlineColor = customization.Outline.Color.ColorInfo?.Abgr ?? 0xFF000000;
 
 		if(Utils.IsApproximatelyEqual(opacityScale, 1f)) return;
 

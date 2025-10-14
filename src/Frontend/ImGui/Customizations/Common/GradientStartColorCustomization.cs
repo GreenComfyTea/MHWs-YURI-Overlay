@@ -1,3 +1,4 @@
+using System.Numerics;
 using System.Text.Json.Serialization;
 using ImGuiNET;
 
@@ -8,21 +9,41 @@ internal sealed class GradientStartColorCustomization : Customization
 	public bool? SplitIntoTwoColors = null;
 
 	[JsonIgnore]
-	public ColorInfo ColorInfo1 { get; set; } = new();
-
-	public string _1
-	{
-		get => ColorInfo1.RgbaHex;
-		set => ColorInfo1.RgbaHex = value;
-	}
+	public ColorInfo? ColorInfo1 = null;
 
 	[JsonIgnore]
-	public ColorInfo ColorInfo2 { get; set; } = new();
+	public ColorInfo? ColorInfo2 = null;
 
-	public string _2
+	public string? _1
 	{
-		get => ColorInfo2.RgbaHex;
-		set => ColorInfo2.RgbaHex = value;
+		get => ColorInfo1?.RgbaHex;
+		set
+		{
+			if(value is null)
+			{
+				ColorInfo1 = null;
+				return;
+			}
+
+			ColorInfo1 ??= new ColorInfo();
+			ColorInfo1.RgbaHex = value;
+		}
+	}
+
+	public string? _2
+	{
+		get => ColorInfo2?.RgbaHex;
+		set
+		{
+			if(value is null)
+			{
+				ColorInfo2 = null;
+				return;
+			}
+
+			ColorInfo2 ??= new ColorInfo();
+			ColorInfo2.RgbaHex = value;
+		}
 	}
 
 	public bool RenderImGui(string? parentName = "", GradientStartColorCustomization? defaultCustomization = null)
@@ -38,13 +59,16 @@ internal sealed class GradientStartColorCustomization : Customization
 
 			if(SplitIntoTwoColors == false)
 			{
-				var isStart1Changed = ImGuiHelper.ResettableColorPicker4($"##{customizationName}", ref ColorInfo1.vector, defaultCustomization?.ColorInfo1.vector);
+				var isStart1Changed = ImGuiHelper.ResettableColorPicker4($"##{customizationName}", ref ColorInfo1, defaultCustomization?.ColorInfo1);
 				isChanged |= isStart1Changed;
 
 				if(isStart1Changed)
 				{
+					ColorInfo1 ??= new ColorInfo();
 					ColorInfo1.Vector = ColorInfo1.vector;
-					ColorInfo2.Vector = ColorInfo1.vector;
+
+					ColorInfo2 ??= new ColorInfo();
+					ColorInfo2.Vector = ColorInfo2.vector;
 				}
 
 				ImGui.TreePop();
@@ -54,20 +78,28 @@ internal sealed class GradientStartColorCustomization : Customization
 
 			if(ImGui.TreeNode($"{localization._1}##{customizationName}"))
 			{
-				var isStart1Changed = ImGuiHelper.ResettableColorPicker4($"##{customizationName}-1", ref ColorInfo1.vector, defaultCustomization?.ColorInfo1.vector);
+				var isStart1Changed = ImGuiHelper.ResettableColorPicker4($"##{customizationName}-1", ref ColorInfo1, defaultCustomization?.ColorInfo1);
 				isChanged |= isStart1Changed;
 
-				if(isStart1Changed) ColorInfo1.Vector = ColorInfo1.vector;
+				if(isStart1Changed)
+				{
+					ColorInfo1 ??= new ColorInfo();
+					ColorInfo1.Vector = ColorInfo1.vector;
+				}
 
 				ImGui.TreePop();
 			}
 
 			if(ImGui.TreeNode($"{localization._2}##{customizationName}"))
 			{
-				var isStart2Changed = ImGuiHelper.ResettableColorPicker4($"##{customizationName}-2", ref ColorInfo2.vector, defaultCustomization?.ColorInfo2.vector);
+				var isStart2Changed = ImGuiHelper.ResettableColorPicker4($"##{customizationName}-2", ref ColorInfo2, defaultCustomization?.ColorInfo2);
 				isChanged |= isStart2Changed;
 
-				if(isStart2Changed) ColorInfo2.Vector = ColorInfo2.vector;
+				if(isStart2Changed)
+				{
+					ColorInfo2 ??= new ColorInfo();
+					ColorInfo2.Vector = ColorInfo2.vector;
+				}
 
 				ImGui.TreePop();
 			}
@@ -83,7 +115,7 @@ internal sealed class GradientStartColorCustomization : Customization
 		if(defaultCustomization is null) return;
 
 		SplitIntoTwoColors = defaultCustomization.SplitIntoTwoColors;
-		ColorInfo1.Vector = defaultCustomization.ColorInfo1.vector;
-		ColorInfo2.Vector = defaultCustomization.ColorInfo2.vector;
+		_1 = defaultCustomization._1;
+		_2 = defaultCustomization._2;
 	}
 }
