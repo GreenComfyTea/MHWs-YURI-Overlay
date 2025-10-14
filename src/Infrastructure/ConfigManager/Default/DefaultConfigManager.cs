@@ -150,27 +150,19 @@ internal partial class ConfigManager
 		largeMonsterDynamicUiConfig.Health.Bar.Size.Height = 12f;
 
 		largeMonsterDynamicUiConfig.Health.Bar.Colors.Foreground.Start.SplitIntoTwoColors = false;
-		LogManager.Error("HEALTH BAR FOREGROUND START _1");
 		largeMonsterDynamicUiConfig.Health.Bar.Colors.Foreground.Start._1 = "#004D1BCC";
-		LogManager.Error("HEALTH BAR FOREGROUND START _2");
 		largeMonsterDynamicUiConfig.Health.Bar.Colors.Foreground.Start._2 = "#004D1BCC";
+
 		largeMonsterDynamicUiConfig.Health.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
-		LogManager.Error("HEALTH BAR FOREGROUND END _1");
 		largeMonsterDynamicUiConfig.Health.Bar.Colors.Foreground.End._1 = "#34FF4ECC";
-		LogManager.Error("HEALTH BAR FOREGROUND END _2");
 		largeMonsterDynamicUiConfig.Health.Bar.Colors.Foreground.End._2 = "#34FF4ECC";
 
 		largeMonsterDynamicUiConfig.Health.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
-		LogManager.Error("HEALTH BAR BACKGROUND START _1");
 		largeMonsterDynamicUiConfig.Health.Bar.Colors.Background.Start._1 = "#0000004A";
-		LogManager.Error("HEALTH BAR BACKGROUND START _2");
 		largeMonsterDynamicUiConfig.Health.Bar.Colors.Background.Start._2 = "#0000004A";
 		largeMonsterDynamicUiConfig.Health.Bar.Colors.Background.End.SplitIntoTwoColors = false;
-		LogManager.Error("HEALTH BAR BACKGROUND END _1");
 		largeMonsterDynamicUiConfig.Health.Bar.Colors.Background.End._1 = "#0000004A";
-		LogManager.Error("HEALTH BAR BACKGROUND END _2");
 		largeMonsterDynamicUiConfig.Health.Bar.Colors.Background.End._2 = "#0000004A";
-
 
 		largeMonsterDynamicUiConfig.Health.Bar.Outline.Visible = true;
 		largeMonsterDynamicUiConfig.Health.Bar.Outline.Thickness = 2f;

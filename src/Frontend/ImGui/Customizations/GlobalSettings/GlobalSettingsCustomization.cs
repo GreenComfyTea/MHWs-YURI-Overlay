@@ -19,7 +19,7 @@ internal sealed class GlobalSettingsCustomization : Customization
 
 		if(ImGuiHelper.ResettableTreeNode(localization.GlobalSettings, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			if(LocalizationManager.Instance.Customization is not null) isChanged |= LocalizationManager.Instance.Customization.RenderImGui(customizationName);
+			isChanged |= LocalizationManager.Instance.Customization.RenderImGui(customizationName);
 			//isChanged |= GlobalFonts.RenderImGui(customizationName);
 			isChanged |= GlobalScale.RenderImGui(customizationName, defaultCustomization?.GlobalScale);
 			isChanged |= Performance.RenderImGui(customizationName, defaultCustomization?.Performance);

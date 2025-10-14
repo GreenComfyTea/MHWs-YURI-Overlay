@@ -10,8 +10,11 @@ internal sealed class ConfigWatcher : IDisposable
 	private bool _disabled = false;
 	private Timer? _delayedEnableTimer;
 
+	private readonly bool _stub = false;
+
 	public ConfigWatcher(bool stub)
 	{
+		_stub = stub;
 	}
 
 	public ConfigWatcher()
@@ -48,11 +51,11 @@ internal sealed class ConfigWatcher : IDisposable
 
 	~ConfigWatcher()
 	{
-		LogManager.Info("[ConfigWatcher] Disposing...");
+		if(!_stub) LogManager.Info("[ConfigWatcher] Disposing...");
 
 		Dispose();
 
-		LogManager.Info("[ConfigWatcher] Disposed!");
+		if(!_stub) LogManager.Info("[ConfigWatcher] Disposed!");
 	}
 
 	public void Enable()
@@ -61,7 +64,7 @@ internal sealed class ConfigWatcher : IDisposable
 		_delayedEnableTimer?.Dispose();
 		_delayedEnableTimer = null;
 
-		LogManager.Info("[LocalizationWatcher] Enabled!");
+		if(!_stub) LogManager.Info("[LocalizationWatcher] Enabled!");
 	}
 
 	public void DelayedEnable()
@@ -69,7 +72,7 @@ internal sealed class ConfigWatcher : IDisposable
 		_delayedEnableTimer?.Dispose();
 		_delayedEnableTimer = Timers.SetTimeout(Enable, Constants.ReenableWatcherDelayMilliseconds);
 
-		LogManager.Info("[LocalizationWatcher] Will enable after a delay...");
+		if(!_stub) LogManager.Info("[LocalizationWatcher] Will enable after a delay...");
 	}
 
 	public void Disable()
@@ -77,16 +80,16 @@ internal sealed class ConfigWatcher : IDisposable
 		_disabled = true;
 		_delayedEnableTimer?.Dispose();
 
-		LogManager.Info("[LocalizationWatcher] Temporarily disabled!");
+		if(!_stub) LogManager.Info("[LocalizationWatcher] Temporarily disabled!");
 	}
 
 	public void Dispose()
 	{
-		LogManager.Info("[ConfigWatcher] Disposing...");
+		if(!_stub) LogManager.Info("[ConfigWatcher] Disposing...");
 
 		_watcher?.Dispose();
 
-		LogManager.Info("[ConfigWatcher] Disposed!");
+		if(!_stub) LogManager.Info("[ConfigWatcher] Disposed!");
 	}
 
 	private void OnConfigFileChanged(object? sender, FileSystemEventArgs e)

@@ -32,11 +32,6 @@ internal sealed class MonsterManager : IDisposable
 		{
 			var customization = ConfigManager.Instance.ActiveConfig.Data;
 
-			if(customization is null)
-			{
-				return PreHookResult.Continue;
-			}
-
 			if(customization.LargeMonsterUI.Enabled != true
 			   && customization.LargeMonsterUI.Dynamic.Enabled != true
 			   && customization.LargeMonsterUI.Static.Enabled != true

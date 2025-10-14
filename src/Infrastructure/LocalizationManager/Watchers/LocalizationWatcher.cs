@@ -10,8 +10,11 @@ internal sealed class LocalizationWatcher : IDisposable
 	private bool _disabled = false;
 	private Timer? _delayedEnableTimer;
 
+	private readonly bool _stub = false;
+
 	public LocalizationWatcher(bool stub)
 	{
+		_stub = stub;
 	}
 
 	public LocalizationWatcher()
@@ -57,7 +60,7 @@ internal sealed class LocalizationWatcher : IDisposable
 		_delayedEnableTimer?.Dispose();
 		_delayedEnableTimer = null;
 
-		LogManager.Info("[LocalizationWatcher] Enabled!");
+		if(!_stub) LogManager.Info("[LocalizationWatcher] Enabled!");
 	}
 
 	public void DelayedEnable()
@@ -65,7 +68,7 @@ internal sealed class LocalizationWatcher : IDisposable
 		_delayedEnableTimer?.Dispose();
 		_delayedEnableTimer = Timers.SetTimeout(Enable, Constants.ReenableWatcherDelayMilliseconds);
 
-		LogManager.Info("[LocalizationWatcher] Will enable after a delay...");
+		if(!_stub) LogManager.Info("[LocalizationWatcher] Will enable after a delay...");
 	}
 
 	public void Disable()
@@ -73,16 +76,16 @@ internal sealed class LocalizationWatcher : IDisposable
 		_disabled = true;
 		_delayedEnableTimer?.Dispose();
 
-		LogManager.Info("[LocalizationWatcher] Temporarily disabled!");
+		if(!_stub) LogManager.Info("[LocalizationWatcher] Temporarily disabled!");
 	}
 
 	public void Dispose()
 	{
-		LogManager.Info("[LocalizationWatcher] Disposing...");
+		if(!_stub) LogManager.Info("[LocalizationWatcher] Disposing...");
 
 		_watcher?.Dispose();
 
-		LogManager.Info("[LocalizationWatcher] Disposed!");
+		if(!_stub) LogManager.Info("[LocalizationWatcher] Disposed!");
 	}
 
 	private void OnLocalizationFileChanged(object? sender, FileSystemEventArgs e)

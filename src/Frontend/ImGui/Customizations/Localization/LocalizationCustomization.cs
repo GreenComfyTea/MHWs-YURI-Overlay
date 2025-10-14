@@ -53,7 +53,7 @@ internal sealed class LocalizationCustomization : Customization
 			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Language}##{customizationName}", ref _activeLocalizationIndex, _localizationNames, englishLocalizationIndex);
 			if(isChanged)
 			{
-				if(configManager.ActiveConfig.Data is not null) configManager.ActiveConfig.Data.GlobalSettings.Localization = _localizationIsoCodes[_activeLocalizationIndex];
+				configManager.ActiveConfig.Data.GlobalSettings.Localization = _localizationIsoCodes[_activeLocalizationIndex];
 				localizationManager.ActivateLocalization(_localizationIsoCodes[_activeLocalizationIndex]);
 			}
 
@@ -77,11 +77,6 @@ internal sealed class LocalizationCustomization : Customization
 
 	private void UpdateTranslatorColor()
 	{
-		if(LocalizationManager.Instance.ActiveLocalization.Data is null)
-		{
-			return;
-		}
-
 		TranslatorColor =
 			LocalizationManager.Instance.ActiveLocalization.Data.LocalizationInfo.Translators.Equals(Constants.ModAuthor)
 				? Constants.ModAuthorColor

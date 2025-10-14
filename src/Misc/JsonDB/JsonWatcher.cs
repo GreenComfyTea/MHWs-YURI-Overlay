@@ -11,9 +11,12 @@ internal sealed class JsonWatcher<T> : IDisposable where T : class, new()
 	private DateTime _lastEventTime = DateTime.MinValue;
 	private Timer? _delayedEnableTimer;
 
+	private readonly bool _stub = false;
+
 	public JsonWatcher(JsonDatabase<T> jsonDatabase, bool stub)
 	{
 		_jsonDatabaseInstance = jsonDatabase;
+		_stub = stub;
 	}
 
 	public JsonWatcher(JsonDatabase<T> jsonDatabase)
@@ -60,7 +63,7 @@ internal sealed class JsonWatcher<T> : IDisposable where T : class, new()
 		_delayedEnableTimer?.Dispose();
 		_delayedEnableTimer = null;
 
-		LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Enabled!");
+		if(!_stub) LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Enabled!");
 	}
 
 	public void DelayedEnable()
@@ -68,7 +71,7 @@ internal sealed class JsonWatcher<T> : IDisposable where T : class, new()
 		_delayedEnableTimer?.Dispose();
 		_delayedEnableTimer = Timers.SetTimeout(Enable, Constants.ReenableWatcherDelayMilliseconds);
 
-		LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Will enable after a delay...");
+		if(!_stub) LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Will enable after a delay...");
 	}
 
 	public void Disable()
@@ -76,16 +79,16 @@ internal sealed class JsonWatcher<T> : IDisposable where T : class, new()
 		_disabled = true;
 		_delayedEnableTimer?.Dispose();
 
-		LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Temporarily disabled!");
+		if(!_stub) LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Temporarily disabled!");
 	}
 
 	public void Dispose()
 	{
-		LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Disposing...");
+		if(!_stub) LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Disposing...");
 
 		_watcher?.Dispose();
 
-		LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Disposed!");
+		if(!_stub) LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Disposed!");
 	}
 
 	private void OnJsonFileChanged(object? sender, FileSystemEventArgs e)
