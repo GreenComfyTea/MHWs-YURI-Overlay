@@ -141,6 +141,8 @@ internal static class Utils
 
 	public static int SecondsToMilliseconds(float? seconds)
 	{
-		return (int) Math.Round(1000f * (seconds ?? 0f));
+		if(seconds is null) return 1000;
+
+		return (int) Math.Round(1000f * (float) seconds);
 	}
 }
