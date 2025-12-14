@@ -285,11 +285,11 @@ internal sealed class BarElement
 				_backgroundColorTopLeft = backgroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
 				_backgroundColorBottomLeft = backgroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_foregroundColorTopRight = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
-				_foregroundColorBottomRight = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
+				_foregroundColorTopRight = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
+				_foregroundColorBottomRight = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
 
-				_foregroundColorTopLeft = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
-				_foregroundColorBottomLeft = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
+				_foregroundColorTopLeft = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
+				_foregroundColorBottomLeft = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
 				break;
 			case FillDirectionEnum.TopToBottom:
 				_backgroundColorTopLeft = backgroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
@@ -298,11 +298,11 @@ internal sealed class BarElement
 				_backgroundColorBottomLeft = backgroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
 				_backgroundColorBottomRight = backgroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_foregroundColorTopLeft = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
-				_foregroundColorTopRight = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
+				_foregroundColorTopLeft = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
+				_foregroundColorTopRight = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
 
-				_foregroundColorBottomLeft = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
-				_foregroundColorBottomRight = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
+				_foregroundColorBottomLeft = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
+				_foregroundColorBottomRight = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
 				break;
 			case FillDirectionEnum.BottomToTop:
 				_backgroundColorBottomLeft = backgroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
@@ -311,11 +311,11 @@ internal sealed class BarElement
 				_backgroundColorTopLeft = backgroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
 				_backgroundColorTopRight = backgroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_foregroundColorBottomLeft = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
-				_foregroundColorBottomRight = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
+				_foregroundColorBottomLeft = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
+				_foregroundColorBottomRight = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
 
-				_foregroundColorTopLeft = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
-				_foregroundColorTopRight = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
+				_foregroundColorTopLeft = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
+				_foregroundColorTopRight = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
 				break;
 			case FillDirectionEnum.LeftToRight:
 			default:
@@ -325,11 +325,11 @@ internal sealed class BarElement
 				_backgroundColorTopRight = backgroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
 				_backgroundColorBottomRight = backgroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_foregroundColorTopLeft = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
-				_foregroundColorBottomLeft = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
+				_foregroundColorTopLeft = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
+				_foregroundColorBottomLeft = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
 
-				_foregroundColorTopRight = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
-				_foregroundColorBottomRight = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
+				_foregroundColorTopRight = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
+				_foregroundColorBottomRight = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
 				break;
 		}
 

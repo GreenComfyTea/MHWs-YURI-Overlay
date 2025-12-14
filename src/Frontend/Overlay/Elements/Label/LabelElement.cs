@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+using System.Numerics;
 using ImGuiNET;
 using static app.cGUISystemModuleOption;
 
@@ -28,17 +28,18 @@ internal sealed class LabelElement
 		if(string.IsNullOrEmpty(text)) return;
 
 		var globalScaleCustomization = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale;
-		var sizeScaleModifier = globalScaleCustomization?.SizeScaleModifier ?? 1f;
-		var overlayFontScale = globalScaleCustomization?.OverlayFontScale;
+
+		var sizeScaleModifier = globalScaleCustomization.SizeScaleModifier ?? 1f;
+		var overlayFontScale = globalScaleCustomization.OverlayFontScale;
 
 		var offset = customization.Offset;
 		var shadowOffset = customization.Shadow.Offset;
 
-		var offsetX = offset.X ?? 1f * sizeScaleModifier;
-		var offsetY = offset.Y ?? 1f * sizeScaleModifier;
+		var offsetX = (offset.X ?? 1f) * sizeScaleModifier;
+		var offsetY = (offset.Y ?? 1f) * sizeScaleModifier;
 
-		var shadowOffsetX = shadowOffset.X ?? 1f * sizeScaleModifier;
-		var shadowOffsetY = shadowOffset.Y ?? 1f * sizeScaleModifier;
+		var shadowOffsetX = (shadowOffset.X ?? 1f) * sizeScaleModifier;
+		var shadowOffsetY = (shadowOffset.Y ?? 1f) * sizeScaleModifier;
 
 		var textPositionX = position.X + offsetX;
 		var textPositionY = position.Y + offsetY;
@@ -49,13 +50,13 @@ internal sealed class LabelElement
 
 		var (alignmentX, alignmentY, textSize) = GetAlignmentShifts(text, customization.Settings.Alignment ?? AnchorEnum.TopLeft);
 
-		text = ImGuiHelper.TruncateTextByMaxWidth(text, customization.Settings.MaxWidth ?? 0f * sizeScaleModifier, textSize);
+		text = ImGuiHelper.TruncateTextByMaxWidth(text, (customization.Settings.MaxWidth ?? 0f) * sizeScaleModifier, textSize);
 
 		Vector2 textPosition = new(textPositionX + alignmentX, textPositionY + alignmentY);
 		Vector2 shadowPosition = new(shadowPositionX + alignmentX, shadowPositionY + alignmentY);
 
 		var font = ImGui.GetFont();
-		var fontSize = customization.Settings.FontSize ?? Constants.DefaultReframeworkFontSize * overlayFontScale?.OverlayFontScaleModifier ?? 1f;
+		var fontSize = (customization.Settings.FontSize ?? Constants.DefaultReframeworkFontSize) * (overlayFontScale.OverlayFontScaleModifier ?? 1f);
 
 		if(overlayFontScale?.ScaleWithReframeworkFontSize == true)
 		{
@@ -70,10 +71,9 @@ internal sealed class LabelElement
 			backgroundDrawList.AddText(font, fontSize, shadowPosition, shadowColor, text);
 		}
 
-		var color = customization.Color.ColorInfo?.Abgr ?? 0xFF000000;
+		var color = customization.Color.ColorInfo?.Abgr ?? 0xFFFFFFFF;
 		if(opacityScale < 1) color = Utils.ScaleColorOpacityAbgr(color, opacityScale);
 
-		//backgroundDrawList.AddText(textPosition, color, text);
 		backgroundDrawList.AddText(font, fontSize, textPosition, color, text);
 	}
 
