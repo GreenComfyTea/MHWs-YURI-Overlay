@@ -115,14 +115,16 @@ internal sealed class ImGuiManager
 
 			Debug();
 
-			//if(menuFont is not null)
-			//{
-			//	//ImGui.PopFont();
-			//}
+            ImGui.End();
 
-			//io.FontGlobalScale = oldFontGlobalScale;
+            //if(menuFont is not null)
+            //{
+            //	//ImGui.PopFont();
+            //}
 
-			if (changed)
+            //io.FontGlobalScale = oldFontGlobalScale;
+
+            if (changed)
 			{
 				_onConfigChangedEmitDebouncer?.Debounce(OnConfigChangedEmit, 25);
 				_onConfigChangedSaveDebouncer?.Debounce(OnConfigChangedSave, 100);
@@ -130,12 +132,9 @@ internal sealed class ImGuiManager
 		}
 		catch (Exception exception)
 		{
-			LogManager.Error(exception);
-		}
-		finally
-		{
             ImGui.End();
-        }
+            LogManager.Error(exception);
+		}
 	}
 
 	private void CalculateWidths()

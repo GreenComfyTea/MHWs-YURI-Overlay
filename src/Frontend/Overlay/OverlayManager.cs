@@ -49,15 +49,14 @@ internal sealed class OverlayManager
             _largeMonsterUiManager?.Draw(drawList);
 			_smallMonsterUiManager?.Draw(drawList);
 			_endemicLifeUiManager?.Draw(drawList);
-			//_damageMeterUiManager?.Draw(drawList);
-		}
-		catch(Exception exception)
-		{
-            LogManager.Error(exception);
-		}
-		finally
-		{
+            //_damageMeterUiManager?.Draw(drawList);
+
             ImGui.End();
         }
+		catch(Exception exception)
+		{
+            ImGui.End();
+            LogManager.Error(exception);
+		}
 	}
 }
