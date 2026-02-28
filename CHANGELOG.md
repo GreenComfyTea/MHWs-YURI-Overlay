@@ -5,9 +5,12 @@
 
 ### Bug Fixes
 
-* a bug that caused global size scale on being applied to labels ([c2d1fa6](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/c2d1fa6b6e88f01ea8036e89a2082ebcd0ba0887))
-* Fixed ImGui menu not working ([b5baa61](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/b5baa619b37dc79d4907c4dfb58f313a2dfc9a00))
-* Fixed ImGui overlay causing a crash ([e6c7f41](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/e6c7f41c5c7f9fce05be4e4079d656cc0e5413c1))
+* Fixed a bug that caused global size scale not being applied to labels ([c2d1fa6](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/c2d1fa6b6e88f01ea8036e89a2082ebcd0ba0887))
+
+### Misc
+
+* Migrated to .NET 10 ([f62b02d](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/f62b02d25e869eafad163bdb7cc6c01fc94e89d9)) 
+* Migrated to Hexa.NET.ImGui ([f62b02d](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/f62b02d25e869eafad163bdb7cc6c01fc94e89d9)) 
 
 ## [1.5.6](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.5...v1.5.6) (2025-10-14)
 
