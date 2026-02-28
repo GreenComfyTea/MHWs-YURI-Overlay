@@ -1,4 +1,4 @@
-﻿using ImGuiNET;
+﻿using Hexa.NET.ImGui;
 
 namespace YURI_Overlay;
 
@@ -49,7 +49,7 @@ internal sealed class LuaFontManager
 			for(var i = 0; i < fonts.Size; i++)
 			{
 				var font = fonts[i];
-				var fontName = font.GetDebugName();
+				var fontName = font.GetDebugNameS();
 
 				fontName = string.Empty.Equals(fontName) ? "Default" : fontName;
 

@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text.Json;
-using ImGuiNET;
+using Hexa.NET.ImGui;
 using REFrameworkNET;
 
 namespace YURI_Overlay;

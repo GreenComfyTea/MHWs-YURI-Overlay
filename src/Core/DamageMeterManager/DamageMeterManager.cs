@@ -31,7 +31,7 @@ internal sealed class DamageMeterManager : IDisposable
 		var typeDef = TDB.Get().GetType("app.cEnemyStockDamage");
 		var method = typeDef.GetMethod("calcPreStockDamage");
 		var preHook = method.AddHook(false);
-		preHook.AddPre(OnPre);
+		//preHook.AddPre(OnPre);
 
 		LogManager.Info("[DamageMeterManager] Initialized!");
 	}
@@ -98,311 +98,66 @@ internal sealed class DamageMeterManager : IDisposable
 		}
 	}
 
-	// calcPreStockDamage(app.cEnemyStockDamage.cPreCalcDamage, app.cEnemyStockDamage.cPreStockInfo, app.HitInfo)
-	//[MethodHook(typeof(cEnemyStockDamage), nameof(cEnemyStockDamage.calcPreStockDamage), MethodHookType.Pre)]
-	public static PreHookResult OnPreCalcPreStockDamage(Span<ulong> args)
+	public static List<ulong> processedHitInfos = [];
+
+	[MethodHook(typeof(HitInfo), nameof(HitInfo.getActualAttackOwner), MethodHookType.Pre)]
+	public static PreHookResult OnPreCopy(Span<ulong> args)
 	{
-		try
+		var hitInfoPtr = args[1];
+
+		var hitInfoManagedObject = ManagedObject.ToManagedObject(hitInfoPtr);
+		if(hitInfoManagedObject is null)
 		{
-			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Called {args.Length}");
-			for(var i = 0; i < args.Length; i++)
-			{
-				LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Arg {i}: {args[i]}");
-			}
-
-			//for(var i = 0; i < args.Length; i++)
-			//{
-			//	try
-			//	{
-			//		var preCalcDamagePtr = args[i];
-
-			//		var preCalcDamageManagedObject = ManagedObject.ToManagedObject(preCalcDamagePtr);
-			//		if(preCalcDamageManagedObject is null)
-			//		{
-			//			LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No pre calc damage managed object");
-			//			continue;
-			//		}
-
-			//		var preCalcDamage = preCalcDamageManagedObject.As<cEnemyStockDamage.cPreCalcDamage>();
-			//		if(preCalcDamage is null)
-			//		{
-			//			LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No pre calc damage");
-			//			continue;
-			//		}
-
-			//		LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] preCalcDamage {i}: {preCalcDamage}");
-			//	}
-			//	catch(Exception exception)
-			//	{
-			//		LogManager.Error($"[DamageMeterManager.OnPreEnemyStockDamage] As<cEnemyStockDamage.cPreCalcDamage> {i}: {exception}");
-			//	}
-			//}
-
-			//for(var i = 0; i < args.Length; i++)
-			//{
-			//	try
-			//	{
-			//		var preStockInfoPtr = args[i];
-
-			//		var preStockInfoManagedObject = ManagedObject.ToManagedObject(preStockInfoPtr);
-			//		if(preStockInfoManagedObject is null)
-			//		{
-			//			LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No pre stock info managed object");
-			//			continue;
-			//		}
-
-			//		var preStockInfo = preStockInfoManagedObject.As<cEnemyStockDamage.cPreStockInfo>();
-			//		if(preStockInfo is null)
-			//		{
-			//			LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No pre stock info");
-			//			continue;
-			//		}
-
-			//		LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] preStockInfo {i}: {preStockInfo}");
-			//	}
-			//	catch(Exception exception)
-			//	{
-			//		LogManager.Error($"[DamageMeterManager.OnPreEnemyStockDamage] As<cEnemyStockDamage.cPreStockInfo> {i}: {exception}");
-			//	}
-			//}
-
-			//for(var i = 0; i < args.Length; i++)
-			//{
-			//	try
-			//	{
-			//		var hitInfoPtr = args[i];
-
-			//		var hitInfoManagedObject = ManagedObject.ToManagedObject(hitInfoPtr);
-			//		if(hitInfoManagedObject is null)
-			//		{
-			//			LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No hit info managed object");
-			//			continue;
-			//		}
-
-			//		var hitInfo = hitInfoManagedObject.As<HitInfo>();
-			//		if(hitInfo is null)
-			//		{
-			//			LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No hit info");
-			//			continue;
-			//		}
-
-			//		LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] HitInfo {i}: {hitInfo}");
-			//	}
-			//	catch(Exception exception)
-			//	{
-			//		LogManager.Error($"[DamageMeterManager.OnPreEnemyStockDamage] As<HitInfo> {i}: {exception}");
-			//	}
-			//}
-
-			var preCalcDamagePtr = args[1];
-
-			var preCalcDamageManagedObject = ManagedObject.ToManagedObject(preCalcDamagePtr);
-			if(preCalcDamageManagedObject is null)
-			{
-				LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No pre calc damage managed object");
-				return PreHookResult.Continue;
-			}
-
-			var preCalcDamage = preCalcDamageManagedObject.As<cEnemyStockDamage.cPreCalcDamage>();
-			if(preCalcDamage is null)
-			{
-				LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No pre calc damage");
-				return PreHookResult.Continue;
-			}
-
-			var preStockInfoPtr = args[2];
-
-			var preStockInfoManagedObject = ManagedObject.ToManagedObject(preStockInfoPtr);
-			if(preStockInfoManagedObject is null)
-			{
-				LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No pre stock info managed object");
-				return PreHookResult.Continue;
-			}
-
-			var preStockInfo = preStockInfoManagedObject.As<cEnemyStockDamage.cPreStockInfo>();
-			if(preStockInfo is null)
-			{
-				LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No pre stock info");
-				return PreHookResult.Continue;
-			}
-
-			var hitInfoPtr = args[3];
-
-			var hitInfoManagedObject = ManagedObject.ToManagedObject(hitInfoPtr);
-			if(hitInfoManagedObject is null)
-			{
-				LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No hit info managed object");
-				return PreHookResult.Continue;
-			}
-
-			var hitInfo = hitInfoManagedObject.As<HitInfo>();
-			if(hitInfo is null)
-			{
-				LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No hit info");
-				return PreHookResult.Continue;
-			}
-
-			var attachOwner = hitInfo.AttackOwner;
-			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Attack Owner: {attachOwner}");
-			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Local player: {Instance.LocalPlayer?.PlayerManageInfo}");
-			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Local player game object: {Instance.LocalPlayer?.PlayerManageInfo.Character.GameObject}");
-
-
+			LogManager.Warn("[DamageMeterManager.OnPreCopy] No hitInfoManagedObject");
 			return PreHookResult.Continue;
 		}
-		catch(Exception exception)
+
+		var hitInfo = hitInfoManagedObject.As<HitInfo>();
+
+		if(processedHitInfos.Contains(hitInfoPtr))
 		{
-			LogManager.Error(exception);
 			return PreHookResult.Continue;
 		}
+
+		processedHitInfos.Add(hitInfoPtr);
+
+		LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] hitInfo.distance: {hitInfo.AttackData._Attack}");
+
+		return PreHookResult.Continue;
 	}
 
-	private PreHookResult OnPre(Span<ulong> args)
+	// app.cEnemyStockDamage.calcPreStockDamage(app.cEnemyStockDamage.cPreCalcDamage, app.cEnemyStockDamage.cPreStockInfo, app.HitInfo)
+	[MethodHook(typeof(cEnemyStockDamage), nameof(cEnemyStockDamage.calcPreStockDamage), MethodHookType.Pre)]
+	public static PreHookResult OnPreCalcPreStockDamage(Span<ulong> args)
 	{
+		// args[0] = Thread
+		// args[1] = "this" (cEnemyStockDamage)
+		// args[2] = cPreCalcDamage?
+		// args[3] = cPreStockInfo?
+		// args[4] = HitInfo?
+
 		try
 		{
+			if(args[5] != 0) return PreHookResult.Continue;
+
 			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Called {args.Length}");
 			for(var i = 0; i < args.Length; i++)
 			{
-				LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Arg {i}: {args[i]}");
+				LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Arg {i}: {args[i]} Managed {ManagedObject.IsManagedObject(args[i])}");
 			}
 
-			//for(var i = 0; i < args.Length; i++)
-			//{
-			//	try
-			//	{
-			//		var preCalcDamagePtr = args[i];
+			var enemyStockDamagePtr = args[1];
 
-			//		var preCalcDamageManagedObject = ManagedObject.ToManagedObject(preCalcDamagePtr);
-			//		if(preCalcDamageManagedObject is null)
-			//		{
-			//			LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No pre calc damage managed object");
-			//			continue;
-			//		}
-
-			//		var preCalcDamage = preCalcDamageManagedObject.As<cEnemyStockDamage.cPreCalcDamage>();
-			//		if(preCalcDamage is null)
-			//		{
-			//			LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No pre calc damage");
-			//			continue;
-			//		}
-
-			//		LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] preCalcDamage {i}: {preCalcDamage}");
-			//	}
-			//	catch(Exception exception)
-			//	{
-			//		LogManager.Error($"[DamageMeterManager.OnPreEnemyStockDamage] As<cEnemyStockDamage.cPreCalcDamage> {i}: {exception}");
-			//	}
-			//}
-
-			//for(var i = 0; i < args.Length; i++)
-			//{
-			//	try
-			//	{
-			//		var preStockInfoPtr = args[i];
-
-			//		var preStockInfoManagedObject = ManagedObject.ToManagedObject(preStockInfoPtr);
-			//		if(preStockInfoManagedObject is null)
-			//		{
-			//			LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No pre stock info managed object");
-			//			continue;
-			//		}
-
-			//		var preStockInfo = preStockInfoManagedObject.As<cEnemyStockDamage.cPreStockInfo>();
-			//		if(preStockInfo is null)
-			//		{
-			//			LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No pre stock info");
-			//			continue;
-			//		}
-
-			//		LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] preStockInfo {i}: {preStockInfo}");
-			//	}
-			//	catch(Exception exception)
-			//	{
-			//		LogManager.Error($"[DamageMeterManager.OnPreEnemyStockDamage] As<cEnemyStockDamage.cPreStockInfo> {i}: {exception}");
-			//	}
-			//}
-
-			//for(var i = 0; i < args.Length; i++)
-			//{
-			//	try
-			//	{
-			//		var hitInfoPtr = args[i];
-
-			//		var hitInfoManagedObject = ManagedObject.ToManagedObject(hitInfoPtr);
-			//		if(hitInfoManagedObject is null)
-			//		{
-			//			LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No hit info managed object");
-			//			continue;
-			//		}
-
-			//		var hitInfo = hitInfoManagedObject.As<HitInfo>();
-			//		if(hitInfo is null)
-			//		{
-			//			LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No hit info");
-			//			continue;
-			//		}
-
-			//		LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] HitInfo {i}: {hitInfo}");
-			//	}
-			//	catch(Exception exception)
-			//	{
-			//		LogManager.Error($"[DamageMeterManager.OnPreEnemyStockDamage] As<HitInfo> {i}: {exception}");
-			//	}
-			//}
-
-			var preCalcDamagePtr = args[1];
-
-			var preCalcDamageManagedObject = ManagedObject.ToManagedObject(preCalcDamagePtr);
-			if(preCalcDamageManagedObject is null)
+			var enemyStockDamageManagedObject = ManagedObject.ToManagedObject(enemyStockDamagePtr);
+			if(enemyStockDamageManagedObject is null)
 			{
-				LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No pre calc damage managed object");
+				LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No enemyStockDamageManagedObject");
 				return PreHookResult.Continue;
 			}
 
-			var preCalcDamage = preCalcDamageManagedObject.As<cEnemyStockDamage.cPreCalcDamage>();
-			if(preCalcDamage is null)
-			{
-				LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No pre calc damage");
-				return PreHookResult.Continue;
-			}
+			var enemyStockDamage = enemyStockDamageManagedObject.As<cEnemyStockDamage>();
 
-			var preStockInfoPtr = args[2];
-
-			var preStockInfoManagedObject = ManagedObject.ToManagedObject(preStockInfoPtr);
-			if(preStockInfoManagedObject is null)
-			{
-				LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No pre stock info managed object");
-				return PreHookResult.Continue;
-			}
-
-			var preStockInfo = preStockInfoManagedObject.As<cEnemyStockDamage.cPreStockInfo>();
-			if(preStockInfo is null)
-			{
-				LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No pre stock info");
-				return PreHookResult.Continue;
-			}
-
-			var hitInfoPtr = args[3];
-
-			var hitInfoManagedObject = ManagedObject.ToManagedObject(hitInfoPtr);
-			if(hitInfoManagedObject is null)
-			{
-				LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No hit info managed object");
-				return PreHookResult.Continue;
-			}
-
-			var hitInfo = hitInfoManagedObject.As<HitInfo>();
-			if(hitInfo is null)
-			{
-				LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No hit info");
-				return PreHookResult.Continue;
-			}
-
-			var attachOwner = hitInfo.AttackOwner;
-			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Attack Owner: {attachOwner}");
-			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Local player: {Instance.LocalPlayer?.PlayerManageInfo}");
-			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Local player game object: {Instance.LocalPlayer?.PlayerManageInfo.Character.GameObject}");
+			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] EnemyStockDamage: {enemyStockDamage}");
 
 
 			return PreHookResult.Continue;

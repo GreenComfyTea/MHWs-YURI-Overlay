@@ -1,5 +1,5 @@
 using System.Numerics;
-using ImGuiNET;
+using Hexa.NET.ImGui;
 using static app.cGUISystemModuleOption;
 
 namespace YURI_Overlay;
@@ -68,14 +68,21 @@ internal sealed class LabelElement
 			var shadowColor = customization.Shadow.Color.ColorInfo?.Abgr ?? 0xFF000000;
 			if(opacityScale < 1) shadowColor = Utils.ScaleColorOpacityAbgr(shadowColor, opacityScale);
 
-			backgroundDrawList.AddText(font, fontSize, shadowPosition, shadowColor, text);
+			unsafe
+			{
+                backgroundDrawList.AddText(font, fontSize, shadowPosition, shadowColor, text);
+            }
+			
 		}
 
 		var color = customization.Color.ColorInfo?.Abgr ?? 0xFFFFFFFF;
 		if(opacityScale < 1) color = Utils.ScaleColorOpacityAbgr(color, opacityScale);
 
-		backgroundDrawList.AddText(font, fontSize, textPosition, color, text);
-	}
+        unsafe
+        {
+            backgroundDrawList.AddText(font, fontSize, textPosition, color, text);
+        }
+    }
 
 	private static (float, float, Vector2?) GetAlignmentShifts(string text, AnchorEnum alignment)
 	{

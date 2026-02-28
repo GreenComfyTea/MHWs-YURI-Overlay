@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HexaGen.Runtime</name>
+    </assembly>
+    <members>
+        <member name="T:HexaGen.Runtime.Bitfield">
+             <summary>
+             A utility for accessing bit fields.
+            
+             Fast enough™
+            
+             .NET 9.0.7 (9.0.725.31616), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+             HardwareIntrinsics=AVX-512F+CD+BW+DQ+VL+VBMI,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+            
+             | Method | Mean     | Error     | StdDev    |
+             |------- |---------:|----------:|----------:|
+             | GetA   | 1.077 ns | 0.0078 ns | 0.0065 ns |
+             | SetA   | 1.930 ns | 0.0127 ns | 0.0106 ns |
+             </summary>
+        </member>
+        <member name="T:HexaGen.Runtime.NativeCallback`1">
+            <summary>
+            Represents a native callback that can be passed to interop functions requiring a callback to C# code.
+            Ensures that the callback remains valid beyond the current scope by holding a GCHandle.
+            </summary>
+            <typeparam name="T">The delegate type of the callback.</typeparam>
+        </member>
+        <member name="F:HexaGen.Runtime.NativeCallback`1.Callback">
+            <summary>
+            The managed delegate representing the callback.
+            </summary>
+        </member>
+        <member name="F:HexaGen.Runtime.NativeCallback`1.Handle">
+            <summary>
+            The GCHandle that ensures the callback remains allocated in memory.
+            </summary>
+        </member>
+        <member name="M:HexaGen.Runtime.NativeCallback`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:HexaGen.Runtime.NativeCallback`1"/> struct.
+            </summary>
+            <param name="callback">The delegate to be used as the callback.</param>
+        </member>
+        <member name="P:HexaGen.Runtime.NativeCallback`1.IsNull">
+            <summary>
+            Gets a value indicating whether the callback is null.
+            </summary>
+        </member>
+        <member name="P:HexaGen.Runtime.NativeCallback`1.IsAllocated">
+            <summary>
+            Gets a value indicating whether the GCHandle is allocated.
+            </summary>
+        </member>
+        <member name="P:HexaGen.Runtime.NativeCallback`1.IsDisposed">
+            <summary>
+            Gets a value indicating whether the instance has been disposed.
+            </summary>
+        </member>
+        <member name="M:HexaGen.Runtime.NativeCallback`1.Dispose">
+            <summary>
+            Releases the GCHandle and clears the callback.
+            </summary>
+        </member>
+        <member name="M:HexaGen.Runtime.NativeCallback`1.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:HexaGen.Runtime.NativeCallback`1.Equals(HexaGen.Runtime.NativeCallback{`0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:HexaGen.Runtime.NativeCallback`1.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:HexaGen.Runtime.NativeCallback`1.op_Equality(HexaGen.Runtime.NativeCallback{`0},HexaGen.Runtime.NativeCallback{`0})">
+            <summary>
+            Determines whether two <see cref="T:HexaGen.Runtime.NativeCallback`1"/> instances are equal.
+            </summary>
+        </member>
+        <member name="M:HexaGen.Runtime.NativeCallback`1.op_Inequality(HexaGen.Runtime.NativeCallback{`0},HexaGen.Runtime.NativeCallback{`0})">
+            <summary>
+            Determines whether two <see cref="T:HexaGen.Runtime.NativeCallback`1"/> instances are not equal.
+            </summary>
+        </member>
+        <member name="M:HexaGen.Runtime.NativeCallback`1.op_Implicit(HexaGen.Runtime.NativeCallback{`0})~`0">
+            <summary>
+            Implicitly converts a <see cref="T:HexaGen.Runtime.NativeCallback`1"/> instance to its underlying delegate type.
+            </summary>
+        </member>
+        <member name="F:HexaGen.Runtime.Utils.MaxStackallocSize">
+            <summary>
+            Gets or sets the maximum allowed size for <c>stackalloc</c> during marshalling (default: 2 KiB).
+            </summary>
+            <remarks>
+            <para><strong>Warning:</strong> Setting this value too high may cause a <see cref="T:System.StackOverflowException"/>.</para>
+            <para>Adjust with caution based on available stack space and application needs.</para>
+            </remarks>
+        </member>
+    </members>
+</doc>

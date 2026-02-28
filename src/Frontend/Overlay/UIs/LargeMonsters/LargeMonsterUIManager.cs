@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using ImGuiNET;
+using Hexa.NET.ImGui;
 using Timer = System.Timers.Timer;
 
 namespace YURI_Overlay;

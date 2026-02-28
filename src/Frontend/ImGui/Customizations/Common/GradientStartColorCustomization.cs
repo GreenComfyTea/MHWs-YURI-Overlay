@@ -1,6 +1,6 @@
 using System.Numerics;
 using System.Text.Json.Serialization;
-using ImGuiNET;
+using Hexa.NET.ImGui;
 
 namespace YURI_Overlay;
 
