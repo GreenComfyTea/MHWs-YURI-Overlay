@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.5.7](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.6...v1.5.7) (2026-02-28)
+
+
+### Bug Fixes
+
+* a bug that caused global size scale on being applied to labels ([c2d1fa6](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/c2d1fa6b6e88f01ea8036e89a2082ebcd0ba0887))
+* Fixed ImGui menu not working ([b5baa61](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/b5baa619b37dc79d4907c4dfb58f313a2dfc9a00))
+* Fixed ImGui overlay causing a crash ([e6c7f41](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/e6c7f41c5c7f9fce05be4e4079d656cc0e5413c1))
+
 ## [1.5.6](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.5...v1.5.6) (2025-10-14)
 
 
