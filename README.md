@@ -1,3 +1,4 @@
+
 #
 <p align="center">
 	<h1 align="center"><b>YURI Overlay</b></h1>
@@ -46,13 +47,17 @@
 		<img alt="Platform" src="https://custom-icon-badges.demolab.com/badge/platform-win-blue?logo=device-desktop" />
 	</a>
 	<a href="">
-		<img alt="Maintenance" src="https://custom-icon-badges.demolab.com/maintenance/yes/2025?logo=tools" />
+		<img alt="Maintenance" src="https://custom-icon-badges.demolab.com/maintenance/yes/2026?logo=tools" />
 	</a>
-	<a href="https://GreenComfyTeanexusmods.com/monsterhunterrise/mods/26">
-		<img alt="REFramework.NET Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-REFramework.NET-green?logo=package-dependencies" />
+	<br>
+	<a href="https://www.nexusmods.com/monsterhunterwilds/mods/93">
+		<img alt="REFramework Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-REFramework%20Nightly%2001255-green?logo=package-dependencies" />
 	</a>
-	<a href="https://GreenComfyTeanexusmods.com/monsterhunterrise/mods/26">
-		<img alt=".NET Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-.NET%20Desktop%20Runtime%208.0.x-green?logo=package-dependencies" />
+	<a href="https://nexusmods.com/monsterhunterrise/mods/26">
+		<img alt="REFramework.NET Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-REFramework.NET%20Nightly%2001255-green?logo=package-dependencies" />
+	</a>
+	<a href="https://nexusmods.com/monsterhunterrise/mods/26">
+		<img alt=".NET Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-.NET%20Desktop%20Runtime%2010.0.x-green?logo=package-dependencies" />
 	</a>
 	<br>
 	<br>
@@ -140,16 +145,18 @@
 
 ## Requirements
 1. **[REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93)**
-2. **[REFramework.NET](https://github.com/GreenComfyTea/REFramework/releases/)**
-3. **[.NET Desktop Runtime 8.0.x](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)**
+2. **[REFramework.NET](https://github.com/praydog/REFramework-nightly/releases)**
+3. **[.NET Desktop Runtime 10.0.x](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)**
 
 ## How to install:
-1. Install **[REFramework.NET](https://github.com/GreenComfyTea/REFramework/releases/)**;
-2. Install **[.NET Desktop Runtime 8.0.x](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)**;
-3. Download the mod:
+1. Install **[REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93)**
+2. Install **[REFramework.NET](https://github.com/GreenComfyTea/REFramework/releases/)**;
+	>**:pushpin: NOTE:** Download `cshardpi-api.zip` file from latest night build assets **[here]
+3. Install **[.NET Desktop Runtime 10.0.x](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)**;
+4. Download the mod:
 	>**:pushpin: NOTE:** Official release can be downloaded from here or **[Nexus Mods]([https://GreenComfyTeanexusmods.com/monsterhunterrise/mods/50](https://www.nexusmods.com/monsterhunterwilds/mods/62))**;  
-	>**:pushpin: NOTE:** Nightly builds are available **[here](https://github.com/GreenComfyTea/MHWs-YURI-Overlay-Nightly)** and can contain broken functionality, debugging info on screen, bugs and might require the latest **[nightly build](https://github.com/GreenComfyTea/REFramework/releases/)** of **REFramework.NET**. Use with caution!
-4. Extract the mod from the archive and place it in `/MonsterHunterWilds/` folder.
+	>**:pushpin: NOTE:** Nightly builds are available **[here](https://github.com/GreenComfyTea/MHWs-YURI-Overlay-Nightly)** and can contain broken functionality, debugging info on screen, bugs.
+5. Extract the mod from the archive and place it in `/MonsterHunterWilds/` folder.
 
 # For Translators
 The mod has support for localizations. If you wish to translate the mod, follow these steps:  
@@ -169,10 +176,10 @@ The mod has support for localizations. If you wish to translate the mod, follow 
 > **Font hot-reloading is not supported. So adding/changing a font will require game restart.**
 
 # Development
-1. Install .NET SDK 8.0.x if it's not already installed;
+1. Install **[.NET SDK 10.0.x](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)** if it's not already installed;
 2. Clone the repo to your machine;
 3. Unzip `*repo*\REFramework\plugins\managed\generated\REFramework.NET.application.zip`. It is zipped to bypass 100MB max file size limit on github (I don't want to pay for git lfs);
-4. Open the project in Visual Studio 2022;
+4. Open the project in Visual Studio 2026;
 5. ???
 6. ~~PROFIT~~ Build.
 
