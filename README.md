@@ -50,10 +50,10 @@
 		<img alt="Maintenance" src="https://custom-icon-badges.demolab.com/maintenance/yes/2026?logo=tools" />
 	</a>
 	<br>
-	<a href="https://www.nexusmods.com/monsterhunterwilds/mods/93">
+	<a href="https://github.com/GreenComfyTea/REFramework/releases">
 		<img alt="REFramework Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-REFramework%20Nightly%2001255-green?logo=package-dependencies" />
 	</a>
-	<a href="https://nexusmods.com/monsterhunterrise/mods/26">
+	<a href="https://github.com/GreenComfyTea/REFramework/releases">
 		<img alt="REFramework.NET Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-REFramework.NET%20Nightly%2001255-green?logo=package-dependencies" />
 	</a>
 	<a href="https://nexusmods.com/monsterhunterrise/mods/26">
@@ -144,13 +144,13 @@
 * **[Nightly Builds](https://github.com/GreenComfyTea/MHWs-YURI-Overlay-Nightly/releases)** 
 
 ## Requirements
-1. **[REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93)**
-2. **[REFramework.NET](https://github.com/praydog/REFramework-nightly/releases)**
+1. **[REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93)** ([Nightly](https://github.com/GreenComfyTea/REFramework/releases))
+2. **[REFramework.NET](https://github.com/praydog/REFramework-nightly/releases)** (**csharp-api**)
 3. **[.NET Desktop Runtime 10.0.x](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)**
 
 ## How to install:
 1. Install **[REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93)**
-2. Install **[REFramework.NET](https://github.com/GreenComfyTea/REFramework/releases/)**;
+2. Install **[REFramework.NET](https://github.com/GreenComfyTea/REFramework/releases)**;
 	>**:pushpin: NOTE:** Download `cshardpi-api.zip` file from latest night build assets **[here]
 3. Install **[.NET Desktop Runtime 10.0.x](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)**;
 4. Download the mod:
@@ -185,10 +185,11 @@ The mod has support for localizations. If you wish to translate the mod, follow 
 
 ## Credits
 **[GreenComfyTea](https://github.com/GreenComfyTea)** - creator of the mod and it's main contributor;  
-**[praydog](https://github.com/praydog)** - creator of [REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93), [REFramework.NET](https://github.com/praydog/REFramework);  
+**[praydog](https://github.com/praydog)** - creator of [REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93) and [REFramework.NET](https://github.com/praydog/REFramework);  
 **[cursey](https://github.com/cursey)** - contributor of [REFramework](https://www.nexusmods.com/monsterhunterwilds/mods/93);  
 **[squareblue](https://github.com/squareblue)** - Simplified Chinese localization;  
-**[Krude](https://github.com/Krude)** - German localization.
+**[Krude](https://github.com/Krude)** - German localization;  
+**[neatnet](https://github.com/neatnet)** - Korean localization.
 
 ## Roadmap
 1. [x] Large Monster Static UI;
