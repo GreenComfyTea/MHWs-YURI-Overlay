@@ -1,4 +1,6 @@
 ﻿using Hexa.NET.ImGui;
+using System.Numerics;
+using System.Runtime.InteropServices;
 
 namespace YURI_Overlay;
 
@@ -27,9 +29,12 @@ internal sealed class OverlayManager
 
 	public void Draw()
 	{
-		try
+        try
 		{
-			ImGui.Begin("YURI Overlay",
+            ImGui.SetNextWindowPos(Vector2.Zero);
+            ImGui.SetNextWindowSize(ImGui.GetIO().DisplaySize);
+
+            ImGui.Begin("YURI Overlay",
 				ImGuiWindowFlags.NoMove
 				| ImGuiWindowFlags.NoBackground
 				| ImGuiWindowFlags.NoCollapse
@@ -39,18 +44,20 @@ internal sealed class OverlayManager
 				| ImGuiWindowFlags.NoScrollbar
 			);
 
-			var backgroundDrawList = ImGui.GetBackgroundDrawList();
+            var drawList = ImGui.GetWindowDrawList();
 
-			_largeMonsterUiManager?.Draw(backgroundDrawList);
-			_smallMonsterUiManager?.Draw(backgroundDrawList);
-			_endemicLifeUiManager?.Draw(backgroundDrawList);
-			//_damageMeterUiManager?.Draw(backgroundDrawList);
-
-			ImGui.End();
+            _largeMonsterUiManager?.Draw(drawList);
+			_smallMonsterUiManager?.Draw(drawList);
+			_endemicLifeUiManager?.Draw(drawList);
+			//_damageMeterUiManager?.Draw(drawList);
 		}
 		catch(Exception exception)
 		{
-			LogManager.Error(exception);
+            LogManager.Error(exception);
 		}
+		finally
+		{
+            ImGui.End();
+        }
 	}
 }

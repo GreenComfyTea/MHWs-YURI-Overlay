@@ -18,7 +18,7 @@ internal sealed class EndemicLifeDynamicUi
 		_nameLabelElement = new LabelElement(() => _customizationAccessor()?.NameLabel);
 	}
 
-	public void Draw(ImDrawListPtr backgroundDrawList)
+	public void Draw(ImDrawListPtr drawList)
 	{
 		var customization = _customizationAccessor();
 
@@ -58,6 +58,6 @@ internal sealed class EndemicLifeDynamicUi
 		screenPosition.X += (customization.Offset.X ?? 0f) * positionScaleModifier;
 		screenPosition.Y += (customization.Offset.Y ?? 0f) * positionScaleModifier;
 
-		_nameLabelElement.Draw(backgroundDrawList, screenPosition, opacityScale, _endemicLifeEntity.Name);
+		_nameLabelElement.Draw(drawList, screenPosition, opacityScale, _endemicLifeEntity.Name);
 	}
 }

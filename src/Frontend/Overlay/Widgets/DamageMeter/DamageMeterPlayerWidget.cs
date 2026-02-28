@@ -29,15 +29,15 @@ internal sealed class DamageMeterPlayerWidget
 		_dpsComponent = new DamageMeterDpsComponent(damageMeterEntity, () => _customizationAccessor()?.DPS);
 	}
 
-	public void Draw(ImDrawListPtr backgroundDrawList, Vector2 position)
+	public void Draw(ImDrawListPtr drawList, Vector2 position)
 	{
 		var customization = _customizationAccessor();
 
 		if(customization?.Enabled != true) return;
 
-		_dpsComponent.Draw(backgroundDrawList, position);
-		_damageComponent.Draw(backgroundDrawList, position);
-		_hunterMasterRanksLabelElement.Draw(backgroundDrawList, position, 1f, _damageMeterEntity.HunterRank, _damageMeterEntity.MasterRank);
-		_nameLabelElement.Draw(backgroundDrawList, position, 1f, _damageMeterEntity.Name, _damageMeterEntity.Id, _damageMeterEntity.HunterRank, _damageMeterEntity.MasterRank);
+		_dpsComponent.Draw(drawList, position);
+		_damageComponent.Draw(drawList, position);
+		_hunterMasterRanksLabelElement.Draw(drawList, position, 1f, _damageMeterEntity.HunterRank, _damageMeterEntity.MasterRank);
+		_nameLabelElement.Draw(drawList, position, 1f, _damageMeterEntity.Name, _damageMeterEntity.Id, _damageMeterEntity.HunterRank, _damageMeterEntity.MasterRank);
 	}
 }

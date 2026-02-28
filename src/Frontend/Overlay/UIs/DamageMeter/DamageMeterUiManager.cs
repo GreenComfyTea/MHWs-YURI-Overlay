@@ -28,9 +28,9 @@ internal sealed class DamageMeterUiManager : IDisposable
 		LogManager.Info("[DamageMeterUiManager] Initialized!");
 	}
 
-	public void Draw(ImDrawListPtr backgroundDrawList)
+	public void Draw(ImDrawListPtr drawList)
 	{
-		//DrawStaticUi(backgroundDrawList);
+		//DrawStaticUi(drawList);
 	}
 
 	public void Dispose()
@@ -169,7 +169,7 @@ internal sealed class DamageMeterUiManager : IDisposable
 	//	_damageMeterEntities = newDamageMeterEntities;
 	//}
 
-	//private void DrawStaticUi(ImDrawListPtr backgroundDrawList)
+	//private void DrawStaticUi(ImDrawListPtr drawList)
 	//{
 	//	var customization = ConfigManager.Instance.ActiveConfig.Data..DamageMeterUI;
 
@@ -179,7 +179,7 @@ internal sealed class DamageMeterUiManager : IDisposable
 	//	{
 	//		var damageMeterEntity = _damageMeterEntities[locationIndex];
 
-	//		damageMeterEntity.StaticUi.Draw(backgroundDrawList, locationIndex);
+	//		damageMeterEntity.StaticUi.Draw(drawList, locationIndex);
 	//	}
 	//}
 }

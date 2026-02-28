@@ -32,12 +32,12 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		LogManager.Info("[LargeMonsterUiManager] Initialized!");
 	}
 
-	public void Draw(ImDrawListPtr backgroundDrawList)
+	public void Draw(ImDrawListPtr drawList)
 	{
-		DrawDynamicUi(backgroundDrawList);
-		DrawStaticUi(backgroundDrawList);
-		DrawTargetedUi(backgroundDrawList);
-		DrawMapPinUi(backgroundDrawList);
+		DrawDynamicUi(drawList);
+		DrawStaticUi(drawList);
+		DrawTargetedUi(drawList);
+		DrawMapPinUi(drawList);
 	}
 
 	public void Dispose()
@@ -299,7 +299,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		_pinnedLargeMonster = newPinnedLargeMonster;
 	}
 
-	private void DrawDynamicUi(ImDrawListPtr backgroundDrawList)
+	private void DrawDynamicUi(ImDrawListPtr drawList)
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
@@ -307,11 +307,11 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 		foreach(var largeMonster in _dynamicLargeMonsters)
 		{
-			largeMonster.DynamicUi?.Draw(backgroundDrawList);
+			largeMonster.DynamicUi?.Draw(drawList);
 		}
 	}
 
-	private void DrawStaticUi(ImDrawListPtr backgroundDrawList)
+	private void DrawStaticUi(ImDrawListPtr drawList)
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
@@ -321,27 +321,27 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		{
 			var largeMonster = _staticLargeMonsters[locationIndex];
 
-			largeMonster.StaticUi?.Draw(backgroundDrawList, locationIndex);
+			largeMonster.StaticUi?.Draw(drawList, locationIndex);
 		}
 	}
 
-	private void DrawTargetedUi(ImDrawListPtr backgroundDrawList)
+	private void DrawTargetedUi(ImDrawListPtr drawList)
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
 		if(customization.Enabled != true || customization.Targeted.Enabled != true) return;
 		if(_targetedLargeMonster is null) return;
 
-		_targetedLargeMonster.TargetedUi?.Draw(backgroundDrawList);
+		_targetedLargeMonster.TargetedUi?.Draw(drawList);
 	}
 
-	private void DrawMapPinUi(ImDrawListPtr backgroundDrawList)
+	private void DrawMapPinUi(ImDrawListPtr drawList)
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
 		if(customization.Enabled != true || customization.MapPin.Enabled != true) return;
 		if(_pinnedLargeMonster is null) return;
 
-		_pinnedLargeMonster.MapPinUi?.Draw(backgroundDrawList);
+		_pinnedLargeMonster.MapPinUi?.Draw(drawList);
 	}
 }

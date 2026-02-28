@@ -45,11 +45,11 @@ internal sealed class ImGuiManager
 			var localizationManager = LocalizationManager.Instance;
 
 			var isClicked = ImGui.Button($"{_modTitle}##button");
-			if(isClicked) _isOpened = !_isOpened;
+			if (isClicked) _isOpened = !_isOpened;
 
 			ReframeworkFontSize = ImGui.GetFontSize();
 
-			if(!_isOpened) return;
+			if (!_isOpened) return;
 
 			var configManager = ConfigManager.Instance;
 
@@ -63,37 +63,37 @@ internal sealed class ImGuiManager
 
 			CalculateWidths();
 
-			if(_isForceModInfoOpen) ImGui.SetNextItemOpen(true);
+			if (_isForceModInfoOpen) ImGui.SetNextItemOpen(true);
 
-			if(ImGui.TreeNode(activeLocalization.ImGui.ModInfo))
+			if (ImGui.TreeNode(activeLocalization.ImGui.ModInfo))
 			{
 				ImGui.Text(activeLocalization.ImGui.MadeBy);
 				ImGui.SameLine();
 				ImGui.TextColored(Constants.ModAuthorColor, Constants.ModAuthor);
 
-				if(ImGui.Button(activeLocalization.ImGui.NexusMods)) Utils.OpenLink(Constants.NexusModsLink);
+				if (ImGui.Button(activeLocalization.ImGui.NexusMods)) Utils.OpenLink(Constants.NexusModsLink);
 
 				ImGui.SameLine();
-				if(ImGui.Button(activeLocalization.ImGui.GitHubRepo)) Utils.OpenLink(Constants.GithubRepoLink);
+				if (ImGui.Button(activeLocalization.ImGui.GitHubRepo)) Utils.OpenLink(Constants.GithubRepoLink);
 
-				if(ImGui.Button(activeLocalization.ImGui.Twitch)) Utils.OpenLink(Constants.TwitchLink);
-
-				ImGui.SameLine();
-				if(ImGui.Button(activeLocalization.ImGui.Twitter)) Utils.OpenLink(Constants.TwitterLink);
+				if (ImGui.Button(activeLocalization.ImGui.Twitch)) Utils.OpenLink(Constants.TwitchLink);
 
 				ImGui.SameLine();
-				if(ImGui.Button(activeLocalization.ImGui.ArtStation)) Utils.OpenLink(Constants.ArtStationLink);
+				if (ImGui.Button(activeLocalization.ImGui.Twitter)) Utils.OpenLink(Constants.TwitterLink);
+
+				ImGui.SameLine();
+				if (ImGui.Button(activeLocalization.ImGui.ArtStation)) Utils.OpenLink(Constants.ArtStationLink);
 
 				ImGui.Text(activeLocalization.ImGui.DonationMessage1);
 				ImGui.Text(activeLocalization.ImGui.DonationMessage2);
 
-				if(ImGui.Button(activeLocalization.ImGui.Donate)) Utils.OpenLink(Constants.StreamElementsTipLink);
+				if (ImGui.Button(activeLocalization.ImGui.Donate)) Utils.OpenLink(Constants.StreamElementsTipLink);
 
 				ImGui.SameLine();
-				if(ImGui.Button(activeLocalization.ImGui.PayPal)) Utils.OpenLink(Constants.PaypalLink);
+				if (ImGui.Button(activeLocalization.ImGui.PayPal)) Utils.OpenLink(Constants.PaypalLink);
 
 				ImGui.SameLine();
-				if(ImGui.Button(activeLocalization.ImGui.BuyMeATea)) Utils.OpenLink(Constants.KofiLink);
+				if (ImGui.Button(activeLocalization.ImGui.BuyMeATea)) Utils.OpenLink(Constants.KofiLink);
 
 				ImGui.TreePop();
 			}
@@ -120,20 +120,22 @@ internal sealed class ImGuiManager
 			//	//ImGui.PopFont();
 			//}
 
-			ImGui.End();
-
 			//io.FontGlobalScale = oldFontGlobalScale;
 
-			if(changed)
+			if (changed)
 			{
 				_onConfigChangedEmitDebouncer?.Debounce(OnConfigChangedEmit, 25);
 				_onConfigChangedSaveDebouncer?.Debounce(OnConfigChangedSave, 100);
 			}
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
+		finally
+		{
+            ImGui.End();
+        }
 	}
 
 	private void CalculateWidths()

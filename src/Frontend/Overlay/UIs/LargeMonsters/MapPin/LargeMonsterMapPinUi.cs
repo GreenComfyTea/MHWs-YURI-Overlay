@@ -23,7 +23,7 @@ internal sealed class LargeMonsterMapPinUi
 		_rageComponent = new LargeMonsterRageComponent(largeMonster, () => _customizationAccessor()?.Rage);
 	}
 
-	public void Draw(ImDrawListPtr backgroundDrawList)
+	public void Draw(ImDrawListPtr drawList)
 	{
 		var customization = _customizationAccessor();
 
@@ -35,9 +35,9 @@ internal sealed class LargeMonsterMapPinUi
 		// TODO: Can be cached
 		var position = AnchorPositionCalculator.Convert(anchoredPosition, positionScaleModifier);
 
-		_rageComponent.Draw(backgroundDrawList, position);
-		_staminaComponent.Draw(backgroundDrawList, position);
-		_healthComponent.Draw(backgroundDrawList, position);
-		_nameLabelElement.Draw(backgroundDrawList, position, 1f, _largeMonster.Name);
+		_rageComponent.Draw(drawList, position);
+		_staminaComponent.Draw(drawList, position);
+		_healthComponent.Draw(drawList, position);
+		_nameLabelElement.Draw(drawList, position, 1f, _largeMonster.Name);
 	}
 }

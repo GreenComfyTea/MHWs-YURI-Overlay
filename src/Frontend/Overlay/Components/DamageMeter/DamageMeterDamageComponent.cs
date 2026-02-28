@@ -28,7 +28,7 @@ internal sealed class DamageMeterDamageComponent
 		_damageBarElement = new BarElement(() => customizationAccessor()?.Bar);
 	}
 
-	public void Draw(ImDrawListPtr backgroundDrawList, Vector2 position, float opacityScale = 1f)
+	public void Draw(ImDrawListPtr drawList, Vector2 position, float opacityScale = 1f)
 	{
 		var customization = _customizationAccessor();
 
@@ -39,8 +39,8 @@ internal sealed class DamageMeterDamageComponent
 		var offset = customization.Offset;
 		var offsetPosition = new Vector2(position.X + sizeScaleModifier * (offset.X ?? 0f), position.Y + sizeScaleModifier * (offset.Y ?? 0f));
 
-		_damageBarElement.Draw(backgroundDrawList, offsetPosition, _damageMeterEntity.DisplayedDamagePercentage, opacityScale);
-		_damagePercentageLabelElement.Draw(backgroundDrawList, offsetPosition, opacityScale, _damageMeterEntity.DisplayedDamagePercentage);
-		_damageValueLabelElement.Draw(backgroundDrawList, offsetPosition, opacityScale, _damageMeterEntity.DisplayedDamage);
+		_damageBarElement.Draw(drawList, offsetPosition, _damageMeterEntity.DisplayedDamagePercentage, opacityScale);
+		_damagePercentageLabelElement.Draw(drawList, offsetPosition, opacityScale, _damageMeterEntity.DisplayedDamagePercentage);
+		_damageValueLabelElement.Draw(drawList, offsetPosition, opacityScale, _damageMeterEntity.DisplayedDamage);
 	}
 }

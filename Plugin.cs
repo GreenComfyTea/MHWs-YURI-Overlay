@@ -1,7 +1,8 @@
-using System.Diagnostics.CodeAnalysis;
 using REFrameworkNET;
 using REFrameworkNET.Attributes;
 using REFrameworkNET.Callbacks;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
 
 namespace YURI_Overlay;
 
@@ -97,7 +98,9 @@ public class Plugin
 			ImGuiDrawUI.Post += OnImGuiDrawUi;
 			ImGuiRender.Post += OnImGuiRender;
 
-			IsInitialized = true;
+            LogManager.Info("Callbacks: Initialized!");
+
+            IsInitialized = true;
 
 #if DEBUG
 			NullChecker.ValidateConfig();
@@ -137,4 +140,13 @@ public class Plugin
 
 		OverlayManager.Instance.Draw();
 	}
+
+    //[DllImport("user32.dll")]
+    //private static extern uint GetDpiForSystem();
+
+    //public float GetWindowsScale()
+    //{
+    //    // 96 is the standard 100% DPI base
+    //    return GetDpiForSystem() / 96.0f;
+    //}
 }

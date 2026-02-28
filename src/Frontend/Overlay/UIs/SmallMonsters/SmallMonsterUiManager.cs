@@ -28,9 +28,9 @@ internal sealed class SmallMonsterUiManager : IDisposable
 		LogManager.Info("[SmallMonsterUiManager] Initialized!");
 	}
 
-	public void Draw(ImDrawListPtr backgroundDrawList)
+	public void Draw(ImDrawListPtr drawList)
 	{
-		DrawDynamicUi(backgroundDrawList);
+		DrawDynamicUi(drawList);
 	}
 
 	public void Dispose()
@@ -90,7 +90,7 @@ internal sealed class SmallMonsterUiManager : IDisposable
 		_dynamicSmallMonsters = newSmallMonsters;
 	}
 
-	private void DrawDynamicUi(ImDrawListPtr backgroundDrawList)
+	private void DrawDynamicUi(ImDrawListPtr drawList)
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.SmallMonsterUI;
 
@@ -98,7 +98,7 @@ internal sealed class SmallMonsterUiManager : IDisposable
 
 		foreach(var smallMonster in _dynamicSmallMonsters)
 		{
-			smallMonster.DynamicUi?.Draw(backgroundDrawList);
+			smallMonster.DynamicUi?.Draw(drawList);
 		}
 	}
 }

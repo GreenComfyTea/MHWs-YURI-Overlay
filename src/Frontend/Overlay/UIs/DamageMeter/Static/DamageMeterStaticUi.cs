@@ -31,7 +31,7 @@ internal sealed class DamageMeterStaticUi
 		}
 	}
 
-	public void Draw(ImDrawListPtr backgroundDrawList, int locationIndex)
+	public void Draw(ImDrawListPtr drawList, int locationIndex)
 	{
 		var customization = _customizationAccessor.Invoke();
 
@@ -49,6 +49,6 @@ internal sealed class DamageMeterStaticUi
 		position.X += spacing.X ?? 0f * positionScaleModifier * locationIndex;
 		position.Y += spacing.Y ?? 0f * positionScaleModifier * locationIndex;
 
-		_playerWidget?.Draw(backgroundDrawList, position);
+		_playerWidget?.Draw(drawList, position);
 	}
 }

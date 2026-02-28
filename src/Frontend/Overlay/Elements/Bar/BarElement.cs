@@ -65,7 +65,7 @@ internal sealed class BarElement
 		_customizationAccessor = customizationAccessor;
 	}
 
-	public void Draw(ImDrawListPtr backgroundDrawList, Vector2 position, float progress = 0.5f, float opacityScale = 1f)
+	public void Draw(ImDrawListPtr drawList, Vector2 position, float progress = 0.5f, float opacityScale = 1f)
 	{
 		var customization = _customizationAccessor();
 
@@ -86,7 +86,7 @@ internal sealed class BarElement
 
 		// Background
 
-		backgroundDrawList.AddRectFilledMultiColor(
+		drawList.AddRectFilledMultiColor(
 			_backgroundTopLeft,
 			_backgroundBottomRight,
 			_backgroundColorTopLeft,
@@ -96,7 +96,7 @@ internal sealed class BarElement
 
 		// Foreground
 
-		backgroundDrawList.AddRectFilledMultiColor(
+		drawList.AddRectFilledMultiColor(
 			_foregroundTopLeft,
 			_foregroundBottomRight,
 			_foregroundColorTopLeft,
@@ -108,7 +108,7 @@ internal sealed class BarElement
 
 		if(outline.Visible == true && outlineThickness > 0f)
 		{
-			backgroundDrawList.AddRect(
+			drawList.AddRect(
 				_outlineTopLeft,
 				_outlineBottomRight,
 				_outlineColor,

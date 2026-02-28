@@ -24,7 +24,7 @@ internal sealed class LargeMonsterDynamicUi
 		_rageComponent = new LargeMonsterRageComponent(largeMonster, () => _customizationAccessor()?.Rage);
 	}
 
-	public void Draw(ImDrawListPtr backgroundDrawList)
+	public void Draw(ImDrawListPtr drawList)
 	{
 		var customization = _customizationAccessor();
 
@@ -66,9 +66,9 @@ internal sealed class LargeMonsterDynamicUi
 		screenPosition.X += (customization.Offset.X ?? 0f) * positionScaleModifier;
 		screenPosition.Y += (customization.Offset.Y ?? 0f) * positionScaleModifier;
 
-		_rageComponent.Draw(backgroundDrawList, screenPosition, opacityScale);
-		_staminaComponent.Draw(backgroundDrawList, screenPosition, opacityScale);
-		_healthComponent.Draw(backgroundDrawList, screenPosition, opacityScale);
-		_nameLabelElement.Draw(backgroundDrawList, screenPosition, opacityScale, _largeMonster.Name);
+		_rageComponent.Draw(drawList, screenPosition, opacityScale);
+		_staminaComponent.Draw(drawList, screenPosition, opacityScale);
+		_healthComponent.Draw(drawList, screenPosition, opacityScale);
+		_nameLabelElement.Draw(drawList, screenPosition, opacityScale, _largeMonster.Name);
 	}
 }

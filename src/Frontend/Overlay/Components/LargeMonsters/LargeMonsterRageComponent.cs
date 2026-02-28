@@ -28,7 +28,7 @@ internal sealed class LargeMonsterRageComponent
 		_rageTimerBarElement = new BarElement(() => customizationAccessor()?.TimerBar);
 	}
 
-	public void Draw(ImDrawListPtr backgroundDrawList, Vector2 position, float opacityScale = 1f)
+	public void Draw(ImDrawListPtr drawList, Vector2 position, float opacityScale = 1f)
 	{
 		if(!_largeMonster.IsRageValid) return;
 
@@ -39,13 +39,13 @@ internal sealed class LargeMonsterRageComponent
 
 		if(_largeMonster.IsEnraged)
 		{
-			_rageTimerBarElement.Draw(backgroundDrawList, offsetPosition, _largeMonster.RageRemainingTimerPercentage, opacityScale);
-			_rageTimerLabelElement.Draw(backgroundDrawList, offsetPosition, opacityScale, _largeMonster.RageRemainingTimerString);
+			_rageTimerBarElement.Draw(drawList, offsetPosition, _largeMonster.RageRemainingTimerPercentage, opacityScale);
+			_rageTimerLabelElement.Draw(drawList, offsetPosition, opacityScale, _largeMonster.RageRemainingTimerString);
 			return;
 		}
 
-		_rageBarElement.Draw(backgroundDrawList, offsetPosition, _largeMonster.RagePercentage, opacityScale);
-		_ragePercentageLabelElement.Draw(backgroundDrawList, offsetPosition, opacityScale, _largeMonster.RagePercentage);
-		_rageValueLabelElement.Draw(backgroundDrawList, offsetPosition, opacityScale, _largeMonster.Rage, _largeMonster.MaxRage);
+		_rageBarElement.Draw(drawList, offsetPosition, _largeMonster.RagePercentage, opacityScale);
+		_ragePercentageLabelElement.Draw(drawList, offsetPosition, opacityScale, _largeMonster.RagePercentage);
+		_rageValueLabelElement.Draw(drawList, offsetPosition, opacityScale, _largeMonster.Rage, _largeMonster.MaxRage);
 	}
 }

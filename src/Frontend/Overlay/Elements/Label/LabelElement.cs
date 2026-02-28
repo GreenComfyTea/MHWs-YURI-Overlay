@@ -13,7 +13,7 @@ internal sealed class LabelElement
 		_customizationAccessor = customizationAccessor;
 	}
 
-	public void Draw(ImDrawListPtr backgroundDrawList, Vector2 position, float opacityScale = 1f, params object[] args)
+	public void Draw(ImDrawListPtr drawList, Vector2 position, float opacityScale = 1f, params object[] args)
 	{
 		var customization = _customizationAccessor();
 
@@ -70,7 +70,7 @@ internal sealed class LabelElement
 
 			unsafe
 			{
-                backgroundDrawList.AddText(font, fontSize, shadowPosition, shadowColor, text);
+                drawList.AddText(font, fontSize, shadowPosition, shadowColor, text);
             }
 			
 		}
@@ -80,7 +80,7 @@ internal sealed class LabelElement
 
         unsafe
         {
-            backgroundDrawList.AddText(font, fontSize, textPosition, color, text);
+            drawList.AddText(font, fontSize, textPosition, color, text);
         }
     }
 

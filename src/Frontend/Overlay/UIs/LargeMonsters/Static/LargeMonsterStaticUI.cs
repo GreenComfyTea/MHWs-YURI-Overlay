@@ -23,7 +23,7 @@ internal sealed class LargeMonsterStaticUi
 		_rageComponent = new LargeMonsterRageComponent(largeMonster, () => _customizationAccessor()?.Rage);
 	}
 
-	public void Draw(ImDrawListPtr backgroundDrawList, int locationIndex)
+	public void Draw(ImDrawListPtr drawList, int locationIndex)
 	{
 		var customization = _customizationAccessor();
 
@@ -39,9 +39,9 @@ internal sealed class LargeMonsterStaticUi
 		position.X += (spacing.X ?? 0f) * positionScaleModifier * locationIndex;
 		position.Y += (spacing.Y ?? 0f) * positionScaleModifier * locationIndex;
 
-		_rageComponent.Draw(backgroundDrawList, position);
-		_staminaComponent.Draw(backgroundDrawList, position);
-		_healthComponent.Draw(backgroundDrawList, position);
-		_nameLabelElement.Draw(backgroundDrawList, position, 1f, _largeMonster.Name);
+		_rageComponent.Draw(drawList, position);
+		_staminaComponent.Draw(drawList, position);
+		_healthComponent.Draw(drawList, position);
+		_nameLabelElement.Draw(drawList, position, 1f, _largeMonster.Name);
 	}
 }

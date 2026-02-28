@@ -28,9 +28,9 @@ internal sealed class EndemicLifeUiManager : IDisposable
 		LogManager.Info("[EndemicLifeUiManager] Initialized!");
 	}
 
-	public void Draw(ImDrawListPtr backgroundDrawList)
+	public void Draw(ImDrawListPtr drawList)
 	{
-		DrawDynamicUi(backgroundDrawList);
+		DrawDynamicUi(drawList);
 	}
 
 	public void Dispose()
@@ -87,7 +87,7 @@ internal sealed class EndemicLifeUiManager : IDisposable
 		_dynamicEndemicLifeEntities = newEndemicLifeEntities;
 	}
 
-	private void DrawDynamicUi(ImDrawListPtr backgroundDrawList)
+	private void DrawDynamicUi(ImDrawListPtr drawList)
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.EndemicLifeUI;
 
@@ -95,7 +95,7 @@ internal sealed class EndemicLifeUiManager : IDisposable
 
 		foreach(var endemicLifeEntity in _dynamicEndemicLifeEntities)
 		{
-			endemicLifeEntity.DynamicUi?.Draw(backgroundDrawList);
+			endemicLifeEntity.DynamicUi?.Draw(drawList);
 		}
 	}
 }

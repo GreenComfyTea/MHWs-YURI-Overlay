@@ -28,7 +28,7 @@ internal sealed class LargeMonsterStaminaComponent
 		_staminaTimerBarElement = new BarElement(() => customizationAccessor()?.TimerBar);
 	}
 
-	public void Draw(ImDrawListPtr backgroundDrawList, Vector2 position, float opacityScale = 1f)
+	public void Draw(ImDrawListPtr drawList, Vector2 position, float opacityScale = 1f)
 	{
 		if(!_largeMonster.IsStaminaValid) return;
 
@@ -39,13 +39,13 @@ internal sealed class LargeMonsterStaminaComponent
 
 		if(_largeMonster.IsTired)
 		{
-			_staminaTimerBarElement.Draw(backgroundDrawList, offsetPosition, _largeMonster.StaminaRemainingTimerPercentage, opacityScale);
-			_staminaTimerLabelElement.Draw(backgroundDrawList, offsetPosition, opacityScale, _largeMonster.StaminaRemainingTimerString);
+			_staminaTimerBarElement.Draw(drawList, offsetPosition, _largeMonster.StaminaRemainingTimerPercentage, opacityScale);
+			_staminaTimerLabelElement.Draw(drawList, offsetPosition, opacityScale, _largeMonster.StaminaRemainingTimerString);
 			return;
 		}
 
-		_staminaBarElement.Draw(backgroundDrawList, offsetPosition, _largeMonster.StaminaPercentage, opacityScale);
-		_staminaPercentageLabelElement.Draw(backgroundDrawList, offsetPosition, opacityScale, _largeMonster.StaminaPercentage);
-		_staminaValueLabelElement.Draw(backgroundDrawList, offsetPosition, opacityScale, _largeMonster.Stamina, _largeMonster.MaxStamina);
+		_staminaBarElement.Draw(drawList, offsetPosition, _largeMonster.StaminaPercentage, opacityScale);
+		_staminaPercentageLabelElement.Draw(drawList, offsetPosition, opacityScale, _largeMonster.StaminaPercentage);
+		_staminaValueLabelElement.Draw(drawList, offsetPosition, opacityScale, _largeMonster.Stamina, _largeMonster.MaxStamina);
 	}
 }

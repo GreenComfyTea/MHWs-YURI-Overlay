@@ -20,7 +20,7 @@ internal sealed class SmallMonsterDynamicUi
 		_healthComponent = new SmallMonsterHealthComponent(largeMonster, () => _customizationAccessor()?.Health);
 	}
 
-	public void Draw(ImDrawListPtr backgroundDrawList)
+	public void Draw(ImDrawListPtr drawList)
 	{
 		var customization = _customizationAccessor();
 
@@ -62,7 +62,7 @@ internal sealed class SmallMonsterDynamicUi
 		screenPosition.X += (customization.Offset.X ?? 0f) * positionScaleModifier;
 		screenPosition.Y += (customization.Offset.Y ?? 0f) * positionScaleModifier;
 
-		_healthComponent.Draw(backgroundDrawList, screenPosition, opacityScale);
-		_nameLabelElement.Draw(backgroundDrawList, screenPosition, opacityScale, _largeMonster.Name);
+		_healthComponent.Draw(drawList, screenPosition, opacityScale);
+		_nameLabelElement.Draw(drawList, screenPosition, opacityScale, _largeMonster.Name);
 	}
 }
