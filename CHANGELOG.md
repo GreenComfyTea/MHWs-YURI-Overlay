@@ -5,7 +5,7 @@
 
 ### Bug Fixes
 
-* Fixed a bug that caused global size scale not being applied to labels ([c2d1fa6](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/c2d1fa6b6e88f01ea8036e89a2082ebcd0ba0887))
+* Fixed a bug that caused Global Size Scale not being applied to labels ([c2d1fa6](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/c2d1fa6b6e88f01ea8036e89a2082ebcd0ba0887))
 
 ### Misc
 
