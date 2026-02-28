@@ -23,11 +23,11 @@
   
   <Target Name="MoveDependenciesToSubfolder" AfterTargets="PostBuildEvent">
 	<ItemGroup>
-        <FilesToDelete Include="$(OutputPath)ImGui.NET.dll;$(OutputPath)ImGui.NET.xml;$(OutputPath)Microsoft.CodeAnalysis.CSharp.dll;$(OutputPath)Microsoft.CodeAnalysis.CSharp.xml;$(OutputPath)Microsoft.CodeAnalysis.dll;$(OutputPath)Microsoft.CodeAnalysis.xml;$(OutputPath)Microsoft.Windows.SDK.NET.dll;$(OutputPath)REFCoreDeps.dll;$(OutputPath)REFramework.NET.dll;$(OutputPath)REFramework.NET.xml;$(OutputPath)YURI_Overlay.deps.json;$(OutputPath)REFramework.NET._System.Private.CoreLib.dll;$(OutputPath)REFramework.NET.application.dll;$(OutputPath)REFramework.NET.viacore.dll;$(OutputPath)AssemblyGenerator.dll" />  
+        <FilesToDelete Include="$(OutputPath)Hexa.NET.ImGui.dll;$(OutputPath)Hexa.NET.ImGui.xml;$(OutputPath)HexaGen.Runtime.dll;$(OutputPath)HexaGen.Runtime.xml;$(OutputPath)Microsoft.CodeAnalysis.CSharp.dll;$(OutputPath)Microsoft.CodeAnalysis.CSharp.xml;$(OutputPath)Microsoft.CodeAnalysis.dll;$(OutputPath)Microsoft.CodeAnalysis.xml;$(OutputPath)Microsoft.Windows.SDK.NET.dll;$(OutputPath)REFCoreDeps.dll;$(OutputPath)REFramework.NET.dll;$(OutputPath)REFramework.NET.xml;$(OutputPath)YURI_Overlay.deps.json;$(OutputPath)REFramework.NET._System.Private.CoreLib.dll;$(OutputPath)REFramework.NET.application.dll;$(OutputPath)REFramework.NET.viacore.dll;$(OutputPath)AssemblyGenerator.dll" />  
     </ItemGroup>
   
     <ItemGroup>
-        <Dependencies Include="$(OutputPath)*" Exclude="$(OutputPath)dependencies\**;$(OutputPath)ImGui.NET.dll;$(OutputPath)ImGui.NET.xml;$(OutputPath)Microsoft.CodeAnalysis.CSharp.dll;$(OutputPath)Microsoft.CodeAnalysis.CSharp.xml;$(OutputPath)Microsoft.CodeAnalysis.dll;$(OutputPath)Microsoft.CodeAnalysis.xml;$(OutputPath)Microsoft.Windows.SDK.NET.dll;$(OutputPath)REFCoreDeps.dll;$(OutputPath)REFramework.NET.dll;$(OutputPath)REFramework.NET.xml;$(OutputPath)YURI_Overlay.deps.json;$(OutputPath)YURI_Overlay.dll;$(OutputPath)REFramework.NET._System.Private.CoreLib.dll;$(OutputPath)REFramework.NET.application.dll;$(OutputPath)REFramework.NET.viacore.dll;$(OutputPath)AssemblyGenerator.dll;$(OutputPath)modinfo.ini;$(OutputPath)cover.png" />	  
+        <Dependencies Include="$(OutputPath)*" Exclude="$(OutputPath)dependencies\**;$(OutputPath)Hexa.NET.ImGui.dll;$(OutputPath)Hexa.NET.ImGui.xml;$(OutputPath)HexaGen.Runtime.dll;$(OutputPath)HexaGen.Runtime.xml;$(OutputPath)Microsoft.CodeAnalysis.CSharp.dll;$(OutputPath)Microsoft.CodeAnalysis.CSharp.xml;$(OutputPath)Microsoft.CodeAnalysis.dll;$(OutputPath)Microsoft.CodeAnalysis.xml;$(OutputPath)Microsoft.Windows.SDK.NET.dll;$(OutputPath)REFCoreDeps.dll;$(OutputPath)REFramework.NET.dll;$(OutputPath)REFramework.NET.xml;$(OutputPath)YURI_Overlay.deps.json;$(OutputPath)YURI_Overlay.dll;$(OutputPath)REFramework.NET._System.Private.CoreLib.dll;$(OutputPath)REFramework.NET.application.dll;$(OutputPath)REFramework.NET.viacore.dll;$(OutputPath)AssemblyGenerator.dll;$(OutputPath)modinfo.ini;$(OutputPath)cover.png" />	  
     </ItemGroup>
 	
 	<ItemGroup>
@@ -107,6 +107,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="reframework\data\YURI_Overlay\localizations\de-DE.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+		<None Update="reframework\data\YURI_Overlay\localizations\ko-KR.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="reframework\data\YURI_Overlay\localizations\zh-Hans.json">
