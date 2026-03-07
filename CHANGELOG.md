@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.5.7](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.6...v1.5.7) (2026-02-28)
+
+
+### Bug Fixes
+
+* Fixed a bug that caused Global Size Scale not being applied to labels ([c2d1fa6](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/c2d1fa6b6e88f01ea8036e89a2082ebcd0ba0887))
+
+### Misc
+
+* Migrated to .NET 10 ([f62b02d](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/f62b02d25e869eafad163bdb7cc6c01fc94e89d9)) 
+* Migrated to Hexa.NET.ImGui ([f62b02d](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/f62b02d25e869eafad163bdb7cc6c01fc94e89d9)) 
+
 ## [1.5.6](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.5...v1.5.6) (2025-10-14)
 
 

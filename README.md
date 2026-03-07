@@ -50,10 +50,10 @@
 		<img alt="Maintenance" src="https://custom-icon-badges.demolab.com/maintenance/yes/2026?logo=tools" />
 	</a>
 	<br>
-	<a href="https://github.com/GreenComfyTea/REFramework/releases">
+	<a href="https://github.com/praydog/REFramework/releases">
 		<img alt="REFramework Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-REFramework%20Nightly%2001255-green?logo=package-dependencies" />
 	</a>
-	<a href="https://github.com/GreenComfyTea/REFramework/releases">
+	<a href="https://github.com/praydog/REFramework/releases">
 		<img alt="REFramework.NET Dependency" src="https://custom-icon-badges.demolab.com/badge/dependency-REFramework.NET%20Nightly%2001255-green?logo=package-dependencies" />
 	</a>
 	<a href="https://nexusmods.com/monsterhunterrise/mods/26">
