@@ -177,6 +177,8 @@ internal sealed class ScreenManager : IDisposable
 
 		_timers.Clear();
 
+		ConfigManager.Instance.AnyConfigChanged -= OnAnyConfigChanged;
+
 		LogManager.Info("[ScreenManager] Disposed!");
 	}
 

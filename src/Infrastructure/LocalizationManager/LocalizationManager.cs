@@ -13,8 +13,8 @@ internal sealed class LocalizationManager : IDisposable
 
 	public Dictionary<string, JsonDatabase<Localization>> Localizations;
 
-	public EventHandler ActiveLocalizationChanged = delegate { };
-	public EventHandler AnyLocalizationChanged = delegate { };
+	public event EventHandler ActiveLocalizationChanged = delegate { };
+	public event EventHandler AnyLocalizationChanged = delegate { };
 
 	private LocalizationWatcher _localizationWatcherInstance;
 

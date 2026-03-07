@@ -11,7 +11,7 @@ internal sealed class LuaFontManager
 
 	public List<string> FontNames = [];
 
-	public EventHandler FontsChanged = delegate { };
+	public event EventHandler FontsChanged = delegate { };
 
 	public (string, ImFontPtr)? ActiveMenuFont = null;
 	public (string, ImFontPtr)? ActiveGlobalOverlayFont = null;
@@ -28,7 +28,7 @@ internal sealed class LuaFontManager
 
 		Timers.SetInterval(SetGameUpdatePending, 1000);
 
-		ConfigManager.Instance.AnyConfigChanged = OnAnyConfigChanged;
+		ConfigManager.Instance.AnyConfigChanged += OnAnyConfigChanged;
 
 		LogManager.Info("[LuaFontManager] Initialized!");
 	}
@@ -158,4 +158,13 @@ internal sealed class LuaFontManager
 	{
 		Utils.EmitEvents(this, FontsChanged);
 	}
+
+    public void Dispose()
+    {
+        LogManager.Info("[LuaFontManager] Disposing...");
+
+        ConfigManager.Instance.AnyConfigChanged -= OnAnyConfigChanged;
+
+        LogManager.Info("[LuaFontManager] Disposed!");
+    }
 }

@@ -13,7 +13,7 @@ internal sealed class PlayerManager : IDisposable
 
 	public Vector3 Position = Vector3.Zero;
 
-	public EventHandler MasterPlayerChanged = delegate { };
+	public event EventHandler MasterPlayerChanged = delegate { };
 
 	public cPlayerManageInfo? MasterPlayer;
 
@@ -50,6 +50,8 @@ internal sealed class PlayerManager : IDisposable
 		}
 
 		_timers.Clear();
+
+		ConfigManager.Instance.AnyConfigChanged -= OnAnyConfigChanged;
 
 		LogManager.Info("[PlayerManager] Disposed!");
 	}

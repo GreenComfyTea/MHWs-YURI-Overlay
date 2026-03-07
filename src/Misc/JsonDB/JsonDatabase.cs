@@ -11,12 +11,12 @@ internal sealed class JsonDatabase<T> : IDisposable where T : class, new()
 	public FileSync FileSyncInstance;
 	public JsonWatcher<T> JsonWatcherInstance;
 
-	public EventHandler Changed = delegate { };
-	public EventHandler Renamed = delegate { };
-	public EventHandler RenamedFrom = delegate { };
-	public EventHandler RenamedTo = delegate { };
-	public EventHandler Deleted = delegate { };
-	public EventHandler Error = delegate { };
+	public event EventHandler Changed = delegate { };
+	public event EventHandler Renamed = delegate { };
+	public event EventHandler RenamedFrom = delegate { };
+	public event EventHandler RenamedTo = delegate { };
+	public event EventHandler Deleted = delegate { };
+	public event EventHandler Error = delegate { };
 
 	private readonly bool _stub = false;
 

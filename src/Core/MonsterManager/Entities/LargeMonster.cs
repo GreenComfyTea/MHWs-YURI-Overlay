@@ -114,6 +114,8 @@ internal sealed class LargeMonster : IDisposable
 
 		_timers.Clear();
 
+		ConfigManager.Instance.AnyConfigChanged -= OnAnyConfigChanged;
+
 		LogManager.Info($"[LargeMonster] {Name} Disposed!");
 	}
 
@@ -212,8 +214,7 @@ internal sealed class LargeMonster : IDisposable
 		_timers.Clear();
 
 		_timers.Add(Timers.SetInterval(SetUpdateNamePending, Utils.SecondsToMilliseconds(updateDelays.Name)));
-		_timers.Add(Timers.SetInterval(SetUpdateMissionBeaconOffset,
-			Utils.SecondsToMilliseconds(updateDelays.MissionBeaconOffset)));
+		_timers.Add(Timers.SetInterval(SetUpdateMissionBeaconOffset, Utils.SecondsToMilliseconds(updateDelays.MissionBeaconOffset)));
 		_timers.Add(Timers.SetInterval(SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays.ModelRadius)));
 		_timers.Add(Timers.SetInterval(SetUpdateHealthPending, Utils.SecondsToMilliseconds(updateDelays.Health)));
 		_timers.Add(Timers.SetInterval(SetUpdateStaminaPending, Utils.SecondsToMilliseconds(updateDelays.Stamina)));

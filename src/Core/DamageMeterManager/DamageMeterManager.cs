@@ -47,10 +47,12 @@ internal sealed class DamageMeterManager : IDisposable
 			otherPlayerPair.Value.Dispose();
 		}
 
-		foreach(var supportHunterPair in SupportHunters)
+		foreach (var supportHunterPair in SupportHunters)
 		{
 			supportHunterPair.Value.Dispose();
 		}
+		
+		PlayerManager.Instance.MasterPlayerChanged -= OnMasterPlayerChanged;
 
 		LogManager.Info("[DamageMeterManager] Disposed!");
 	}

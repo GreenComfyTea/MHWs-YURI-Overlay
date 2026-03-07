@@ -93,6 +93,8 @@ internal sealed class SmallMonster : IDisposable
 
 		_timers.Clear();
 
+		ConfigManager.Instance.AnyConfigChanged -= OnAnyConfigChanged;
+
 		LogManager.Info($"[SmallMonster] {Name} Disposed!");
 	}
 

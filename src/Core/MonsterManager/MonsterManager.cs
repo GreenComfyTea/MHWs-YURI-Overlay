@@ -211,7 +211,7 @@ internal sealed class MonsterManager : IDisposable
 
 	public void Dispose()
 	{
-		LogManager.Info("[LargeMonster] Disposing...");
+		LogManager.Info("[MonsterManager] Disposing...");
 
 		foreach(var largeMonsterPair in LargeMonsters)
 		{

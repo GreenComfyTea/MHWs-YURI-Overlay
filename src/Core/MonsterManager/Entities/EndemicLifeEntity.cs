@@ -81,7 +81,9 @@ internal sealed class EndemicLifeEntity : IDisposable
 
 		_timers.Clear();
 
-		LogManager.Info($"[EndemicLife] {Name} Disposed!");
+        ConfigManager.Instance.AnyConfigChanged -= OnAnyConfigChanged;
+
+        LogManager.Info($"[EndemicLife] {Name} Disposed!");
 	}
 
 	private void Initialize()

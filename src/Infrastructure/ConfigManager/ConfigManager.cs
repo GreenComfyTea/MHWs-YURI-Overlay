@@ -12,8 +12,8 @@ internal sealed partial class ConfigManager : IDisposable
 
 	public Dictionary<string, JsonDatabase<Config>> Configs;
 
-	public EventHandler ActiveConfigChanged = delegate { };
-	public EventHandler AnyConfigChanged = delegate { };
+	public event EventHandler ActiveConfigChanged = delegate { };
+	public event EventHandler AnyConfigChanged = delegate { };
 
 	public ConfigWatcher ConfigWatcherInstance;
 
