@@ -1,8 +1,7 @@
+using System.Diagnostics.CodeAnalysis;
 using REFrameworkNET;
 using REFrameworkNET.Attributes;
 using REFrameworkNET.Callbacks;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.InteropServices;
 
 namespace YURI_Overlay;
 
@@ -21,7 +20,7 @@ public class Plugin
 		{
 			Task.Run(Initialize);
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -53,6 +52,10 @@ public class Plugin
 		ConfigManager.Instance.Dispose();
 
 		API.LocalFrameGC();
+
+#if DEBUG
+		REFrameworkWebAPI.Dispose();
+#endif
 
 		LogManager.Info("Disposed!");
 		LogManager.Info("I permitted it to pass over me and through me. When it had gone past I turned the inner eye to see its path. Where the fear had gone, there was nothing. Only I remained...");
@@ -107,15 +110,16 @@ public class Plugin
 			ImGuiDrawUI.Post += OnImGuiDrawUi;
 			ImGuiRender.Post += OnImGuiRender;
 
-            LogManager.Info("Callbacks: Initialized!");
+			LogManager.Info("Callbacks: Initialized!");
 
-            IsInitialized = true;
+			IsInitialized = true;
 
 #if DEBUG
 			NullChecker.ValidateConfig();
+			REFrameworkWebAPI.Initialize();
 #endif
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -138,24 +142,26 @@ public class Plugin
 
 	private static void OnImGuiDrawUi()
 	{
-		if(!IsInitialized) return;
+		if (!IsInitialized)
+			return;
 
 		ImGuiManager.Instance.Draw();
 	}
 
 	private static void OnImGuiRender()
 	{
-		if(!IsInitialized) return;
+		if (!IsInitialized)
+			return;
 
 		OverlayManager.Instance.Draw();
 	}
 
-    //[DllImport("user32.dll")]
-    //private static extern uint GetDpiForSystem();
+	//[DllImport("user32.dll")]
+	//private static extern uint GetDpiForSystem();
 
-    //public float GetWindowsScale()
-    //{
-    //    // 96 is the standard 100% DPI base
-    //    return GetDpiForSystem() / 96.0f;
-    //}
+	//public float GetWindowsScale()
+	//{
+	//    // 96 is the standard 100% DPI base
+	//    return GetDpiForSystem() / 96.0f;
+	//}
 }
