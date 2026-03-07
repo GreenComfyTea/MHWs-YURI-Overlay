@@ -27,11 +27,6 @@ internal sealed class LocalizationManager : IDisposable
 		_localizationWatcherInstance = new LocalizationWatcher(true);
 	}
 
-	~LocalizationManager()
-	{
-		Dispose();
-	}
-
 	public void Initialize()
 	{
 		LogManager.Info("[LocalizationManager] Initializing...");
@@ -47,6 +42,22 @@ internal sealed class LocalizationManager : IDisposable
 		Customization = new LocalizationCustomization();
 
 		LogManager.Info("[LocalizationManager] Initialized!");
+	}
+
+	public void Dispose()
+	{
+		LogManager.Info("[LocalizationManager] Disposing...");
+
+		_localizationWatcherInstance.Dispose();
+
+		foreach (var localization in Localizations)
+		{
+			localization.Value.Dispose();
+		}
+		
+		ConfigManager.Instance.AnyConfigChanged -= OnAnyConfigChanged;
+
+		LogManager.Info("[LocalizationManager] Disposed!");
 	}
 
 	public void ActivateLocalization(JsonDatabase<Localization> localization)
@@ -102,20 +113,6 @@ internal sealed class LocalizationManager : IDisposable
 		Localizations[name] = newLocalization;
 
 		LogManager.Info($"[LocalizationManager] Localization \"{name}\" is initialized!");
-	}
-
-	public void Dispose()
-	{
-		LogManager.Info("[LocalizationManager] Disposing...");
-
-		_localizationWatcherInstance.Dispose();
-
-		foreach(var localization in Localizations)
-		{
-			localization.Value.Dispose();
-		}
-
-		LogManager.Info("[LocalizationManager] Disposed!");
 	}
 
 	private void InitializeDefaultLocalization()

@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace YURI_Overlay;
 
-internal sealed class OverlayManager
+internal sealed class OverlayManager : IDisposable
 {
 	private static readonly Lazy<OverlayManager> Lazy = new(() => new OverlayManager());
 
@@ -21,10 +21,14 @@ internal sealed class OverlayManager
 
 	public void Initialize()
 	{
+		LogManager.Info("[OverlayManager] Initializing...");
+
 		_largeMonsterUiManager = new LargeMonsterUiManager();
 		_smallMonsterUiManager = new SmallMonsterUiManager();
 		_endemicLifeUiManager = new EndemicLifeUiManager();
 		//_damageMeterUiManager = new DamageMeterUiManager();
+
+		LogManager.Info("[OverlayManager] Initialized!");
 	}
 
 	public void Draw()
@@ -58,5 +62,24 @@ internal sealed class OverlayManager
             ImGui.End();
             LogManager.Error(exception);
 		}
+	}
+
+	public void Dispose()
+	{
+		LogManager.Info("[OverlayManager] Disposing...");
+
+		_largeMonsterUiManager?.Dispose();
+		_largeMonsterUiManager = null;
+
+		_smallMonsterUiManager?.Dispose();
+		_smallMonsterUiManager = null;
+
+		_endemicLifeUiManager?.Dispose();
+		_endemicLifeUiManager = null;
+
+		//_damageMeterUiManager?.Dispose();
+		//_damageMeterUiManager = null;
+
+		LogManager.Info("[OverlayManager] Disposed!");
 	}
 }

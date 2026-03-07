@@ -1,6 +1,6 @@
 ﻿namespace YURI_Overlay;
 
-internal sealed class Debouncer
+internal sealed class Debouncer : IDisposable
 {
 	private CancellationTokenSource? _cancellationTokenSource;
 
@@ -15,5 +15,12 @@ internal sealed class Debouncer
 		{
 			if(!task.IsCanceled) action();
 		}, TaskScheduler.Default);
+	}
+
+	public void Dispose()
+	{
+		_cancellationTokenSource?.Cancel();
+		_cancellationTokenSource?.Dispose();
+		_cancellationTokenSource = null;
 	}
 }

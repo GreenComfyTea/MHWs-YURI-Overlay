@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace YURI_Overlay;
 
-internal sealed class ImGuiManager
+internal sealed class ImGuiManager : IDisposable
 {
 	private static readonly Lazy<ImGuiManager> Lazy = new(() => new ImGuiManager());
 
@@ -36,6 +36,16 @@ internal sealed class ImGuiManager
 		_onConfigChangedSaveDebouncer = new Debouncer();
 
 		LogManager.Info("[ImGuiManager] Initialized!");
+	}
+
+	public void Dispose()
+	{
+		LogManager.Info("[ImGuiManager] Disposing...");
+
+		_onConfigChangedEmitDebouncer?.Dispose();
+		_onConfigChangedSaveDebouncer?.Dispose();
+
+		LogManager.Info("[ImGuiManager] Disposed!");
 	}
 
 	public void Draw()

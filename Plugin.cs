@@ -32,6 +32,11 @@ public class Plugin
 	{
 		LogManager.Info("Disposing...");
 
+		// Unsubscribe REFramework callbacks FIRST to prevent callbacks during shutdown
+		UpdateBehavior.Post -= OnUpdate;
+		ImGuiDrawUI.Post -= OnImGuiDrawUi;
+		ImGuiRender.Post -= OnImGuiRender;
+
 		MethodHookPatternAttribute.Dispose();
 
 		//DamageMeterManager.Instance.Dispose();
@@ -39,6 +44,10 @@ public class Plugin
 
 		PlayerManager.Instance.Dispose();
 		ScreenManager.Instance.Dispose();
+
+		ImGuiManager.Instance.Dispose();
+		OverlayManager.Instance.Dispose();
+		LuaFontManager.Instance.Dispose();
 
 		LocalizationManager.Instance.Dispose();
 		ConfigManager.Instance.Dispose();
@@ -60,7 +69,7 @@ public class Plugin
 			var configManager = ConfigManager.Instance;
 			var localizationManager = LocalizationManager.Instance;
 			var localizationHelper = LocalizationHelper.Instance;
-			//var luaFontManager = LuaFontManager.Instance;
+			var luaFontManager = LuaFontManager.Instance;
 
 			//var fontManager = FontManager.Instance;
 
@@ -77,7 +86,7 @@ public class Plugin
 			configManager.Initialize();
 			localizationManager.Initialize();
 			localizationHelper.Initialize();
-			//luaFontManager.Initialize();
+			luaFontManager.Initialize();
 
 			//fontManager.Initialize();
 

@@ -83,6 +83,7 @@ internal sealed class LocalizationWatcher : IDisposable
 	{
 		if(!_stub) LogManager.Info("[LocalizationWatcher] Disposing...");
 
+		_delayedEnableTimer?.Dispose();
 		_watcher?.Dispose();
 
 		if(!_stub) LogManager.Info("[LocalizationWatcher] Disposed!");

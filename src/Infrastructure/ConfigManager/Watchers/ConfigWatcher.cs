@@ -87,6 +87,7 @@ internal sealed class ConfigWatcher : IDisposable
 	{
 		if(!_stub) LogManager.Info("[ConfigWatcher] Disposing...");
 
+		_delayedEnableTimer?.Dispose();
 		_watcher?.Dispose();
 
 		if(!_stub) LogManager.Info("[ConfigWatcher] Disposed!");

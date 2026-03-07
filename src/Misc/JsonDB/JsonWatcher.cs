@@ -86,6 +86,7 @@ internal sealed class JsonWatcher<T> : IDisposable where T : class, new()
 	{
 		if(!_stub) LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Disposing...");
 
+		_delayedEnableTimer?.Dispose();
 		_watcher?.Dispose();
 
 		if(!_stub) LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Disposed!");

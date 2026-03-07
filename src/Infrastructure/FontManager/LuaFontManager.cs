@@ -1,8 +1,9 @@
 ﻿using Hexa.NET.ImGui;
+using Timer = System.Timers.Timer;
 
 namespace YURI_Overlay;
 
-internal sealed class LuaFontManager
+internal sealed class LuaFontManager : IDisposable
 {
 	private static readonly Lazy<LuaFontManager> Lazy = new(() => new LuaFontManager());
 	public static LuaFontManager Instance => Lazy.Value;
@@ -18,6 +19,8 @@ internal sealed class LuaFontManager
 
 	private bool _isGameUpdatePending = true;
 
+	private Timer? _gameUpdateTimer;
+
 	private LuaFontManager()
 	{
 	}
@@ -26,7 +29,7 @@ internal sealed class LuaFontManager
 	{
 		LogManager.Info("[LuaFontManager] Initializing...");
 
-		Timers.SetInterval(SetGameUpdatePending, 1000);
+		_gameUpdateTimer = Timers.SetInterval(SetGameUpdatePending, 1000);
 
 		ConfigManager.Instance.AnyConfigChanged += OnAnyConfigChanged;
 
@@ -159,12 +162,19 @@ internal sealed class LuaFontManager
 		Utils.EmitEvents(this, FontsChanged);
 	}
 
-    public void Dispose()
-    {
-        LogManager.Info("[LuaFontManager] Disposing...");
+	public void Dispose()
+	{
+		LogManager.Info("[LuaFontManager] Disposing...");
 
-        ConfigManager.Instance.AnyConfigChanged -= OnAnyConfigChanged;
+		if(_gameUpdateTimer is not null)
+		{
+			_gameUpdateTimer.Stop();
+			_gameUpdateTimer.Dispose();
+			_gameUpdateTimer = null;
+		}
 
-        LogManager.Info("[LuaFontManager] Disposed!");
-    }
+		ConfigManager.Instance.AnyConfigChanged -= OnAnyConfigChanged;
+
+		LogManager.Info("[LuaFontManager] Disposed!");
+	}
 }

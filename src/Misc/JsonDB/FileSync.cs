@@ -37,12 +37,9 @@ internal sealed class FileSync
 	{
 		try
 		{
-			var file = File.Open(PathFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-			StreamReader streamReader = new(file);
+			using var file = File.Open(PathFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+			using StreamReader streamReader = new(file);
 			var content = streamReader.ReadToEnd();
-
-			streamReader.Close();
-			streamReader.Dispose();
 
 			return content;
 		}
@@ -58,15 +55,15 @@ internal sealed class FileSync
 		try
 		{
 			Directory.CreateDirectory(Path.GetDirectoryName(PathFileName)!);
-			var file = File.Open(PathFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
 
-			StreamWriter streamWriter = new(file, Encoding.UTF8);
+			using var file = File.Open(PathFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
+
+			using StreamWriter streamWriter = new(file, Encoding.UTF8);
 			streamWriter.AutoFlush = true;
 
 			file.SetLength(0);
 
 			streamWriter.Write(json);
-			streamWriter.Close();
 
 			return true;
 		}
