@@ -25,12 +25,7 @@ internal sealed class LocalizationWatcher : IDisposable
 		{
 			_watcher = new FileSystemWatcher(Constants.LocalizationsPath);
 
-			_watcher.NotifyFilter = NotifyFilters.Attributes
-									| NotifyFilters.CreationTime
-									| NotifyFilters.FileName
-									| NotifyFilters.LastWrite
-									| NotifyFilters.Security
-									| NotifyFilters.Size;
+			_watcher.NotifyFilter = NotifyFilters.Attributes | NotifyFilters.CreationTime | NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.Security | NotifyFilters.Size;
 
 			_watcher.Changed += OnLocalizationFileChanged;
 			_watcher.Created += OnLocalizationFileCreated;
@@ -43,7 +38,7 @@ internal sealed class LocalizationWatcher : IDisposable
 
 			LogManager.Info("[LocalizationWatcher] Initialized!");
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -60,7 +55,8 @@ internal sealed class LocalizationWatcher : IDisposable
 		_delayedEnableTimer?.Dispose();
 		_delayedEnableTimer = null;
 
-		if(!_stub) LogManager.Info("[LocalizationWatcher] Enabled!");
+		if (!_stub)
+			LogManager.Info("[LocalizationWatcher] Enabled!");
 	}
 
 	public void DelayedEnable()
@@ -68,7 +64,8 @@ internal sealed class LocalizationWatcher : IDisposable
 		_delayedEnableTimer?.Dispose();
 		_delayedEnableTimer = Timers.SetTimeout(Enable, Constants.ReenableWatcherDelayMilliseconds);
 
-		if(!_stub) LogManager.Info("[LocalizationWatcher] Will enable after a delay...");
+		if (!_stub)
+			LogManager.Info("[LocalizationWatcher] Will enable after a delay...");
 	}
 
 	public void Disable()
@@ -76,40 +73,48 @@ internal sealed class LocalizationWatcher : IDisposable
 		_disabled = true;
 		_delayedEnableTimer?.Dispose();
 
-		if(!_stub) LogManager.Info("[LocalizationWatcher] Temporarily disabled!");
+		if (!_stub)
+			LogManager.Info("[LocalizationWatcher] Temporarily disabled!");
 	}
 
 	public void Dispose()
 	{
-		if(!_stub) LogManager.Info("[LocalizationWatcher] Disposing...");
+		if (!_stub)
+			LogManager.Info("[LocalizationWatcher] Disposing...");
 
 		_delayedEnableTimer?.Dispose();
 		_watcher?.Dispose();
 
-		if(!_stub) LogManager.Info("[LocalizationWatcher] Disposed!");
+		if (!_stub)
+			LogManager.Info("[LocalizationWatcher] Disposed!");
 	}
 
 	private void OnLocalizationFileChanged(object? sender, FileSystemEventArgs e)
 	{
 		try
 		{
-			if(_disabled) return;
+			if (_disabled)
+				return;
 
 			var name = Path.GetFileNameWithoutExtension(e.Name);
-			if(name is null) return;
+			if (name is null)
+				return;
 
 			var eventTime = File.GetLastWriteTime(e.FullPath);
-			if(!_lastEventTimes.ContainsKey(name)) _lastEventTimes[name] = DateTime.MinValue;
+			if (!_lastEventTimes.ContainsKey(name))
+				_lastEventTimes[name] = DateTime.MinValue;
 
-			if(eventTime.Ticks - _lastEventTimes[name].Ticks < Constants.DuplicateEventThresholdTicks) return;
+			if (eventTime.Ticks - _lastEventTimes[name].Ticks < Constants.DuplicateEventThresholdTicks)
+				return;
 
 			LogManager.Info($"Localization \"{name}\": Changed.");
 
-			if(LocalizationManager.Instance.Localizations.ContainsKey(name)) return;
+			if (LocalizationManager.Instance.Localizations.ContainsKey(name))
+				return;
 
 			_lastEventTimes[name] = eventTime;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -119,10 +124,11 @@ internal sealed class LocalizationWatcher : IDisposable
 	{
 		try
 		{
-			if(_disabled) return;
+			if (_disabled)
+				return;
 
 			var name = Path.GetFileNameWithoutExtension(e.Name);
-			if(name is null)
+			if (name is null)
 			{
 				LogManager.Warn("Invalid localization name.");
 				return;
@@ -132,7 +138,7 @@ internal sealed class LocalizationWatcher : IDisposable
 
 			LocalizationManager.Instance.InitializeLocalization(name);
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -142,13 +148,14 @@ internal sealed class LocalizationWatcher : IDisposable
 	{
 		try
 		{
-			if(_disabled) return;
+			if (_disabled)
+				return;
 
 			var name = Path.GetFileNameWithoutExtension(e.Name);
 
 			LogManager.Info($"Localization \"{name}\": Deleted.");
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -158,14 +165,15 @@ internal sealed class LocalizationWatcher : IDisposable
 	{
 		try
 		{
-			if(_disabled) return;
+			if (_disabled)
+				return;
 
 			var oldName = Path.GetFileNameWithoutExtension(e.OldName);
 			var name = Path.GetFileNameWithoutExtension(e.Name);
 
 			LogManager.Info($"Localization \"{oldName}\": Renamed to \"{name}\".");
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -173,7 +181,8 @@ internal sealed class LocalizationWatcher : IDisposable
 
 	private void OnLocalizationFileError(object? sender, ErrorEventArgs e)
 	{
-		if(_disabled) return;
+		if (_disabled)
+			return;
 
 		LogManager.Info("[LocalizationWatcher] Unknown error.");
 	}

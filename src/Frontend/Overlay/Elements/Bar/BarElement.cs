@@ -69,10 +69,12 @@ internal sealed class BarElement
 	{
 		var customization = _customizationAccessor();
 
-		if(customization?.Visible != true) return;
+		if (customization?.Visible != true)
+			return;
 
 		progress = Math.Clamp(progress, 0f, 1f);
-		if(customization.Settings.Inverted == true) progress = 1 - progress;
+		if (customization.Settings.Inverted == true)
+			progress = 1 - progress;
 
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
 
@@ -92,7 +94,8 @@ internal sealed class BarElement
 			_backgroundColorTopLeft,
 			_backgroundColorTopRight,
 			_backgroundColorBottomRight,
-			_backgroundColorBottomLeft);
+			_backgroundColorBottomLeft
+		);
 
 		// Foreground
 
@@ -102,19 +105,14 @@ internal sealed class BarElement
 			_foregroundColorTopLeft,
 			_foregroundColorTopRight,
 			_foregroundColorBottomRight,
-			_foregroundColorBottomLeft);
+			_foregroundColorBottomLeft
+		);
 
 		// Outline
 
-		if(outline.Visible == true && outlineThickness > 0f)
+		if (outline.Visible == true && outlineThickness > 0f)
 		{
-			drawList.AddRect(
-				_outlineTopLeft,
-				_outlineBottomRight,
-				_outlineColor,
-				0f,
-				ImDrawFlags.None,
-				outlineThickness);
+			drawList.AddRect(_outlineTopLeft, _outlineBottomRight, _outlineColor, 0f, ImDrawFlags.None, outlineThickness);
 		}
 	}
 
@@ -122,7 +120,8 @@ internal sealed class BarElement
 	{
 		var customization = _customizationAccessor();
 
-		if(customization is null) return;
+		if (customization is null)
+			return;
 
 		var offset = customization.Offset;
 		var size = customization.Size;
@@ -151,14 +150,15 @@ internal sealed class BarElement
 		outlineThickness *= sizeScaleModifier;
 		outlineOffset *= sizeScaleModifier;
 
-		if(!disableCaching && cachingKey == _cashingKeyByPosition1) return;
+		if (!disableCaching && cachingKey == _cashingKeyByPosition1)
+			return;
 
 		_cashingKeyByPosition1 = cachingKey;
 
 		var halfOutlineThickness = outlineThickness / 2f;
 		var halfOutlineOffset = outlineOffset / 2f;
 
-		switch(outlineStyle)
+		switch (outlineStyle)
 		{
 			case OutlineStyleEnum.Outside:
 				_positionX = position.X + offsetX;
@@ -211,17 +211,19 @@ internal sealed class BarElement
 	{
 		var customization = _customizationAccessor();
 
-		if(customization is null) return;
+		if (customization is null)
+			return;
 
 		var fillDirection = customization.Settings.FillDirection ?? FillDirectionEnum.LeftToRight;
 
 		var cachingKey = (fillDirection, _width, _height, progress);
 
-		if(!disableCaching && cachingKey == _cashingKeyByProgress2) return;
+		if (!disableCaching && cachingKey == _cashingKeyByProgress2)
+			return;
 
 		_cashingKeyByProgress2 = cachingKey;
 
-		switch(fillDirection)
+		switch (fillDirection)
 		{
 			case FillDirectionEnum.RightToLeft:
 				_foregroundWidth = _width * progress;
@@ -269,14 +271,14 @@ internal sealed class BarElement
 	private void UpdateByOpacity3(float opacityScale = 1f)
 	{
 		var customization = _customizationAccessor();
-		if(customization is null) return;
+		if (customization is null)
+			return;
 
 		var colors = customization.Colors;
 		var backgroundColor = colors.Background;
 		var foregroundColor = colors.Foreground;
 
-
-		switch(customization.Settings.FillDirection)
+		switch (customization.Settings.FillDirection)
 		{
 			case FillDirectionEnum.RightToLeft:
 				_backgroundColorTopRight = backgroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
@@ -335,7 +337,8 @@ internal sealed class BarElement
 
 		_outlineColor = customization.Outline.Color.ColorInfo?.Abgr ?? 0xFF000000;
 
-		if(Utils.IsApproximatelyEqual(opacityScale, 1f)) return;
+		if (Utils.IsApproximatelyEqual(opacityScale, 1f))
+			return;
 
 		_backgroundColorTopLeft = Utils.ScaleColorOpacityAbgr(_backgroundColorTopLeft, opacityScale);
 		_backgroundColorTopRight = Utils.ScaleColorOpacityAbgr(_backgroundColorTopRight, opacityScale);
@@ -358,41 +361,23 @@ internal sealed class BarElement
 
 		// Background
 
-		_backgroundTopLeft = new Vector2(
-			_positionX + _backgroundShiftX,
-			_positionY + _backgroundShiftY
-		);
+		_backgroundTopLeft = new Vector2(_positionX + _backgroundShiftX, _positionY + _backgroundShiftY);
 
-		_backgroundBottomRight = new Vector2(
-			_backgroundTopLeft.X + _backgroundWidth,
-			_backgroundTopLeft.Y + _backgroundHeight
-		);
+		_backgroundBottomRight = new Vector2(_backgroundTopLeft.X + _backgroundWidth, _backgroundTopLeft.Y + _backgroundHeight);
 
 		// Foreground
 
-		_foregroundTopLeft = new Vector2(
-			_positionX + _foregroundShiftX,
-			_positionY + _foregroundShiftY
-		);
+		_foregroundTopLeft = new Vector2(_positionX + _foregroundShiftX, _positionY + _foregroundShiftY);
 
-		_foregroundBottomRight = new Vector2(
-			_foregroundTopLeft.X + _foregroundWidth,
-			_foregroundTopLeft.Y + _foregroundHeight
-		);
+		_foregroundBottomRight = new Vector2(_foregroundTopLeft.X + _foregroundWidth, _foregroundTopLeft.Y + _foregroundHeight);
 
 		// Outline
 
-		if(customization?.Outline.Thickness > 0f)
+		if (customization?.Outline.Thickness > 0f)
 		{
-			_outlineTopLeft = new Vector2(
-				_outlinePositionX,
-				_outlinePositionY
-			);
+			_outlineTopLeft = new Vector2(_outlinePositionX, _outlinePositionY);
 
-			_outlineBottomRight = new Vector2(
-				_outlinePositionX + _outlineWidth,
-				_outlinePositionY + _outlineHeight
-			);
+			_outlineBottomRight = new Vector2(_outlinePositionX + _outlineWidth, _outlinePositionY + _outlineHeight);
 		}
 	}
 }

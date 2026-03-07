@@ -22,7 +22,7 @@ internal sealed class LargeMonsterStaticUiCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-static";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.Static, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.Static, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
 
@@ -43,7 +43,8 @@ internal sealed class LargeMonsterStaticUiCustomization : Customization
 
 	public void Reset(LargeMonsterStaticUiCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		Enabled = defaultCustomization.Enabled;
 		Settings.Reset(defaultCustomization.Settings);

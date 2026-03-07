@@ -19,17 +19,17 @@ internal static class Utils
 		{
 			Process.Start(url);
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			// hack because of this: https://github.com/dotnet/corefx/issues/10361
-			if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+			if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 			{
 				url = url.Replace("&", "^&");
 				Process.Start(new ProcessStartInfo(url) { FileName = url, UseShellExecute = true });
 			}
-			else if(RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+			else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
 				Process.Start("xdg-open", url);
-			else if(RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+			else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
 				Process.Start("open", url);
 			else
 				LogManager.Warn(exception);
@@ -56,13 +56,13 @@ internal static class Utils
 
 	public static void EmitEvents(object? sender, EventHandler eventHandler)
 	{
-		foreach(var subscriber in eventHandler.GetInvocationList())
+		foreach (var subscriber in eventHandler.GetInvocationList())
 		{
 			try
 			{
 				subscriber.DynamicInvoke(sender, EventArgs.Empty);
 			}
-			catch(Exception exception)
+			catch (Exception exception)
 			{
 				LogManager.Error(exception);
 			}
@@ -75,7 +75,7 @@ internal static class Utils
 		{
 			return JsonSerializer.Serialize(value, Constants.JsonSerializerOptionsInstance);
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 			return string.Empty;
@@ -118,7 +118,7 @@ internal static class Utils
 		var blue = (colorAbgr & 0x00FF0000) >> 16;
 		var alpha = (colorAbgr & 0xFF000000) >> 24;
 
-		alpha = (uint) (alpha * opacity);
+		alpha = (uint)(alpha * opacity);
 
 		return (alpha << 24) | (blue << 16) | (green << 8) | red;
 	}
@@ -127,22 +127,24 @@ internal static class Utils
 	{
 		totalSeconds = Math.Clamp(totalSeconds, 0f, maxSeconds);
 
-		var minutes = (int) (totalSeconds / 60);
-		var seconds = (int) (totalSeconds % 60);
+		var minutes = (int)(totalSeconds / 60);
+		var seconds = (int)(totalSeconds % 60);
 		return $"{minutes}:{seconds:D2}";
 	}
 
 	public static ManagedObject? ProxyToManagedObject(object? proxyObject)
 	{
-		if(proxyObject is null) return null;
+		if (proxyObject is null)
+			return null;
 
 		return (proxyObject as IProxy)!.GetInstance() as ManagedObject;
 	}
 
 	public static int SecondsToMilliseconds(float? seconds)
 	{
-		if(seconds is null) return 1000;
+		if (seconds is null)
+			return 1000;
 
-		return (int) Math.Round(1000f * (float) seconds);
+		return (int)Math.Round(1000f * (float)seconds);
 	}
 }

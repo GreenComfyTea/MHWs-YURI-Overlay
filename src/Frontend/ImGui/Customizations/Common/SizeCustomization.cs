@@ -14,7 +14,7 @@ internal sealed class SizeCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-size";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.Size, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.Size, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Width}##{customizationName}", ref Width, 0.1f, -8192f, 8192f, "%.1f", defaultCustomization?.Width);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Height}##{customizationName}", ref Height, 0.1f, -8192f, 8192f, "%.1f", defaultCustomization?.Height);
@@ -27,7 +27,8 @@ internal sealed class SizeCustomization : Customization
 
 	public void Reset(SizeCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		Width = defaultCustomization.Width;
 		Height = defaultCustomization.Height;

@@ -27,7 +27,7 @@ internal sealed class FileSync
 		{
 			File.Delete(PathFileName);
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -43,7 +43,7 @@ internal sealed class FileSync
 
 			return content;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 			return Constants.EmptyJson;
@@ -67,7 +67,7 @@ internal sealed class FileSync
 
 			return true;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 			return false;

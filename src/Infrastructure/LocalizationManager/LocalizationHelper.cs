@@ -35,20 +35,9 @@ internal sealed class LocalizationHelper
 
 		var defaultLocalization = localizationManager.DefaultLocalization.Data.ImGui;
 
-		DefaultFillDirections =
-		[
-			defaultLocalization.LeftToRight,
-			defaultLocalization.RightToLeft,
-			defaultLocalization.TopToBottom,
-			defaultLocalization.BottomToTop,
-		];
+		DefaultFillDirections = [defaultLocalization.LeftToRight, defaultLocalization.RightToLeft, defaultLocalization.TopToBottom, defaultLocalization.BottomToTop];
 
-		DefaultOutlineStyles =
-		[
-			defaultLocalization.Inside,
-			defaultLocalization.Center,
-			defaultLocalization.Outside,
-		];
+		DefaultOutlineStyles = [defaultLocalization.Inside, defaultLocalization.Center, defaultLocalization.Outside];
 
 		DefaultSortings =
 		[
@@ -105,30 +94,11 @@ internal sealed class LocalizationHelper
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
-		FillDirections =
-		[
-			localization.LeftToRight,
-			localization.RightToLeft,
-			localization.TopToBottom,
-			localization.BottomToTop,
-		];
+		FillDirections = [localization.LeftToRight, localization.RightToLeft, localization.TopToBottom, localization.BottomToTop];
 
-		OutlineStyles =
-		[
-			localization.Inside,
-			localization.Center,
-			localization.Outside,
-		];
+		OutlineStyles = [localization.Inside, localization.Center, localization.Outside];
 
-		Sortings =
-		[
-			localization.Id,
-			localization.Name,
-			localization.Health,
-			localization.MaxHealth,
-			localization.HealthPercentage,
-			localization.Distance,
-		];
+		Sortings = [localization.Id, localization.Name, localization.Health, localization.MaxHealth, localization.HealthPercentage, localization.Distance];
 
 		DamageMeterSortings =
 		[
@@ -142,16 +112,7 @@ internal sealed class LocalizationHelper
 			localization.DPSPercentage,
 		];
 
-		Priorities =
-		[
-			localization.Higher3,
-			localization.Higher2,
-			localization.Higher1,
-			localization.Normal,
-			localization.Lower1,
-			localization.Lower2,
-			localization.Lower3,
-		];
+		Priorities = [localization.Higher3, localization.Higher2, localization.Higher1, localization.Normal, localization.Lower1, localization.Lower2, localization.Lower3];
 
 		Anchors =
 		[

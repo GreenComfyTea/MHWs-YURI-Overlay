@@ -13,7 +13,7 @@ internal sealed class PlayerManagerUpdateDelaysCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-player-manager";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.PlayerManager, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.PlayerManager, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Update}##{customizationName}", ref Update, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Update);
 
@@ -25,7 +25,8 @@ internal sealed class PlayerManagerUpdateDelaysCustomization : Customization
 
 	public void Reset(PlayerManagerUpdateDelaysCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		Update = defaultCustomization.Update;
 	}

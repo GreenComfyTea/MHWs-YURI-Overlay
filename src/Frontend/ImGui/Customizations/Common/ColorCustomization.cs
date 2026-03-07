@@ -15,7 +15,7 @@ internal sealed class ColorCustomization : Customization
 		get => ColorInfo?.RgbaHex;
 		set
 		{
-			if(value is null)
+			if (value is null)
 			{
 				ColorInfo = null;
 				return;
@@ -33,11 +33,11 @@ internal sealed class ColorCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-color";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.Color, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.Color, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			var isColorChanged = ImGuiHelper.ResettableColorPicker4($"##{customizationName}", ref ColorInfo, defaultCustomization?.ColorInfo);
 			isChanged |= isColorChanged;
-			if(isColorChanged)
+			if (isColorChanged)
 			{
 				ColorInfo ??= new ColorInfo();
 				ColorInfo.Vector = ColorInfo.vector;
@@ -51,7 +51,8 @@ internal sealed class ColorCustomization : Customization
 
 	public void Reset(ColorCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		Color = defaultCustomization.Color;
 	}

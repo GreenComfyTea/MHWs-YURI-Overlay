@@ -1,10 +1,10 @@
-﻿using Hexa.NET.ImGui;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Hexa.NET.ImGui;
 
 namespace YURI_Overlay;
 
@@ -33,7 +33,8 @@ internal sealed class DamageMeterPlayerWidget
 	{
 		var customization = _customizationAccessor();
 
-		if(customization?.Enabled != true) return;
+		if (customization?.Enabled != true)
+			return;
 
 		_dpsComponent.Draw(drawList, position);
 		_damageComponent.Draw(drawList, position);

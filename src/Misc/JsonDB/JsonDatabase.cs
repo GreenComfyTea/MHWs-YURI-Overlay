@@ -2,7 +2,8 @@ using System.Text.Json;
 
 namespace YURI_Overlay;
 
-internal sealed class JsonDatabase<T> : IDisposable where T : class, new()
+internal sealed class JsonDatabase<T> : IDisposable
+	where T : class, new()
 {
 	public string Name;
 	public string FilePath;
@@ -47,7 +48,7 @@ internal sealed class JsonDatabase<T> : IDisposable where T : class, new()
 		{
 			Data = Load(data);
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			Data = new T();
 			LogManager.Error(exception);
@@ -64,16 +65,17 @@ internal sealed class JsonDatabase<T> : IDisposable where T : class, new()
 		try
 		{
 			JsonWatcherInstance.Disable();
-			if(!_stub) LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Loading... {data}");
+			if (!_stub)
+				LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Loading... {data}");
 
 			var json = data is null ? FileSyncInstance.Read() : JsonSerializer.Serialize(data, Constants.JsonSerializerOptionsInstance);
-			if(json is null)
+			if (json is null)
 			{
 				throw new Exception($"[JsonDatabase] File \"{Name}.json\": Read() returned null!");
 			}
 
 			var newData = JsonSerializer.Deserialize<T>(json, Constants.JsonSerializerOptionsInstance);
-			if(newData is null)
+			if (newData is null)
 			{
 				throw new ArgumentNullException($"[JsonDatabase] File \"{Name}.json\": Deserialized data is null!");
 			}
@@ -81,11 +83,12 @@ internal sealed class JsonDatabase<T> : IDisposable where T : class, new()
 			FileSyncInstance.Write(json);
 			Data = newData;
 
-			if(!_stub) LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Loaded!");
+			if (!_stub)
+				LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Loaded!");
 			JsonWatcherInstance.DelayedEnable();
 			return Data;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 			Data = new T();
@@ -98,26 +101,29 @@ internal sealed class JsonDatabase<T> : IDisposable where T : class, new()
 	{
 		try
 		{
-			if(!_stub) LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Saving...");
+			if (!_stub)
+				LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Saving...");
 			JsonWatcherInstance.Disable();
 
 			var json = JsonSerializer.Serialize(Data, Constants.JsonSerializerOptionsInstance);
 
 			var isSuccess = FileSyncInstance.Write(json);
 
-			if(isSuccess)
+			if (isSuccess)
 			{
-				if(!_stub) LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Saved!");
+				if (!_stub)
+					LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Saved!");
 			}
 			else
 			{
-				if(!_stub) LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Saving failed!");
+				if (!_stub)
+					LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Saving failed!");
 			}
 
 			JsonWatcherInstance.DelayedEnable();
 			return isSuccess;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 			return false;
@@ -126,10 +132,12 @@ internal sealed class JsonDatabase<T> : IDisposable where T : class, new()
 
 	public void Delete()
 	{
-		if(!_stub) LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Deleting...");
+		if (!_stub)
+			LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Deleting...");
 		Dispose();
 		FileSyncInstance.Delete();
-		if(!_stub) LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Deleted!");
+		if (!_stub)
+			LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Deleted!");
 	}
 
 	public void EmitChanged()
@@ -156,10 +164,12 @@ internal sealed class JsonDatabase<T> : IDisposable where T : class, new()
 
 	public void Dispose()
 	{
-		if(!_stub) LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Disposing...");
+		if (!_stub)
+			LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Disposing...");
 
 		JsonWatcherInstance.Dispose();
 
-		if(!_stub) LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Disposed!");
+		if (!_stub)
+			LogManager.Info($"[JsonDatabase] File \"{Name}.json\": Disposed!");
 	}
 }

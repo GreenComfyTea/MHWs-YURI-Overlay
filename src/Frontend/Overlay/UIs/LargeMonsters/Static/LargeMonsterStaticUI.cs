@@ -27,7 +27,8 @@ internal sealed class LargeMonsterStaticUi
 	{
 		var customization = _customizationAccessor();
 
-		if(customization?.Enabled != true) return;
+		if (customization?.Enabled != true)
+			return;
 
 		var spacing = customization.Spacing;
 		var anchoredPosition = customization.Position;

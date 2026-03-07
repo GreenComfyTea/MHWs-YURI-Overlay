@@ -27,7 +27,8 @@ internal sealed class LargeMonsterTargetedUi
 	{
 		var customization = _customizationAccessor();
 
-		if(customization?.Enabled != true) return;
+		if (customization?.Enabled != true)
+			return;
 
 		var anchoredPosition = customization.Position;
 		var positionScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.PositionScaleModifier ?? 1f;

@@ -48,7 +48,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 
 			LogManager.Info($"[EndemicLife] Initialized {Name}!");
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -64,7 +64,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 			UpdateName();
 			UpdateModelRadius();
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -74,16 +74,16 @@ internal sealed class EndemicLifeEntity : IDisposable
 	{
 		LogManager.Info($"[EndemicLife] Disposing {Name}...");
 
-		foreach(var timer in _timers)
+		foreach (var timer in _timers)
 		{
 			timer.Dispose();
 		}
 
 		_timers.Clear();
 
-        ConfigManager.Instance.AnyConfigChanged -= OnAnyConfigChanged;
+		ConfigManager.Instance.AnyConfigChanged -= OnAnyConfigChanged;
 
-        LogManager.Info($"[EndemicLife] {Name} Disposed!");
+		LogManager.Info($"[EndemicLife] {Name} Disposed!");
 	}
 
 	private void Initialize()
@@ -94,7 +94,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 			UpdateIds();
 			Update();
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -104,7 +104,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 	{
 		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.EndemicLife;
 
-		foreach(var timer in _timers)
+		foreach (var timer in _timers)
 		{
 			timer.Dispose();
 		}
@@ -130,7 +130,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 		try
 		{
 			var position = EnemyCharacter.Pos;
-			if(position is null)
+			if (position is null)
 			{
 				LogManager.Warn("[EndemicLife.UpdatePositionAndDistance] No enemy pos");
 				return;
@@ -140,7 +140,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 			this.Position.Y = position.y;
 			this.Position.Z = position.z;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -156,7 +156,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 		try
 		{
 			var basicModule = EnemyContext.Basic;
-			if(basicModule is null)
+			if (basicModule is null)
 			{
 				LogManager.Warn("[EndemicLife.UpdateIds] No enemy basic module");
 				return;
@@ -166,7 +166,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 			RoleId = basicModule.RoleID;
 			LegendaryId = basicModule.LegendaryID;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -176,11 +176,12 @@ internal sealed class EndemicLifeEntity : IDisposable
 	{
 		try
 		{
-			if(!_isUpdateNamePending) return;
+			if (!_isUpdateNamePending)
+				return;
 			_isUpdateNamePending = false;
 
-			var name = (string?) _nameStringMethod?.InvokeBoxed(_stringType, null, [Id, RoleId, LegendaryId]);
-			if(name is null)
+			var name = (string?)_nameStringMethod?.InvokeBoxed(_stringType, null, [Id, RoleId, LegendaryId]);
+			if (name is null)
 			{
 				LogManager.Warn("[EndemicLife.UpdateName] No enemy name");
 				return;
@@ -189,7 +190,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 			this.Name = name;
 			//Name = "Nerscylla Hatchling";
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -199,12 +200,13 @@ internal sealed class EndemicLifeEntity : IDisposable
 	{
 		try
 		{
-			if(!_isUpdateModelRadiusPending) return;
+			if (!_isUpdateModelRadiusPending)
+				return;
 			_isUpdateModelRadiusPending = false;
 
 			ModelRadius = EnemyContext.ModelRadius;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -220,7 +222,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 
 			_stringType = _nameStringMethod.ReturnType.GetType();
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}

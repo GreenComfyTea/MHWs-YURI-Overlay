@@ -37,7 +37,7 @@ internal sealed class SmallMonsterUiManager : IDisposable
 	{
 		LogManager.Info("[SmallMonsterUiManager] Disposing...");
 
-		foreach(var timer in _timers)
+		foreach (var timer in _timers)
 		{
 			timer.Dispose();
 		}
@@ -49,7 +49,7 @@ internal sealed class SmallMonsterUiManager : IDisposable
 	{
 		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.UIs;
 
-		foreach(var timer in _timers)
+		foreach (var timer in _timers)
 		{
 			timer.Dispose();
 		}
@@ -64,7 +64,7 @@ internal sealed class SmallMonsterUiManager : IDisposable
 		var customization = ConfigManager.Instance.ActiveConfig.Data.SmallMonsterUI;
 		var settings = customization.Settings;
 
-		if(customization.Enabled != true)
+		if (customization.Enabled != true)
 		{
 			_dynamicSmallMonsters = [];
 			return;
@@ -74,11 +74,12 @@ internal sealed class SmallMonsterUiManager : IDisposable
 
 		// Filter out dead and captured
 
-		foreach(var smallMonsterPair in MonsterManager.Instance.SmallMonsters)
+		foreach (var smallMonsterPair in MonsterManager.Instance.SmallMonsters)
 		{
 			var smallMonster = smallMonsterPair.Value;
 
-			if(settings?.RenderDeadMonsters != true && !smallMonster.IsAlive) continue;
+			if (settings?.RenderDeadMonsters != true && !smallMonster.IsAlive)
+				continue;
 
 			newSmallMonsters.Add(smallMonster);
 		}
@@ -94,9 +95,10 @@ internal sealed class SmallMonsterUiManager : IDisposable
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.SmallMonsterUI;
 
-		if(customization?.Enabled != true) return;
+		if (customization?.Enabled != true)
+			return;
 
-		foreach(var smallMonster in _dynamicSmallMonsters)
+		foreach (var smallMonster in _dynamicSmallMonsters)
 		{
 			smallMonster.DynamicUi?.Draw(drawList);
 		}

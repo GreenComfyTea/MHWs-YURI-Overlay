@@ -30,14 +30,15 @@ internal sealed class LargeMonsterStaminaComponent
 
 	public void Draw(ImDrawListPtr drawList, Vector2 position, float opacityScale = 1f)
 	{
-		if(!_largeMonster.IsStaminaValid) return;
+		if (!_largeMonster.IsStaminaValid)
+			return;
 
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
 
 		var offset = _customizationAccessor()?.Offset;
 		var offsetPosition = new Vector2(position.X + sizeScaleModifier * (offset?.X ?? 0f), position.Y + sizeScaleModifier * (offset?.Y ?? 0f));
 
-		if(_largeMonster.IsTired)
+		if (_largeMonster.IsTired)
 		{
 			_staminaTimerBarElement.Draw(drawList, offsetPosition, _largeMonster.StaminaRemainingTimerPercentage, opacityScale);
 			_staminaTimerLabelElement.Draw(drawList, offsetPosition, opacityScale, _largeMonster.StaminaRemainingTimerString);

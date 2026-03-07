@@ -21,9 +21,7 @@ internal sealed class LuaFontManager : IDisposable
 
 	private Timer? _gameUpdateTimer;
 
-	private LuaFontManager()
-	{
-	}
+	private LuaFontManager() { }
 
 	public void Initialize()
 	{
@@ -40,7 +38,8 @@ internal sealed class LuaFontManager : IDisposable
 	{
 		try
 		{
-			if(!_isGameUpdatePending) return;
+			if (!_isGameUpdatePending)
+				return;
 			_isGameUpdatePending = false;
 
 			// Update all fonts list
@@ -49,14 +48,15 @@ internal sealed class LuaFontManager : IDisposable
 
 			var fonts = ImGui.GetIO().Fonts.Fonts;
 
-			for(var i = 0; i < fonts.Size; i++)
+			for (var i = 0; i < fonts.Size; i++)
 			{
 				var font = fonts[i];
 				var fontName = font.GetDebugNameS();
 
 				fontName = string.Empty.Equals(fontName) ? "Default" : fontName;
 
-				if(FontNames.Contains(fontName)) continue;
+				if (FontNames.Contains(fontName))
+					continue;
 
 				LogManager.Info($"[LuaFontManager] Font \"{fontName}\": Initialized!");
 
@@ -66,11 +66,12 @@ internal sealed class LuaFontManager : IDisposable
 				areFontsAdded = true;
 			}
 
-			if(areFontsAdded) EmitFontsChanged();
+			if (areFontsAdded)
+				EmitFontsChanged();
 
 			UpdateActiveFonts();
 		}
-		catch(Exception error)
+		catch (Exception error)
 		{
 			LogManager.Error($"[LuaFontManager] {error}");
 		}
@@ -141,7 +142,7 @@ internal sealed class LuaFontManager : IDisposable
 			//	}
 			//}
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			LogManager.Error($"[LuaFontManager] Error while updating active fonts: {e}");
 		}
@@ -166,7 +167,7 @@ internal sealed class LuaFontManager : IDisposable
 	{
 		LogManager.Info("[LuaFontManager] Disposing...");
 
-		if(_gameUpdateTimer is not null)
+		if (_gameUpdateTimer is not null)
 		{
 			_gameUpdateTimer.Stop();
 			_gameUpdateTimer.Dispose();

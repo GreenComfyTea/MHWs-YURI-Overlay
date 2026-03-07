@@ -13,19 +13,19 @@ internal sealed class DamageMeterStaticUi
 		//_customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data..DamageMeter;
 		_customizationAccessor = () => new DamageMeterStaticUiCustomization();
 
-		if(damageMeterEntity.Type == DamageMeterEntityTypeEnum.LocalPlayer)
+		if (damageMeterEntity.Type == DamageMeterEntityTypeEnum.LocalPlayer)
 		{
 			_playerWidget = new DamageMeterPlayerWidget(damageMeterEntity, () => _customizationAccessor()?.LocalPlayer);
 			return;
 		}
 
-		if(damageMeterEntity.Type == DamageMeterEntityTypeEnum.OtherPlayer)
+		if (damageMeterEntity.Type == DamageMeterEntityTypeEnum.OtherPlayer)
 		{
 			_playerWidget = new DamageMeterPlayerWidget(damageMeterEntity, () => _customizationAccessor()?.OtherPlayers);
 			return;
 		}
 
-		if(damageMeterEntity.Type == DamageMeterEntityTypeEnum.SupportHunter)
+		if (damageMeterEntity.Type == DamageMeterEntityTypeEnum.SupportHunter)
 		{
 			_playerWidget = new DamageMeterPlayerWidget(damageMeterEntity, () => _customizationAccessor()?.SupportHunters);
 		}
@@ -35,7 +35,8 @@ internal sealed class DamageMeterStaticUi
 	{
 		var customization = _customizationAccessor.Invoke();
 
-		if(customization?.Enabled != true) return;
+		if (customization?.Enabled != true)
+			return;
 
 		var spacing = customization.Spacing;
 

@@ -17,10 +17,7 @@ internal static class AnchorPositionCalculator
 				displayWidth / 2f + (anchoredPositionCustomization.X ?? 0f) * positionScaleModifier,
 				(anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier
 			),
-			AnchorEnum.TopRight => new Vector2(
-				displayWidth + (anchoredPositionCustomization.X ?? 0f) * positionScaleModifier,
-				(anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier
-			),
+			AnchorEnum.TopRight => new Vector2(displayWidth + (anchoredPositionCustomization.X ?? 0f) * positionScaleModifier, (anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier),
 			AnchorEnum.CenterLeft => new Vector2(
 				(anchoredPositionCustomization.X ?? 0f) * positionScaleModifier,
 				displayHeight / 2f + (anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier
@@ -45,10 +42,7 @@ internal static class AnchorPositionCalculator
 				displayWidth + (anchoredPositionCustomization.X ?? 0f) * positionScaleModifier,
 				displayHeight + (anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier
 			),
-			_ => new Vector2(
-				(anchoredPositionCustomization.X ?? 0f) * positionScaleModifier,
-				(anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier
-			),
+			_ => new Vector2((anchoredPositionCustomization.X ?? 0f) * positionScaleModifier, (anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier),
 		};
 	}
 }

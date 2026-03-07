@@ -20,7 +20,7 @@ internal sealed class LargeMonsterMapPinUiCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-map-pin";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.MapPin, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.MapPin, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
 
@@ -39,7 +39,8 @@ internal sealed class LargeMonsterMapPinUiCustomization : Customization
 
 	public void Reset(LargeMonsterMapPinUiCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		Enabled = defaultCustomization.Enabled;
 		Settings.Reset(defaultCustomization.Settings);

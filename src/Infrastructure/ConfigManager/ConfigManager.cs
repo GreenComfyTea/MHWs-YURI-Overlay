@@ -38,7 +38,6 @@ internal sealed partial class ConfigManager : IDisposable
 	{
 		LogManager.Info("[ConfigManager] Initializing...");
 
-
 		InitializeDefaultConfig();
 		LoadAllConfigs();
 		LoadCurrentConfig();
@@ -53,7 +52,8 @@ internal sealed partial class ConfigManager : IDisposable
 
 	public void ActivateConfig(JsonDatabase<Config>? config)
 	{
-		if(config is null) return;
+		if (config is null)
+			return;
 
 		LogManager.Info($"[ConfigManager] Activating config \"{config.Name}\"...");
 
@@ -73,14 +73,14 @@ internal sealed partial class ConfigManager : IDisposable
 
 		var isGetConfigSuccess = Configs.TryGetValue(name, out var config);
 
-		if(!isGetConfigSuccess)
+		if (!isGetConfigSuccess)
 		{
 			LogManager.Info($"[ConfigManager] Config \"{name}\" is not found. ...");
 			LogManager.Info("[ConfigManager] Searching for default config to activate it...");
 
 			var isGetDefaultConfigSuccess = Configs.TryGetValue(Constants.DefaultConfig, out var defaultConfig);
 
-			if(!isGetDefaultConfigSuccess)
+			if (!isGetDefaultConfigSuccess)
 			{
 				LogManager.Info("[ConfigManager] Default config is not found. Creating it...");
 
@@ -176,7 +176,7 @@ internal sealed partial class ConfigManager : IDisposable
 		ConfigWatcherInstance.Dispose();
 		_currentConfigInstance.Dispose();
 
-		foreach(var config in Configs)
+		foreach (var config in Configs)
 		{
 			config.Value.Dispose();
 		}
@@ -226,14 +226,14 @@ internal sealed partial class ConfigManager : IDisposable
 
 			var allConfigFilePathNames = Directory.GetFiles(Constants.ConfigsPath);
 
-			if(allConfigFilePathNames.Length == 0)
+			if (allConfigFilePathNames.Length == 0)
 			{
 				var defaultConfig = InitializeConfig(Constants.DefaultConfig);
 				ResetToDefault(defaultConfig);
 				return;
 			}
 
-			foreach(var configFilePathName in allConfigFilePathNames)
+			foreach (var configFilePathName in allConfigFilePathNames)
 			{
 				var name = Path.GetFileNameWithoutExtension(configFilePathName);
 				InitializeConfig(name);
@@ -241,7 +241,7 @@ internal sealed partial class ConfigManager : IDisposable
 
 			LogManager.Info("[ConfigManager] Loading all configs done!");
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}

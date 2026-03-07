@@ -54,7 +54,7 @@ internal sealed class LocalizationManager : IDisposable
 		{
 			localization.Value.Dispose();
 		}
-		
+
 		ConfigManager.Instance.AnyConfigChanged -= OnAnyConfigChanged;
 
 		LogManager.Info("[LocalizationManager] Disposed!");
@@ -73,7 +73,7 @@ internal sealed class LocalizationManager : IDisposable
 
 	public void ActivateLocalization(string? name)
 	{
-		if(name is null)
+		if (name is null)
 		{
 			return;
 		}
@@ -82,7 +82,7 @@ internal sealed class LocalizationManager : IDisposable
 
 		var isGetConfigSuccess = Localizations.TryGetValue(name, out var localization);
 
-		if(!isGetConfigSuccess || localization is null)
+		if (!isGetConfigSuccess || localization is null)
 		{
 			LogManager.Info($"[LocalizationManager] localization \"{name}\" is not found.");
 			LogManager.Info("[LocalizationManager] Activating default localization...");
@@ -138,11 +138,12 @@ internal sealed class LocalizationManager : IDisposable
 
 			var allConfigFilePathNames = Directory.GetFiles(Constants.LocalizationsPath);
 
-			foreach(var configFilePathName in allConfigFilePathNames)
+			foreach (var configFilePathName in allConfigFilePathNames)
 			{
 				var name = Path.GetFileNameWithoutExtension(configFilePathName);
 
-				if(name == Constants.DefaultLocalization) continue;
+				if (name == Constants.DefaultLocalization)
+					continue;
 
 				InitializeLocalization(name);
 			}
@@ -151,7 +152,7 @@ internal sealed class LocalizationManager : IDisposable
 
 			LogManager.Info("[LocalizationManager] Loading all localizations is done!");
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -161,7 +162,8 @@ internal sealed class LocalizationManager : IDisposable
 	{
 		var configManager = ConfigManager.Instance;
 
-		if(ActiveLocalization.Name == configManager.ActiveConfig.Data.GlobalSettings.Localization) return;
+		if (ActiveLocalization.Name == configManager.ActiveConfig.Data.GlobalSettings.Localization)
+			return;
 
 		ActivateLocalization(configManager.ActiveConfig.Data.GlobalSettings.Localization);
 	}

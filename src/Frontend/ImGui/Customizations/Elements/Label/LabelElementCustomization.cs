@@ -17,10 +17,11 @@ internal sealed class LabelElementCustomization : Customization
 
 		var isChanged = false;
 
-		if(ImGuiHelper.ResettableTreeNode(visibleName, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(visibleName, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
-			if(Format is not null) isChanged |= ImGuiHelper.ResettableInputText($"{localization.Format}##{customizationName}", ref Format, defaultValue: defaultCustomization?.Format);
+			if (Format is not null)
+				isChanged |= ImGuiHelper.ResettableInputText($"{localization.Format}##{customizationName}", ref Format, defaultValue: defaultCustomization?.Format);
 
 			isChanged |= Settings.RenderImGui(customizationName, defaultCustomization?.Settings);
 			isChanged |= Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
@@ -35,7 +36,8 @@ internal sealed class LabelElementCustomization : Customization
 
 	public void Reset(LabelElementCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		Visible = defaultCustomization.Visible;
 		Format = defaultCustomization.Format;

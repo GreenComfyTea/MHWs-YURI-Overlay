@@ -12,7 +12,7 @@ internal sealed class GradientColorCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-gradient-color";
 
-		if(ImGuiHelper.ResettableTreeNode(name, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(name, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= Start.RenderImGui(customizationName, defaultCustomization?.Start);
 			isChanged |= End.RenderImGui(customizationName, defaultCustomization?.End);
@@ -25,7 +25,8 @@ internal sealed class GradientColorCustomization : Customization
 
 	public void Reset(GradientColorCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		Start.Reset(defaultCustomization.Start);
 		End.Reset(defaultCustomization.End);

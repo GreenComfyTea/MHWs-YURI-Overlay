@@ -29,9 +29,7 @@ internal sealed class ScreenManager : IDisposable
 
 	private Method? _getMainViewMethod;
 
-	private ScreenManager()
-	{
-	}
+	private ScreenManager() { }
 
 	public void Initialize()
 	{
@@ -55,13 +53,15 @@ internal sealed class ScreenManager : IDisposable
 			var cameraToWorld = worldPosition - CameraPosition;
 
 			// Check if world position is behind the camera
-			if(Vector3.Dot(cameraToWorld, -_cameraForward) <= 0f) return null;
+			if (Vector3.Dot(cameraToWorld, -_cameraForward) <= 0f)
+				return null;
 
 			var worldPosition4 = new Vector4(worldPosition, 1.0f);
 
 			var clipSpacePosition = Vector4.Transform(worldPosition4, _viewProjectionMatrix);
 
-			if(Utils.IsApproximatelyEqual(clipSpacePosition.W, 0f)) return null;
+			if (Utils.IsApproximatelyEqual(clipSpacePosition.W, 0f))
+				return null;
 
 			// Perform perspective division to get NDC
 			var normalizedDeviceCoordinatesX = clipSpacePosition.X / clipSpacePosition.W;
@@ -71,14 +71,18 @@ internal sealed class ScreenManager : IDisposable
 			var screenX = (normalizedDeviceCoordinatesX + 1.0f) / 2.0f * WindowSize.X;
 			var screenY = (1.0f - normalizedDeviceCoordinatesY) / 2.0f * WindowSize.Y;
 
-			if(screenX < -_overheadX) return null;
-			if(screenX > WindowSize.X + _overheadX) return null;
-			if(screenY < -_overheadY) return null;
-			if(screenY > WindowSize.Y + _overheadY) return null;
+			if (screenX < -_overheadX)
+				return null;
+			if (screenX > WindowSize.X + _overheadX)
+				return null;
+			if (screenY < -_overheadY)
+				return null;
+			if (screenY > WindowSize.Y + _overheadY)
+				return null;
 
 			return new Vector2(screenX, screenY);
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 			return null;
@@ -96,12 +100,12 @@ internal sealed class ScreenManager : IDisposable
 		{
 			Update();
 
-			if(_primaryCamera is null)
+			if (_primaryCamera is null)
 				//LogManager.Warn("[ScreenManager.GameUpdate] No primary camera");
 				return;
 
 			var viewProjectionMatrix = _primaryCamera.ViewProjMatrix;
-			if(viewProjectionMatrix is null)
+			if (viewProjectionMatrix is null)
 			{
 				LogManager.Warn("[ScreenManager.GameUpdate] No primary camera view projection matrix");
 				return;
@@ -125,21 +129,21 @@ internal sealed class ScreenManager : IDisposable
 			_viewProjectionMatrix.M44 = viewProjectionMatrix.m33;
 
 			var primaryCameraGameObject = _primaryCamera.GameObject;
-			if(primaryCameraGameObject is null)
+			if (primaryCameraGameObject is null)
 			{
 				LogManager.Warn("[ScreenManager.GameUpdate] No primary camera game object");
 				return;
 			}
 
 			var primaryCameraTransform = primaryCameraGameObject.Transform;
-			if(primaryCameraTransform is null)
+			if (primaryCameraTransform is null)
 			{
 				LogManager.Warn("[ScreenManager.GameUpdate] No primary camera transform");
 				return;
 			}
 
 			var primaryCameraPosition = primaryCameraTransform.Position;
-			if(primaryCameraPosition is null)
+			if (primaryCameraPosition is null)
 			{
 				LogManager.Warn("[ScreenManager.GameUpdate] No primary camera position");
 				return;
@@ -150,7 +154,7 @@ internal sealed class ScreenManager : IDisposable
 			CameraPosition.Z = primaryCameraPosition.z;
 
 			var primaryCameraForward = primaryCameraTransform.AxisZ;
-			if(primaryCameraForward is null)
+			if (primaryCameraForward is null)
 			{
 				LogManager.Warn("[ScreenManager.GameUpdate] No primary camera forward");
 				return;
@@ -160,7 +164,7 @@ internal sealed class ScreenManager : IDisposable
 			_cameraForward.Y = primaryCameraForward.y;
 			_cameraForward.Z = primaryCameraForward.z;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -170,7 +174,7 @@ internal sealed class ScreenManager : IDisposable
 	{
 		LogManager.Info("[ScreenManager] Disposing...");
 
-		foreach(var timer in _timers)
+		foreach (var timer in _timers)
 		{
 			timer.Dispose();
 		}
@@ -186,7 +190,7 @@ internal sealed class ScreenManager : IDisposable
 	{
 		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.ScreenManager;
 
-		foreach(var timer in _timers)
+		foreach (var timer in _timers)
 		{
 			timer.Dispose();
 		}
@@ -205,47 +209,47 @@ internal sealed class ScreenManager : IDisposable
 	{
 		try
 		{
-			if(!_isUpdatePending) return;
+			if (!_isUpdatePending)
+				return;
 			_isUpdatePending = false;
 
 			var sceneManager = API.GetNativeSingleton("via.SceneManager");
-			if(sceneManager is null)
+			if (sceneManager is null)
 			{
 				LogManager.Warn("[ScreenManager.Update] No scene manager");
 				return;
 			}
 
-			var mainViewObject = (ManagedObject?) _getMainViewMethod?.InvokeBoxed(_sceneViewType, sceneManager, []);
-			if(mainViewObject is null)
+			var mainViewObject = (ManagedObject?)_getMainViewMethod?.InvokeBoxed(_sceneViewType, sceneManager, []);
+			if (mainViewObject is null)
 			{
 				LogManager.Warn("[ScreenManager.Update] No main view");
 				return;
 			}
 
-			var mainViewPtr = (ulong) mainViewObject.Ptr();
+			var mainViewPtr = (ulong)mainViewObject.Ptr();
 
 			var mainViewManagedObject = ManagedObject.ToManagedObject(mainViewPtr);
-			if(mainViewManagedObject is null)
+			if (mainViewManagedObject is null)
 			{
 				LogManager.Warn("[ScreenManager.Update] No main view managed object");
 				return;
 			}
 
 			var mainView = mainViewManagedObject.As<SceneView>();
-			if(mainView is null)
+			if (mainView is null)
 			{
 				LogManager.Warn("[ScreenManager.Update] No main view");
 				return;
 			}
 
 			_primaryCamera = mainView.PrimaryCamera;
-			if(_primaryCamera is null)
+			if (_primaryCamera is null)
 				//LogManager.Warn("[ScreenManager.Update] No primary camera");
 				return;
 
-
 			var windowSize = mainView.WindowSize;
-			if(windowSize is null)
+			if (windowSize is null)
 			{
 				LogManager.Warn("[ScreenManager.Update] No window size");
 				return;
@@ -257,7 +261,7 @@ internal sealed class ScreenManager : IDisposable
 			_overheadX = 0.25f * WindowSize.X;
 			_overheadY = 0.25f * WindowSize.Y;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -274,7 +278,7 @@ internal sealed class ScreenManager : IDisposable
 			var sceneViewTypeDef = _getMainViewMethod.GetReturnType();
 			_sceneViewType = sceneViewTypeDef.GetType();
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}

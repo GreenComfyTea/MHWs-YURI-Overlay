@@ -19,9 +19,7 @@ internal sealed class FontManager
 
 	//public List<ushort[]> GlyphRanges = [];
 
-	private FontManager()
-	{
-	}
+	private FontManager() { }
 
 	//public void Initialize()
 	//{

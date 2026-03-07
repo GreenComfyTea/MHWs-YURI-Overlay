@@ -21,7 +21,7 @@ internal sealed class DamageMeterStaticUiCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}";
 
-		if(ImGuiHelper.ResettableTreeNode($"{localization.DamageMeterUI}##{customizationName}", customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode($"{localization.DamageMeterUI}##{customizationName}", customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
 
@@ -42,7 +42,8 @@ internal sealed class DamageMeterStaticUiCustomization : Customization
 
 	public void Reset(DamageMeterStaticUiCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		Enabled = defaultCustomization.Enabled;
 		Settings.Reset(defaultCustomization.Settings);

@@ -1,9 +1,9 @@
-﻿using Hexa.NET.ImGui;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hexa.NET.ImGui;
 
 namespace YURI_Overlay;
 
@@ -22,7 +22,7 @@ internal sealed class DamageMeterDamageComponentCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-damage";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.Damage, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.Damage, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
 			isChanged |= Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
@@ -38,7 +38,8 @@ internal sealed class DamageMeterDamageComponentCustomization : Customization
 
 	public void Reset(DamageMeterDamageComponentCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		Visible = defaultCustomization.Visible;
 		Offset.Reset(defaultCustomization.Offset);

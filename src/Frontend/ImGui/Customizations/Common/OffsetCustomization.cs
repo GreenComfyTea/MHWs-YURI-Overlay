@@ -14,7 +14,7 @@ internal sealed class OffsetCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-offset";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.Offset, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.Offset, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.X}##{customizationName}", ref X, 0.1f, -4096f, 4096f, "%.1f", defaultCustomization?.X);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Y}##{customizationName}", ref Y, 0.1f, -4096f, 4096f, "%.1f", defaultCustomization?.Y);
@@ -27,7 +27,8 @@ internal sealed class OffsetCustomization : Customization
 
 	public void Reset(OffsetCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		X = defaultCustomization.X;
 		Y = defaultCustomization.Y;

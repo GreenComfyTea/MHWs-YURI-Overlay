@@ -17,13 +17,21 @@ internal sealed class LargeMonsterStaticUiSettingsCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-settings";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderDeadMonsters}##{customizationName}", ref RenderDeadMonsters, defaultCustomization?.RenderDeadMonsters);
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderTargetedMonster}##{customizationName}", ref RenderTargetedMonster, defaultCustomization?.RenderTargetedMonster);
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderNonTargetedMonsters}##{customizationName}", ref RenderNonTargetedMonsters, defaultCustomization?.RenderNonTargetedMonsters);
+			isChanged |= ImGuiHelper.ResettableCheckbox(
+				$"{localization.RenderNonTargetedMonsters}##{customizationName}",
+				ref RenderNonTargetedMonsters,
+				defaultCustomization?.RenderNonTargetedMonsters
+			);
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderPinnedMonster}##{customizationName}", ref RenderPinnedMonster, defaultCustomization?.RenderPinnedMonster);
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderNonPinnedMonsters}##{customizationName}", ref RenderNonPinnedMonsters, defaultCustomization?.RenderNonPinnedMonsters);
+			isChanged |= ImGuiHelper.ResettableCheckbox(
+				$"{localization.RenderNonPinnedMonsters}##{customizationName}",
+				ref RenderNonPinnedMonsters,
+				defaultCustomization?.RenderNonPinnedMonsters
+			);
 
 			ImGui.TreePop();
 		}
@@ -33,7 +41,8 @@ internal sealed class LargeMonsterStaticUiSettingsCustomization : Customization
 
 	public void Reset(LargeMonsterStaticUiSettingsCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		RenderDeadMonsters = defaultCustomization.RenderDeadMonsters;
 		RenderTargetedMonster = defaultCustomization.RenderTargetedMonster;

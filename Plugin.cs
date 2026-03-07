@@ -58,7 +58,9 @@ public class Plugin
 #endif
 
 		LogManager.Info("Disposed!");
-		LogManager.Info("I permitted it to pass over me and through me. When it had gone past I turned the inner eye to see its path. Where the fear had gone, there was nothing. Only I remained...");
+		LogManager.Info(
+			"I permitted it to pass over me and through me. When it had gone past I turned the inner eye to see its path. Where the fear had gone, there was nothing. Only I remained..."
+		);
 	}
 
 	private static void Initialize()

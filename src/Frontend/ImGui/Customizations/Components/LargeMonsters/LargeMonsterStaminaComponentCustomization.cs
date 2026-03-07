@@ -19,7 +19,7 @@ internal sealed class LargeMonsterStaminaComponentCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-stamina";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.Stamina, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.Stamina, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
 			isChanged |= Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
@@ -37,7 +37,8 @@ internal sealed class LargeMonsterStaminaComponentCustomization : Customization
 
 	public void Reset(LargeMonsterStaminaComponentCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		Visible = defaultCustomization.Visible;
 		Offset.Reset(defaultCustomization.Offset);

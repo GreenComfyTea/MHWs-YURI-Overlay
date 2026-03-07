@@ -15,9 +15,7 @@ internal sealed class MonsterManager : IDisposable
 	public Dictionary<EnemyCharacter, SmallMonster> SmallMonsters = [];
 	public Dictionary<EnemyCharacter, EndemicLifeEntity> EndemicLifeEntities = [];
 
-	private MonsterManager()
-	{
-	}
+	private MonsterManager() { }
 
 	public void Initialize()
 	{
@@ -32,58 +30,63 @@ internal sealed class MonsterManager : IDisposable
 		{
 			var customization = ConfigManager.Instance.ActiveConfig.Data;
 
-			if(customization.LargeMonsterUI.Enabled != true
-			   && customization.LargeMonsterUI.Dynamic.Enabled != true
-			   && customization.LargeMonsterUI.Static.Enabled != true
-			   && customization.LargeMonsterUI.Targeted.Enabled != true
-			   && customization.LargeMonsterUI.MapPin.Enabled != true
-			   && customization.SmallMonsterUI.Enabled != true
-			   && customization.EndemicLifeUI.Enabled != true)
+			if (
+				customization.LargeMonsterUI.Enabled != true
+				&& customization.LargeMonsterUI.Dynamic.Enabled != true
+				&& customization.LargeMonsterUI.Static.Enabled != true
+				&& customization.LargeMonsterUI.Targeted.Enabled != true
+				&& customization.LargeMonsterUI.MapPin.Enabled != true
+				&& customization.SmallMonsterUI.Enabled != true
+				&& customization.EndemicLifeUI.Enabled != true
+			)
 			{
 				return PreHookResult.Continue;
 			}
 
-
 			var enemyCharacterPtr = args[1];
 
 			var enemyCharacterManagedObject = ManagedObject.ToManagedObject(enemyCharacterPtr);
-			if(enemyCharacterManagedObject is null)
+			if (enemyCharacterManagedObject is null)
 			{
 				LogManager.Warn("[MonsterManager.OnPreDoUpdateEnd] No enemy character managed object");
 				return PreHookResult.Continue;
 			}
 
 			var enemyCharacter = enemyCharacterManagedObject.As<EnemyCharacter>();
-			if(enemyCharacter is null)
+			if (enemyCharacter is null)
 			{
 				LogManager.Warn("[MonsterManager.OnPreDoUpdateEnd] No enemy character");
 				return PreHookResult.Continue;
 			}
 
 			var context = enemyCharacter._Context;
-			if(context is null)
+			if (context is null)
 			{
 				LogManager.Warn("[MonsterManager.OnPreDoUpdateEnd] No enemy context holder");
 				return PreHookResult.Continue;
 			}
 
 			var enemyContext = context._Em;
-			if(enemyContext is null)
+			if (enemyContext is null)
 			{
 				LogManager.Warn("[MonsterManager.OnPreDoUpdateEnd] No enemy context");
 				return PreHookResult.Continue;
 			}
 
 			var isLargeMonster = enemyContext.IsBoss;
-			if(isLargeMonster
-			   && customization.LargeMonsterUI.Enabled == true
-			   && (customization.LargeMonsterUI.Dynamic.Enabled == true
-				   || customization.LargeMonsterUI.Static.Enabled == true
-				   || customization.LargeMonsterUI.Targeted.Enabled == true
-				   || customization.LargeMonsterUI.MapPin.Enabled == true))
+			if (
+				isLargeMonster
+				&& customization.LargeMonsterUI.Enabled == true
+				&& (
+					customization.LargeMonsterUI.Dynamic.Enabled == true
+					|| customization.LargeMonsterUI.Static.Enabled == true
+					|| customization.LargeMonsterUI.Targeted.Enabled == true
+					|| customization.LargeMonsterUI.MapPin.Enabled == true
+				)
+			)
 			{
 				var isFound = Instance.LargeMonsters.ContainsKey(enemyCharacter);
-				if(!isFound)
+				if (!isFound)
 				{
 					var largeMonster = new LargeMonster(enemyCharacter, enemyContext);
 					Instance.LargeMonsters.Add(enemyCharacter, largeMonster);
@@ -93,10 +96,10 @@ internal sealed class MonsterManager : IDisposable
 			}
 
 			var isSmallMonster = enemyContext.IsZako;
-			if(isSmallMonster && customization.SmallMonsterUI.Enabled == true)
+			if (isSmallMonster && customization.SmallMonsterUI.Enabled == true)
 			{
 				var isFound = Instance.SmallMonsters.ContainsKey(enemyCharacter);
-				if(!isFound)
+				if (!isFound)
 				{
 					var smallMonster = new SmallMonster(enemyCharacter, enemyContext);
 					Instance.SmallMonsters.Add(enemyCharacter, smallMonster);
@@ -106,10 +109,10 @@ internal sealed class MonsterManager : IDisposable
 			}
 
 			var isEndemicLife = enemyContext.IsAnimal;
-			if(isEndemicLife && customization.EndemicLifeUI.Enabled == true)
+			if (isEndemicLife && customization.EndemicLifeUI.Enabled == true)
 			{
 				var isFound = Instance.EndemicLifeEntities.ContainsKey(enemyCharacter);
-				if(!isFound)
+				if (!isFound)
 				{
 					var animal = new EndemicLifeEntity(enemyCharacter, enemyContext);
 					Instance.EndemicLifeEntities.Add(enemyCharacter, animal);
@@ -120,7 +123,7 @@ internal sealed class MonsterManager : IDisposable
 
 			return PreHookResult.Continue;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 			return PreHookResult.Continue;
@@ -135,38 +138,38 @@ internal sealed class MonsterManager : IDisposable
 			var enemyCharacterPtr = args[1];
 
 			var enemyCharacterManagedObject = ManagedObject.ToManagedObject(enemyCharacterPtr);
-			if(enemyCharacterManagedObject is null)
+			if (enemyCharacterManagedObject is null)
 			{
 				LogManager.Warn("[MonsterManager.OnPreDoOnDestroy] No enemy character managed object");
 				return PreHookResult.Continue;
 			}
 
 			var enemyCharacter = enemyCharacterManagedObject.As<EnemyCharacter>();
-			if(enemyCharacter is null)
+			if (enemyCharacter is null)
 			{
 				LogManager.Warn("[MonsterManager.OnPreDoOnDestroy] No enemy character");
 				return PreHookResult.Continue;
 			}
 
 			var context = enemyCharacter._Context;
-			if(context is null)
+			if (context is null)
 			{
 				LogManager.Warn("[MonsterManager.OnPreDoOnDestroy] No enemy context holder");
 				return PreHookResult.Continue;
 			}
 
 			var enemyContext = context._Em;
-			if(enemyContext is null)
+			if (enemyContext is null)
 			{
 				LogManager.Warn("[MonsterManager.OnPreDoUpdateEnd] No enemy context");
 				return PreHookResult.Continue;
 			}
 
 			var isLargeMonster = enemyContext.IsBoss;
-			if(isLargeMonster)
+			if (isLargeMonster)
 			{
 				var isFound = Instance.LargeMonsters.ContainsKey(enemyCharacter);
-				if(isFound)
+				if (isFound)
 				{
 					Instance.LargeMonsters[enemyCharacter].Dispose();
 					Instance.LargeMonsters.Remove(enemyCharacter);
@@ -176,10 +179,10 @@ internal sealed class MonsterManager : IDisposable
 			}
 
 			var isSmallMonster = enemyContext.IsZako;
-			if(isSmallMonster)
+			if (isSmallMonster)
 			{
 				var isFound = Instance.SmallMonsters.ContainsKey(enemyCharacter);
-				if(isFound)
+				if (isFound)
 				{
 					Instance.SmallMonsters[enemyCharacter].Dispose();
 					Instance.SmallMonsters.Remove(enemyCharacter);
@@ -189,9 +192,9 @@ internal sealed class MonsterManager : IDisposable
 			}
 
 			var isEndemicLife = enemyContext.IsAnimal;
-			if(isEndemicLife)
+			if (isEndemicLife)
 			{
-				if(Instance.EndemicLifeEntities.ContainsKey(enemyCharacter))
+				if (Instance.EndemicLifeEntities.ContainsKey(enemyCharacter))
 				{
 					Instance.EndemicLifeEntities[enemyCharacter].Dispose();
 					Instance.EndemicLifeEntities.Remove(enemyCharacter);
@@ -202,7 +205,7 @@ internal sealed class MonsterManager : IDisposable
 
 			return PreHookResult.Continue;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 			return PreHookResult.Continue;
@@ -213,17 +216,17 @@ internal sealed class MonsterManager : IDisposable
 	{
 		LogManager.Info("[MonsterManager] Disposing...");
 
-		foreach(var largeMonsterPair in LargeMonsters)
+		foreach (var largeMonsterPair in LargeMonsters)
 		{
 			largeMonsterPair.Value.Dispose();
 		}
 
-		foreach(var smallMonsterPair in SmallMonsters)
+		foreach (var smallMonsterPair in SmallMonsters)
 		{
 			smallMonsterPair.Value.Dispose();
 		}
 
-		foreach(var endemicLifeEntityPair in EndemicLifeEntities)
+		foreach (var endemicLifeEntityPair in EndemicLifeEntities)
 		{
 			endemicLifeEntityPair.Value.Dispose();
 		}

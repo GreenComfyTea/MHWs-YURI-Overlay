@@ -17,7 +17,7 @@ internal sealed class BarElementCustomization : Customization
 
 		var isChanged = false;
 
-		if(ImGuiHelper.ResettableTreeNode(visibleName, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(visibleName, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
 
@@ -35,7 +35,8 @@ internal sealed class BarElementCustomization : Customization
 
 	public void Reset(BarElementCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		Visible = defaultCustomization.Visible;
 		Settings.Reset(defaultCustomization.Settings);

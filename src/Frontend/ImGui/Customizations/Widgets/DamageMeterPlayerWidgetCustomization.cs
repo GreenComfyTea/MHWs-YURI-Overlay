@@ -18,12 +18,16 @@ internal sealed class DamageMeterPlayerWidgetCustomization : Customization
 
 		var isChanged = false;
 
-		if(ImGuiHelper.ResettableTreeNode($"{visibleName}##{customizationName}", customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode($"{visibleName}##{customizationName}", customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
 			isChanged |= Offset.RenderImGui($"{localization.Offset}##{customizationName}", defaultCustomization?.Offset);
 
-			isChanged |= HunterMasterRanksLabel.RenderImGui(localization.HunterMasterRanksLabel, $"{customizationName}-hunter-master-ranks-label", defaultCustomization?.HunterMasterRanksLabel);
+			isChanged |= HunterMasterRanksLabel.RenderImGui(
+				localization.HunterMasterRanksLabel,
+				$"{customizationName}-hunter-master-ranks-label",
+				defaultCustomization?.HunterMasterRanksLabel
+			);
 			isChanged |= NameLabel.RenderImGui(localization.NameLabel, $"{customizationName}-name-label", defaultCustomization?.NameLabel);
 			isChanged |= Damage.RenderImGui(customizationName, defaultCustomization?.Damage);
 			isChanged |= DPS.RenderImGui(customizationName, defaultCustomization?.DPS);
@@ -36,7 +40,8 @@ internal sealed class DamageMeterPlayerWidgetCustomization : Customization
 
 	public void Reset(DamageMeterPlayerWidgetCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		Enabled = defaultCustomization.Enabled;
 		Offset.Reset(defaultCustomization.Offset);

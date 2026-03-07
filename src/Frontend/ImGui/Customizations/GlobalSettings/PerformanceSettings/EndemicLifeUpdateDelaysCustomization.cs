@@ -14,7 +14,7 @@ internal sealed class EndemicLifeUpdateDelaysCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-endemic-life";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.EndemicLife, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.EndemicLife, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Name}##{customizationName}", ref Name, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Name);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.ModelRadius}##{customizationName}", ref ModelRadius, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.ModelRadius);
@@ -27,7 +27,8 @@ internal sealed class EndemicLifeUpdateDelaysCustomization : Customization
 
 	public void Reset(EndemicLifeUpdateDelaysCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		Name = defaultCustomization.Name;
 		ModelRadius = defaultCustomization.ModelRadius;

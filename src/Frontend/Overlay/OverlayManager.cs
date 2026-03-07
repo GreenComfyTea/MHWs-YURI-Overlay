@@ -1,6 +1,6 @@
-﻿using Hexa.NET.ImGui;
-using System.Numerics;
+﻿using System.Numerics;
 using System.Runtime.InteropServices;
+using Hexa.NET.ImGui;
 
 namespace YURI_Overlay;
 
@@ -13,11 +13,10 @@ internal sealed class OverlayManager : IDisposable
 	private LargeMonsterUiManager? _largeMonsterUiManager = null;
 	private SmallMonsterUiManager? _smallMonsterUiManager = null;
 	private EndemicLifeUiManager? _endemicLifeUiManager = null;
+
 	//private DamageMeterUiManager? _damageMeterUiManager = null;
 
-	private OverlayManager()
-	{
-	}
+	private OverlayManager() { }
 
 	public void Initialize()
 	{
@@ -33,34 +32,35 @@ internal sealed class OverlayManager : IDisposable
 
 	public void Draw()
 	{
-        try
+		try
 		{
-            ImGui.SetNextWindowPos(Vector2.Zero);
-            ImGui.SetNextWindowSize(ImGui.GetIO().DisplaySize);
+			ImGui.SetNextWindowPos(Vector2.Zero);
+			ImGui.SetNextWindowSize(ImGui.GetIO().DisplaySize);
 
-            ImGui.Begin("YURI Overlay",
+			ImGui.Begin(
+				"YURI Overlay",
 				ImGuiWindowFlags.NoMove
-				| ImGuiWindowFlags.NoBackground
-				| ImGuiWindowFlags.NoCollapse
-				| ImGuiWindowFlags.NoResize
-				| ImGuiWindowFlags.NoTitleBar
-				| ImGuiWindowFlags.NoSavedSettings
-				| ImGuiWindowFlags.NoScrollbar
+					| ImGuiWindowFlags.NoBackground
+					| ImGuiWindowFlags.NoCollapse
+					| ImGuiWindowFlags.NoResize
+					| ImGuiWindowFlags.NoTitleBar
+					| ImGuiWindowFlags.NoSavedSettings
+					| ImGuiWindowFlags.NoScrollbar
 			);
 
-            var drawList = ImGui.GetWindowDrawList();
+			var drawList = ImGui.GetWindowDrawList();
 
-            _largeMonsterUiManager?.Draw(drawList);
+			_largeMonsterUiManager?.Draw(drawList);
 			_smallMonsterUiManager?.Draw(drawList);
 			_endemicLifeUiManager?.Draw(drawList);
-            //_damageMeterUiManager?.Draw(drawList);
+			//_damageMeterUiManager?.Draw(drawList);
 
-            ImGui.End();
-        }
-		catch(Exception exception)
+			ImGui.End();
+		}
+		catch (Exception exception)
 		{
-            ImGui.End();
-            LogManager.Error(exception);
+			ImGui.End();
+			LogManager.Error(exception);
 		}
 	}
 

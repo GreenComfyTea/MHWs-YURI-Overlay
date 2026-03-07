@@ -37,7 +37,7 @@ internal sealed class DamageMeterUiManager : IDisposable
 	{
 		LogManager.Info("[DamageMeterUiManager] Disposing...");
 
-		foreach(var timer in _timers)
+		foreach (var timer in _timers)
 		{
 			timer.Dispose();
 		}
@@ -49,7 +49,7 @@ internal sealed class DamageMeterUiManager : IDisposable
 	{
 		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.UIs;
 
-		foreach(var timer in _timers)
+		foreach (var timer in _timers)
 		{
 			timer.Dispose();
 		}

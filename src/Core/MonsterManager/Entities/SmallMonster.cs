@@ -29,7 +29,6 @@ internal sealed class SmallMonster : IDisposable
 	public float MaxHealth = -1;
 	public float HealthPercentage = -1;
 
-
 	private bool _isUpdateNamePending = true;
 	private bool _isUpdateMissionBeaconOffsetPending = true;
 	private bool _isUpdateModelRadiusPending = true;
@@ -57,7 +56,7 @@ internal sealed class SmallMonster : IDisposable
 
 			LogManager.Info($"[SmallMonster] Initialized {Name}!");
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -76,7 +75,7 @@ internal sealed class SmallMonster : IDisposable
 
 			UpdateHealth();
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -86,7 +85,7 @@ internal sealed class SmallMonster : IDisposable
 	{
 		LogManager.Info($"[SmallMonster] Disposing {Name}...");
 
-		foreach(var timer in _timers)
+		foreach (var timer in _timers)
 		{
 			timer.Dispose();
 		}
@@ -106,7 +105,7 @@ internal sealed class SmallMonster : IDisposable
 			UpdateIds();
 			Update();
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -116,7 +115,7 @@ internal sealed class SmallMonster : IDisposable
 	{
 		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.SmallMonsters;
 
-		foreach(var timer in _timers)
+		foreach (var timer in _timers)
 		{
 			timer.Dispose();
 		}
@@ -154,7 +153,7 @@ internal sealed class SmallMonster : IDisposable
 		try
 		{
 			var position = EnemyCharacter.Pos;
-			if(position is null)
+			if (position is null)
 			{
 				LogManager.Warn("[SmallMonster.UpdatePositionAndDistance] No enemy pos");
 				return;
@@ -164,7 +163,7 @@ internal sealed class SmallMonster : IDisposable
 			this.Position.Y = position.y;
 			this.Position.Z = position.z;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -180,7 +179,7 @@ internal sealed class SmallMonster : IDisposable
 		try
 		{
 			var basicModule = EnemyContext.Basic;
-			if(basicModule is null)
+			if (basicModule is null)
 			{
 				LogManager.Warn("[SmallMonster.UpdateIds] No enemy basic module");
 				return;
@@ -190,7 +189,7 @@ internal sealed class SmallMonster : IDisposable
 			RoleId = basicModule.RoleID;
 			LegendaryId = basicModule.LegendaryID;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -200,11 +199,12 @@ internal sealed class SmallMonster : IDisposable
 	{
 		try
 		{
-			if(!_isUpdateNamePending) return;
+			if (!_isUpdateNamePending)
+				return;
 			_isUpdateNamePending = false;
 
-			var name = (string?) _nameStringMethod?.InvokeBoxed(_stringType, null, [Id, RoleId, LegendaryId]);
-			if(name is null)
+			var name = (string?)_nameStringMethod?.InvokeBoxed(_stringType, null, [Id, RoleId, LegendaryId]);
+			if (name is null)
 			{
 				LogManager.Warn("[SmallMonster.UpdateName] No enemy name");
 				return;
@@ -213,7 +213,7 @@ internal sealed class SmallMonster : IDisposable
 			this.Name = name;
 			// Name = "Nerscylla Hatchling";
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -223,11 +223,12 @@ internal sealed class SmallMonster : IDisposable
 	{
 		try
 		{
-			if(!_isUpdateMissionBeaconOffsetPending) return;
+			if (!_isUpdateMissionBeaconOffsetPending)
+				return;
 			_isUpdateMissionBeaconOffsetPending = false;
 
 			var missionBeaconOffset = EnemyContext.MissionBeaconOffset;
-			if(missionBeaconOffset is null)
+			if (missionBeaconOffset is null)
 			{
 				LogManager.Warn("[SmallMonster.UpdateMissionBeaconOffset] No enemy mission beacon offset");
 				return;
@@ -237,7 +238,7 @@ internal sealed class SmallMonster : IDisposable
 			this.MissionBeaconOffset.Y = missionBeaconOffset.y;
 			this.MissionBeaconOffset.Z = missionBeaconOffset.z;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -247,12 +248,13 @@ internal sealed class SmallMonster : IDisposable
 	{
 		try
 		{
-			if(!_isUpdateModelRadiusPending) return;
+			if (!_isUpdateModelRadiusPending)
+				return;
 			_isUpdateModelRadiusPending = false;
 
 			ModelRadius = EnemyContext.ModelRadius;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -263,11 +265,12 @@ internal sealed class SmallMonster : IDisposable
 	{
 		try
 		{
-			if(!_isUpdateHealthPending) return;
+			if (!_isUpdateHealthPending)
+				return;
 			_isUpdateHealthPending = false;
 
 			var healthManager = EnemyCharacter.HealthMgr;
-			if(healthManager is null)
+			if (healthManager is null)
 			{
 				LogManager.Warn("[SmallMonster.UpdateHealth] No health manager");
 				return;
@@ -275,11 +278,12 @@ internal sealed class SmallMonster : IDisposable
 
 			Health = healthManager.Health;
 			MaxHealth = healthManager.MaxHealth;
-			if(!Utils.IsApproximatelyEqual(MaxHealth, 0f)) HealthPercentage = Health / MaxHealth;
+			if (!Utils.IsApproximatelyEqual(MaxHealth, 0f))
+				HealthPercentage = Health / MaxHealth;
 
 			IsAlive = !Utils.IsApproximatelyEqual(Health, 0f);
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -295,7 +299,7 @@ internal sealed class SmallMonster : IDisposable
 
 			_stringType = _nameStringMethod.ReturnType.GetType();
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}

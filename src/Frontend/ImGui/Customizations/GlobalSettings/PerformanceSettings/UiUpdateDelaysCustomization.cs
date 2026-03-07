@@ -1,9 +1,9 @@
-﻿using Hexa.NET.ImGui;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hexa.NET.ImGui;
 
 namespace YURI_Overlay;
 
@@ -17,7 +17,6 @@ internal sealed class UiUpdateDelaysCustomization
 	public float? EndemicLife = null;
 	public float? DamageMeter = null;
 
-
 	public bool RenderImGui(string? parentName = "", UiUpdateDelaysCustomization? defaultCustomization = null)
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
@@ -25,13 +24,53 @@ internal sealed class UiUpdateDelaysCustomization
 		var isChanged = false;
 		var customizationName = $"{parentName}-uis";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.UIs, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.UIs, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.SmallMonsters}##{customizationName}", ref SmallMonsters, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.SmallMonsters);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.LargeMonstersDynamic}##{customizationName}", ref LargeMonsterDynamic, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.LargeMonsterDynamic);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.LargeMonstersStatic}##{customizationName}", ref LargeMonsterStatic, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.LargeMonsterStatic);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.LargeMonstersTargeted}##{customizationName}", ref LargeMonsterTargeted, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.LargeMonsterTargeted);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.LargeMonstersMapPin}##{customizationName}", ref LargeMonsterMapPin, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.LargeMonsterMapPin);
+			isChanged |= ImGuiHelper.ResettableDragFloat(
+				$"{localization.SmallMonsters}##{customizationName}",
+				ref SmallMonsters,
+				0.001f,
+				0.001f,
+				10f,
+				"%.3f",
+				defaultCustomization?.SmallMonsters
+			);
+			isChanged |= ImGuiHelper.ResettableDragFloat(
+				$"{localization.LargeMonstersDynamic}##{customizationName}",
+				ref LargeMonsterDynamic,
+				0.001f,
+				0.001f,
+				10f,
+				"%.3f",
+				defaultCustomization?.LargeMonsterDynamic
+			);
+			isChanged |= ImGuiHelper.ResettableDragFloat(
+				$"{localization.LargeMonstersStatic}##{customizationName}",
+				ref LargeMonsterStatic,
+				0.001f,
+				0.001f,
+				10f,
+				"%.3f",
+				defaultCustomization?.LargeMonsterStatic
+			);
+			isChanged |= ImGuiHelper.ResettableDragFloat(
+				$"{localization.LargeMonstersTargeted}##{customizationName}",
+				ref LargeMonsterTargeted,
+				0.001f,
+				0.001f,
+				10f,
+				"%.3f",
+				defaultCustomization?.LargeMonsterTargeted
+			);
+			isChanged |= ImGuiHelper.ResettableDragFloat(
+				$"{localization.LargeMonstersMapPin}##{customizationName}",
+				ref LargeMonsterMapPin,
+				0.001f,
+				0.001f,
+				10f,
+				"%.3f",
+				defaultCustomization?.LargeMonsterMapPin
+			);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.EndemicLife}##{customizationName}", ref EndemicLife, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.EndemicLife);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.DamageMeterUI}##{customizationName}", ref DamageMeter, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.DamageMeter);
 
@@ -43,7 +82,8 @@ internal sealed class UiUpdateDelaysCustomization
 
 	public void Reset(UiUpdateDelaysCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		SmallMonsters = defaultCustomization.SmallMonsters;
 		LargeMonsterDynamic = defaultCustomization.LargeMonsterDynamic;

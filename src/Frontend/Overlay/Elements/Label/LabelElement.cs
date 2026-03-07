@@ -17,15 +17,19 @@ internal sealed class LabelElement
 	{
 		var customization = _customizationAccessor();
 
-		if(customization is null) return;
+		if (customization is null)
+			return;
 
-		if(customization.Visible != true) return;
+		if (customization.Visible != true)
+			return;
 
-		if(args.Length == 0) return;
+		if (args.Length == 0)
+			return;
 
 		var text = string.Format(customization.Format ?? "", args);
 
-		if(string.IsNullOrEmpty(text)) return;
+		if (string.IsNullOrEmpty(text))
+			return;
 
 		var globalScaleCustomization = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale;
 
@@ -47,7 +51,6 @@ internal sealed class LabelElement
 		var shadowPositionX = textPositionX + shadowOffsetX;
 		var shadowPositionY = textPositionY + shadowOffsetY;
 
-
 		var (alignmentX, alignmentY, textSize) = GetAlignmentShifts(text, customization.Settings.Alignment ?? AnchorEnum.TopLeft);
 
 		text = ImGuiHelper.TruncateTextByMaxWidth(text, (customization.Settings.MaxWidth ?? 0f) * sizeScaleModifier, textSize);
@@ -58,36 +61,37 @@ internal sealed class LabelElement
 		var font = ImGui.GetFont();
 		var fontSize = (customization.Settings.FontSize ?? Constants.DefaultReframeworkFontSize) * (overlayFontScale.OverlayFontScaleModifier ?? 1f);
 
-		if(overlayFontScale?.ScaleWithReframeworkFontSize == true)
+		if (overlayFontScale?.ScaleWithReframeworkFontSize == true)
 		{
 			fontSize *= ImGuiManager.Instance.ReframeworkFontSize / Constants.DefaultReframeworkFontSize;
 		}
 
-		if(customization.Shadow.Visible == true)
+		if (customization.Shadow.Visible == true)
 		{
 			var shadowColor = customization.Shadow.Color.ColorInfo?.Abgr ?? 0xFF000000;
-			if(opacityScale < 1) shadowColor = Utils.ScaleColorOpacityAbgr(shadowColor, opacityScale);
+			if (opacityScale < 1)
+				shadowColor = Utils.ScaleColorOpacityAbgr(shadowColor, opacityScale);
 
 			unsafe
 			{
-                drawList.AddText(font, fontSize, shadowPosition, shadowColor, text);
-            }
-			
+				drawList.AddText(font, fontSize, shadowPosition, shadowColor, text);
+			}
 		}
 
 		var color = customization.Color.ColorInfo?.Abgr ?? 0xFFFFFFFF;
-		if(opacityScale < 1) color = Utils.ScaleColorOpacityAbgr(color, opacityScale);
+		if (opacityScale < 1)
+			color = Utils.ScaleColorOpacityAbgr(color, opacityScale);
 
-        unsafe
-        {
-            drawList.AddText(font, fontSize, textPosition, color, text);
-        }
-    }
+		unsafe
+		{
+			drawList.AddText(font, fontSize, textPosition, color, text);
+		}
+	}
 
 	private static (float, float, Vector2?) GetAlignmentShifts(string text, AnchorEnum alignment)
 	{
 		Vector2 textSize;
-		switch(alignment)
+		switch (alignment)
 		{
 			case AnchorEnum.TopCenter:
 				textSize = ImGui.CalcTextSize(text);

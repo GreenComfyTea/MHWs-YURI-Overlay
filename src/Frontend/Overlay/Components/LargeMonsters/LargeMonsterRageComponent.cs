@@ -30,14 +30,15 @@ internal sealed class LargeMonsterRageComponent
 
 	public void Draw(ImDrawListPtr drawList, Vector2 position, float opacityScale = 1f)
 	{
-		if(!_largeMonster.IsRageValid) return;
+		if (!_largeMonster.IsRageValid)
+			return;
 
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
 
 		var offset = _customizationAccessor()?.Offset;
 		var offsetPosition = new Vector2(position.X + sizeScaleModifier * (offset?.X ?? 0f), position.Y + sizeScaleModifier * (offset?.Y ?? 0f));
 
-		if(_largeMonster.IsEnraged)
+		if (_largeMonster.IsEnraged)
 		{
 			_rageTimerBarElement.Draw(drawList, offsetPosition, _largeMonster.RageRemainingTimerPercentage, opacityScale);
 			_rageTimerLabelElement.Draw(drawList, offsetPosition, opacityScale, _largeMonster.RageRemainingTimerString);

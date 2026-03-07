@@ -11,8 +11,8 @@ internal sealed class BarElementSettingsCustomization : Customization
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public FillDirectionEnum? FillDirection
 	{
-		get => _fillDirectionIndex.HasValue ? (FillDirectionEnum?) _fillDirectionIndex.Value : null;
-		set => _fillDirectionIndex = value.HasValue ? (int) value.Value : null;
+		get => _fillDirectionIndex.HasValue ? (FillDirectionEnum?)_fillDirectionIndex.Value : null;
+		set => _fillDirectionIndex = value.HasValue ? (int)value.Value : null;
 	}
 
 	public bool? Inverted = null;
@@ -25,9 +25,14 @@ internal sealed class BarElementSettingsCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-settings";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization.FillDirection}##{customizationName}", ref _fillDirectionIndex, localizationHelper.FillDirections, defaultCustomization?._fillDirectionIndex);
+			isChanged |= ImGuiHelper.ResettableCombo(
+				$"{localization.FillDirection}##{customizationName}",
+				ref _fillDirectionIndex,
+				localizationHelper.FillDirections,
+				defaultCustomization?._fillDirectionIndex
+			);
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Inverted}##{customizationName}", ref Inverted, defaultCustomization?.Inverted);
 
 			ImGui.TreePop();
@@ -38,7 +43,8 @@ internal sealed class BarElementSettingsCustomization : Customization
 
 	public void Reset(BarElementSettingsCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		FillDirection = defaultCustomization.FillDirection;
 		Inverted = defaultCustomization.Inverted;

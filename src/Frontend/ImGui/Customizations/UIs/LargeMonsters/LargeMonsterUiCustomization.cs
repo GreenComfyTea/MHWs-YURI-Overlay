@@ -18,7 +18,7 @@ internal sealed class LargeMonsterUiCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-large-monster";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.LargeMonstersUI, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.LargeMonstersUI, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
 
@@ -30,13 +30,13 @@ internal sealed class LargeMonsterUiCustomization : Customization
 			ImGui.TreePop();
 		}
 
-
 		return isChanged;
 	}
 
 	public void Reset(LargeMonsterUiCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		Enabled = defaultCustomization.Enabled;
 		Dynamic.Reset(defaultCustomization.Dynamic);

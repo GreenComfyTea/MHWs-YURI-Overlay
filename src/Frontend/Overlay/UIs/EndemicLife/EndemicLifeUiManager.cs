@@ -37,7 +37,7 @@ internal sealed class EndemicLifeUiManager : IDisposable
 	{
 		LogManager.Info("[EndemicLifeUiManager] Disposing...");
 
-		foreach(var timer in _timers)
+		foreach (var timer in _timers)
 		{
 			timer.Dispose();
 		}
@@ -49,7 +49,7 @@ internal sealed class EndemicLifeUiManager : IDisposable
 	{
 		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.UIs;
 
-		foreach(var timer in _timers)
+		foreach (var timer in _timers)
 		{
 			timer.Dispose();
 		}
@@ -63,7 +63,7 @@ internal sealed class EndemicLifeUiManager : IDisposable
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.EndemicLifeUI;
 
-		if(customization.Enabled != true)
+		if (customization.Enabled != true)
 		{
 			_dynamicEndemicLifeEntities = [];
 			return;
@@ -73,7 +73,7 @@ internal sealed class EndemicLifeUiManager : IDisposable
 
 		// Filter out dead and captured
 
-		foreach(var endemicLifeEntityPair in MonsterManager.Instance.EndemicLifeEntities)
+		foreach (var endemicLifeEntityPair in MonsterManager.Instance.EndemicLifeEntities)
 		{
 			var endemicLifeEntity = endemicLifeEntityPair.Value;
 
@@ -91,9 +91,10 @@ internal sealed class EndemicLifeUiManager : IDisposable
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.EndemicLifeUI;
 
-		if(customization.Enabled != true) return;
+		if (customization.Enabled != true)
+			return;
 
-		foreach(var endemicLifeEntity in _dynamicEndemicLifeEntities)
+		foreach (var endemicLifeEntity in _dynamicEndemicLifeEntities)
 		{
 			endemicLifeEntity.DynamicUi?.Draw(drawList);
 		}

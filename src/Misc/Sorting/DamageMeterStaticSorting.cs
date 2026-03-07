@@ -11,7 +11,8 @@ internal static class DamageMeterStaticSorting
 	public static int CompareById(DamageMeterEntity a, DamageMeterEntity b)
 	{
 		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
+		if (priorityComparison != 0)
+			return priorityComparison;
 
 		return DamageMeterSorting.CompareById(a, b);
 	}
@@ -19,7 +20,8 @@ internal static class DamageMeterStaticSorting
 	public static int CompareByName(DamageMeterEntity a, DamageMeterEntity b)
 	{
 		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
+		if (priorityComparison != 0)
+			return priorityComparison;
 
 		return DamageMeterSorting.CompareByName(a, b);
 	}
@@ -27,7 +29,8 @@ internal static class DamageMeterStaticSorting
 	public static int CompareByHunterRank(DamageMeterEntity a, DamageMeterEntity b)
 	{
 		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
+		if (priorityComparison != 0)
+			return priorityComparison;
 
 		return DamageMeterSorting.CompareByHunterRank(a, b);
 	}
@@ -35,7 +38,8 @@ internal static class DamageMeterStaticSorting
 	public static int CompareByMasterRank(DamageMeterEntity a, DamageMeterEntity b)
 	{
 		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
+		if (priorityComparison != 0)
+			return priorityComparison;
 
 		return DamageMeterSorting.CompareByMasterRank(a, b);
 	}
@@ -43,7 +47,8 @@ internal static class DamageMeterStaticSorting
 	public static int CompareByDamage(DamageMeterEntity a, DamageMeterEntity b)
 	{
 		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
+		if (priorityComparison != 0)
+			return priorityComparison;
 
 		return DamageMeterSorting.CompareByDamage(a, b);
 	}
@@ -51,7 +56,8 @@ internal static class DamageMeterStaticSorting
 	public static int CompareByDamagePercentage(DamageMeterEntity a, DamageMeterEntity b)
 	{
 		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
+		if (priorityComparison != 0)
+			return priorityComparison;
 
 		return DamageMeterSorting.CompareByDamagePercentage(a, b);
 	}
@@ -59,7 +65,8 @@ internal static class DamageMeterStaticSorting
 	public static int CompareByDps(DamageMeterEntity a, DamageMeterEntity b)
 	{
 		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
+		if (priorityComparison != 0)
+			return priorityComparison;
 
 		return DamageMeterSorting.CompareByDps(a, b);
 	}
@@ -67,7 +74,8 @@ internal static class DamageMeterStaticSorting
 	public static int CompareByDpsPercentage(DamageMeterEntity a, DamageMeterEntity b)
 	{
 		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
+		if (priorityComparison != 0)
+			return priorityComparison;
 
 		return DamageMeterSorting.CompareByDpsPercentage(a, b);
 	}
@@ -75,7 +83,8 @@ internal static class DamageMeterStaticSorting
 	public static int CompareByIdReversed(DamageMeterEntity a, DamageMeterEntity b)
 	{
 		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
+		if (priorityComparison != 0)
+			return priorityComparison;
 
 		return DamageMeterSorting.CompareByIdReversed(a, b);
 	}
@@ -83,7 +92,8 @@ internal static class DamageMeterStaticSorting
 	public static int CompareByNameReversed(DamageMeterEntity a, DamageMeterEntity b)
 	{
 		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
+		if (priorityComparison != 0)
+			return priorityComparison;
 
 		return DamageMeterSorting.CompareByNameReversed(a, b);
 	}
@@ -91,7 +101,8 @@ internal static class DamageMeterStaticSorting
 	public static int CompareByHunterRankReversed(DamageMeterEntity a, DamageMeterEntity b)
 	{
 		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
+		if (priorityComparison != 0)
+			return priorityComparison;
 
 		return DamageMeterSorting.CompareByHunterRankReversed(a, b);
 	}
@@ -99,7 +110,8 @@ internal static class DamageMeterStaticSorting
 	public static int CompareByMasterRankReversed(DamageMeterEntity a, DamageMeterEntity b)
 	{
 		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
+		if (priorityComparison != 0)
+			return priorityComparison;
 
 		return DamageMeterSorting.CompareByMasterRankReversed(a, b);
 	}
@@ -107,7 +119,8 @@ internal static class DamageMeterStaticSorting
 	public static int CompareByDamageReversed(DamageMeterEntity a, DamageMeterEntity b)
 	{
 		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
+		if (priorityComparison != 0)
+			return priorityComparison;
 
 		return DamageMeterSorting.CompareByDamageReversed(a, b);
 	}
@@ -115,7 +128,8 @@ internal static class DamageMeterStaticSorting
 	public static int CompareByDamagePercentageReversed(DamageMeterEntity a, DamageMeterEntity b)
 	{
 		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
+		if (priorityComparison != 0)
+			return priorityComparison;
 
 		return DamageMeterSorting.CompareByDamagePercentageReversed(a, b);
 	}
@@ -123,7 +137,8 @@ internal static class DamageMeterStaticSorting
 	public static int CompareByDpsReversed(DamageMeterEntity a, DamageMeterEntity b)
 	{
 		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
+		if (priorityComparison != 0)
+			return priorityComparison;
 
 		return DamageMeterSorting.CompareByDpsReversed(a, b);
 	}
@@ -131,7 +146,8 @@ internal static class DamageMeterStaticSorting
 	public static int CompareByDpsPercentageReversed(DamageMeterEntity a, DamageMeterEntity b)
 	{
 		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if(priorityComparison != 0) return priorityComparison;
+		if (priorityComparison != 0)
+			return priorityComparison;
 
 		return DamageMeterSorting.CompareByDpsPercentageReversed(a, b);
 	}

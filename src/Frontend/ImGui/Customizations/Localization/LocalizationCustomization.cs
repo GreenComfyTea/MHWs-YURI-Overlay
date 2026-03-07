@@ -48,10 +48,10 @@ internal sealed class LocalizationCustomization : Customization
 
 		var englishLocalizationIndex = Array.IndexOf(_localizationIsoCodes, Constants.DefaultLocalization);
 
-		if(ImGuiHelper.ResettableTreeNode(localization.Language, customizationName, ref isChanged, englishLocalizationIndex, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.Language, customizationName, ref isChanged, englishLocalizationIndex, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Language}##{customizationName}", ref _activeLocalizationIndex, _localizationNames, englishLocalizationIndex);
-			if(isChanged)
+			if (isChanged)
 			{
 				configManager.ActiveConfig.Data.GlobalSettings.Localization = _localizationIsoCodes[_activeLocalizationIndex];
 				localizationManager.ActivateLocalization(_localizationIsoCodes[_activeLocalizationIndex]);
@@ -64,23 +64,22 @@ internal sealed class LocalizationCustomization : Customization
 			ImGui.TreePop();
 		}
 
-
 		return isChanged;
 	}
 
 	public void Reset(int defaultLocalizationIndex = -1)
 	{
-		if(defaultLocalizationIndex == -1) return;
+		if (defaultLocalizationIndex == -1)
+			return;
 
 		_activeLocalizationIndex = defaultLocalizationIndex;
 	}
 
 	private void UpdateTranslatorColor()
 	{
-		TranslatorColor =
-			LocalizationManager.Instance.ActiveLocalization.Data.LocalizationInfo.Translators.Equals(Constants.ModAuthor)
-				? Constants.ModAuthorColor
-				: Constants.ImGuiUserNameColor;
+		TranslatorColor = LocalizationManager.Instance.ActiveLocalization.Data.LocalizationInfo.Translators.Equals(Constants.ModAuthor)
+			? Constants.ModAuthorColor
+			: Constants.ImGuiUserNameColor;
 	}
 
 	private void OnAnyLocalizationChanged(object? sender, EventArgs eventArgs)

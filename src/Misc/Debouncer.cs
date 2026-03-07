@@ -11,10 +11,15 @@ internal sealed class Debouncer : IDisposable
 
 		var token = _cancellationTokenSource.Token;
 
-		Task.Delay(delayMilliseconds, token).ContinueWith(task =>
-		{
-			if(!task.IsCanceled) action();
-		}, TaskScheduler.Default);
+		Task.Delay(delayMilliseconds, token)
+			.ContinueWith(
+				task =>
+				{
+					if (!task.IsCanceled)
+						action();
+				},
+				TaskScheduler.Default
+			);
 	}
 
 	public void Dispose()

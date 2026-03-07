@@ -23,10 +23,7 @@ internal sealed class PlayerManager : IDisposable
 
 	private bool _isUpdatePending = true;
 
-
-	private PlayerManager()
-	{
-	}
+	private PlayerManager() { }
 
 	public void Initialize()
 	{
@@ -44,7 +41,7 @@ internal sealed class PlayerManager : IDisposable
 	{
 		LogManager.Info("[PlayerManager] Disposing...");
 
-		foreach(var timer in _timers)
+		foreach (var timer in _timers)
 		{
 			timer.Dispose();
 		}
@@ -60,7 +57,7 @@ internal sealed class PlayerManager : IDisposable
 	{
 		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.PlayerManager;
 
-		foreach(var timer in _timers)
+		foreach (var timer in _timers)
 		{
 			timer.Dispose();
 		}
@@ -81,14 +78,14 @@ internal sealed class PlayerManager : IDisposable
 		{
 			Update();
 
-			if(_masterPlayerCharacter is null)
+			if (_masterPlayerCharacter is null)
 			{
 				//LogManager.Warn("[PlayerManager.GameUpdate] No master player character");
 				return;
 			}
 
 			var playerPosition = _masterPlayerCharacter.Pos;
-			if(playerPosition is null)
+			if (playerPosition is null)
 			{
 				LogManager.Warn("[PlayerManager.GameUpdate] No master player position");
 				return;
@@ -98,7 +95,7 @@ internal sealed class PlayerManager : IDisposable
 			Position.Y = playerPosition.y;
 			Position.Z = playerPosition.z;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -108,11 +105,12 @@ internal sealed class PlayerManager : IDisposable
 	{
 		try
 		{
-			if(!_isUpdatePending) return;
+			if (!_isUpdatePending)
+				return;
 			_isUpdatePending = false;
 
 			var playerManager = API.GetManagedSingletonT<app.PlayerManager>();
-			if(playerManager is null)
+			if (playerManager is null)
 			{
 				LogManager.Warn("[PlayerManager.Update] No player manager");
 
@@ -124,7 +122,7 @@ internal sealed class PlayerManager : IDisposable
 			}
 
 			var masterPlayer = playerManager.getMasterPlayer();
-			if(masterPlayer is null)
+			if (masterPlayer is null)
 			{
 				//LogManager.Warn("[PlayerManager.Update] No master player");
 
@@ -138,7 +136,7 @@ internal sealed class PlayerManager : IDisposable
 			MasterPlayer = masterPlayer;
 
 			var masterPlayerCharacter = masterPlayer.Character;
-			if(masterPlayerCharacter is null)
+			if (masterPlayerCharacter is null)
 			{
 				//LogManager.Warn("[PlayerManager.Update] No master player character");
 
@@ -152,7 +150,7 @@ internal sealed class PlayerManager : IDisposable
 			_masterPlayerCharacter = masterPlayerCharacter;
 			EmitMasterPlayerChanged();
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}

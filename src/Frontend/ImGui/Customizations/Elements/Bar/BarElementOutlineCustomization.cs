@@ -14,8 +14,8 @@ internal sealed class BarElementOutlineCustomization : Customization
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public OutlineStyleEnum? Style
 	{
-		get => _styleIndex.HasValue ? (OutlineStyleEnum) _styleIndex.Value : null;
-		set => _styleIndex = value.HasValue ? (int) value.Value : null;
+		get => _styleIndex.HasValue ? (OutlineStyleEnum)_styleIndex.Value : null;
+		set => _styleIndex = value.HasValue ? (int)value.Value : null;
 	}
 
 	public ColorCustomization Color { get; set; } = new();
@@ -28,7 +28,7 @@ internal sealed class BarElementOutlineCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-outline";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.Outline, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.Outline, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Thickness}##{customizationName}", ref Thickness, 0.1f, 0, 1024f, "%.1f", defaultCustomization?.Thickness);
@@ -44,7 +44,8 @@ internal sealed class BarElementOutlineCustomization : Customization
 
 	public void Reset(BarElementOutlineCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		Visible = defaultCustomization.Visible;
 		Thickness = defaultCustomization.Thickness;

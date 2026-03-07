@@ -1,10 +1,10 @@
-﻿using Hexa.NET.ImGui;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Hexa.NET.ImGui;
 
 namespace YURI_Overlay;
 
@@ -32,7 +32,8 @@ internal sealed class DamageMeterDamageComponent
 	{
 		var customization = _customizationAccessor();
 
-		if(customization?.Visible != true) return;
+		if (customization?.Visible != true)
+			return;
 
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
 

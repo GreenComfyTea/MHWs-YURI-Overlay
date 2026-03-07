@@ -10,9 +10,10 @@ internal sealed class PriorityUtils
 {
 	public static int ConvertPriorityToValue(PriorityEnum? priority)
 	{
-		if(priority is null) return 0;
+		if (priority is null)
+			return 0;
 
-		switch(priority)
+		switch (priority)
 		{
 			case PriorityEnum.Higher3:
 				return 3;

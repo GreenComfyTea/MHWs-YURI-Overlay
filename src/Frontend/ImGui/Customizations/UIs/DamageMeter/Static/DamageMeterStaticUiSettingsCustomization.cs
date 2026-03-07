@@ -15,7 +15,7 @@ internal sealed class DamageMeterStaticUiSettingsCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-settings";
 
-		if(ImGuiHelper.ResettableTreeNode($"{localization.Settings}##{customizationName}", customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode($"{localization.Settings}##{customizationName}", customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderLocalPlayer}##{customizationName}", ref RenderLocalPlayer, defaultCustomization?.RenderLocalPlayer);
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderOtherPlayers}##{customizationName}", ref RenderOtherPlayers, defaultCustomization?.RenderOtherPlayers);
@@ -29,7 +29,8 @@ internal sealed class DamageMeterStaticUiSettingsCustomization : Customization
 
 	public void Reset(DamageMeterStaticUiSettingsCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		RenderLocalPlayer = defaultCustomization.RenderLocalPlayer;
 		RenderOtherPlayers = defaultCustomization.RenderOtherPlayers;

@@ -14,7 +14,7 @@ internal sealed class BarElementColorsCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-colors";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.Colors, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.Colors, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= Foreground.RenderImGui(localization.Foreground, $"{customizationName}-foreground", defaultCustomization?.Foreground);
 			isChanged |= Background.RenderImGui(localization.Background, $"{customizationName}-background", defaultCustomization?.Background);
@@ -27,7 +27,8 @@ internal sealed class BarElementColorsCustomization : Customization
 
 	public void Reset(BarElementColorsCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 		Foreground.Reset(defaultCustomization.Foreground);
 		Background.Reset(defaultCustomization.Background);
 	}

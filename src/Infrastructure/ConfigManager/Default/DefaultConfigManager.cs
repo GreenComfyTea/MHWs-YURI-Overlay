@@ -1563,7 +1563,7 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Format = "{0:F1}";
 
 	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Settings.Alignment = Anchor.BottomRight;
-//  damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Settings.FontSize = 16f;
+	//  damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Settings.FontSize = 16f;
 	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Settings.MaxWidth = 0f;
 
 	//	damageMeterStaticUiConfig.LocalPlayer.DPS.ValueLabel.Offset.X = 198f;
@@ -1798,7 +1798,6 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.End._1 = 0x61ACF2CC; // Same as InGameColor_072_GUI_P2 = 0xFF61ACF2 (ARGB)
 	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Foreground.End._2 = 0x61ACF2CC; // Same as InGameColor_072_GUI_P2 = 0xFF61ACF2 (ARGB)
 
-
 	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
 	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.Start._1 = 0x0000004A;
 	//	damageMeterStaticUiConfig.OtherPlayers.DPS.Bar.Colors.Background.Start._2 = 0x0000004A;
@@ -1911,7 +1910,6 @@ internal partial class ConfigManager
 	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.End.SplitIntoTwoColors = false;
 	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.End._1 = 0xCAB7D4CC; // Same as InGameColor_075_GUI_PNPC = 0xFFCAB7D4 (ARGB)
 	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Foreground.End._2 = 0xCAB7D4CC; // Same as InGameColor_075_GUI_PNPC = 0xFFCAB7D4 (ARGB)
-
 
 	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.Start.SplitIntoTwoColors = false;
 	//	damageMeterStaticUiConfig.SupportHunters.Damage.Bar.Colors.Background.Start._1 = 0x0000004A;

@@ -18,7 +18,7 @@ internal sealed class UpdateDelaysCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-update-delays";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.UpdateDelaysSeconds, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.UpdateDelaysSeconds, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
 			isChanged |= ScreenManager.RenderImGui(customizationName, defaultCustomization?.ScreenManager);
 			isChanged |= PlayerManager.RenderImGui(customizationName, defaultCustomization?.PlayerManager);
@@ -35,7 +35,8 @@ internal sealed class UpdateDelaysCustomization : Customization
 
 	public void Reset(UpdateDelaysCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		ScreenManager.Reset(defaultCustomization.ScreenManager);
 		PlayerManager.Reset(defaultCustomization.PlayerManager);

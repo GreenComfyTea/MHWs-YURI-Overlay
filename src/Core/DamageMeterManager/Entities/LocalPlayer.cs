@@ -36,7 +36,7 @@ internal sealed class LocalPlayer : DamageMeterEntity
 
 			LogManager.Info($"[DamageMeter] Initialized Local Player: {Name}!");
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -46,7 +46,7 @@ internal sealed class LocalPlayer : DamageMeterEntity
 	{
 		try
 		{
-			foreach(var timer in _timers)
+			foreach (var timer in _timers)
 			{
 				timer.Dispose();
 			}
@@ -54,7 +54,7 @@ internal sealed class LocalPlayer : DamageMeterEntity
 			_timers.Clear();
 			LogManager.Info($"[DamageMeter] Disposed Local Player: {Name}!");
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -68,7 +68,7 @@ internal sealed class LocalPlayer : DamageMeterEntity
 			UpdateName();
 			UpdateHunterRank();
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -79,41 +79,41 @@ internal sealed class LocalPlayer : DamageMeterEntity
 		try
 		{
 			var missionManager = API.GetManagedSingletonT<MissionManager>();
-			if(missionManager is null)
+			if (missionManager is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateDamage] No mission manager");
 				return;
 			}
 
 			var questDirection = missionManager.QuestDirector;
-			if(questDirection is null)
+			if (questDirection is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateDamage] No quest director");
 				return;
 			}
 
 			var questFlowParam = questDirection.Param;
-			if(questFlowParam is null)
+			if (questFlowParam is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateDamage] No quest flow param");
 				return;
 			}
 
 			var questAwardInfo = questFlowParam.QuestAwardInfo;
-			if(questAwardInfo is null)
+			if (questAwardInfo is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateDamage] No quest award info");
 				return;
 			}
 
-			if(questAwardInfo.Length < 5)
+			if (questAwardInfo.Length < 5)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateDamage] quest award info length < 5");
 				return;
 			}
 
 			var questAwardUnion = questAwardInfo.Get(4);
-			if(questAwardUnion is null)
+			if (questAwardUnion is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateDamage] No quest award union");
 				return;
@@ -126,12 +126,12 @@ internal sealed class LocalPlayer : DamageMeterEntity
 
 			byte[] bytes = [byte0, byte1, byte2, byte3];
 
-			if(!BitConverter.IsLittleEndian) Array.Reverse(bytes);
+			if (!BitConverter.IsLittleEndian)
+				Array.Reverse(bytes);
 
 			var damage = BitConverter.ToSingle(bytes, 0);
 
-
-			if(Utils.IsApproximatelyEqual(damage, 0f))
+			if (Utils.IsApproximatelyEqual(damage, 0f))
 			{
 				return;
 			}
@@ -143,7 +143,7 @@ internal sealed class LocalPlayer : DamageMeterEntity
 			DisplayedDps = 69f;
 			DisplayedDpsPercentage = 1f;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -159,7 +159,7 @@ internal sealed class LocalPlayer : DamageMeterEntity
 	{
 		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.LargeMonsters;
 
-		foreach(var timer in _timers)
+		foreach (var timer in _timers)
 		{
 			timer.Dispose();
 		}
@@ -190,18 +190,19 @@ internal sealed class LocalPlayer : DamageMeterEntity
 	{
 		try
 		{
-			if(!_isUpdateMemberIndexPending) return;
+			if (!_isUpdateMemberIndexPending)
+				return;
 			_isUpdateMemberIndexPending = false;
 
 			var contextHolder = PlayerManageInfo.ContextHolder;
-			if(contextHolder is null)
+			if (contextHolder is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateMemberIndex] No player context holder");
 				return;
 			}
 
 			var playerContext = contextHolder.Pl;
-			if(playerContext is null)
+			if (playerContext is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateMemberIndex] No player context");
 				return;
@@ -209,7 +210,7 @@ internal sealed class LocalPlayer : DamageMeterEntity
 
 			Id = playerContext.StableMemberIndex;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -219,25 +220,26 @@ internal sealed class LocalPlayer : DamageMeterEntity
 	{
 		try
 		{
-			if(!_isUpdateNamePending) return;
+			if (!_isUpdateNamePending)
+				return;
 			_isUpdateNamePending = false;
 
 			var contextHolder = PlayerManageInfo.ContextHolder;
-			if(contextHolder is null)
+			if (contextHolder is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateMemberIndex] No player context holder");
 				return;
 			}
 
 			var playerContext = contextHolder.Pl;
-			if(playerContext is null)
+			if (playerContext is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateMemberIndex] No player context");
 				return;
 			}
 
 			var name = playerContext.PlayerName;
-			if(name is null)
+			if (name is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateName] No player name");
 				return;
@@ -245,7 +247,7 @@ internal sealed class LocalPlayer : DamageMeterEntity
 
 			Name = name;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -255,25 +257,26 @@ internal sealed class LocalPlayer : DamageMeterEntity
 	{
 		try
 		{
-			if(!_isUpdateHunterRankPending) return;
+			if (!_isUpdateHunterRankPending)
+				return;
 			_isUpdateHunterRankPending = false;
 
 			var saveDataManager = API.GetManagedSingletonT<SaveDataManager>();
-			if(saveDataManager is null)
+			if (saveDataManager is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateHunterRank] No save data manager");
 				return;
 			}
 
 			var saveDataHelper = saveDataManager.Helper;
-			if(saveDataHelper is null)
+			if (saveDataHelper is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateHunterRank] No save data helper");
 				return;
 			}
 
 			var commonParam = saveDataHelper.CommonParam;
-			if(commonParam is null)
+			if (commonParam is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateHunterRank] No common param");
 				return;
@@ -281,7 +284,7 @@ internal sealed class LocalPlayer : DamageMeterEntity
 
 			HunterRank = commonParam._HunterRank;
 		}
-		catch(Exception exception)
+		catch (Exception exception)
 		{
 			LogManager.Error(exception);
 		}

@@ -1,9 +1,9 @@
-﻿using Hexa.NET.ImGui;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hexa.NET.ImGui;
 
 namespace YURI_Overlay;
 
@@ -19,10 +19,22 @@ internal sealed class OverlayFontScaleCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-overlay-font";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.OverlayFontScale, customizationName, ref isChanged, defaultCustomization, Reset))
+		if (ImGuiHelper.ResettableTreeNode(localization.OverlayFontScale, customizationName, ref isChanged, defaultCustomization, Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.ScaleWithREFrameworkFontSize}##{customizationName}", ref ScaleWithReframeworkFontSize, defaultCustomization?.ScaleWithReframeworkFontSize);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.OverlayFontScaleModifier}##{customizationName}", ref OverlayFontScaleModifier, 0.001f, 1f, 128f, "%.3f", defaultCustomization?.OverlayFontScaleModifier);
+			isChanged |= ImGuiHelper.ResettableCheckbox(
+				$"{localization.ScaleWithREFrameworkFontSize}##{customizationName}",
+				ref ScaleWithReframeworkFontSize,
+				defaultCustomization?.ScaleWithReframeworkFontSize
+			);
+			isChanged |= ImGuiHelper.ResettableDragFloat(
+				$"{localization.OverlayFontScaleModifier}##{customizationName}",
+				ref OverlayFontScaleModifier,
+				0.001f,
+				1f,
+				128f,
+				"%.3f",
+				defaultCustomization?.OverlayFontScaleModifier
+			);
 
 			ImGui.TreePop();
 		}
@@ -32,7 +44,8 @@ internal sealed class OverlayFontScaleCustomization : Customization
 
 	public void Reset(OverlayFontScaleCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null) return;
+		if (defaultCustomization is null)
+			return;
 
 		ScaleWithReframeworkFontSize = defaultCustomization.ScaleWithReframeworkFontSize;
 		OverlayFontScaleModifier = defaultCustomization.OverlayFontScaleModifier;
