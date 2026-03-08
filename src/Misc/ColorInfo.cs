@@ -13,141 +13,143 @@ internal sealed class ColorInfo
 
 	public Vector4 Vector
 	{
-		get => vector;
+		get => this.vector;
 		set
 		{
-			vector = value;
-			UpdateFromVector(value);
+			this.vector = value;
+			this.UpdateFromVector(value);
 		}
 	}
 
 	public uint Rgba
 	{
-		get => _rgba;
+		get => this._rgba;
 		set
 		{
-			_rgba = value;
-			UpdateFromRgba(value);
+			this._rgba = value;
+			this.UpdateFromRgba(value);
 		}
 	}
 
 	public uint Abgr
 	{
-		get => _abgr;
+		get => this._abgr;
 		set
 		{
-			_abgr = value;
-			UpdateFromAbgr(value);
+			this._abgr = value;
+			this.UpdateFromAbgr(value);
 		}
 	}
 
 	public string RgbaHex
 	{
-		get => _rgbaHex;
+		get => this._rgbaHex;
 		set
 		{
-			_rgbaHex = value;
-			UpdateFromRgbaHex(value);
+			this._rgbaHex = value;
+			this.UpdateFromRgbaHex(value);
 		}
 	}
 
 	public string AbgrHex
 	{
-		get => _abgrHex;
+		get => this._abgrHex;
 		set
 		{
-			_abgrHex = value;
-			UpdateFromAbgrHex(value);
+			this._abgrHex = value;
+			this.UpdateFromAbgrHex(value);
 		}
 	}
 
 	public ColorInfo()
 	{
-		Vector = new Vector4(0f, 0f, 0f, 1f);
+		this.Vector = new Vector4(0f, 0f, 0f, 1f);
 	}
 
 	public ColorInfo(Vector4 vector)
 	{
-		Vector = vector;
+		this.Vector = vector;
 	}
 
 	private void UpdateFromVector(Vector4 newVector)
 	{
-		var red = (byte)(newVector.X * 255f);
-		var green = (byte)(newVector.Y * 255f);
-		var blue = (byte)(newVector.Z * 255f);
-		var alpha = (byte)(newVector.W * 255f);
+		var red = (byte) (newVector.X * 255f);
+		var green = (byte) (newVector.Y * 255f);
+		var blue = (byte) (newVector.Z * 255f);
+		var alpha = (byte) (newVector.W * 255f);
 
-		_rgba = ((uint)red << 24) | ((uint)green << 16) | ((uint)blue << 8) | alpha;
-		_abgr = ((uint)alpha << 24) | ((uint)blue << 16) | ((uint)green << 8) | red;
-		_rgbaHex = $"#{_rgba:X8}";
-		_abgrHex = $"#{_abgr:X8}";
+		this._rgba = ((uint) red << 24) | ((uint) green << 16) | ((uint) blue << 8) | alpha;
+		this._abgr = ((uint) alpha << 24) | ((uint) blue << 16) | ((uint) green << 8) | red;
+		this._rgbaHex = $"#{this._rgba:X8}";
+		this._abgrHex = $"#{this._abgr:X8}";
 	}
 
 	private void UpdateFromRgba(uint rgba)
 	{
-		var red = (byte)(rgba >> 24);
-		var green = (byte)(rgba >> 16);
-		var blue = (byte)(rgba >> 8);
-		var alpha = (byte)rgba;
+		var red = (byte) (rgba >> 24);
+		var green = (byte) (rgba >> 16);
+		var blue = (byte) (rgba >> 8);
+		var alpha = (byte) rgba;
 
-		vector = new Vector4(red / 255f, green / 255f, blue / 255f, alpha / 255f);
-		_abgr = ((uint)alpha << 24) | ((uint)blue << 16) | ((uint)green << 8) | red;
-		_rgbaHex = $"#{rgba:X8}";
-		_abgrHex = $"#{_abgr:X8}";
+		this.vector = new Vector4(red / 255f, green / 255f, blue / 255f, alpha / 255f);
+		this._abgr = ((uint) alpha << 24) | ((uint) blue << 16) | ((uint) green << 8) | red;
+		this._rgbaHex = $"#{rgba:X8}";
+		this._abgrHex = $"#{this._abgr:X8}";
 	}
 
 	private void UpdateFromAbgr(uint abgr)
 	{
-		var red = (byte)abgr;
-		var green = (byte)(abgr >> 8);
-		var blue = (byte)(abgr >> 16);
-		var alpha = (byte)(abgr >> 24);
+		var red = (byte) abgr;
+		var green = (byte) (abgr >> 8);
+		var blue = (byte) (abgr >> 16);
+		var alpha = (byte) (abgr >> 24);
 
-		vector = new Vector4(red / 255f, green / 255f, blue / 255f, alpha / 255f);
-		_rgba = ((uint)red << 24) | ((uint)green << 16) | ((uint)blue << 8) | alpha;
-		_rgbaHex = $"#{_rgba:X8}";
-		_abgrHex = $"#{abgr:X8}";
+		this.vector = new Vector4(red / 255f, green / 255f, blue / 255f, alpha / 255f);
+		this._rgba = ((uint) red << 24) | ((uint) green << 16) | ((uint) blue << 8) | alpha;
+		this._rgbaHex = $"#{this._rgba:X8}";
+		this._abgrHex = $"#{abgr:X8}";
 	}
 
 	private void UpdateFromRgbaHex(string rgbaHex)
 	{
-		if (rgbaHex.Length != 9)
+		if(rgbaHex.Length != 9)
 		{
 			return;
 		}
 
-		_rgba = uint.Parse(rgbaHex[1..], NumberStyles.HexNumber);
+		this._rgba = uint.Parse(rgbaHex[1..], NumberStyles.HexNumber);
 
-		var red = (byte)(Rgba >> 24);
-		var green = (byte)(Rgba >> 16);
-		var blue = (byte)(Rgba >> 8);
-		var alpha = (byte)Rgba;
+		var red = (byte) (this.Rgba >> 24);
+		var green = (byte) (this.Rgba >> 16);
+		var blue = (byte) (this.Rgba >> 8);
+		var alpha = (byte) this.Rgba;
 
-		vector = new Vector4(red / 255f, green / 255f, blue / 255f, alpha / 255f);
-		_abgr = ((uint)alpha << 24) | ((uint)blue << 16) | ((uint)green << 8) | red;
-		_abgrHex = $"#{_abgr:X8}";
+		this.vector = new Vector4(red / 255f, green / 255f, blue / 255f, alpha / 255f);
+		this._abgr = ((uint) alpha << 24) | ((uint) blue << 16) | ((uint) green << 8) | red;
+		this._abgrHex = $"#{this._abgr:X8}";
 	}
 
 	private void UpdateFromAbgrHex(string abgrHex)
 	{
-		if (abgrHex.Length != 9)
+		if(abgrHex.Length != 9)
+		{
 			return;
+		}
 
-		_abgr = uint.Parse(abgrHex[1..], NumberStyles.HexNumber);
+		this._abgr = uint.Parse(abgrHex[1..], NumberStyles.HexNumber);
 
-		var red = (byte)Abgr;
-		var green = (byte)(Abgr >> 8);
-		var blue = (byte)(Abgr >> 16);
-		var alpha = (byte)(Abgr >> 24);
+		var red = (byte) this.Abgr;
+		var green = (byte) (this.Abgr >> 8);
+		var blue = (byte) (this.Abgr >> 16);
+		var alpha = (byte) (this.Abgr >> 24);
 
-		vector = new Vector4(red / 255f, green / 255f, blue / 255f, alpha / 255f);
-		_rgba = ((uint)red << 24) | ((uint)green << 16) | ((uint)blue << 8) | alpha;
-		_rgbaHex = $"#{_rgba:X8}";
+		this.vector = new Vector4(red / 255f, green / 255f, blue / 255f, alpha / 255f);
+		this._rgba = ((uint) red << 24) | ((uint) green << 16) | ((uint) blue << 8) | alpha;
+		this._rgbaHex = $"#{this._rgba:X8}";
 	}
 
 	public override string ToString()
 	{
-		return $"Vector4: {vector} | rgba: {_rgba} | abgr: {_abgr} | rgbaHex: {_rgbaHex} | abgrHex: {_abgrHex}";
+		return $"Vector4: {this.vector} | rgba: {this._rgba} | abgr: {this._abgr} | rgbaHex: {this._rgbaHex} | abgrHex: {this._abgrHex}";
 	}
 }

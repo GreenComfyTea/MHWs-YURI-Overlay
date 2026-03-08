@@ -4,8 +4,8 @@ namespace YURI_Overlay;
 
 internal sealed class SizeCustomization : Customization
 {
-	public float? Width = null;
-	public float? Height = null;
+	public float? Width;
+	public float? Height;
 
 	public bool RenderImGui(string? parentName = "", SizeCustomization? defaultCustomization = null)
 	{
@@ -14,10 +14,10 @@ internal sealed class SizeCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-size";
 
-		if (ImGuiHelper.ResettableTreeNode(localization.Size, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.Size, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Width}##{customizationName}", ref Width, 0.1f, -8192f, 8192f, "%.1f", defaultCustomization?.Width);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Height}##{customizationName}", ref Height, 0.1f, -8192f, 8192f, "%.1f", defaultCustomization?.Height);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Width}##{customizationName}", ref this.Width, 0.1f, -8192f, 8192f, "%.1f", defaultCustomization?.Width);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Height}##{customizationName}", ref this.Height, 0.1f, -8192f, 8192f, "%.1f", defaultCustomization?.Height);
 
 			ImGui.TreePop();
 		}
@@ -27,10 +27,12 @@ internal sealed class SizeCustomization : Customization
 
 	public void Reset(SizeCustomization? defaultCustomization = null)
 	{
-		if (defaultCustomization is null)
+		if(defaultCustomization is null)
+		{
 			return;
+		}
 
-		Width = defaultCustomization.Width;
-		Height = defaultCustomization.Height;
+		this.Width = defaultCustomization.Width;
+		this.Height = defaultCustomization.Height;
 	}
 }

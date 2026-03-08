@@ -5,17 +5,17 @@ namespace YURI_Overlay;
 
 internal sealed class LabelElementSettingsCustomization : Customization
 {
-	private int? _alignmentIndex = null;
+	private int? _alignmentIndex;
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public AnchorEnum? Alignment
 	{
-		get => _alignmentIndex.HasValue ? (AnchorEnum)_alignmentIndex.Value : null;
-		set => _alignmentIndex = value.HasValue ? (int)value.Value : null;
+		get => this._alignmentIndex.HasValue ? (AnchorEnum) this._alignmentIndex.Value : null;
+		set => this._alignmentIndex = value.HasValue ? (int) value.Value : null;
 	}
 
-	public float? FontSize = null;
-	public float? MaxWidth = null;
+	public float? FontSize;
+	public float? MaxWidth;
 
 	public bool RenderImGui(string? parentName = "", LabelElementSettingsCustomization? defaultCustomization = null)
 	{
@@ -25,11 +25,12 @@ internal sealed class LabelElementSettingsCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-settings";
 
-		if (ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Alignment}##{customizationName}", ref _alignmentIndex, localizationHelper.Anchors, defaultCustomization?._alignmentIndex);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.FontSize}##{customizationName}", ref FontSize, 0.1f, 1f, 128f, "%.1f", defaultCustomization?.FontSize);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MaxWidth}##{customizationName}", ref MaxWidth, 0.1f, 0f, 4096f, "%.1f", defaultCustomization?.MaxWidth);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Alignment}##{customizationName}", ref this._alignmentIndex, localizationHelper.Anchors,
+				defaultCustomization?._alignmentIndex);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.FontSize}##{customizationName}", ref this.FontSize, 0.1f, 1f, 128f, "%.1f", defaultCustomization?.FontSize);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MaxWidth}##{customizationName}", ref this.MaxWidth, 0.1f, 0f, 4096f, "%.1f", defaultCustomization?.MaxWidth);
 
 			ImGui.TreePop();
 		}
@@ -39,11 +40,13 @@ internal sealed class LabelElementSettingsCustomization : Customization
 
 	public void Reset(LabelElementSettingsCustomization? defaultCustomization = null)
 	{
-		if (defaultCustomization is null)
+		if(defaultCustomization is null)
+		{
 			return;
+		}
 
-		Alignment = defaultCustomization.Alignment;
-		FontSize = defaultCustomization.FontSize;
-		MaxWidth = defaultCustomization.MaxWidth;
+		this.Alignment = defaultCustomization.Alignment;
+		this.FontSize = defaultCustomization.FontSize;
+		this.MaxWidth = defaultCustomization.MaxWidth;
 	}
 }

@@ -4,10 +4,10 @@ namespace YURI_Overlay;
 
 internal sealed class EndemicLifeDynamicUiSettingsCustomization : Customization
 {
-	public bool? AddModelRadiusToWorldOffsetY = null;
+	public bool? AddModelRadiusToWorldOffsetY;
 
-	public bool? OpacityFalloff = null;
-	public float? MaxDistance = null;
+	public bool? OpacityFalloff;
+	public float? MaxDistance;
 
 	public bool RenderImGui(string? parentName = "", EndemicLifeDynamicUiSettingsCustomization? defaultCustomization = null)
 	{
@@ -16,15 +16,15 @@ internal sealed class EndemicLifeDynamicUiSettingsCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-settings";
 
-		if (ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox(
 				$"{localization.AddModelRadiusToWorldOffsetY}##{customizationName}",
-				ref AddModelRadiusToWorldOffsetY,
+				ref this.AddModelRadiusToWorldOffsetY,
 				defaultCustomization?.AddModelRadiusToWorldOffsetY
 			);
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.OpacityFalloff}##{customizationName}", ref OpacityFalloff, defaultCustomization?.OpacityFalloff);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MaxDistance}##{customizationName}", ref MaxDistance, 0.1f, 0, 65536f, "%.1f", defaultCustomization?.MaxDistance);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.OpacityFalloff}##{customizationName}", ref this.OpacityFalloff, defaultCustomization?.OpacityFalloff);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MaxDistance}##{customizationName}", ref this.MaxDistance, 0.1f, 0, 65536f, "%.1f", defaultCustomization?.MaxDistance);
 
 			ImGui.TreePop();
 		}
@@ -34,11 +34,13 @@ internal sealed class EndemicLifeDynamicUiSettingsCustomization : Customization
 
 	public void Reset(EndemicLifeDynamicUiSettingsCustomization? defaultCustomization = null)
 	{
-		if (defaultCustomization is null)
+		if(defaultCustomization is null)
+		{
 			return;
+		}
 
-		AddModelRadiusToWorldOffsetY = defaultCustomization.AddModelRadiusToWorldOffsetY;
-		OpacityFalloff = defaultCustomization.OpacityFalloff;
-		MaxDistance = defaultCustomization.MaxDistance;
+		this.AddModelRadiusToWorldOffsetY = defaultCustomization.AddModelRadiusToWorldOffsetY;
+		this.OpacityFalloff = defaultCustomization.OpacityFalloff;
+		this.MaxDistance = defaultCustomization.MaxDistance;
 	}
 }

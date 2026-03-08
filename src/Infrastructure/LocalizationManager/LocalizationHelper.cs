@@ -31,15 +31,15 @@ internal sealed class LocalizationHelper
 	{
 		var localizationManager = LocalizationManager.Instance;
 
-		localizationManager.ActiveLocalizationChanged += OnActiveLocalizationChanged;
+		localizationManager.ActiveLocalizationChanged += this.OnActiveLocalizationChanged;
 
 		var defaultLocalization = localizationManager.DefaultLocalization.Data.ImGui;
 
-		DefaultFillDirections = [defaultLocalization.LeftToRight, defaultLocalization.RightToLeft, defaultLocalization.TopToBottom, defaultLocalization.BottomToTop];
+		this.DefaultFillDirections = [defaultLocalization.LeftToRight, defaultLocalization.RightToLeft, defaultLocalization.TopToBottom, defaultLocalization.BottomToTop];
 
-		DefaultOutlineStyles = [defaultLocalization.Inside, defaultLocalization.Center, defaultLocalization.Outside];
+		this.DefaultOutlineStyles = [defaultLocalization.Inside, defaultLocalization.Center, defaultLocalization.Outside];
 
-		DefaultSortings =
+		this.DefaultSortings =
 		[
 			defaultLocalization.Id,
 			defaultLocalization.Name,
@@ -49,7 +49,7 @@ internal sealed class LocalizationHelper
 			defaultLocalization.Distance,
 		];
 
-		DefaultSortings =
+		this.DefaultSortings =
 		[
 			defaultLocalization.Id,
 			defaultLocalization.Name,
@@ -61,7 +61,7 @@ internal sealed class LocalizationHelper
 			defaultLocalization.DPSPercentage,
 		];
 
-		DefaultPriorities =
+		this.DefaultPriorities =
 		[
 			defaultLocalization.Higher3,
 			defaultLocalization.Higher2,
@@ -72,7 +72,7 @@ internal sealed class LocalizationHelper
 			defaultLocalization.Lower3,
 		];
 
-		DefaultAnchors =
+		this.DefaultAnchors =
 		[
 			defaultLocalization.TopLeft,
 			defaultLocalization.TopCenter,
@@ -85,22 +85,22 @@ internal sealed class LocalizationHelper
 			defaultLocalization.BottomRight,
 		];
 
-		DefinedByLocalization = defaultLocalization.DefinedByLocalization.Replace(" ", "");
+		this.DefinedByLocalization = defaultLocalization.DefinedByLocalization.Replace(" ", "");
 
-		Update();
+		this.Update();
 	}
 
 	public void Update()
 	{
 		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
-		FillDirections = [localization.LeftToRight, localization.RightToLeft, localization.TopToBottom, localization.BottomToTop];
+		this.FillDirections = [localization.LeftToRight, localization.RightToLeft, localization.TopToBottom, localization.BottomToTop];
 
-		OutlineStyles = [localization.Inside, localization.Center, localization.Outside];
+		this.OutlineStyles = [localization.Inside, localization.Center, localization.Outside];
 
-		Sortings = [localization.Id, localization.Name, localization.Health, localization.MaxHealth, localization.HealthPercentage, localization.Distance];
+		this.Sortings = [localization.Id, localization.Name, localization.Health, localization.MaxHealth, localization.HealthPercentage, localization.Distance];
 
-		DamageMeterSortings =
+		this.DamageMeterSortings =
 		[
 			localization.Id,
 			localization.Name,
@@ -112,9 +112,9 @@ internal sealed class LocalizationHelper
 			localization.DPSPercentage,
 		];
 
-		Priorities = [localization.Higher3, localization.Higher2, localization.Higher1, localization.Normal, localization.Lower1, localization.Lower2, localization.Lower3];
+		this.Priorities = [localization.Higher3, localization.Higher2, localization.Higher1, localization.Normal, localization.Lower1, localization.Lower2, localization.Lower3];
 
-		Anchors =
+		this.Anchors =
 		[
 			localization.TopLeft,
 			localization.TopCenter,
@@ -127,11 +127,11 @@ internal sealed class LocalizationHelper
 			localization.BottomRight,
 		];
 
-		DefinedByLocalization = localization.DefinedByLocalization;
+		this.DefinedByLocalization = localization.DefinedByLocalization;
 	}
 
 	private void OnActiveLocalizationChanged(object? sender, EventArgs e)
 	{
-		Update();
+		this.Update();
 	}
 }

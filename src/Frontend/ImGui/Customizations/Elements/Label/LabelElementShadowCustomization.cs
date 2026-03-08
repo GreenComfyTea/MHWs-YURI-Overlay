@@ -4,7 +4,7 @@ namespace YURI_Overlay;
 
 internal sealed class LabelElementShadowCustomization : Customization
 {
-	public bool? Visible = null;
+	public bool? Visible;
 	public OffsetCustomization Offset = new();
 	public ColorCustomization Color = new();
 
@@ -15,12 +15,12 @@ internal sealed class LabelElementShadowCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-shadow";
 
-		if (ImGuiHelper.ResettableTreeNode(localization.Shadow, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.Shadow, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{parentName}", ref Visible, defaultCustomization?.Visible);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{parentName}", ref this.Visible, defaultCustomization?.Visible);
 
-			isChanged |= Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
-			isChanged |= Color.RenderImGui(customizationName, defaultCustomization?.Color);
+			isChanged |= this.Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
+			isChanged |= this.Color.RenderImGui(customizationName, defaultCustomization?.Color);
 
 			ImGui.TreePop();
 		}
@@ -30,11 +30,13 @@ internal sealed class LabelElementShadowCustomization : Customization
 
 	public void Reset(LabelElementShadowCustomization? defaultCustomization = null)
 	{
-		if (defaultCustomization is null)
+		if(defaultCustomization is null)
+		{
 			return;
+		}
 
-		Visible = defaultCustomization.Visible;
-		Offset.Reset(defaultCustomization.Offset);
-		Color.Reset(defaultCustomization.Color);
+		this.Visible = defaultCustomization.Visible;
+		this.Offset.Reset(defaultCustomization.Offset);
+		this.Color.Reset(defaultCustomization.Color);
 	}
 }

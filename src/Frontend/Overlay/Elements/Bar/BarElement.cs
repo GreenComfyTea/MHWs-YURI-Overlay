@@ -57,71 +57,68 @@ internal sealed class BarElement
 
 	public BarElement()
 	{
-		_customizationAccessor = () => new BarElementCustomization();
+		this._customizationAccessor = () => new BarElementCustomization();
 	}
 
 	public BarElement(Func<BarElementCustomization?> customizationAccessor)
 	{
-		_customizationAccessor = customizationAccessor;
+		this._customizationAccessor = customizationAccessor;
 	}
 
 	public void Draw(ImDrawListPtr drawList, Vector2 position, float progress = 0.5f, float opacityScale = 1f)
 	{
-		var customization = _customizationAccessor();
+		var customization = this._customizationAccessor();
 
-		if (customization?.Visible != true)
+		if(customization?.Visible != true)
+		{
 			return;
+		}
 
 		progress = Math.Clamp(progress, 0f, 1f);
-		if (customization.Settings.Inverted == true)
+
+		if(customization.Settings.Inverted == true)
+		{
 			progress = 1 - progress;
+		}
 
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
 
 		var outline = customization.Outline;
 		var outlineThickness = (outline.Thickness ?? 1f) * sizeScaleModifier;
 
-		UpdateByPosition1(position);
-		UpdateByProgress2(progress);
-		UpdateByOpacity3(opacityScale);
-		Update4();
+		this.UpdateByPosition1(position);
+		this.UpdateByProgress2(progress);
+		this.UpdateByOpacity3(opacityScale);
+		this.Update4();
 
 		// Background
 
-		drawList.AddRectFilledMultiColor(
-			_backgroundTopLeft,
-			_backgroundBottomRight,
-			_backgroundColorTopLeft,
-			_backgroundColorTopRight,
-			_backgroundColorBottomRight,
-			_backgroundColorBottomLeft
+		drawList.AddRectFilledMultiColor(this._backgroundTopLeft, this._backgroundBottomRight, this._backgroundColorTopLeft, this._backgroundColorTopRight, this._backgroundColorBottomRight,
+			this._backgroundColorBottomLeft
 		);
 
 		// Foreground
 
-		drawList.AddRectFilledMultiColor(
-			_foregroundTopLeft,
-			_foregroundBottomRight,
-			_foregroundColorTopLeft,
-			_foregroundColorTopRight,
-			_foregroundColorBottomRight,
-			_foregroundColorBottomLeft
+		drawList.AddRectFilledMultiColor(this._foregroundTopLeft, this._foregroundBottomRight, this._foregroundColorTopLeft, this._foregroundColorTopRight, this._foregroundColorBottomRight,
+			this._foregroundColorBottomLeft
 		);
 
 		// Outline
 
-		if (outline.Visible == true && outlineThickness > 0f)
+		if(outline.Visible == true && outlineThickness > 0f)
 		{
-			drawList.AddRect(_outlineTopLeft, _outlineBottomRight, _outlineColor, 0f, ImDrawFlags.None, outlineThickness);
+			drawList.AddRect(this._outlineTopLeft, this._outlineBottomRight, this._outlineColor, 0f, ImDrawFlags.None, outlineThickness);
 		}
 	}
 
 	private void UpdateByPosition1(Vector2 position, bool disableCaching = false)
 	{
-		var customization = _customizationAccessor();
+		var customization = this._customizationAccessor();
 
-		if (customization is null)
+		if(customization is null)
+		{
 			return;
+		}
 
 		var offset = customization.Offset;
 		var size = customization.Size;
@@ -150,58 +147,60 @@ internal sealed class BarElement
 		outlineThickness *= sizeScaleModifier;
 		outlineOffset *= sizeScaleModifier;
 
-		if (!disableCaching && cachingKey == _cashingKeyByPosition1)
+		if(!disableCaching && cachingKey == this._cashingKeyByPosition1)
+		{
 			return;
+		}
 
-		_cashingKeyByPosition1 = cachingKey;
+		this._cashingKeyByPosition1 = cachingKey;
 
 		var halfOutlineThickness = outlineThickness / 2f;
 		var halfOutlineOffset = outlineOffset / 2f;
 
-		switch (outlineStyle)
+		switch(outlineStyle)
 		{
 			case OutlineStyleEnum.Outside:
-				_positionX = position.X + offsetX;
-				_positionY = position.Y + offsetY;
+				this._positionX = position.X + offsetX;
+				this._positionY = position.Y + offsetY;
 
-				_width = width;
-				_height = height;
+				this._width = width;
+				this._height = height;
 
-				_outlinePositionX = _positionX - halfOutlineThickness - outlineOffset;
-				_outlinePositionY = _positionY - halfOutlineThickness - outlineOffset;
+				this._outlinePositionX = this._positionX - halfOutlineThickness - outlineOffset;
+				this._outlinePositionY = this._positionY - halfOutlineThickness - outlineOffset;
 
-				_outlineWidth = _width + outlineThickness + outlineOffset + outlineOffset;
-				_outlineHeight = _height + outlineThickness + outlineOffset + outlineOffset;
+				this._outlineWidth = this._width + outlineThickness + outlineOffset + outlineOffset;
+				this._outlineHeight = this._height + outlineThickness + outlineOffset + outlineOffset;
 
 				break;
 			case OutlineStyleEnum.Center:
-				_outlinePositionX = position.X + offsetX - halfOutlineOffset;
-				_outlinePositionY = position.Y + offsetY - halfOutlineOffset;
+				this._outlinePositionX = position.X + offsetX - halfOutlineOffset;
+				this._outlinePositionY = position.Y + offsetY - halfOutlineOffset;
 
-				_outlineWidth = width + outlineOffset;
-				_outlineHeight = height + outlineOffset;
+				this._outlineWidth = width + outlineOffset;
+				this._outlineHeight = height + outlineOffset;
 
-				_positionX = _outlinePositionX + halfOutlineThickness + outlineOffset;
-				_positionY = _outlinePositionY + halfOutlineThickness + outlineOffset;
+				this._positionX = this._outlinePositionX + halfOutlineThickness + outlineOffset;
+				this._positionY = this._outlinePositionY + halfOutlineThickness + outlineOffset;
 
-				_width = _outlineWidth - outlineThickness - outlineOffset - outlineOffset;
-				_height = _outlineHeight - outlineThickness - outlineOffset - outlineOffset;
+				this._width = this._outlineWidth - outlineThickness - outlineOffset - outlineOffset;
+				this._height = this._outlineHeight - outlineThickness - outlineOffset - outlineOffset;
 
 				break;
 
 			case OutlineStyleEnum.Inside:
 			default:
-				_outlinePositionX = position.X + offsetX + halfOutlineThickness;
-				_outlinePositionY = position.Y + offsetY + halfOutlineThickness;
+				this._outlinePositionX = position.X + offsetX + halfOutlineThickness;
+				this._outlinePositionY = position.Y + offsetY + halfOutlineThickness;
 
-				_outlineWidth = width - outlineThickness;
-				_outlineHeight = height - outlineThickness;
+				this._outlineWidth = width - outlineThickness;
+				this._outlineHeight = height - outlineThickness;
 
-				_positionX = _outlinePositionX + halfOutlineThickness + outlineOffset;
-				_positionY = _outlinePositionY + halfOutlineThickness + outlineOffset;
+				this._positionX = this._outlinePositionX + halfOutlineThickness + outlineOffset;
+				this._positionY = this._outlinePositionY + halfOutlineThickness + outlineOffset;
 
-				_width = _outlineWidth - outlineThickness - outlineOffset - outlineOffset;
-				_height = _outlineHeight - outlineThickness - outlineOffset - outlineOffset;
+				this._width = this._outlineWidth - outlineThickness - outlineOffset - outlineOffset;
+				this._height = this._outlineHeight - outlineThickness - outlineOffset - outlineOffset;
 
 				break;
 		}
@@ -209,60 +208,65 @@ internal sealed class BarElement
 
 	private void UpdateByProgress2(float progress = 0.5f, bool disableCaching = false)
 	{
-		var customization = _customizationAccessor();
+		var customization = this._customizationAccessor();
 
-		if (customization is null)
+		if(customization is null)
+		{
 			return;
+		}
 
 		var fillDirection = customization.Settings.FillDirection ?? FillDirectionEnum.LeftToRight;
 
-		var cachingKey = (fillDirection, _width, _height, progress);
+		var cachingKey = (fillDirection, this._width, this._height, progress);
 
-		if (!disableCaching && cachingKey == _cashingKeyByProgress2)
+		if(!disableCaching && cachingKey == this._cashingKeyByProgress2)
+		{
 			return;
+		}
 
-		_cashingKeyByProgress2 = cachingKey;
+		this._cashingKeyByProgress2 = cachingKey;
 
-		switch (fillDirection)
+		switch(fillDirection)
 		{
 			case FillDirectionEnum.RightToLeft:
-				_foregroundWidth = _width * progress;
-				_foregroundHeight = _height;
+				this._foregroundWidth = this._width * progress;
+				this._foregroundHeight = this._height;
 
-				_backgroundWidth = _width - _foregroundWidth;
-				_backgroundHeight = _height;
+				this._backgroundWidth = this._width - this._foregroundWidth;
+				this._backgroundHeight = this._height;
 
-				_foregroundShiftX = _backgroundWidth;
+				this._foregroundShiftX = this._backgroundWidth;
+
 				break;
 			case FillDirectionEnum.TopToBottom:
-				_foregroundWidth = _width;
-				_foregroundHeight = _height * progress;
+				this._foregroundWidth = this._width;
+				this._foregroundHeight = this._height * progress;
 
-				_backgroundWidth = _width;
-				_backgroundHeight = _height - _foregroundHeight;
+				this._backgroundWidth = this._width;
+				this._backgroundHeight = this._height - this._foregroundHeight;
 
-				_backgroundShiftY = _foregroundHeight;
+				this._backgroundShiftY = this._foregroundHeight;
 
 				break;
 			case FillDirectionEnum.BottomToTop:
-				_foregroundWidth = _width;
-				_foregroundHeight = _height * progress;
+				this._foregroundWidth = this._width;
+				this._foregroundHeight = this._height * progress;
 
-				_backgroundWidth = _width;
-				_backgroundHeight = _height - _foregroundHeight;
+				this._backgroundWidth = this._width;
+				this._backgroundHeight = this._height - this._foregroundHeight;
 
-				_foregroundShiftY = _backgroundHeight;
+				this._foregroundShiftY = this._backgroundHeight;
 
 				break;
 			case FillDirectionEnum.LeftToRight:
 			default:
-				_foregroundWidth = _width * progress;
-				_foregroundHeight = _height;
+				this._foregroundWidth = this._width * progress;
+				this._foregroundHeight = this._height;
 
-				_backgroundWidth = _width - _foregroundWidth;
-				_backgroundHeight = _height;
+				this._backgroundWidth = this._width - this._foregroundWidth;
+				this._backgroundHeight = this._height;
 
-				_backgroundShiftX = _foregroundWidth;
+				this._backgroundShiftX = this._foregroundWidth;
 
 				break;
 		}
@@ -270,114 +274,123 @@ internal sealed class BarElement
 
 	private void UpdateByOpacity3(float opacityScale = 1f)
 	{
-		var customization = _customizationAccessor();
-		if (customization is null)
+		var customization = this._customizationAccessor();
+
+		if(customization is null)
+		{
 			return;
+		}
 
 		var colors = customization.Colors;
 		var backgroundColor = colors.Background;
 		var foregroundColor = colors.Foreground;
 
-		switch (customization.Settings.FillDirection)
+		switch(customization.Settings.FillDirection)
 		{
 			case FillDirectionEnum.RightToLeft:
-				_backgroundColorTopRight = backgroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
-				_backgroundColorBottomRight = backgroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
+				this._backgroundColorTopRight = backgroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
+				this._backgroundColorBottomRight = backgroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_backgroundColorTopLeft = backgroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
-				_backgroundColorBottomLeft = backgroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
+				this._backgroundColorTopLeft = backgroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
+				this._backgroundColorBottomLeft = backgroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_foregroundColorTopRight = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
-				_foregroundColorBottomRight = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
+				this._foregroundColorTopRight = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
+				this._foregroundColorBottomRight = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
 
-				_foregroundColorTopLeft = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
-				_foregroundColorBottomLeft = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
+				this._foregroundColorTopLeft = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
+				this._foregroundColorBottomLeft = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
+
 				break;
 			case FillDirectionEnum.TopToBottom:
-				_backgroundColorTopLeft = backgroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
-				_backgroundColorTopRight = backgroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
+				this._backgroundColorTopLeft = backgroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
+				this._backgroundColorTopRight = backgroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_backgroundColorBottomLeft = backgroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
-				_backgroundColorBottomRight = backgroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
+				this._backgroundColorBottomLeft = backgroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
+				this._backgroundColorBottomRight = backgroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_foregroundColorTopLeft = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
-				_foregroundColorTopRight = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
+				this._foregroundColorTopLeft = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
+				this._foregroundColorTopRight = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
 
-				_foregroundColorBottomLeft = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
-				_foregroundColorBottomRight = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
+				this._foregroundColorBottomLeft = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
+				this._foregroundColorBottomRight = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
+
 				break;
 			case FillDirectionEnum.BottomToTop:
-				_backgroundColorBottomLeft = backgroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
-				_backgroundColorBottomRight = backgroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
+				this._backgroundColorBottomLeft = backgroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
+				this._backgroundColorBottomRight = backgroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_backgroundColorTopLeft = backgroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
-				_backgroundColorTopRight = backgroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
+				this._backgroundColorTopLeft = backgroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
+				this._backgroundColorTopRight = backgroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_foregroundColorBottomLeft = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
-				_foregroundColorBottomRight = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
+				this._foregroundColorBottomLeft = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
+				this._foregroundColorBottomRight = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
 
-				_foregroundColorTopLeft = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
-				_foregroundColorTopRight = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
+				this._foregroundColorTopLeft = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
+				this._foregroundColorTopRight = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
+
 				break;
 			case FillDirectionEnum.LeftToRight:
 			default:
-				_backgroundColorTopLeft = backgroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
-				_backgroundColorBottomLeft = backgroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
+				this._backgroundColorTopLeft = backgroundColor.Start.ColorInfo1?.Abgr ?? 0xFF000000;
+				this._backgroundColorBottomLeft = backgroundColor.Start.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_backgroundColorTopRight = backgroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
-				_backgroundColorBottomRight = backgroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
+				this._backgroundColorTopRight = backgroundColor.End.ColorInfo1?.Abgr ?? 0xFF000000;
+				this._backgroundColorBottomRight = backgroundColor.End.ColorInfo2?.Abgr ?? 0xFF000000;
 
-				_foregroundColorTopLeft = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
-				_foregroundColorBottomLeft = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
+				this._foregroundColorTopLeft = foregroundColor.Start.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
+				this._foregroundColorBottomLeft = foregroundColor.Start.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
 
-				_foregroundColorTopRight = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
-				_foregroundColorBottomRight = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
+				this._foregroundColorTopRight = foregroundColor.End.ColorInfo1?.Abgr ?? 0xFFFFFFFF;
+				this._foregroundColorBottomRight = foregroundColor.End.ColorInfo2?.Abgr ?? 0xFFFFFFFF;
+
 				break;
 		}
 
-		_outlineColor = customization.Outline.Color.ColorInfo?.Abgr ?? 0xFF000000;
+		this._outlineColor = customization.Outline.Color.ColorInfo?.Abgr ?? 0xFF000000;
 
-		if (Utils.IsApproximatelyEqual(opacityScale, 1f))
+		if(Utils.IsApproximatelyEqual(opacityScale, 1f))
+		{
 			return;
+		}
 
-		_backgroundColorTopLeft = Utils.ScaleColorOpacityAbgr(_backgroundColorTopLeft, opacityScale);
-		_backgroundColorTopRight = Utils.ScaleColorOpacityAbgr(_backgroundColorTopRight, opacityScale);
+		this._backgroundColorTopLeft = Utils.ScaleColorOpacityAbgr(this._backgroundColorTopLeft, opacityScale);
+		this._backgroundColorTopRight = Utils.ScaleColorOpacityAbgr(this._backgroundColorTopRight, opacityScale);
 
-		_backgroundColorBottomRight = Utils.ScaleColorOpacityAbgr(_backgroundColorBottomRight, opacityScale);
-		_backgroundColorBottomLeft = Utils.ScaleColorOpacityAbgr(_backgroundColorBottomLeft, opacityScale);
+		this._backgroundColorBottomRight = Utils.ScaleColorOpacityAbgr(this._backgroundColorBottomRight, opacityScale);
+		this._backgroundColorBottomLeft = Utils.ScaleColorOpacityAbgr(this._backgroundColorBottomLeft, opacityScale);
 
-		_foregroundColorTopLeft = Utils.ScaleColorOpacityAbgr(_foregroundColorTopLeft, opacityScale);
-		_foregroundColorTopRight = Utils.ScaleColorOpacityAbgr(_foregroundColorTopRight, opacityScale);
+		this._foregroundColorTopLeft = Utils.ScaleColorOpacityAbgr(this._foregroundColorTopLeft, opacityScale);
+		this._foregroundColorTopRight = Utils.ScaleColorOpacityAbgr(this._foregroundColorTopRight, opacityScale);
 
-		_foregroundColorBottomRight = Utils.ScaleColorOpacityAbgr(_foregroundColorBottomRight, opacityScale);
-		_foregroundColorBottomLeft = Utils.ScaleColorOpacityAbgr(_foregroundColorBottomLeft, opacityScale);
+		this._foregroundColorBottomRight = Utils.ScaleColorOpacityAbgr(this._foregroundColorBottomRight, opacityScale);
+		this._foregroundColorBottomLeft = Utils.ScaleColorOpacityAbgr(this._foregroundColorBottomLeft, opacityScale);
 
-		_outlineColor = Utils.ScaleColorOpacityAbgr(_outlineColor, opacityScale);
+		this._outlineColor = Utils.ScaleColorOpacityAbgr(this._outlineColor, opacityScale);
 	}
 
 	private void Update4()
 	{
-		var customization = _customizationAccessor();
+		var customization = this._customizationAccessor();
 
 		// Background
 
-		_backgroundTopLeft = new Vector2(_positionX + _backgroundShiftX, _positionY + _backgroundShiftY);
+		this._backgroundTopLeft = new Vector2(this._positionX + this._backgroundShiftX, this._positionY + this._backgroundShiftY);
 
-		_backgroundBottomRight = new Vector2(_backgroundTopLeft.X + _backgroundWidth, _backgroundTopLeft.Y + _backgroundHeight);
+		this._backgroundBottomRight = new Vector2(this._backgroundTopLeft.X + this._backgroundWidth, this._backgroundTopLeft.Y + this._backgroundHeight);
 
 		// Foreground
 
-		_foregroundTopLeft = new Vector2(_positionX + _foregroundShiftX, _positionY + _foregroundShiftY);
+		this._foregroundTopLeft = new Vector2(this._positionX + this._foregroundShiftX, this._positionY + this._foregroundShiftY);
 
-		_foregroundBottomRight = new Vector2(_foregroundTopLeft.X + _foregroundWidth, _foregroundTopLeft.Y + _foregroundHeight);
+		this._foregroundBottomRight = new Vector2(this._foregroundTopLeft.X + this._foregroundWidth, this._foregroundTopLeft.Y + this._foregroundHeight);
 
 		// Outline
 
-		if (customization?.Outline.Thickness > 0f)
+		if(customization?.Outline.Thickness > 0f)
 		{
-			_outlineTopLeft = new Vector2(_outlinePositionX, _outlinePositionY);
+			this._outlineTopLeft = new Vector2(this._outlinePositionX, this._outlinePositionY);
 
-			_outlineBottomRight = new Vector2(_outlinePositionX + _outlineWidth, _outlinePositionY + _outlineHeight);
+			this._outlineBottomRight = new Vector2(this._outlinePositionX + this._outlineWidth, this._outlinePositionY + this._outlineHeight);
 		}
 	}
 }

@@ -16,15 +16,13 @@ internal sealed class DamageMeterManager : IDisposable
 
 	public TotalDamageEntity TotalDamage = new();
 
-	public DamageMeterManager() { }
-
 	public void Initialize()
 	{
 		LogManager.Info("[DamageMeterManager] Initializing...");
 
-		InitializeLocalPlayer();
+		this.InitializeLocalPlayer();
 
-		PlayerManager.Instance.MasterPlayerChanged += OnMasterPlayerChanged;
+		PlayerManager.Instance.MasterPlayerChanged += this.OnMasterPlayerChanged;
 
 		var typeDef = TDB.Get().GetType("app.cEnemyStockDamage");
 		var method = typeDef.GetMethod("calcPreStockDamage");
@@ -38,33 +36,33 @@ internal sealed class DamageMeterManager : IDisposable
 	{
 		LogManager.Info("[DamageMeterManager] Disposing...");
 
-		LocalPlayer?.Dispose();
+		this.LocalPlayer?.Dispose();
 
-		foreach (var otherPlayerPair in OtherPlayers)
+		foreach(var otherPlayerPair in this.OtherPlayers)
 		{
 			otherPlayerPair.Value.Dispose();
 		}
 
-		foreach (var supportHunterPair in SupportHunters)
+		foreach(var supportHunterPair in this.SupportHunters)
 		{
 			supportHunterPair.Value.Dispose();
 		}
 
-		PlayerManager.Instance.MasterPlayerChanged -= OnMasterPlayerChanged;
+		PlayerManager.Instance.MasterPlayerChanged -= this.OnMasterPlayerChanged;
 
 		LogManager.Info("[DamageMeterManager] Disposed!");
 	}
 
 	public void Update()
 	{
-		LocalPlayer?.Update();
+		this.LocalPlayer?.Update();
 
-		foreach (var otherPlayer in OtherPlayers.Values)
+		foreach(var otherPlayer in this.OtherPlayers.Values)
 		{
 			//otherPlayer.Update();
 		}
 
-		foreach (var supportHunter in SupportHunters.Values)
+		foreach(var supportHunter in this.SupportHunters.Values)
 		{
 			//supportHunter.Update();
 		}
@@ -74,17 +72,22 @@ internal sealed class DamageMeterManager : IDisposable
 	{
 		var playerManagerMasterPlayer = PlayerManager.Instance.MasterPlayer;
 
-		if (playerManagerMasterPlayer is null)
+		if(playerManagerMasterPlayer is null)
+		{
 			return;
-		if (LocalPlayer is not null && LocalPlayer.PlayerManageInfo == playerManagerMasterPlayer)
-			return;
+		}
 
-		LocalPlayer = new LocalPlayer(playerManagerMasterPlayer);
+		if(this.LocalPlayer is not null && this.LocalPlayer.PlayerManageInfo == playerManagerMasterPlayer)
+		{
+			return;
+		}
+
+		this.LocalPlayer = new LocalPlayer(playerManagerMasterPlayer);
 	}
 
 	private void OnMasterPlayerChanged(object? sender, EventArgs e)
 	{
-		InitializeLocalPlayer();
+		this.InitializeLocalPlayer();
 	}
 
 	//[MethodHook(typeof(MissionManager), nameof(MissionManager.addQuestAwardAmount), MethodHookType.Post)]
@@ -94,7 +97,7 @@ internal sealed class DamageMeterManager : IDisposable
 		{
 			Instance.LocalPlayer?.UpdateAwardDamage();
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -108,15 +111,17 @@ internal sealed class DamageMeterManager : IDisposable
 		var hitInfoPtr = args[1];
 
 		var hitInfoManagedObject = ManagedObject.ToManagedObject(hitInfoPtr);
-		if (hitInfoManagedObject is null)
+
+		if(hitInfoManagedObject is null)
 		{
 			LogManager.Warn("[DamageMeterManager.OnPreCopy] No hitInfoManagedObject");
+
 			return PreHookResult.Continue;
 		}
 
 		var hitInfo = hitInfoManagedObject.As<HitInfo>();
 
-		if (processedHitInfos.Contains(hitInfoPtr))
+		if(processedHitInfos.Contains(hitInfoPtr))
 		{
 			return PreHookResult.Continue;
 		}
@@ -140,11 +145,14 @@ internal sealed class DamageMeterManager : IDisposable
 
 		try
 		{
-			if (args[5] != 0)
+			if(args[5] != 0)
+			{
 				return PreHookResult.Continue;
+			}
 
 			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Called {args.Length}");
-			for (var i = 0; i < args.Length; i++)
+
+			for(var i = 0; i < args.Length; i++)
 			{
 				LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Arg {i}: {args[i]} Managed {ManagedObject.IsManagedObject(args[i])}");
 			}
@@ -152,9 +160,11 @@ internal sealed class DamageMeterManager : IDisposable
 			var enemyStockDamagePtr = args[1];
 
 			var enemyStockDamageManagedObject = ManagedObject.ToManagedObject(enemyStockDamagePtr);
-			if (enemyStockDamageManagedObject is null)
+
+			if(enemyStockDamageManagedObject is null)
 			{
 				LogManager.Warn("[DamageMeterManager.OnPreEnemyStockDamage] No enemyStockDamageManagedObject");
+
 				return PreHookResult.Continue;
 			}
 
@@ -164,9 +174,10 @@ internal sealed class DamageMeterManager : IDisposable
 
 			return PreHookResult.Continue;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
+
 			return PreHookResult.Continue;
 		}
 	}

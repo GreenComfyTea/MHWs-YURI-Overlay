@@ -4,30 +4,30 @@ namespace YURI_Overlay;
 
 internal sealed class FileSync
 {
-	public string PathFileName;
+	public readonly string pathFileName;
 
 	public FileSync(string pathFileName)
 	{
-		PathFileName = pathFileName;
+		this.pathFileName = pathFileName;
 	}
 
 	public string Read()
 	{
-		return File.Exists(PathFileName) ? ReadFromFile() : Constants.EmptyJson;
+		return File.Exists(this.pathFileName) ? this.ReadFromFile() : Constants.EMPTY_JSON;
 	}
 
 	public bool Write(string json)
 	{
-		return WriteToFile(json);
+		return this.WriteToFile(json);
 	}
 
 	public void Delete()
 	{
 		try
 		{
-			File.Delete(PathFileName);
+			File.Delete(this.pathFileName);
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -37,16 +37,17 @@ internal sealed class FileSync
 	{
 		try
 		{
-			using var file = File.Open(PathFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+			using var file = File.Open(this.pathFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 			using StreamReader streamReader = new(file);
 			var content = streamReader.ReadToEnd();
 
 			return content;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
-			return Constants.EmptyJson;
+
+			return Constants.EMPTY_JSON;
 		}
 	}
 
@@ -54,9 +55,9 @@ internal sealed class FileSync
 	{
 		try
 		{
-			Directory.CreateDirectory(Path.GetDirectoryName(PathFileName)!);
+			Directory.CreateDirectory(Path.GetDirectoryName(this.pathFileName)!);
 
-			using var file = File.Open(PathFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
+			using var file = File.Open(this.pathFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
 
 			using StreamWriter streamWriter = new(file, Encoding.UTF8);
 			streamWriter.AutoFlush = true;
@@ -67,9 +68,10 @@ internal sealed class FileSync
 
 			return true;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
+
 			return false;
 		}
 	}

@@ -7,31 +7,31 @@ internal sealed class LargeMonsterStaticUiSortingCustomization : Customization
 {
 	public bool? ReversedOrder;
 
-	private int? _typeIndex = null;
+	private int? _typeIndex;
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public SortingEnum? Type
 	{
-		get => _typeIndex.HasValue ? (SortingEnum)_typeIndex : null;
-		set => _typeIndex = value.HasValue ? (int)value.Value : null;
+		get => this._typeIndex.HasValue ? (SortingEnum) this._typeIndex : null;
+		set => this._typeIndex = value.HasValue ? (int) value.Value : null;
 	}
 
-	private int? _targetedMonsterPriorityIndex = null;
+	private int? _targetedMonsterPriorityIndex;
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public PriorityEnum? TargetedMonsterPriority
 	{
-		get => _targetedMonsterPriorityIndex.HasValue ? (PriorityEnum)_targetedMonsterPriorityIndex : null;
-		set => _targetedMonsterPriorityIndex = value.HasValue ? (int)value.Value : null;
+		get => this._targetedMonsterPriorityIndex.HasValue ? (PriorityEnum) this._targetedMonsterPriorityIndex : null;
+		set => this._targetedMonsterPriorityIndex = value.HasValue ? (int) value.Value : null;
 	}
 
-	private int? _pinnedMonsterPriorityIndex = null;
+	private int? _pinnedMonsterPriorityIndex;
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public PriorityEnum? PinnedMonsterPriority
 	{
-		get => _pinnedMonsterPriorityIndex.HasValue ? (PriorityEnum)_pinnedMonsterPriorityIndex.Value : null;
-		set => _pinnedMonsterPriorityIndex = value.HasValue ? (int)value.Value : null;
+		get => this._pinnedMonsterPriorityIndex.HasValue ? (PriorityEnum) this._pinnedMonsterPriorityIndex.Value : null;
+		set => this._pinnedMonsterPriorityIndex = value.HasValue ? (int) value.Value : null;
 	}
 
 	public bool RenderImGui(string? parentName = "", LargeMonsterStaticUiSortingCustomization? defaultCustomization = null)
@@ -42,19 +42,21 @@ internal sealed class LargeMonsterStaticUiSortingCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-settings";
 
-		if (ImGuiHelper.ResettableTreeNode(localization.Sorting, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.Sorting, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.ReversedOrder}##{customizationName}", ref ReversedOrder, defaultCustomization?.ReversedOrder);
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Type}##{customizationName}", ref _typeIndex, localizationHelper.Sortings, defaultCustomization?._typeIndex);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.ReversedOrder}##{customizationName}", ref this.ReversedOrder, defaultCustomization?.ReversedOrder);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Type}##{customizationName}", ref this._typeIndex, localizationHelper.Sortings, defaultCustomization?._typeIndex);
+
 			isChanged |= ImGuiHelper.ResettableCombo(
 				$"{localization.TargetedMonsterPriority}##{customizationName}",
-				ref _targetedMonsterPriorityIndex,
+				ref this._targetedMonsterPriorityIndex,
 				localizationHelper.Priorities,
 				defaultCustomization?._targetedMonsterPriorityIndex
 			);
+
 			isChanged |= ImGuiHelper.ResettableCombo(
 				$"{localization.PinnedMonsterPriority}##{customizationName}",
-				ref _pinnedMonsterPriorityIndex,
+				ref this._pinnedMonsterPriorityIndex,
 				localizationHelper.Priorities,
 				defaultCustomization?._pinnedMonsterPriorityIndex
 			);
@@ -67,12 +69,14 @@ internal sealed class LargeMonsterStaticUiSortingCustomization : Customization
 
 	public void Reset(LargeMonsterStaticUiSortingCustomization? defaultCustomization = null)
 	{
-		if (defaultCustomization is null)
+		if(defaultCustomization is null)
+		{
 			return;
+		}
 
-		ReversedOrder = defaultCustomization.ReversedOrder;
-		Type = defaultCustomization.Type;
-		TargetedMonsterPriority = defaultCustomization.TargetedMonsterPriority;
-		PinnedMonsterPriority = defaultCustomization.PinnedMonsterPriority;
+		this.ReversedOrder = defaultCustomization.ReversedOrder;
+		this.Type = defaultCustomization.Type;
+		this.TargetedMonsterPriority = defaultCustomization.TargetedMonsterPriority;
+		this.PinnedMonsterPriority = defaultCustomization.PinnedMonsterPriority;
 	}
 }

@@ -11,32 +11,36 @@ internal sealed class DamageMeterStaticUi
 	public DamageMeterStaticUi(DamageMeterEntity damageMeterEntity)
 	{
 		//_customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data..DamageMeter;
-		_customizationAccessor = () => new DamageMeterStaticUiCustomization();
+		this._customizationAccessor = () => new DamageMeterStaticUiCustomization();
 
-		if (damageMeterEntity.Type == DamageMeterEntityTypeEnum.LocalPlayer)
+		if(damageMeterEntity.Type == DamageMeterEntityTypeEnum.LocalPlayer)
 		{
-			_playerWidget = new DamageMeterPlayerWidget(damageMeterEntity, () => _customizationAccessor()?.LocalPlayer);
+			this._playerWidget = new DamageMeterPlayerWidget(damageMeterEntity, () => this._customizationAccessor()?.LocalPlayer);
+
 			return;
 		}
 
-		if (damageMeterEntity.Type == DamageMeterEntityTypeEnum.OtherPlayer)
+		if(damageMeterEntity.Type == DamageMeterEntityTypeEnum.OtherPlayer)
 		{
-			_playerWidget = new DamageMeterPlayerWidget(damageMeterEntity, () => _customizationAccessor()?.OtherPlayers);
+			this._playerWidget = new DamageMeterPlayerWidget(damageMeterEntity, () => this._customizationAccessor()?.OtherPlayers);
+
 			return;
 		}
 
-		if (damageMeterEntity.Type == DamageMeterEntityTypeEnum.SupportHunter)
+		if(damageMeterEntity.Type == DamageMeterEntityTypeEnum.SupportHunter)
 		{
-			_playerWidget = new DamageMeterPlayerWidget(damageMeterEntity, () => _customizationAccessor()?.SupportHunters);
+			this._playerWidget = new DamageMeterPlayerWidget(damageMeterEntity, () => this._customizationAccessor()?.SupportHunters);
 		}
 	}
 
 	public void Draw(ImDrawListPtr drawList, int locationIndex)
 	{
-		var customization = _customizationAccessor.Invoke();
+		var customization = this._customizationAccessor.Invoke();
 
-		if (customization?.Enabled != true)
+		if(customization?.Enabled != true)
+		{
 			return;
+		}
 
 		var spacing = customization.Spacing;
 
@@ -50,6 +54,6 @@ internal sealed class DamageMeterStaticUi
 		position.X += spacing.X ?? 0f * positionScaleModifier * locationIndex;
 		position.Y += spacing.Y ?? 0f * positionScaleModifier * locationIndex;
 
-		_playerWidget?.Draw(drawList, position);
+		this._playerWidget?.Draw(drawList, position);
 	}
 }

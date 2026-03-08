@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Hexa.NET.ImGui;
+﻿using Hexa.NET.ImGui;
 using Timer = System.Timers.Timer;
 
 namespace YURI_Overlay;
@@ -8,43 +7,43 @@ internal sealed class LargeMonsterUiManager : IDisposable
 {
 	private List<LargeMonster> _dynamicLargeMonsters = [];
 	private List<LargeMonster> _staticLargeMonsters = [];
-	private LargeMonster? _targetedLargeMonster = null;
-	private LargeMonster? _pinnedLargeMonster = null;
+	private LargeMonster? _targetedLargeMonster;
+	private LargeMonster? _pinnedLargeMonster;
 
 	private readonly List<Timer> _timers = [];
 
 	public LargeMonsterUiManager()
 	{
-		Initialize();
+		this.Initialize();
 	}
 
 	~LargeMonsterUiManager()
 	{
-		Dispose();
+		this.Dispose();
 	}
 
 	public void Initialize()
 	{
 		LogManager.Info("[LargeMonsterUiManager] Initializing...");
 
-		InitializeTimers();
+		this.InitializeTimers();
 
 		LogManager.Info("[LargeMonsterUiManager] Initialized!");
 	}
 
 	public void Draw(ImDrawListPtr drawList)
 	{
-		DrawDynamicUi(drawList);
-		DrawStaticUi(drawList);
-		DrawTargetedUi(drawList);
-		DrawMapPinUi(drawList);
+		this.DrawDynamicUi(drawList);
+		this.DrawStaticUi(drawList);
+		this.DrawTargetedUi(drawList);
+		this.DrawMapPinUi(drawList);
 	}
 
 	public void Dispose()
 	{
 		LogManager.Info("[LargeMonsterUiManager] Disposing...");
 
-		foreach (var timer in _timers)
+		foreach(var timer in this._timers)
 		{
 			timer.Dispose();
 		}
@@ -56,17 +55,17 @@ internal sealed class LargeMonsterUiManager : IDisposable
 	{
 		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.UIs;
 
-		foreach (var timer in _timers)
+		foreach(var timer in this._timers)
 		{
 			timer.Dispose();
 		}
 
-		_timers.Clear();
+		this._timers.Clear();
 
-		_timers.Add(Timers.SetInterval(UpdateDynamic, Utils.SecondsToMilliseconds(updateDelays.LargeMonsterDynamic)));
-		_timers.Add(Timers.SetInterval(UpdateStatic, Utils.SecondsToMilliseconds(updateDelays.LargeMonsterStatic)));
-		_timers.Add(Timers.SetInterval(UpdateTargeted, Utils.SecondsToMilliseconds(updateDelays.LargeMonsterTargeted)));
-		_timers.Add(Timers.SetInterval(UpdateMapPin, Utils.SecondsToMilliseconds(updateDelays.LargeMonsterMapPin)));
+		this._timers.Add(Timers.SetInterval(this.UpdateDynamic, Utils.SecondsToMilliseconds(updateDelays.LargeMonsterDynamic)));
+		this._timers.Add(Timers.SetInterval(this.UpdateStatic, Utils.SecondsToMilliseconds(updateDelays.LargeMonsterStatic)));
+		this._timers.Add(Timers.SetInterval(this.UpdateTargeted, Utils.SecondsToMilliseconds(updateDelays.LargeMonsterTargeted)));
+		this._timers.Add(Timers.SetInterval(this.UpdateMapPin, Utils.SecondsToMilliseconds(updateDelays.LargeMonsterMapPin)));
 	}
 
 	private void UpdateDynamic()
@@ -74,9 +73,10 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 		var settingsCustomization = customization.Dynamic.Settings;
 
-		if (customization.Enabled != true || customization.Dynamic.Enabled != true)
+		if(customization.Enabled != true || customization.Dynamic.Enabled != true)
 		{
-			_dynamicLargeMonsters = [];
+			this._dynamicLargeMonsters = [];
+
 			return;
 		}
 
@@ -84,22 +84,36 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 		// Filters
 
-		foreach (var largeMonsterPair in MonsterManager.Instance.LargeMonsters)
+		foreach(var largeMonsterPair in MonsterManager.Instance.LargeMonsters)
 		{
 			var largeMonster = largeMonsterPair.Value;
 
-			if (settingsCustomization is not null)
+			if(settingsCustomization is not null)
 			{
-				if (settingsCustomization.RenderDeadMonsters != true && !largeMonster.IsAlive)
+				if(settingsCustomization.RenderDeadMonsters != true && !largeMonster.IsAlive)
+				{
 					continue;
-				if (settingsCustomization.RenderTargetedMonster != true && largeMonster.IsTargeted)
+				}
+
+				if(settingsCustomization.RenderTargetedMonster != true && largeMonster.IsTargeted)
+				{
 					continue;
-				if (settingsCustomization.RenderNonTargetedMonsters != true && !largeMonster.IsTargeted)
+				}
+
+				if(settingsCustomization.RenderNonTargetedMonsters != true && !largeMonster.IsTargeted)
+				{
 					continue;
-				if (settingsCustomization.RenderPinnedMonster != true && largeMonster.IsPinned)
+				}
+
+				if(settingsCustomization.RenderPinnedMonster != true && largeMonster.IsPinned)
+				{
 					continue;
-				if (settingsCustomization.RenderNonPinnedMonsters != true && !largeMonster.IsPinned)
+				}
+
+				if(settingsCustomization.RenderNonPinnedMonsters != true && !largeMonster.IsPinned)
+				{
 					continue;
+				}
 			}
 
 			newLargeMonsters.Add(largeMonster);
@@ -109,7 +123,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		// Closest are drawn last
 		newLargeMonsters.Sort(LargeMonsterDynamicSorting.CompareByDistanceReversed);
 
-		_dynamicLargeMonsters = newLargeMonsters;
+		this._dynamicLargeMonsters = newLargeMonsters;
 	}
 
 	private void UpdateStatic()
@@ -117,9 +131,10 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 		var settingsCustomization = customization.Static.Settings;
 
-		if (customization.Enabled != true || customization.Static.Enabled != true)
+		if(customization.Enabled != true || customization.Static.Enabled != true)
 		{
-			_staticLargeMonsters = [];
+			this._staticLargeMonsters = [];
+
 			return;
 		}
 
@@ -127,22 +142,36 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 		// Filters
 
-		foreach (var largeMonsterPair in MonsterManager.Instance.LargeMonsters)
+		foreach(var largeMonsterPair in MonsterManager.Instance.LargeMonsters)
 		{
 			var largeMonster = largeMonsterPair.Value;
 
-			if (settingsCustomization is not null)
+			if(settingsCustomization is not null)
 			{
-				if (settingsCustomization.RenderDeadMonsters != true && !largeMonster.IsAlive)
+				if(settingsCustomization.RenderDeadMonsters != true && !largeMonster.IsAlive)
+				{
 					continue;
-				if (settingsCustomization.RenderTargetedMonster != true && largeMonster.IsTargeted)
+				}
+
+				if(settingsCustomization.RenderTargetedMonster != true && largeMonster.IsTargeted)
+				{
 					continue;
-				if (settingsCustomization.RenderNonTargetedMonsters != true && !largeMonster.IsTargeted)
+				}
+
+				if(settingsCustomization.RenderNonTargetedMonsters != true && !largeMonster.IsTargeted)
+				{
 					continue;
-				if (settingsCustomization.RenderPinnedMonster != true && largeMonster.IsPinned)
+				}
+
+				if(settingsCustomization.RenderPinnedMonster != true && largeMonster.IsPinned)
+				{
 					continue;
-				if (settingsCustomization.RenderNonPinnedMonsters != true && !largeMonster.IsPinned)
+				}
+
+				if(settingsCustomization.RenderNonPinnedMonsters != true && !largeMonster.IsPinned)
+				{
 					continue;
+				}
 			}
 
 			newLargeMonsters.Add(largeMonster);
@@ -150,59 +179,71 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 		// Sort
 
-		if (customization.Static.Sorting.ReversedOrder == true)
+		if(customization.Static.Sorting.ReversedOrder == true)
 		{
-			switch (customization.Static.Sorting.Type)
+			switch(customization.Static.Sorting.Type)
 			{
 				case SortingEnum.Id:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByIdReversed);
+
 					break;
 				case SortingEnum.Name:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByNameReversed);
+
 					break;
 				case SortingEnum.Health:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByHealthReversed);
+
 					break;
 				case SortingEnum.MaxHealth:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByMaxHealthReversed);
+
 					break;
 				case SortingEnum.Distance:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByDistanceReversed);
+
 					break;
 				case SortingEnum.HealthPercentage:
 				default:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByHealthPercentageReversed);
+
 					break;
 			}
 		}
 		else
 		{
-			switch (customization.Static.Sorting.Type)
+			switch(customization.Static.Sorting.Type)
 			{
 				case SortingEnum.Id:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareById);
+
 					break;
 				case SortingEnum.Name:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByName);
+
 					break;
 				case SortingEnum.Health:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByHealth);
+
 					break;
 				case SortingEnum.MaxHealth:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByMaxHealth);
+
 					break;
 
 				case SortingEnum.Distance:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByDistance);
+
 					break;
 				case SortingEnum.HealthPercentage:
 				default:
 					newLargeMonsters.Sort(LargeMonsterStaticSorting.CompareByHealthPercentage);
+
 					break;
 			}
 		}
 
-		_staticLargeMonsters = newLargeMonsters;
+		this._staticLargeMonsters = newLargeMonsters;
 	}
 
 	private void UpdateTargeted()
@@ -210,50 +251,58 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 		var settingsCustomization = customization.Targeted.Settings;
 
-		if (customization.Enabled != true || customization.Targeted.Enabled != true)
+		if(customization.Enabled != true || customization.Targeted.Enabled != true)
 		{
-			_targetedLargeMonster = null;
+			this._targetedLargeMonster = null;
+
 			return;
 		}
 
 		var newTargetedLargeMonster = CameraManager.Instance.TargetedLargeMonster;
-		if (newTargetedLargeMonster is null)
+
+		if(newTargetedLargeMonster is null)
 		{
-			_targetedLargeMonster = null;
+			this._targetedLargeMonster = null;
+
 			return;
 		}
 
-		if (settingsCustomization.RenderDeadMonster != true && !newTargetedLargeMonster.IsAlive)
+		if(settingsCustomization.RenderDeadMonster != true && !newTargetedLargeMonster.IsAlive)
 		{
-			_targetedLargeMonster = null;
+			this._targetedLargeMonster = null;
+
 			return;
 		}
 
-		if (settingsCustomization.RenderTargetedMonster != true && newTargetedLargeMonster.IsTargeted)
+		if(settingsCustomization.RenderTargetedMonster != true && newTargetedLargeMonster.IsTargeted)
 		{
-			_targetedLargeMonster = null;
+			this._targetedLargeMonster = null;
+
 			return;
 		}
 
-		if (settingsCustomization.RenderNonTargetedMonsters != true && !newTargetedLargeMonster.IsTargeted)
+		if(settingsCustomization.RenderNonTargetedMonsters != true && !newTargetedLargeMonster.IsTargeted)
 		{
-			_targetedLargeMonster = null;
+			this._targetedLargeMonster = null;
+
 			return;
 		}
 
-		if (settingsCustomization.RenderPinnedMonster != true && newTargetedLargeMonster.IsPinned)
+		if(settingsCustomization.RenderPinnedMonster != true && newTargetedLargeMonster.IsPinned)
 		{
-			_targetedLargeMonster = null;
+			this._targetedLargeMonster = null;
+
 			return;
 		}
 
-		if (settingsCustomization.RenderNonPinnedMonsters != true && !newTargetedLargeMonster.IsPinned)
+		if(settingsCustomization.RenderNonPinnedMonsters != true && !newTargetedLargeMonster.IsPinned)
 		{
-			_targetedLargeMonster = null;
+			this._targetedLargeMonster = null;
+
 			return;
 		}
 
-		_targetedLargeMonster = newTargetedLargeMonster;
+		this._targetedLargeMonster = newTargetedLargeMonster;
 	}
 
 	private void UpdateMapPin()
@@ -261,60 +310,70 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 		var settingsCustomization = customization.MapPin.Settings;
 
-		if (customization.Enabled != true || customization.MapPin.Enabled != true)
+		if(customization.Enabled != true || customization.MapPin.Enabled != true)
 		{
-			_pinnedLargeMonster = null;
+			this._pinnedLargeMonster = null;
+
 			return;
 		}
 
 		var newPinnedLargeMonster = MonsterManager.Instance.LargeMonsters.FirstOrDefault(largeMonsterPair => largeMonsterPair.Value.IsPinned).Value;
-		if (newPinnedLargeMonster is null)
+
+		if(newPinnedLargeMonster is null)
 		{
-			_pinnedLargeMonster = null;
+			this._pinnedLargeMonster = null;
+
 			return;
 		}
 
-		if (settingsCustomization.RenderDeadMonster != true && !newPinnedLargeMonster.IsAlive)
+		if(settingsCustomization.RenderDeadMonster != true && !newPinnedLargeMonster.IsAlive)
 		{
-			_pinnedLargeMonster = null;
+			this._pinnedLargeMonster = null;
+
 			return;
 		}
 
-		if (settingsCustomization.RenderTargetedMonster != true && newPinnedLargeMonster.IsTargeted)
+		if(settingsCustomization.RenderTargetedMonster != true && newPinnedLargeMonster.IsTargeted)
 		{
-			_pinnedLargeMonster = null;
+			this._pinnedLargeMonster = null;
+
 			return;
 		}
 
-		if (settingsCustomization.RenderNonTargetedMonsters != true && !newPinnedLargeMonster.IsTargeted)
+		if(settingsCustomization.RenderNonTargetedMonsters != true && !newPinnedLargeMonster.IsTargeted)
 		{
-			_pinnedLargeMonster = null;
+			this._pinnedLargeMonster = null;
+
 			return;
 		}
 
-		if (settingsCustomization.RenderPinnedMonster != true && newPinnedLargeMonster.IsPinned)
+		if(settingsCustomization.RenderPinnedMonster != true && newPinnedLargeMonster.IsPinned)
 		{
-			_pinnedLargeMonster = null;
+			this._pinnedLargeMonster = null;
+
 			return;
 		}
 
-		if (settingsCustomization.RenderNonPinnedMonsters != true && !newPinnedLargeMonster.IsPinned)
+		if(settingsCustomization.RenderNonPinnedMonsters != true && !newPinnedLargeMonster.IsPinned)
 		{
-			_pinnedLargeMonster = null;
+			this._pinnedLargeMonster = null;
+
 			return;
 		}
 
-		_pinnedLargeMonster = newPinnedLargeMonster;
+		this._pinnedLargeMonster = newPinnedLargeMonster;
 	}
 
 	private void DrawDynamicUi(ImDrawListPtr drawList)
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
-		if (customization.Enabled != true || customization.Dynamic.Enabled != true)
+		if(customization.Enabled != true || customization.Dynamic.Enabled != true)
+		{
 			return;
+		}
 
-		foreach (var largeMonster in _dynamicLargeMonsters)
+		foreach(var largeMonster in this._dynamicLargeMonsters)
 		{
 			largeMonster.DynamicUi?.Draw(drawList);
 		}
@@ -324,12 +383,14 @@ internal sealed class LargeMonsterUiManager : IDisposable
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
-		if (customization.Enabled != true || customization.Static.Enabled != true)
-			return;
-
-		for (var locationIndex = 0; locationIndex < _staticLargeMonsters.Count; locationIndex++)
+		if(customization.Enabled != true || customization.Static.Enabled != true)
 		{
-			var largeMonster = _staticLargeMonsters[locationIndex];
+			return;
+		}
+
+		for(var locationIndex = 0; locationIndex < this._staticLargeMonsters.Count; locationIndex++)
+		{
+			var largeMonster = this._staticLargeMonsters[locationIndex];
 
 			largeMonster.StaticUi?.Draw(drawList, locationIndex);
 		}
@@ -339,23 +400,33 @@ internal sealed class LargeMonsterUiManager : IDisposable
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
-		if (customization.Enabled != true || customization.Targeted.Enabled != true)
+		if(customization.Enabled != true || customization.Targeted.Enabled != true)
+		{
 			return;
-		if (_targetedLargeMonster is null)
-			return;
+		}
 
-		_targetedLargeMonster.TargetedUi?.Draw(drawList);
+		if(this._targetedLargeMonster is null)
+		{
+			return;
+		}
+
+		this._targetedLargeMonster.TargetedUi?.Draw(drawList);
 	}
 
 	private void DrawMapPinUi(ImDrawListPtr drawList)
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
-		if (customization.Enabled != true || customization.MapPin.Enabled != true)
+		if(customization.Enabled != true || customization.MapPin.Enabled != true)
+		{
 			return;
-		if (_pinnedLargeMonster is null)
-			return;
+		}
 
-		_pinnedLargeMonster.MapPinUi?.Draw(drawList);
+		if(this._pinnedLargeMonster is null)
+		{
+			return;
+		}
+
+		this._pinnedLargeMonster.MapPinUi?.Draw(drawList);
 	}
 }

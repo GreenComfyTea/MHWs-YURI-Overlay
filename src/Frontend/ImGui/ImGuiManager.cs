@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using System.Text.Json;
 using Hexa.NET.ImGui;
 
 namespace YURI_Overlay;
@@ -22,16 +20,18 @@ internal sealed class ImGuiManager : IDisposable
 	private Debouncer? _onConfigChangedEmitDebouncer;
 	private Debouncer? _onConfigChangedSaveDebouncer;
 
-	private ImGuiManager() { }
+	private ImGuiManager()
+	{
+	}
 
 	public void Initialize()
 	{
 		LogManager.Info("[ImGuiManager] Initializing...");
 
-		_modTitle = $"{Constants.ModName} v{Constants.Version}";
+		this._modTitle = $"{Constants.ModName} v{Constants.Version}";
 
-		_onConfigChangedEmitDebouncer = new Debouncer();
-		_onConfigChangedSaveDebouncer = new Debouncer();
+		this._onConfigChangedEmitDebouncer = new Debouncer();
+		this._onConfigChangedSaveDebouncer = new Debouncer();
 
 		LogManager.Info("[ImGuiManager] Initialized!");
 	}
@@ -40,8 +40,8 @@ internal sealed class ImGuiManager : IDisposable
 	{
 		LogManager.Info("[ImGuiManager] Disposing...");
 
-		_onConfigChangedEmitDebouncer?.Dispose();
-		_onConfigChangedSaveDebouncer?.Dispose();
+		this._onConfigChangedEmitDebouncer?.Dispose();
+		this._onConfigChangedSaveDebouncer?.Dispose();
 
 		LogManager.Info("[ImGuiManager] Disposed!");
 	}
@@ -52,14 +52,19 @@ internal sealed class ImGuiManager : IDisposable
 		{
 			var localizationManager = LocalizationManager.Instance;
 
-			var isClicked = ImGui.Button($"{_modTitle}##button");
-			if (isClicked)
-				_isOpened = !_isOpened;
+			var isClicked = ImGui.Button($"{this._modTitle}##button");
 
-			ReframeworkFontSize = ImGui.GetFontSize();
+			if(isClicked)
+			{
+				this._isOpened = !this._isOpened;
+			}
 
-			if (!_isOpened)
+			this.ReframeworkFontSize = ImGui.GetFontSize();
+
+			if(!this._isOpened)
+			{
 				return;
+			}
 
 			var configManager = ConfigManager.Instance;
 
@@ -69,55 +74,80 @@ internal sealed class ImGuiManager : IDisposable
 			ImGui.SetNextWindowPos(Constants.DefaultWindowPosition, ImGuiCond.FirstUseEver);
 			ImGui.SetNextWindowSize(Constants.DefaultWindowSize, ImGuiCond.FirstUseEver);
 
-			ImGui.Begin($"{_modTitle}##window", ref _isOpened);
+			ImGui.Begin($"{this._modTitle}##window", ref this._isOpened);
 
-			CalculateWidths();
+			this.CalculateWidths();
 
-			if (_isForceModInfoOpen)
+			if(this._isForceModInfoOpen)
+			{
 				ImGui.SetNextItemOpen(true);
+			}
 
-			if (ImGui.TreeNode(activeLocalization.ImGui.ModInfo))
+			if(ImGui.TreeNode(activeLocalization.ImGui.ModInfo))
 			{
 				ImGui.Text(activeLocalization.ImGui.MadeBy);
 				ImGui.SameLine();
 				ImGui.TextColored(Constants.ModAuthorColor, Constants.ModAuthor);
 
-				if (ImGui.Button(activeLocalization.ImGui.NexusMods))
+				if(ImGui.Button(activeLocalization.ImGui.NexusMods))
+				{
 					Utils.OpenLink(Constants.NexusModsLink);
+				}
 
 				ImGui.SameLine();
-				if (ImGui.Button(activeLocalization.ImGui.GitHubRepo))
+
+				if(ImGui.Button(activeLocalization.ImGui.GitHubRepo))
+				{
 					Utils.OpenLink(Constants.GithubRepoLink);
+				}
 
-				if (ImGui.Button(activeLocalization.ImGui.Twitch))
+				if(ImGui.Button(activeLocalization.ImGui.Twitch))
+				{
 					Utils.OpenLink(Constants.TwitchLink);
+				}
 
 				ImGui.SameLine();
-				if (ImGui.Button(activeLocalization.ImGui.Twitter))
+
+				if(ImGui.Button(activeLocalization.ImGui.Twitter))
+				{
 					Utils.OpenLink(Constants.TwitterLink);
+				}
 
 				ImGui.SameLine();
-				if (ImGui.Button(activeLocalization.ImGui.ArtStation))
+
+				if(ImGui.Button(activeLocalization.ImGui.ArtStation))
+				{
 					Utils.OpenLink(Constants.ArtStationLink);
+				}
 
 				ImGui.Text(activeLocalization.ImGui.DonationMessage1);
 				ImGui.Text(activeLocalization.ImGui.DonationMessage2);
 
-				if (ImGui.Button(activeLocalization.ImGui.Donate))
+				if(ImGui.Button(activeLocalization.ImGui.Donate))
+				{
 					Utils.OpenLink(Constants.StreamElementsTipLink);
+				}
 
 				ImGui.SameLine();
-				if (ImGui.Button(activeLocalization.ImGui.PayPal))
+
+				if(ImGui.Button(activeLocalization.ImGui.PayPal))
+				{
 					Utils.OpenLink(Constants.PaypalLink);
+				}
 
 				ImGui.SameLine();
-				if (ImGui.Button(activeLocalization.ImGui.BuyMeATea))
+
+				if(ImGui.Button(activeLocalization.ImGui.BuyMeATea))
+				{
 					Utils.OpenLink(Constants.KofiLink);
+				}
 
 				ImGui.TreePop();
 			}
 			else
-				_isForceModInfoOpen = false;
+			{
+				this._isForceModInfoOpen = false;
+			}
 
 			ImGui.Separator();
 			ImGui.NewLine();
@@ -132,7 +162,7 @@ internal sealed class ImGuiManager : IDisposable
 			changed |= configManager.ActiveConfig.Data.EndemicLifeUI.RenderImGui("endemic-life-ui", defaultConfig?.EndemicLifeUI);
 			//changed |= configManager.ActiveConfig.Data..DamageMeterUI.RenderImGui("damage-meter-ui", defaultConfig.DamageMeterUI);
 
-			Debug();
+			this.Debug();
 
 			ImGui.End();
 
@@ -143,13 +173,13 @@ internal sealed class ImGuiManager : IDisposable
 
 			//io.FontGlobalScale = oldFontGlobalScale;
 
-			if (changed)
+			if(changed)
 			{
-				_onConfigChangedEmitDebouncer?.Debounce(OnConfigChangedEmit, 25);
-				_onConfigChangedSaveDebouncer?.Debounce(OnConfigChangedSave, 100);
+				this._onConfigChangedEmitDebouncer?.Debounce(this.OnConfigChangedEmit, 25);
+				this._onConfigChangedSaveDebouncer?.Debounce(this.OnConfigChangedSave, 100);
 			}
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			ImGui.End();
 			LogManager.Error(exception);
@@ -160,12 +190,12 @@ internal sealed class ImGuiManager : IDisposable
 	{
 		var windowSize = ImGui.GetWindowSize();
 
-		ComboBoxWidth = Constants.ComboboxWidthMultiplier * windowSize.X;
+		this.ComboBoxWidth = Constants.ComboboxWidthMultiplier * windowSize.X;
 
 		var maxColorPickerWidthByWindowWidth = Constants.ColorPickerWidthMultiplier * windowSize.X;
 		var maxColorPickerWidthByWindowHeight = Constants.ColorPickerWidthToHeightRatio * windowSize.Y;
 
-		ColorPickerWidth = Math.Min(maxColorPickerWidthByWindowWidth, maxColorPickerWidthByWindowHeight);
+		this.ColorPickerWidth = Math.Min(maxColorPickerWidthByWindowWidth, maxColorPickerWidthByWindowHeight);
 	}
 
 	private void Debug()

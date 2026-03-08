@@ -20,7 +20,7 @@ public class Plugin
 		{
 			Task.Run(Initialize);
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -58,6 +58,7 @@ public class Plugin
 #endif
 
 		LogManager.Info("Disposed!");
+
 		LogManager.Info(
 			"I permitted it to pass over me and through me. When it had gone past I turned the inner eye to see its path. Where the fear had gone, there was nothing. Only I remained..."
 		);
@@ -121,7 +122,7 @@ public class Plugin
 			REFrameworkWebAPI.Initialize();
 #endif
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -144,16 +145,20 @@ public class Plugin
 
 	private static void OnImGuiDrawUi()
 	{
-		if (!IsInitialized)
+		if(!IsInitialized)
+		{
 			return;
+		}
 
 		ImGuiManager.Instance.Draw();
 	}
 
 	private static void OnImGuiRender()
 	{
-		if (!IsInitialized)
+		if(!IsInitialized)
+		{
 			return;
+		}
 
 		OverlayManager.Instance.Draw();
 	}

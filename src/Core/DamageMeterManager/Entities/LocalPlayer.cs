@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using app;
+﻿using app;
 using REFrameworkNET;
 using Timer = System.Timers.Timer;
 
@@ -13,7 +8,7 @@ internal sealed class LocalPlayer : DamageMeterEntity
 {
 	public cPlayerManageInfo PlayerManageInfo;
 
-	public float AwardDamage = 0f;
+	public float AwardDamage;
 
 	private readonly List<Timer> _timers = [];
 
@@ -23,20 +18,20 @@ internal sealed class LocalPlayer : DamageMeterEntity
 
 	public LocalPlayer(cPlayerManageInfo playerManageInfo)
 	{
-		PlayerManageInfo = playerManageInfo;
+		this.PlayerManageInfo = playerManageInfo;
 
-		Name = "Local Player";
+		this.Name = "Local Player";
 
 		try
 		{
-			Initialize();
+			this.Initialize();
 
-			Type = DamageMeterEntityTypeEnum.LocalPlayer;
-			StaticUi = new DamageMeterStaticUi(this);
+			this.Type = DamageMeterEntityTypeEnum.LocalPlayer;
+			this.StaticUi = new DamageMeterStaticUi(this);
 
-			LogManager.Info($"[DamageMeter] Initialized Local Player: {Name}!");
+			LogManager.Info($"[DamageMeter] Initialized Local Player: {this.Name}!");
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -46,15 +41,15 @@ internal sealed class LocalPlayer : DamageMeterEntity
 	{
 		try
 		{
-			foreach (var timer in _timers)
+			foreach(var timer in this._timers)
 			{
 				timer.Dispose();
 			}
 
-			_timers.Clear();
-			LogManager.Info($"[DamageMeter] Disposed Local Player: {Name}!");
+			this._timers.Clear();
+			LogManager.Info($"[DamageMeter] Disposed Local Player: {this.Name}!");
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -64,11 +59,11 @@ internal sealed class LocalPlayer : DamageMeterEntity
 	{
 		try
 		{
-			UpdateMemberIndex();
-			UpdateName();
-			UpdateHunterRank();
+			this.UpdateMemberIndex();
+			this.UpdateName();
+			this.UpdateHunterRank();
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -79,43 +74,54 @@ internal sealed class LocalPlayer : DamageMeterEntity
 		try
 		{
 			var missionManager = API.GetManagedSingletonT<MissionManager>();
-			if (missionManager is null)
+
+			if(missionManager is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateDamage] No mission manager");
+
 				return;
 			}
 
 			var questDirection = missionManager.QuestDirector;
-			if (questDirection is null)
+
+			if(questDirection is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateDamage] No quest director");
+
 				return;
 			}
 
 			var questFlowParam = questDirection.Param;
-			if (questFlowParam is null)
+
+			if(questFlowParam is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateDamage] No quest flow param");
+
 				return;
 			}
 
 			var questAwardInfo = questFlowParam.QuestAwardInfo;
-			if (questAwardInfo is null)
+
+			if(questAwardInfo is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateDamage] No quest award info");
+
 				return;
 			}
 
-			if (questAwardInfo.Length < 5)
+			if(questAwardInfo.Length < 5)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateDamage] quest award info length < 5");
+
 				return;
 			}
 
 			var questAwardUnion = questAwardInfo.Get(4);
-			if (questAwardUnion is null)
+
+			if(questAwardUnion is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateDamage] No quest award union");
+
 				return;
 			}
 
@@ -126,24 +132,26 @@ internal sealed class LocalPlayer : DamageMeterEntity
 
 			byte[] bytes = [byte0, byte1, byte2, byte3];
 
-			if (!BitConverter.IsLittleEndian)
+			if(!BitConverter.IsLittleEndian)
+			{
 				Array.Reverse(bytes);
+			}
 
 			var damage = BitConverter.ToSingle(bytes, 0);
 
-			if (Utils.IsApproximatelyEqual(damage, 0f))
+			if(Utils.IsApproximatelyEqual(damage, 0f))
 			{
 				return;
 			}
 
-			AwardDamage = damage;
+			this.AwardDamage = damage;
 
-			DisplayedDamage = damage;
-			DisplayedDamagePercentage = 1f;
-			DisplayedDps = 69f;
-			DisplayedDpsPercentage = 1f;
+			this.DisplayedDamage = damage;
+			this.DisplayedDamagePercentage = 1f;
+			this.DisplayedDps = 69f;
+			this.DisplayedDpsPercentage = 1f;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -151,66 +159,73 @@ internal sealed class LocalPlayer : DamageMeterEntity
 
 	private void Initialize()
 	{
-		InitializeTimers();
-		Update();
+		this.InitializeTimers();
+		this.Update();
 	}
 
 	private void InitializeTimers()
 	{
 		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.LargeMonsters;
 
-		foreach (var timer in _timers)
+		foreach(var timer in this._timers)
 		{
 			timer.Dispose();
 		}
 
-		_timers.Clear();
+		this._timers.Clear();
 
-		_timers.Add(Timers.SetInterval(SetUpdateNamePending, Utils.SecondsToMilliseconds(0.1f)));
-		_timers.Add(Timers.SetInterval(SetUpdateMemberIndexPending, Utils.SecondsToMilliseconds(0.1f)));
-		_timers.Add(Timers.SetInterval(SetUpdateHunterRankPending, Utils.SecondsToMilliseconds(0.1f)));
+		this._timers.Add(Timers.SetInterval(this.SetUpdateNamePending, Utils.SecondsToMilliseconds(0.1f)));
+		this._timers.Add(Timers.SetInterval(this.SetUpdateMemberIndexPending, Utils.SecondsToMilliseconds(0.1f)));
+		this._timers.Add(Timers.SetInterval(this.SetUpdateHunterRankPending, Utils.SecondsToMilliseconds(0.1f)));
 	}
 
 	private void SetUpdateNamePending()
 	{
-		_isUpdateNamePending = true;
+		this._isUpdateNamePending = true;
 	}
 
 	private void SetUpdateMemberIndexPending()
 	{
-		_isUpdateMemberIndexPending = true;
+		this._isUpdateMemberIndexPending = true;
 	}
 
 	private void SetUpdateHunterRankPending()
 	{
-		_isUpdateHunterRankPending = true;
+		this._isUpdateHunterRankPending = true;
 	}
 
 	private void UpdateMemberIndex()
 	{
 		try
 		{
-			if (!_isUpdateMemberIndexPending)
+			if(!this._isUpdateMemberIndexPending)
+			{
 				return;
-			_isUpdateMemberIndexPending = false;
+			}
 
-			var contextHolder = PlayerManageInfo.ContextHolder;
-			if (contextHolder is null)
+			this._isUpdateMemberIndexPending = false;
+
+			var contextHolder = this.PlayerManageInfo.ContextHolder;
+
+			if(contextHolder is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateMemberIndex] No player context holder");
+
 				return;
 			}
 
 			var playerContext = contextHolder.Pl;
-			if (playerContext is null)
+
+			if(playerContext is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateMemberIndex] No player context");
+
 				return;
 			}
 
-			Id = playerContext.StableMemberIndex;
+			this.Id = playerContext.StableMemberIndex;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -220,34 +235,43 @@ internal sealed class LocalPlayer : DamageMeterEntity
 	{
 		try
 		{
-			if (!_isUpdateNamePending)
+			if(!this._isUpdateNamePending)
+			{
 				return;
-			_isUpdateNamePending = false;
+			}
 
-			var contextHolder = PlayerManageInfo.ContextHolder;
-			if (contextHolder is null)
+			this._isUpdateNamePending = false;
+
+			var contextHolder = this.PlayerManageInfo.ContextHolder;
+
+			if(contextHolder is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateMemberIndex] No player context holder");
+
 				return;
 			}
 
 			var playerContext = contextHolder.Pl;
-			if (playerContext is null)
+
+			if(playerContext is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateMemberIndex] No player context");
+
 				return;
 			}
 
 			var name = playerContext.PlayerName;
-			if (name is null)
+
+			if(name is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateName] No player name");
+
 				return;
 			}
 
-			Name = name;
+			this.Name = name;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -257,34 +281,43 @@ internal sealed class LocalPlayer : DamageMeterEntity
 	{
 		try
 		{
-			if (!_isUpdateHunterRankPending)
+			if(!this._isUpdateHunterRankPending)
+			{
 				return;
-			_isUpdateHunterRankPending = false;
+			}
+
+			this._isUpdateHunterRankPending = false;
 
 			var saveDataManager = API.GetManagedSingletonT<SaveDataManager>();
-			if (saveDataManager is null)
+
+			if(saveDataManager is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateHunterRank] No save data manager");
+
 				return;
 			}
 
 			var saveDataHelper = saveDataManager.Helper;
-			if (saveDataHelper is null)
+
+			if(saveDataHelper is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateHunterRank] No save data helper");
+
 				return;
 			}
 
 			var commonParam = saveDataHelper.CommonParam;
-			if (commonParam is null)
+
+			if(commonParam is null)
 			{
 				LogManager.Warn("[LocalPlayer.UpdateHunterRank] No common param");
+
 				return;
 			}
 
-			HunterRank = commonParam._HunterRank;
+			this.HunterRank = commonParam._HunterRank;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}

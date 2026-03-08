@@ -21,16 +21,16 @@ internal sealed class LargeMonster : IDisposable
 
 	public string Name = "Large Monster";
 
-	public bool IsTargeted = false;
+	public bool IsTargeted;
 
-	public int DynamicSortingPriority = 0;
-	public int StaticSortingPriority = 0;
+	public int DynamicSortingPriority;
+	public int StaticSortingPriority;
 
 	public Vector3 MissionBeaconOffset = Vector3.Zero;
-	public float ModelRadius = 0f;
+	public float ModelRadius;
 
 	public Vector3 Position = Vector3.Zero;
-	public float Distance = 0f;
+	public float Distance;
 
 	public bool IsAlive;
 	public float Health = -1;
@@ -38,7 +38,7 @@ internal sealed class LargeMonster : IDisposable
 	public float HealthPercentage = -1;
 
 	public bool IsStaminaValid = true;
-	public bool IsTired = false;
+	public bool IsTired;
 	public float Stamina = -1;
 	public float MaxStamina = -1;
 	public float StaminaPercentage = -1;
@@ -50,7 +50,7 @@ internal sealed class LargeMonster : IDisposable
 	public string StaminaRemainingTimerString = "0:00";
 
 	public bool IsRageValid = true;
-	public bool IsEnraged = false;
+	public bool IsEnraged;
 	public float Rage = -1;
 	public float MaxRage = -1;
 	public float RagePercentage = -1;
@@ -75,28 +75,28 @@ internal sealed class LargeMonster : IDisposable
 
 	private Method? _nameStringMethod;
 
-	public bool IsPinned = false;
+	public bool IsPinned;
 
 	public LargeMonster(EnemyCharacter enemyCharacter, cEnemyContext enemyContext)
 	{
-		EnemyCharacter = enemyCharacter;
-		EnemyContext = enemyContext;
+		this.EnemyCharacter = enemyCharacter;
+		this.EnemyContext = enemyContext;
 
 		try
 		{
-			InitializeTdb();
-			Initialize();
+			this.InitializeTdb();
+			this.Initialize();
 
-			DynamicUi = new LargeMonsterDynamicUi(this);
-			StaticUi = new LargeMonsterStaticUi(this);
-			TargetedUi = new LargeMonsterTargetedUi(this);
-			MapPinUi = new LargeMonsterMapPinUi(this);
+			this.DynamicUi = new LargeMonsterDynamicUi(this);
+			this.StaticUi = new LargeMonsterStaticUi(this);
+			this.TargetedUi = new LargeMonsterTargetedUi(this);
+			this.MapPinUi = new LargeMonsterMapPinUi(this);
 
-			ConfigManager.Instance.AnyConfigChanged += OnAnyConfigChanged;
+			ConfigManager.Instance.AnyConfigChanged += this.OnAnyConfigChanged;
 
-			LogManager.Info($"[LargeMonster] Initialized {Name}!");
+			LogManager.Info($"[LargeMonster] Initialized {this.Name}!");
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -104,37 +104,37 @@ internal sealed class LargeMonster : IDisposable
 
 	public void Dispose()
 	{
-		LogManager.Info($"[LargeMonster] Disposing {Name}...");
+		LogManager.Info($"[LargeMonster] Disposing {this.Name}...");
 
-		foreach (var timer in _timers)
+		foreach(var timer in this._timers)
 		{
 			timer.Dispose();
 		}
 
-		_timers.Clear();
+		this._timers.Clear();
 
-		ConfigManager.Instance.AnyConfigChanged -= OnAnyConfigChanged;
+		ConfigManager.Instance.AnyConfigChanged -= this.OnAnyConfigChanged;
 
-		LogManager.Info($"[LargeMonster] {Name} Disposed!");
+		LogManager.Info($"[LargeMonster] {this.Name} Disposed!");
 	}
 
 	public void Update()
 	{
 		try
 		{
-			UpdatePosition();
-			UpdateDistance();
+			this.UpdatePosition();
+			this.UpdateDistance();
 
-			UpdateName();
-			UpdateMissionBeaconOffset();
-			UpdateModelRadius();
+			this.UpdateName();
+			this.UpdateMissionBeaconOffset();
+			this.UpdateModelRadius();
 
-			UpdateHealth();
-			var conditionsModule = UpdateStamina();
-			UpdateRage(conditionsModule);
-			UpdateMapPin();
+			this.UpdateHealth();
+			var conditionsModule = this.UpdateStamina();
+			this.UpdateRage(conditionsModule);
+			this.UpdateMapPin();
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -142,8 +142,8 @@ internal sealed class LargeMonster : IDisposable
 
 	public void SetIsTargeted(bool newIsTargeted)
 	{
-		IsTargeted = newIsTargeted;
-		UpdateSortingPriorities();
+		this.IsTargeted = newIsTargeted;
+		this.UpdateSortingPriorities();
 	}
 
 	public void UpdateSortingPriorities()
@@ -151,38 +151,38 @@ internal sealed class LargeMonster : IDisposable
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
 		// Targeted Dynamic UI should be rendered last to be on top
-		DynamicSortingPriority = IsTargeted ? 3 : 0;
+		this.DynamicSortingPriority = this.IsTargeted ? 3 : 0;
 
 		var sortingCustomization = customization.Static.Sorting;
 		var targetedMonsterPriorityValue = PriorityUtils.ConvertPriorityToValue(sortingCustomization.TargetedMonsterPriority);
 		var pinnedMonsterPriorityValue = PriorityUtils.ConvertPriorityToValue(sortingCustomization.PinnedMonsterPriority);
 
-		if (IsTargeted && IsPinned)
+		if(this.IsTargeted && this.IsPinned)
 		{
-			if (targetedMonsterPriorityValue > 0)
+			if(targetedMonsterPriorityValue > 0)
 			{
-				StaticSortingPriority = targetedMonsterPriorityValue >= pinnedMonsterPriorityValue ? targetedMonsterPriorityValue : pinnedMonsterPriorityValue;
+				this.StaticSortingPriority = targetedMonsterPriorityValue >= pinnedMonsterPriorityValue ? targetedMonsterPriorityValue : pinnedMonsterPriorityValue;
 			}
-			else if (pinnedMonsterPriorityValue > 0)
+			else if(pinnedMonsterPriorityValue > 0)
 			{
-				StaticSortingPriority = pinnedMonsterPriorityValue;
+				this.StaticSortingPriority = pinnedMonsterPriorityValue;
 			}
 			else
 			{
-				StaticSortingPriority = targetedMonsterPriorityValue <= pinnedMonsterPriorityValue ? targetedMonsterPriorityValue : pinnedMonsterPriorityValue;
+				this.StaticSortingPriority = targetedMonsterPriorityValue <= pinnedMonsterPriorityValue ? targetedMonsterPriorityValue : pinnedMonsterPriorityValue;
 			}
 		}
-		else if (IsTargeted)
+		else if(this.IsTargeted)
 		{
-			StaticSortingPriority = targetedMonsterPriorityValue;
+			this.StaticSortingPriority = targetedMonsterPriorityValue;
 		}
-		else if (IsPinned)
+		else if(this.IsPinned)
 		{
-			StaticSortingPriority = pinnedMonsterPriorityValue;
+			this.StaticSortingPriority = pinnedMonsterPriorityValue;
 		}
 		else
 		{
-			StaticSortingPriority = 0;
+			this.StaticSortingPriority = 0;
 		}
 	}
 
@@ -190,11 +190,11 @@ internal sealed class LargeMonster : IDisposable
 	{
 		try
 		{
-			InitializeTimers();
-			UpdateIds();
-			Update();
+			this.InitializeTimers();
+			this.UpdateIds();
+			this.Update();
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -204,65 +204,67 @@ internal sealed class LargeMonster : IDisposable
 	{
 		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.LargeMonsters;
 
-		foreach (var timer in _timers)
+		foreach(var timer in this._timers)
 		{
 			timer.Dispose();
 		}
 
-		_timers.Clear();
+		this._timers.Clear();
 
-		_timers.Add(Timers.SetInterval(SetUpdateNamePending, Utils.SecondsToMilliseconds(updateDelays.Name)));
-		_timers.Add(Timers.SetInterval(SetUpdateMissionBeaconOffset, Utils.SecondsToMilliseconds(updateDelays.MissionBeaconOffset)));
-		_timers.Add(Timers.SetInterval(SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays.ModelRadius)));
-		_timers.Add(Timers.SetInterval(SetUpdateHealthPending, Utils.SecondsToMilliseconds(updateDelays.Health)));
-		_timers.Add(Timers.SetInterval(SetUpdateStaminaPending, Utils.SecondsToMilliseconds(updateDelays.Stamina)));
-		_timers.Add(Timers.SetInterval(SetUpdateRagePending, Utils.SecondsToMilliseconds(updateDelays.Rage)));
-		_timers.Add(Timers.SetInterval(SetUpdateMapPinPending, Utils.SecondsToMilliseconds(updateDelays.MapPin)));
+		this._timers.Add(Timers.SetInterval(this.SetUpdateNamePending, Utils.SecondsToMilliseconds(updateDelays.Name)));
+		this._timers.Add(Timers.SetInterval(this.SetUpdateMissionBeaconOffset, Utils.SecondsToMilliseconds(updateDelays.MissionBeaconOffset)));
+		this._timers.Add(Timers.SetInterval(this.SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays.ModelRadius)));
+		this._timers.Add(Timers.SetInterval(this.SetUpdateHealthPending, Utils.SecondsToMilliseconds(updateDelays.Health)));
+		this._timers.Add(Timers.SetInterval(this.SetUpdateStaminaPending, Utils.SecondsToMilliseconds(updateDelays.Stamina)));
+		this._timers.Add(Timers.SetInterval(this.SetUpdateRagePending, Utils.SecondsToMilliseconds(updateDelays.Rage)));
+		this._timers.Add(Timers.SetInterval(this.SetUpdateMapPinPending, Utils.SecondsToMilliseconds(updateDelays.MapPin)));
 	}
 
 	private void SetUpdateNamePending()
 	{
-		_isUpdateNamePending = true;
+		this._isUpdateNamePending = true;
 	}
 
 	private void SetUpdateMissionBeaconOffset()
 	{
-		_isUpdateMissionBeaconOffsetPending = true;
+		this._isUpdateMissionBeaconOffsetPending = true;
 	}
 
 	private void SetUpdateModelRadius()
 	{
-		_isUpdateModelRadiusPending = true;
+		this._isUpdateModelRadiusPending = true;
 	}
 
 	private void SetUpdateHealthPending()
 	{
-		_isUpdateHealthPending = true;
+		this._isUpdateHealthPending = true;
 	}
 
 	private void SetUpdateStaminaPending()
 	{
-		_isUpdateStaminaPending = true;
+		this._isUpdateStaminaPending = true;
 	}
 
 	private void SetUpdateRagePending()
 	{
-		_isUpdateRagePending = true;
+		this._isUpdateRagePending = true;
 	}
 
 	private void SetUpdateMapPinPending()
 	{
-		_isUpdateMapPinPending = true;
+		this._isUpdateMapPinPending = true;
 	}
 
 	private void UpdatePosition()
 	{
 		try
 		{
-			var position = EnemyCharacter.Pos;
-			if (position is null)
+			var position = this.EnemyCharacter.Pos;
+
+			if(position is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdatePositionAndDistance] No enemy pos");
+
 				return;
 			}
 
@@ -270,7 +272,7 @@ internal sealed class LargeMonster : IDisposable
 			this.Position.Y = position.y;
 			this.Position.Z = position.z;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -278,25 +280,27 @@ internal sealed class LargeMonster : IDisposable
 
 	private void UpdateDistance()
 	{
-		Distance = Vector3.Distance(Position, PlayerManager.Instance.Position);
+		this.Distance = Vector3.Distance(this.Position, PlayerManager.Instance.Position);
 	}
 
 	private void UpdateIds()
 	{
 		try
 		{
-			var basicModule = EnemyContext.Basic;
-			if (basicModule is null)
+			var basicModule = this.EnemyContext.Basic;
+
+			if(basicModule is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateIds] No enemy basic module");
+
 				return;
 			}
 
-			Id = basicModule.EmID;
-			RoleId = basicModule.RoleID;
-			LegendaryId = basicModule.LegendaryID;
+			this.Id = basicModule.EmID;
+			this.RoleId = basicModule.RoleID;
+			this.LegendaryId = basicModule.LegendaryID;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -306,20 +310,25 @@ internal sealed class LargeMonster : IDisposable
 	{
 		try
 		{
-			if (!_isUpdateNamePending)
+			if(!this._isUpdateNamePending)
+			{
 				return;
-			_isUpdateNamePending = false;
+			}
 
-			var name = (string?)_nameStringMethod?.InvokeBoxed(_stringType, null, [Id, RoleId, LegendaryId]);
-			if (name is null)
+			this._isUpdateNamePending = false;
+
+			var name = (string?) this._nameStringMethod?.InvokeBoxed(this._stringType, null, [this.Id, this.RoleId, this.LegendaryId]);
+
+			if(name is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateName] No enemy name");
+
 				return;
 			}
 
 			this.Name = name;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -329,14 +338,19 @@ internal sealed class LargeMonster : IDisposable
 	{
 		try
 		{
-			if (!_isUpdateMissionBeaconOffsetPending)
+			if(!this._isUpdateMissionBeaconOffsetPending)
+			{
 				return;
-			_isUpdateMissionBeaconOffsetPending = false;
+			}
 
-			var missionBeaconOffset = EnemyContext.MissionBeaconOffset;
-			if (missionBeaconOffset is null)
+			this._isUpdateMissionBeaconOffsetPending = false;
+
+			var missionBeaconOffset = this.EnemyContext.MissionBeaconOffset;
+
+			if(missionBeaconOffset is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateMissionBeaconOffset] No enemy mission beacon offset");
+
 				return;
 			}
 
@@ -344,7 +358,7 @@ internal sealed class LargeMonster : IDisposable
 			this.MissionBeaconOffset.Y = missionBeaconOffset.y;
 			this.MissionBeaconOffset.Z = missionBeaconOffset.z;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -354,13 +368,16 @@ internal sealed class LargeMonster : IDisposable
 	{
 		try
 		{
-			if (!_isUpdateModelRadiusPending)
+			if(!this._isUpdateModelRadiusPending)
+			{
 				return;
-			_isUpdateModelRadiusPending = false;
+			}
 
-			ModelRadius = EnemyContext.ModelRadius;
+			this._isUpdateModelRadiusPending = false;
+
+			this.ModelRadius = this.EnemyContext.ModelRadius;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -371,25 +388,33 @@ internal sealed class LargeMonster : IDisposable
 	{
 		try
 		{
-			if (!_isUpdateHealthPending)
-				return;
-			_isUpdateHealthPending = false;
-
-			var healthManager = EnemyCharacter.HealthMgr;
-			if (healthManager is null)
+			if(!this._isUpdateHealthPending)
 			{
-				LogManager.Warn("[LargeMonster.UpdateHealth] No health manager");
 				return;
 			}
 
-			Health = healthManager.Health;
-			MaxHealth = healthManager.MaxHealth;
-			if (!Utils.IsApproximatelyEqual(MaxHealth, 0f))
-				HealthPercentage = Health / MaxHealth;
+			this._isUpdateHealthPending = false;
 
-			IsAlive = !Utils.IsApproximatelyEqual(Health, 0f);
+			var healthManager = this.EnemyCharacter.HealthMgr;
+
+			if(healthManager is null)
+			{
+				LogManager.Warn("[LargeMonster.UpdateHealth] No health manager");
+
+				return;
+			}
+
+			this.Health = healthManager.Health;
+			this.MaxHealth = healthManager.MaxHealth;
+
+			if(!Utils.IsApproximatelyEqual(this.MaxHealth, 0f))
+			{
+				this.HealthPercentage = this.Health / this.MaxHealth;
+			}
+
+			this.IsAlive = !Utils.IsApproximatelyEqual(this.Health, 0f);
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -399,56 +424,71 @@ internal sealed class LargeMonster : IDisposable
 	{
 		try
 		{
-			if (!_isUpdateStaminaPending)
+			if(!this._isUpdateStaminaPending)
+			{
 				return null;
-			_isUpdateStaminaPending = false;
+			}
 
-			var conditionsModule = EnemyContext.Conditions;
-			if (conditionsModule is null)
+			this._isUpdateStaminaPending = false;
+
+			var conditionsModule = this.EnemyContext.Conditions;
+
+			if(conditionsModule is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateStamina] No enemy conditions module");
+
 				return null;
 			}
 
 			var tiredCondition = conditionsModule.Tired;
-			if (tiredCondition is null)
+
+			if(tiredCondition is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateStamina] No enemy tired condition");
+
 				return conditionsModule;
 			}
 
-			IsStaminaValid = tiredCondition.IsValid;
-			if (!IsStaminaValid)
-				return conditionsModule;
+			this.IsStaminaValid = tiredCondition.IsValid;
 
-			IsTired = tiredCondition.IsActive;
-
-			if (IsTired)
+			if(!this.IsStaminaValid)
 			{
-				StaminaTimerSeconds = tiredCondition.CurrentTimer;
-				StaminaMaxTimerSeconds = tiredCondition.ActivateTime;
+				return conditionsModule;
+			}
 
-				StaminaRemainingTimerSeconds = StaminaMaxTimerSeconds - StaminaTimerSeconds;
+			this.IsTired = tiredCondition.IsActive;
 
-				if (!Utils.IsApproximatelyEqual(StaminaMaxTimerSeconds, 0))
-					StaminaRemainingTimerPercentage = StaminaRemainingTimerSeconds / StaminaMaxTimerSeconds;
+			if(this.IsTired)
+			{
+				this.StaminaTimerSeconds = tiredCondition.CurrentTimer;
+				this.StaminaMaxTimerSeconds = tiredCondition.ActivateTime;
 
-				StaminaRemainingTimerString = Utils.FormatTimer(StaminaRemainingTimerSeconds, StaminaMaxTimerSeconds);
+				this.StaminaRemainingTimerSeconds = this.StaminaMaxTimerSeconds - this.StaminaTimerSeconds;
+
+				if(!Utils.IsApproximatelyEqual(this.StaminaMaxTimerSeconds, 0))
+				{
+					this.StaminaRemainingTimerPercentage = this.StaminaRemainingTimerSeconds / this.StaminaMaxTimerSeconds;
+				}
+
+				this.StaminaRemainingTimerString = Utils.FormatTimer(this.StaminaRemainingTimerSeconds, this.StaminaMaxTimerSeconds);
 
 				return conditionsModule;
 			}
 
-			Stamina = tiredCondition.Stamina;
-			MaxStamina = tiredCondition.DefaultStamina;
+			this.Stamina = tiredCondition.Stamina;
+			this.MaxStamina = tiredCondition.DefaultStamina;
 
-			if (!Utils.IsApproximatelyEqual(MaxStamina, 0))
-				StaminaPercentage = Stamina / MaxStamina;
+			if(!Utils.IsApproximatelyEqual(this.MaxStamina, 0))
+			{
+				this.StaminaPercentage = this.Stamina / this.MaxStamina;
+			}
 
 			return conditionsModule;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
+
 			return null;
 		}
 	}
@@ -457,55 +497,69 @@ internal sealed class LargeMonster : IDisposable
 	{
 		try
 		{
-			if (!_isUpdateRagePending)
-				return;
-			_isUpdateRagePending = false;
-
-			if (conditionsModule is null)
+			if(!this._isUpdateRagePending)
 			{
-				conditionsModule = EnemyContext.Conditions;
-				if (conditionsModule is null)
+				return;
+			}
+
+			this._isUpdateRagePending = false;
+
+			if(conditionsModule is null)
+			{
+				conditionsModule = this.EnemyContext.Conditions;
+
+				if(conditionsModule is null)
 				{
 					LogManager.Warn("[LargeMonster.UpdateStamina] No enemy conditions module");
+
 					return;
 				}
 			}
 
 			var angryCondition = conditionsModule.Angry;
-			if (angryCondition is null)
+
+			if(angryCondition is null)
 			{
 				LogManager.Warn("[LargeMonster.UpdateStamina] No enemy angry condition");
+
 				return;
 			}
 
-			IsRageValid = angryCondition.IsValid;
-			if (!IsRageValid)
-				return;
+			this.IsRageValid = angryCondition.IsValid;
 
-			IsEnraged = angryCondition.IsActive;
-
-			if (IsEnraged)
+			if(!this.IsRageValid)
 			{
-				RageTimerSeconds = angryCondition.CurrentTimer;
-				RageMaxTimerSeconds = angryCondition.ActivateTime;
+				return;
+			}
 
-				RageRemainingTimerSeconds = RageMaxTimerSeconds - RageTimerSeconds;
+			this.IsEnraged = angryCondition.IsActive;
 
-				if (!Utils.IsApproximatelyEqual(RageMaxTimerSeconds, 0))
-					RageRemainingTimerPercentage = RageRemainingTimerSeconds / RageMaxTimerSeconds;
+			if(this.IsEnraged)
+			{
+				this.RageTimerSeconds = angryCondition.CurrentTimer;
+				this.RageMaxTimerSeconds = angryCondition.ActivateTime;
 
-				RageRemainingTimerString = Utils.FormatTimer(RageRemainingTimerSeconds, RageMaxTimerSeconds);
+				this.RageRemainingTimerSeconds = this.RageMaxTimerSeconds - this.RageTimerSeconds;
+
+				if(!Utils.IsApproximatelyEqual(this.RageMaxTimerSeconds, 0))
+				{
+					this.RageRemainingTimerPercentage = this.RageRemainingTimerSeconds / this.RageMaxTimerSeconds;
+				}
+
+				this.RageRemainingTimerString = Utils.FormatTimer(this.RageRemainingTimerSeconds, this.RageMaxTimerSeconds);
 
 				return;
 			}
 
-			Rage = angryCondition.Value;
-			MaxRage = angryCondition.LimitValue;
+			this.Rage = angryCondition.Value;
+			this.MaxRage = angryCondition.LimitValue;
 
-			if (!Utils.IsApproximatelyEqual(MaxRage, 0))
-				RagePercentage = Rage / MaxRage;
+			if(!Utils.IsApproximatelyEqual(this.MaxRage, 0))
+			{
+				this.RagePercentage = this.Rage / this.MaxRage;
+			}
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -515,14 +569,17 @@ internal sealed class LargeMonster : IDisposable
 	{
 		try
 		{
-			if (!_isUpdateMapPinPending)
+			if(!this._isUpdateMapPinPending)
+			{
 				return;
-			_isUpdateMapPinPending = false;
+			}
 
-			IsPinned = EnemyContext.IsTargetPinOn;
-			UpdateSortingPriorities();
+			this._isUpdateMapPinPending = false;
+
+			this.IsPinned = this.EnemyContext.IsTargetPinOn;
+			this.UpdateSortingPriorities();
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -534,11 +591,11 @@ internal sealed class LargeMonster : IDisposable
 		{
 			var enemyDefTypeDef = EnemyDef.REFType;
 
-			_nameStringMethod = enemyDefTypeDef.GetMethod("NameString");
+			this._nameStringMethod = enemyDefTypeDef.GetMethod("NameString");
 
-			_stringType = _nameStringMethod.ReturnType.GetType();
+			this._stringType = this._nameStringMethod.ReturnType.GetType();
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -546,6 +603,6 @@ internal sealed class LargeMonster : IDisposable
 
 	private void OnAnyConfigChanged(object? sender, EventArgs e)
 	{
-		InitializeTimers();
+		this.InitializeTimers();
 	}
 }

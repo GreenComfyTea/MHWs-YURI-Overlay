@@ -11,19 +11,19 @@ internal sealed class DamageMeterUiManager : IDisposable
 
 	public DamageMeterUiManager()
 	{
-		Initialize();
+		this.Initialize();
 	}
 
 	~DamageMeterUiManager()
 	{
-		Dispose();
+		this.Dispose();
 	}
 
 	public void Initialize()
 	{
 		LogManager.Info("[DamageMeterUiManager] Initializing...");
 
-		InitializeTimers();
+		this.InitializeTimers();
 
 		LogManager.Info("[DamageMeterUiManager] Initialized!");
 	}
@@ -37,7 +37,7 @@ internal sealed class DamageMeterUiManager : IDisposable
 	{
 		LogManager.Info("[DamageMeterUiManager] Disposing...");
 
-		foreach (var timer in _timers)
+		foreach(var timer in this._timers)
 		{
 			timer.Dispose();
 		}
@@ -49,12 +49,12 @@ internal sealed class DamageMeterUiManager : IDisposable
 	{
 		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.UIs;
 
-		foreach (var timer in _timers)
+		foreach(var timer in this._timers)
 		{
 			timer.Dispose();
 		}
 
-		_timers.Clear();
+		this._timers.Clear();
 
 		//_timers.Add(Timers.SetInterval(UpdateStatic, Utils.SecondsToMilliseconds(updateDelays.DamageMeter)));
 	}

@@ -17,36 +17,39 @@ internal sealed class LargeMonsterRageComponent
 
 	public LargeMonsterRageComponent(LargeMonster largeMonster, Func<LargeMonsterRageComponentCustomization?> customizationAccessor)
 	{
-		_largeMonster = largeMonster;
+		this._largeMonster = largeMonster;
 
-		_customizationAccessor = customizationAccessor;
+		this._customizationAccessor = customizationAccessor;
 
-		_rageValueLabelElement = new LabelElement(() => customizationAccessor()?.ValueLabel);
-		_ragePercentageLabelElement = new LabelElement(() => customizationAccessor()?.PercentageLabel);
-		_rageBarElement = new BarElement(() => customizationAccessor()?.Bar);
-		_rageTimerLabelElement = new LabelElement(() => customizationAccessor()?.TimerLabel);
-		_rageTimerBarElement = new BarElement(() => customizationAccessor()?.TimerBar);
+		this._rageValueLabelElement = new LabelElement(() => customizationAccessor()?.ValueLabel);
+		this._ragePercentageLabelElement = new LabelElement(() => customizationAccessor()?.PercentageLabel);
+		this._rageBarElement = new BarElement(() => customizationAccessor()?.Bar);
+		this._rageTimerLabelElement = new LabelElement(() => customizationAccessor()?.TimerLabel);
+		this._rageTimerBarElement = new BarElement(() => customizationAccessor()?.TimerBar);
 	}
 
 	public void Draw(ImDrawListPtr drawList, Vector2 position, float opacityScale = 1f)
 	{
-		if (!_largeMonster.IsRageValid)
-			return;
-
-		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
-
-		var offset = _customizationAccessor()?.Offset;
-		var offsetPosition = new Vector2(position.X + sizeScaleModifier * (offset?.X ?? 0f), position.Y + sizeScaleModifier * (offset?.Y ?? 0f));
-
-		if (_largeMonster.IsEnraged)
+		if(!this._largeMonster.IsRageValid)
 		{
-			_rageTimerBarElement.Draw(drawList, offsetPosition, _largeMonster.RageRemainingTimerPercentage, opacityScale);
-			_rageTimerLabelElement.Draw(drawList, offsetPosition, opacityScale, _largeMonster.RageRemainingTimerString);
 			return;
 		}
 
-		_rageBarElement.Draw(drawList, offsetPosition, _largeMonster.RagePercentage, opacityScale);
-		_ragePercentageLabelElement.Draw(drawList, offsetPosition, opacityScale, _largeMonster.RagePercentage);
-		_rageValueLabelElement.Draw(drawList, offsetPosition, opacityScale, _largeMonster.Rage, _largeMonster.MaxRage);
+		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
+
+		var offset = this._customizationAccessor()?.Offset;
+		var offsetPosition = new Vector2(position.X + sizeScaleModifier * (offset?.X ?? 0f), position.Y + sizeScaleModifier * (offset?.Y ?? 0f));
+
+		if(this._largeMonster.IsEnraged)
+		{
+			this._rageTimerBarElement.Draw(drawList, offsetPosition, this._largeMonster.RageRemainingTimerPercentage, opacityScale);
+			this._rageTimerLabelElement.Draw(drawList, offsetPosition, opacityScale, this._largeMonster.RageRemainingTimerString);
+
+			return;
+		}
+
+		this._rageBarElement.Draw(drawList, offsetPosition, this._largeMonster.RagePercentage, opacityScale);
+		this._ragePercentageLabelElement.Draw(drawList, offsetPosition, opacityScale, this._largeMonster.RagePercentage);
+		this._rageValueLabelElement.Draw(drawList, offsetPosition, opacityScale, this._largeMonster.Rage, this._largeMonster.MaxRage);
 	}
 }

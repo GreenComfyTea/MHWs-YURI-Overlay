@@ -4,28 +4,30 @@ internal sealed class Debouncer : IDisposable
 {
 	private CancellationTokenSource? _cancellationTokenSource;
 
+	public void Dispose()
+	{
+		this._cancellationTokenSource?.Cancel();
+		this._cancellationTokenSource?.Dispose();
+		this._cancellationTokenSource = null;
+	}
+
 	public void Debounce(Action action, int delayMilliseconds)
 	{
-		_cancellationTokenSource?.Cancel(); // Cancel any previously scheduled task
-		_cancellationTokenSource = new CancellationTokenSource();
+		this._cancellationTokenSource?.Cancel(); // Cancel any previously scheduled task
+		this._cancellationTokenSource = new CancellationTokenSource();
 
-		var token = _cancellationTokenSource.Token;
+		var token = this._cancellationTokenSource.Token;
 
 		Task.Delay(delayMilliseconds, token)
 			.ContinueWith(
 				task =>
 				{
-					if (!task.IsCanceled)
+					if(!task.IsCanceled)
+					{
 						action();
+					}
 				},
 				TaskScheduler.Default
 			);
-	}
-
-	public void Dispose()
-	{
-		_cancellationTokenSource?.Cancel();
-		_cancellationTokenSource?.Dispose();
-		_cancellationTokenSource = null;
 	}
 }

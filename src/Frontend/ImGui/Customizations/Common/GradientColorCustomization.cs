@@ -12,10 +12,10 @@ internal sealed class GradientColorCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-gradient-color";
 
-		if (ImGuiHelper.ResettableTreeNode(name, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(name, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			isChanged |= Start.RenderImGui(customizationName, defaultCustomization?.Start);
-			isChanged |= End.RenderImGui(customizationName, defaultCustomization?.End);
+			isChanged |= this.Start.RenderImGui(customizationName, defaultCustomization?.Start);
+			isChanged |= this.End.RenderImGui(customizationName, defaultCustomization?.End);
 
 			ImGui.TreePop();
 		}
@@ -25,10 +25,12 @@ internal sealed class GradientColorCustomization : Customization
 
 	public void Reset(GradientColorCustomization? defaultCustomization = null)
 	{
-		if (defaultCustomization is null)
+		if(defaultCustomization is null)
+		{
 			return;
+		}
 
-		Start.Reset(defaultCustomization.Start);
-		End.Reset(defaultCustomization.End);
+		this.Start.Reset(defaultCustomization.Start);
+		this.End.Reset(defaultCustomization.End);
 	}
 }

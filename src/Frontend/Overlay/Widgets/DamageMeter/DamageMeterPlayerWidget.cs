@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 using Hexa.NET.ImGui;
 
 namespace YURI_Overlay;
@@ -20,25 +15,27 @@ internal sealed class DamageMeterPlayerWidget
 
 	public DamageMeterPlayerWidget(DamageMeterEntity damageMeterEntity, Func<DamageMeterPlayerWidgetCustomization?> customizationAccessor)
 	{
-		_damageMeterEntity = damageMeterEntity;
-		_customizationAccessor = customizationAccessor;
+		this._damageMeterEntity = damageMeterEntity;
+		this._customizationAccessor = customizationAccessor;
 
-		_hunterMasterRanksLabelElement = new LabelElement(() => _customizationAccessor()?.HunterMasterRanksLabel);
-		_nameLabelElement = new LabelElement(() => _customizationAccessor()?.NameLabel);
-		_damageComponent = new DamageMeterDamageComponent(damageMeterEntity, () => _customizationAccessor()?.Damage);
-		_dpsComponent = new DamageMeterDpsComponent(damageMeterEntity, () => _customizationAccessor()?.DPS);
+		this._hunterMasterRanksLabelElement = new LabelElement(() => this._customizationAccessor()?.HunterMasterRanksLabel);
+		this._nameLabelElement = new LabelElement(() => this._customizationAccessor()?.NameLabel);
+		this._damageComponent = new DamageMeterDamageComponent(damageMeterEntity, () => this._customizationAccessor()?.Damage);
+		this._dpsComponent = new DamageMeterDpsComponent(damageMeterEntity, () => this._customizationAccessor()?.DPS);
 	}
 
 	public void Draw(ImDrawListPtr drawList, Vector2 position)
 	{
-		var customization = _customizationAccessor();
+		var customization = this._customizationAccessor();
 
-		if (customization?.Enabled != true)
+		if(customization?.Enabled != true)
+		{
 			return;
+		}
 
-		_dpsComponent.Draw(drawList, position);
-		_damageComponent.Draw(drawList, position);
-		_hunterMasterRanksLabelElement.Draw(drawList, position, 1f, _damageMeterEntity.HunterRank, _damageMeterEntity.MasterRank);
-		_nameLabelElement.Draw(drawList, position, 1f, _damageMeterEntity.Name, _damageMeterEntity.Id, _damageMeterEntity.HunterRank, _damageMeterEntity.MasterRank);
+		this._dpsComponent.Draw(drawList, position);
+		this._damageComponent.Draw(drawList, position);
+		this._hunterMasterRanksLabelElement.Draw(drawList, position, 1f, this._damageMeterEntity.HunterRank, this._damageMeterEntity.MasterRank);
+		this._nameLabelElement.Draw(drawList, position, 1f, this._damageMeterEntity.Name, this._damageMeterEntity.Id, this._damageMeterEntity.HunterRank, this._damageMeterEntity.MasterRank);
 	}
 }

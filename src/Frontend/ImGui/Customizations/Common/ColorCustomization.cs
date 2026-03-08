@@ -1,28 +1,27 @@
-﻿using System.Numerics;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using Hexa.NET.ImGui;
-using via;
 
 namespace YURI_Overlay;
 
 internal sealed class ColorCustomization : Customization
 {
 	[JsonIgnore]
-	public ColorInfo? ColorInfo = null;
+	public ColorInfo? ColorInfo;
 
 	public string? Color
 	{
-		get => ColorInfo?.RgbaHex;
+		get => this.ColorInfo?.RgbaHex;
 		set
 		{
-			if (value is null)
+			if(value is null)
 			{
-				ColorInfo = null;
+				this.ColorInfo = null;
+
 				return;
 			}
 
-			ColorInfo ??= new ColorInfo();
-			ColorInfo.RgbaHex = value;
+			this.ColorInfo ??= new ColorInfo();
+			this.ColorInfo.RgbaHex = value;
 		}
 	}
 
@@ -33,14 +32,15 @@ internal sealed class ColorCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-color";
 
-		if (ImGuiHelper.ResettableTreeNode(localization.Color, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.Color, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			var isColorChanged = ImGuiHelper.ResettableColorPicker4($"##{customizationName}", ref ColorInfo, defaultCustomization?.ColorInfo);
+			var isColorChanged = ImGuiHelper.ResettableColorPicker4($"##{customizationName}", ref this.ColorInfo, defaultCustomization?.ColorInfo);
 			isChanged |= isColorChanged;
-			if (isColorChanged)
+
+			if(isColorChanged)
 			{
-				ColorInfo ??= new ColorInfo();
-				ColorInfo.Vector = ColorInfo.vector;
+				this.ColorInfo ??= new ColorInfo();
+				this.ColorInfo.Vector = this.ColorInfo.vector;
 			}
 
 			ImGui.TreePop();
@@ -51,9 +51,11 @@ internal sealed class ColorCustomization : Customization
 
 	public void Reset(ColorCustomization? defaultCustomization = null)
 	{
-		if (defaultCustomization is null)
+		if(defaultCustomization is null)
+		{
 			return;
+		}
 
-		Color = defaultCustomization.Color;
+		this.Color = defaultCustomization.Color;
 	}
 }

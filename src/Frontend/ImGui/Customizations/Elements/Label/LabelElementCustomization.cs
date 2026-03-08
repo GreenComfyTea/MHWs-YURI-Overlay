@@ -4,8 +4,8 @@ namespace YURI_Overlay;
 
 internal sealed class LabelElementCustomization : Customization
 {
-	public bool? Visible = null;
-	public string? Format = null;
+	public bool? Visible;
+	public string? Format;
 	public LabelElementSettingsCustomization Settings = new();
 	public OffsetCustomization Offset = new();
 	public ColorCustomization Color = new();
@@ -17,16 +17,19 @@ internal sealed class LabelElementCustomization : Customization
 
 		var isChanged = false;
 
-		if (ImGuiHelper.ResettableTreeNode(visibleName, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(visibleName, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
-			if (Format is not null)
-				isChanged |= ImGuiHelper.ResettableInputText($"{localization.Format}##{customizationName}", ref Format, defaultValue: defaultCustomization?.Format);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref this.Visible, defaultCustomization?.Visible);
 
-			isChanged |= Settings.RenderImGui(customizationName, defaultCustomization?.Settings);
-			isChanged |= Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
-			isChanged |= Color.RenderImGui(customizationName, defaultCustomization?.Color);
-			isChanged |= Shadow.RenderImGui(customizationName, defaultCustomization?.Shadow);
+			if(this.Format is not null)
+			{
+				isChanged |= ImGuiHelper.ResettableInputText($"{localization.Format}##{customizationName}", ref this.Format, defaultValue: defaultCustomization?.Format);
+			}
+
+			isChanged |= this.Settings.RenderImGui(customizationName, defaultCustomization?.Settings);
+			isChanged |= this.Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
+			isChanged |= this.Color.RenderImGui(customizationName, defaultCustomization?.Color);
+			isChanged |= this.Shadow.RenderImGui(customizationName, defaultCustomization?.Shadow);
 
 			ImGui.TreePop();
 		}
@@ -36,15 +39,17 @@ internal sealed class LabelElementCustomization : Customization
 
 	public void Reset(LabelElementCustomization? defaultCustomization = null)
 	{
-		if (defaultCustomization is null)
+		if(defaultCustomization is null)
+		{
 			return;
+		}
 
-		Visible = defaultCustomization.Visible;
-		Format = defaultCustomization.Format;
+		this.Visible = defaultCustomization.Visible;
+		this.Format = defaultCustomization.Format;
 
-		Offset.Reset(defaultCustomization.Offset);
-		Settings.Reset(defaultCustomization.Settings);
-		Color.Reset(defaultCustomization.Color);
-		Shadow.Reset(defaultCustomization.Shadow);
+		this.Offset.Reset(defaultCustomization.Offset);
+		this.Settings.Reset(defaultCustomization.Settings);
+		this.Color.Reset(defaultCustomization.Color);
+		this.Shadow.Reset(defaultCustomization.Shadow);
 	}
 }

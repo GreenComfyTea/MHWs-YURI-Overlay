@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Numerics;
 using Hexa.NET.ImGui;
 
 namespace YURI_Overlay;
@@ -20,28 +15,30 @@ internal sealed class DamageMeterDamageComponent
 
 	public DamageMeterDamageComponent(DamageMeterEntity damageMeterEntity, Func<DamageMeterDamageComponentCustomization?> customizationAccessor)
 	{
-		_damageMeterEntity = damageMeterEntity;
-		_customizationAccessor = customizationAccessor;
+		this._damageMeterEntity = damageMeterEntity;
+		this._customizationAccessor = customizationAccessor;
 
-		_damageValueLabelElement = new LabelElement(() => customizationAccessor()?.ValueLabel);
-		_damagePercentageLabelElement = new LabelElement(() => customizationAccessor()?.PercentageLabel);
-		_damageBarElement = new BarElement(() => customizationAccessor()?.Bar);
+		this._damageValueLabelElement = new LabelElement(() => customizationAccessor()?.ValueLabel);
+		this._damagePercentageLabelElement = new LabelElement(() => customizationAccessor()?.PercentageLabel);
+		this._damageBarElement = new BarElement(() => customizationAccessor()?.Bar);
 	}
 
 	public void Draw(ImDrawListPtr drawList, Vector2 position, float opacityScale = 1f)
 	{
-		var customization = _customizationAccessor();
+		var customization = this._customizationAccessor();
 
-		if (customization?.Visible != true)
+		if(customization?.Visible != true)
+		{
 			return;
+		}
 
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
 
 		var offset = customization.Offset;
 		var offsetPosition = new Vector2(position.X + sizeScaleModifier * (offset.X ?? 0f), position.Y + sizeScaleModifier * (offset.Y ?? 0f));
 
-		_damageBarElement.Draw(drawList, offsetPosition, _damageMeterEntity.DisplayedDamagePercentage, opacityScale);
-		_damagePercentageLabelElement.Draw(drawList, offsetPosition, opacityScale, _damageMeterEntity.DisplayedDamagePercentage);
-		_damageValueLabelElement.Draw(drawList, offsetPosition, opacityScale, _damageMeterEntity.DisplayedDamage);
+		this._damageBarElement.Draw(drawList, offsetPosition, this._damageMeterEntity.DisplayedDamagePercentage, opacityScale);
+		this._damagePercentageLabelElement.Draw(drawList, offsetPosition, opacityScale, this._damageMeterEntity.DisplayedDamagePercentage);
+		this._damageValueLabelElement.Draw(drawList, offsetPosition, opacityScale, this._damageMeterEntity.DisplayedDamage);
 	}
 }

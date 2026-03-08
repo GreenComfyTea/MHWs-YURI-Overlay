@@ -6,113 +6,127 @@ internal sealed class JsonWatcher<T> : IDisposable
 	where T : class, new()
 {
 	private readonly JsonDatabase<T> _jsonDatabaseInstance;
+
+	private readonly bool _stub;
 	private readonly FileSystemWatcher? _watcher;
+	private Timer? _delayedEnableTimer;
 
 	private bool _disabled;
 	private DateTime _lastEventTime = DateTime.MinValue;
-	private Timer? _delayedEnableTimer;
-
-	private readonly bool _stub = false;
 
 	public JsonWatcher(JsonDatabase<T> jsonDatabase, bool stub)
 	{
-		_jsonDatabaseInstance = jsonDatabase;
-		_stub = stub;
+		this._jsonDatabaseInstance = jsonDatabase;
+		this._stub = stub;
 	}
 
 	public JsonWatcher(JsonDatabase<T> jsonDatabase)
 	{
-		LogManager.Info($"[JsonWatcher] \"{jsonDatabase.Name}\": Initializing...");
+		LogManager.Info($"[JsonWatcher] \"{jsonDatabase.name}\": Initializing...");
 
-		_jsonDatabaseInstance = jsonDatabase;
+		this._jsonDatabaseInstance = jsonDatabase;
 
 		try
 		{
-			_watcher = new FileSystemWatcher(jsonDatabase.FilePath);
+			this._watcher = new FileSystemWatcher(jsonDatabase.filePath);
 
-			_watcher.NotifyFilter = NotifyFilters.Attributes | NotifyFilters.CreationTime | NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.Security | NotifyFilters.Size;
+			this._watcher.NotifyFilter = NotifyFilters.Attributes | NotifyFilters.CreationTime | NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.Security | NotifyFilters.Size;
 
-			_watcher.Changed += OnJsonFileChanged;
-			_watcher.Renamed += OnJsonFileRenamed;
-			_watcher.Deleted += OnJsonFileDeleted;
-			_watcher.Error += OnJsonFileError;
+			this._watcher.Changed += this.OnJsonFileChanged;
+			this._watcher.Renamed += this.OnJsonFileRenamed;
+			this._watcher.Deleted += this.OnJsonFileDeleted;
+			this._watcher.Error += this.OnJsonFileError;
 
-			_watcher.Filter = $"{jsonDatabase.Name}.json";
-			_watcher.EnableRaisingEvents = true;
+			this._watcher.Filter = $"{jsonDatabase.name}.json";
+			this._watcher.EnableRaisingEvents = true;
 
-			LogManager.Info($"[JsonWatcher] \"{jsonDatabase.Name}\": Initialized!");
+			LogManager.Info($"[JsonWatcher] \"{jsonDatabase.name}\": Initialized!");
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
 	}
 
+	public void Dispose()
+	{
+		if(!this._stub)
+		{
+			LogManager.Info($"[JsonWatcher] File \"{this._jsonDatabaseInstance.name}\": Disposing...");
+		}
+
+		this._delayedEnableTimer?.Dispose();
+		this._watcher?.Dispose();
+
+		if(!this._stub)
+		{
+			LogManager.Info($"[JsonWatcher] File \"{this._jsonDatabaseInstance.name}\": Disposed!");
+		}
+	}
+
 	~JsonWatcher()
 	{
-		Dispose();
+		this.Dispose();
 	}
 
 	public void Enable()
 	{
-		_disabled = false;
-		_delayedEnableTimer?.Dispose();
-		_delayedEnableTimer = null;
+		this._disabled = false;
+		this._delayedEnableTimer?.Dispose();
+		this._delayedEnableTimer = null;
 
-		if (!_stub)
-			LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Enabled!");
+		if(!this._stub)
+		{
+			LogManager.Info($"[JsonWatcher] File \"{this._jsonDatabaseInstance.name}\": Enabled!");
+		}
 	}
 
 	public void DelayedEnable()
 	{
-		_delayedEnableTimer?.Dispose();
-		_delayedEnableTimer = Timers.SetTimeout(Enable, Constants.ReenableWatcherDelayMilliseconds);
+		this._delayedEnableTimer?.Dispose();
+		this._delayedEnableTimer = Timers.SetTimeout(this.Enable, Constants.REENABLE_WATCHER_DELAY_MILLISECONDS);
 
-		if (!_stub)
-			LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Will enable after a delay...");
+		if(!this._stub)
+		{
+			LogManager.Info($"[JsonWatcher] File \"{this._jsonDatabaseInstance.name}\": Will enable after a delay...");
+		}
 	}
 
 	public void Disable()
 	{
-		_disabled = true;
-		_delayedEnableTimer?.Dispose();
+		this._disabled = true;
+		this._delayedEnableTimer?.Dispose();
 
-		if (!_stub)
-			LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Temporarily disabled!");
-	}
-
-	public void Dispose()
-	{
-		if (!_stub)
-			LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Disposing...");
-
-		_delayedEnableTimer?.Dispose();
-		_watcher?.Dispose();
-
-		if (!_stub)
-			LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Disposed!");
+		if(!this._stub)
+		{
+			LogManager.Info($"[JsonWatcher] File \"{this._jsonDatabaseInstance.name}\": Temporarily disabled!");
+		}
 	}
 
 	private void OnJsonFileChanged(object? sender, FileSystemEventArgs e)
 	{
 		try
 		{
-			if (_disabled)
+			if(this._disabled)
+			{
 				return;
+			}
 
 			var eventTime = File.GetLastWriteTime(e.FullPath);
 
-			if (eventTime.Ticks - _lastEventTime.Ticks < Constants.DuplicateEventThresholdTicks)
+			if(eventTime.Ticks - this._lastEventTime.Ticks < Constants.DUPLICATE_EVENT_THRESHOLD_TICKS)
+			{
 				return;
+			}
 
-			LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}.json\": Changed.");
+			LogManager.Info($"[JsonWatcher] File \"{this._jsonDatabaseInstance.name}.json\": Changed.");
 
-			_jsonDatabaseInstance.Load();
-			_jsonDatabaseInstance.EmitChanged();
+			this._jsonDatabaseInstance.Load();
+			this._jsonDatabaseInstance.EmitChanged();
 
-			_lastEventTime = eventTime;
+			this._lastEventTime = eventTime;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -140,21 +154,23 @@ internal sealed class JsonWatcher<T> : IDisposable
 	{
 		try
 		{
-			if (_disabled)
+			if(this._disabled)
+			{
 				return;
+			}
 
 			LogManager.Info($"[JsonWatcher] File \"{e.OldName}\": Renamed to \"{e.Name}\".");
 
-			if (e.Name != _watcher?.Filter)
+			if(e.Name != this._watcher?.Filter)
 			{
-				_jsonDatabaseInstance.EmitRenamedFrom();
+				this._jsonDatabaseInstance.EmitRenamedFrom();
 			}
 			else
 			{
-				_jsonDatabaseInstance.EmitRenamedTo();
+				this._jsonDatabaseInstance.EmitRenamedTo();
 			}
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -164,14 +180,16 @@ internal sealed class JsonWatcher<T> : IDisposable
 	{
 		try
 		{
-			if (_disabled)
+			if(this._disabled)
+			{
 				return;
+			}
 
-			LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Deleted.");
+			LogManager.Info($"[JsonWatcher] File \"{this._jsonDatabaseInstance.name}\": Deleted.");
 
-			_jsonDatabaseInstance.EmitDeleted();
+			this._jsonDatabaseInstance.EmitDeleted();
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -181,14 +199,16 @@ internal sealed class JsonWatcher<T> : IDisposable
 	{
 		try
 		{
-			if (_disabled)
+			if(this._disabled)
+			{
 				return;
+			}
 
-			LogManager.Info($"[JsonWatcher] File \"{_jsonDatabaseInstance.Name}\": Unknown error.");
+			LogManager.Info($"[JsonWatcher] File \"{this._jsonDatabaseInstance.name}\": Unknown error.");
 
-			_jsonDatabaseInstance.Load();
+			this._jsonDatabaseInstance.Load();
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}

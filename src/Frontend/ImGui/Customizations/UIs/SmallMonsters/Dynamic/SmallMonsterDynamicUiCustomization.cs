@@ -4,7 +4,7 @@ namespace YURI_Overlay;
 
 internal sealed class SmallMonsterDynamicUiCustomization : Customization
 {
-	public bool? Enabled = null;
+	public bool? Enabled;
 	public SmallMonsterDynamicUiSettingsCustomization Settings = new();
 	public WorldOffsetCustomization WorldOffset = new();
 	public OffsetCustomization Offset = new();
@@ -19,15 +19,15 @@ internal sealed class SmallMonsterDynamicUiCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-dynamic";
 
-		if (ImGuiHelper.ResettableTreeNode(localization.SmallMonsterUI, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.SmallMonsterUI, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref this.Enabled, defaultCustomization?.Enabled);
 
-			isChanged |= Settings.RenderImGui(customizationName, defaultCustomization?.Settings);
-			isChanged |= WorldOffset.RenderImGui(customizationName, defaultCustomization?.WorldOffset);
-			isChanged |= Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
-			isChanged |= NameLabel.RenderImGui(localization.NameLabel, $"{customizationName}-name-label", defaultCustomization?.NameLabel);
-			isChanged |= Health.RenderImGui(customizationName, defaultCustomization?.Health);
+			isChanged |= this.Settings.RenderImGui(customizationName, defaultCustomization?.Settings);
+			isChanged |= this.WorldOffset.RenderImGui(customizationName, defaultCustomization?.WorldOffset);
+			isChanged |= this.Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
+			isChanged |= this.NameLabel.RenderImGui(localization.NameLabel, $"{customizationName}-name-label", defaultCustomization?.NameLabel);
+			isChanged |= this.Health.RenderImGui(customizationName, defaultCustomization?.Health);
 
 			ImGui.TreePop();
 		}
@@ -37,15 +37,17 @@ internal sealed class SmallMonsterDynamicUiCustomization : Customization
 
 	public void Reset(SmallMonsterDynamicUiCustomization? defaultCustomization = null)
 	{
-		if (defaultCustomization is null)
+		if(defaultCustomization is null)
+		{
 			return;
+		}
 
-		Enabled = defaultCustomization.Enabled;
-		Settings.Reset(defaultCustomization.Settings);
-		WorldOffset.Reset(defaultCustomization.WorldOffset);
-		Offset.Reset(defaultCustomization.Offset);
+		this.Enabled = defaultCustomization.Enabled;
+		this.Settings.Reset(defaultCustomization.Settings);
+		this.WorldOffset.Reset(defaultCustomization.WorldOffset);
+		this.Offset.Reset(defaultCustomization.Offset);
 
-		NameLabel.Reset(defaultCustomization.NameLabel);
-		Health.Reset(defaultCustomization.Health);
+		this.NameLabel.Reset(defaultCustomization.NameLabel);
+		this.Health.Reset(defaultCustomization.Health);
 	}
 }

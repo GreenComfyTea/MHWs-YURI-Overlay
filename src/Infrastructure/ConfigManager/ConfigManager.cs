@@ -21,48 +21,50 @@ internal sealed partial class ConfigManager : IDisposable
 
 	private ConfigManager()
 	{
-		Customization = new ConfigCustomization(true);
-		DefaultConfig = new Config();
-		ActiveConfig = new JsonDatabase<Config>(true);
-		Configs = [];
-		ConfigWatcherInstance = new ConfigWatcher(true);
-		_currentConfigInstance = new JsonDatabase<CurrentConfig>(true);
+		this.Customization = new ConfigCustomization(true);
+		this.DefaultConfig = new Config();
+		this.ActiveConfig = new JsonDatabase<Config>(true);
+		this.Configs = [];
+		this.ConfigWatcherInstance = new ConfigWatcher(true);
+		this._currentConfigInstance = new JsonDatabase<CurrentConfig>(true);
 	}
 
 	~ConfigManager()
 	{
-		Dispose();
+		this.Dispose();
 	}
 
 	public void Initialize()
 	{
 		LogManager.Info("[ConfigManager] Initializing...");
 
-		InitializeDefaultConfig();
-		LoadAllConfigs();
-		LoadCurrentConfig();
+		this.InitializeDefaultConfig();
+		this.LoadAllConfigs();
+		this.LoadCurrentConfig();
 
-		ConfigWatcherInstance.Dispose();
+		this.ConfigWatcherInstance.Dispose();
 
-		ConfigWatcherInstance = new ConfigWatcher();
-		Customization = new ConfigCustomization();
+		this.ConfigWatcherInstance = new ConfigWatcher();
+		this.Customization = new ConfigCustomization();
 
 		LogManager.Info("[ConfigManager] Initialized!");
 	}
 
 	public void ActivateConfig(JsonDatabase<Config>? config)
 	{
-		if (config is null)
+		if(config is null)
+		{
 			return;
+		}
 
 		LogManager.Info($"[ConfigManager] Activating config \"{config.Name}\"...");
 
-		ActiveConfig = config;
+		this.ActiveConfig = config;
 
-		_currentConfigInstance.Data.config = config.Name;
-		_currentConfigInstance.Save();
+		this._currentConfigInstance.Data.config = config.Name;
+		this._currentConfigInstance.Save();
 
-		EmitActiveConfigChanged();
+		this.EmitActiveConfigChanged();
 
 		LogManager.Info($"[ConfigManager] Config \"{config.Name}\" activated!");
 	}
@@ -71,37 +73,39 @@ internal sealed partial class ConfigManager : IDisposable
 	{
 		LogManager.Info($"[ConfigManager] Searching for config \"{name}\" to activate it...");
 
-		var isGetConfigSuccess = Configs.TryGetValue(name, out var config);
+		var isGetConfigSuccess = this.Configs.TryGetValue(name, out var config);
 
-		if (!isGetConfigSuccess)
+		if(!isGetConfigSuccess)
 		{
 			LogManager.Info($"[ConfigManager] Config \"{name}\" is not found. ...");
 			LogManager.Info("[ConfigManager] Searching for default config to activate it...");
 
-			var isGetDefaultConfigSuccess = Configs.TryGetValue(Constants.DefaultConfig, out var defaultConfig);
+			var isGetDefaultConfigSuccess = this.Configs.TryGetValue(Constants.DefaultConfig, out var defaultConfig);
 
-			if (!isGetDefaultConfigSuccess)
+			if(!isGetDefaultConfigSuccess)
 			{
 				LogManager.Info("[ConfigManager] Default config is not found. Creating it...");
 
-				var newDefaultConfig = InitializeConfig(Constants.DefaultConfig);
+				var newDefaultConfig = this.InitializeConfig(Constants.DefaultConfig);
 				ResetToDefault(newDefaultConfig);
 
 				LogManager.Info("[ConfigManager] Default config created!");
 
-				ActivateConfig(newDefaultConfig);
+				this.ActivateConfig(newDefaultConfig);
+
 				return;
 			}
 
 			LogManager.Info("[ConfigManager] Default config found!");
 
-			ActivateConfig(defaultConfig);
+			this.ActivateConfig(defaultConfig);
+
 			return;
 		}
 
 		LogManager.Info($"[ConfigManager] Config \"{name}\" found!");
 
-		ActivateConfig(config);
+		this.ActivateConfig(config);
 	}
 
 	public JsonDatabase<Config> InitializeConfig(string name, Config? configToClone = null)
@@ -109,19 +113,19 @@ internal sealed partial class ConfigManager : IDisposable
 		LogManager.Info($"[ConfigManager] Initializing config \"{name}\"...");
 
 		JsonDatabase<Config> config = new(Constants.ConfigsPath, name, configToClone);
-		MergeConfig(config.Data, DefaultConfig);
+		MergeConfig(config.Data, this.DefaultConfig);
 		//if(configToClone is null) DefaultConfig.ResetTo(config.data);
 		config.Save();
 
-		config.Changed += OnConfigFileChanged;
-		config.RenamedFrom += OnConfigFileRenamedFrom;
-		config.RenamedTo += OnConfigFileRenamedTo;
-		config.Deleted += OnConfigFileDeleted;
-		config.Error += OnConfigFileError;
+		config.Changed += this.OnConfigFileChanged;
+		config.RenamedFrom += this.OnConfigFileRenamedFrom;
+		config.RenamedTo += this.OnConfigFileRenamedTo;
+		config.Deleted += this.OnConfigFileDeleted;
+		config.Error += this.OnConfigFileError;
 
-		Configs[name] = config;
+		this.Configs[name] = config;
 
-		EmitAnyConfigChanged();
+		this.EmitAnyConfigChanged();
 
 		LogManager.Info($"[ConfigManager] Config \"{name}\" initialized!");
 
@@ -130,53 +134,53 @@ internal sealed partial class ConfigManager : IDisposable
 
 	public void NewConfig(string newConfigName)
 	{
-		ConfigWatcherInstance.Disable();
-		var newConfig = InitializeConfig(newConfigName);
+		this.ConfigWatcherInstance.Disable();
+		var newConfig = this.InitializeConfig(newConfigName);
 		ResetToDefault(newConfig);
-		ConfigWatcherInstance.DelayedEnable();
+		this.ConfigWatcherInstance.DelayedEnable();
 
-		ActivateConfig(newConfig);
+		this.ActivateConfig(newConfig);
 	}
 
 	public void DuplicateConfig(string newConfigName)
 	{
-		ConfigWatcherInstance.Disable();
+		this.ConfigWatcherInstance.Disable();
 
-		var newConfig = InitializeConfig(newConfigName, ActiveConfig.Data);
-		ConfigWatcherInstance.DelayedEnable();
+		var newConfig = this.InitializeConfig(newConfigName, this.ActiveConfig.Data);
+		this.ConfigWatcherInstance.DelayedEnable();
 
-		ActivateConfig(newConfig);
+		this.ActivateConfig(newConfig);
 	}
 
 	public void RenameConfig(string newConfigName)
 	{
-		ConfigWatcherInstance.Disable();
+		this.ConfigWatcherInstance.Disable();
 
-		var oldConfig = ActiveConfig;
-		var newConfig = InitializeConfig(newConfigName, ActiveConfig.Data);
+		var oldConfig = this.ActiveConfig;
+		var newConfig = this.InitializeConfig(newConfigName, this.ActiveConfig.Data);
 
-		ActivateConfig(newConfig);
-		Configs.Remove(oldConfig.Name);
+		this.ActivateConfig(newConfig);
+		this.Configs.Remove(oldConfig.Name);
 		oldConfig.Delete();
 
-		ConfigWatcherInstance.DelayedEnable();
+		this.ConfigWatcherInstance.DelayedEnable();
 
-		Utils.EmitEvents(this, AnyConfigChanged);
+		Utils.EmitEvents(this, this.AnyConfigChanged);
 	}
 
 	public void ResetConfig()
 	{
-		ResetToDefault(ActiveConfig);
+		ResetToDefault(this.ActiveConfig);
 	}
 
 	public void Dispose()
 	{
 		LogManager.Info("[ConfigManager] Disposing...");
 
-		ConfigWatcherInstance.Dispose();
-		_currentConfigInstance.Dispose();
+		this.ConfigWatcherInstance.Dispose();
+		this._currentConfigInstance.Dispose();
 
-		foreach (var config in Configs)
+		foreach(var config in this.Configs)
 		{
 			config.Value.Dispose();
 		}
@@ -186,15 +190,15 @@ internal sealed partial class ConfigManager : IDisposable
 
 	public void EmitAnyConfigChanged()
 	{
-		Utils.EmitEvents(this, AnyConfigChanged);
+		Utils.EmitEvents(this, this.AnyConfigChanged);
 	}
 
 	private void InitializeDefaultConfig()
 	{
 		LogManager.Info("[ConfigManager] Initializing default config reference...");
 
-		DefaultConfig = new Config();
-		ResetToDefault(DefaultConfig);
+		this.DefaultConfig = new Config();
+		ResetToDefault(this.DefaultConfig);
 
 		LogManager.Info("[ConfigManager] Default config reference initialized!");
 	}
@@ -203,15 +207,15 @@ internal sealed partial class ConfigManager : IDisposable
 	{
 		LogManager.Info("[ConfigManager] Loading current config...");
 
-		_currentConfigInstance = new JsonDatabase<CurrentConfig>(Constants.PluginDataPath, Constants.CurrentConfig);
+		this._currentConfigInstance = new JsonDatabase<CurrentConfig>(Constants.PluginDataPath, Constants.CurrentConfig);
 
-		_currentConfigInstance.Changed += OnCurrentConfigChanged;
-		_currentConfigInstance.RenamedFrom += OnCurrentConfigRenamedFrom;
-		_currentConfigInstance.RenamedTo += OnCurrentConfigRenamedTo;
-		_currentConfigInstance.Deleted += OnCurrentConfigDeleted;
-		_currentConfigInstance.Error += OnCurrentConfigError;
+		this._currentConfigInstance.Changed += this.OnCurrentConfigChanged;
+		this._currentConfigInstance.RenamedFrom += this.OnCurrentConfigRenamedFrom;
+		this._currentConfigInstance.RenamedTo += this.OnCurrentConfigRenamedTo;
+		this._currentConfigInstance.Deleted += this.OnCurrentConfigDeleted;
+		this._currentConfigInstance.Error += this.OnCurrentConfigError;
 
-		ActivateConfig(_currentConfigInstance.Data.config);
+		ActivateConfig(this._currentConfigInstance.Data.config);
 
 		LogManager.Info("[ConfigManager] Current config loaded!");
 	}
@@ -226,22 +230,23 @@ internal sealed partial class ConfigManager : IDisposable
 
 			var allConfigFilePathNames = Directory.GetFiles(Constants.ConfigsPath);
 
-			if (allConfigFilePathNames.Length == 0)
+			if(allConfigFilePathNames.Length == 0)
 			{
-				var defaultConfig = InitializeConfig(Constants.DefaultConfig);
+				var defaultConfig = this.InitializeConfig(Constants.DefaultConfig);
 				ResetToDefault(defaultConfig);
+
 				return;
 			}
 
-			foreach (var configFilePathName in allConfigFilePathNames)
+			foreach(var configFilePathName in allConfigFilePathNames)
 			{
 				var name = Path.GetFileNameWithoutExtension(configFilePathName);
-				InitializeConfig(name);
+				this.InitializeConfig(name);
 			}
 
 			LogManager.Info("[ConfigManager] Loading all configs done!");
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -250,71 +255,71 @@ internal sealed partial class ConfigManager : IDisposable
 	private void OnCurrentConfigChanged(object? sender, EventArgs eventArgs)
 	{
 		LogManager.Info("[ConfigManager] Current config file changed.");
-		ActivateConfig(_currentConfigInstance.Data.config);
+		ActivateConfig(this._currentConfigInstance.Data.config);
 	}
 
 	private void OnCurrentConfigCreated(object? sender, EventArgs eventArgs)
 	{
 		LogManager.Info("[ConfigManager] Current config file created.");
 
-		_currentConfigInstance.Load();
-		ActivateConfig(_currentConfigInstance.Data.config);
+		this._currentConfigInstance.Load();
+		ActivateConfig(this._currentConfigInstance.Data.config);
 	}
 
 	private void OnCurrentConfigRenamedFrom(object? sender, EventArgs eventArgs)
 	{
 		LogManager.Info("[ConfigManager] Current config file renamed from.");
-		_currentConfigInstance.Save();
+		this._currentConfigInstance.Save();
 	}
 
 	private void OnCurrentConfigRenamedTo(object? sender, EventArgs eventArgs)
 	{
 		LogManager.Info("[ConfigManager] Current config file renamed to.");
 
-		_currentConfigInstance.Load();
-		ActivateConfig(_currentConfigInstance.Data.config);
+		this._currentConfigInstance.Load();
+		ActivateConfig(this._currentConfigInstance.Data.config);
 	}
 
 	private void OnCurrentConfigDeleted(object? sender, EventArgs eventArgs)
 	{
 		LogManager.Info("[ConfigManager] Current config file deleted.");
-		_currentConfigInstance.Save();
+		this._currentConfigInstance.Save();
 	}
 
 	private void OnCurrentConfigError(object? sender, EventArgs eventArgs)
 	{
 		LogManager.Info("[ConfigManager] Current config file throw an error.");
-		_currentConfigInstance.Save();
+		this._currentConfigInstance.Save();
 	}
 
 	private void OnConfigFileChanged(object? sender, EventArgs eventArgs)
 	{
 		LogManager.Info("[ConfigManager] Config file changed.");
-		EmitAnyConfigChanged();
+		this.EmitAnyConfigChanged();
 	}
 
 	private void OnConfigFileCreated(object? sender, EventArgs eventArgs)
 	{
 		LogManager.Info("[ConfigManager] Config file created.");
-		EmitAnyConfigChanged();
+		this.EmitAnyConfigChanged();
 	}
 
 	private void OnConfigFileRenamedFrom(object? sender, EventArgs eventArgs)
 	{
 		LogManager.Info("[ConfigManager] Config file renamed from.");
-		EmitAnyConfigChanged();
+		this.EmitAnyConfigChanged();
 	}
 
 	private void OnConfigFileRenamedTo(object? sender, EventArgs eventArgs)
 	{
 		LogManager.Info("[ConfigManager] Config file renamed to.");
-		EmitAnyConfigChanged();
+		this.EmitAnyConfigChanged();
 	}
 
 	private void OnConfigFileDeleted(object? sender, EventArgs eventArgs)
 	{
 		LogManager.Info("[ConfigManager] Config file deleted.");
-		EmitAnyConfigChanged();
+		this.EmitAnyConfigChanged();
 	}
 
 	private void OnConfigFileError(object? sender, EventArgs eventArgs)
@@ -324,6 +329,6 @@ internal sealed partial class ConfigManager : IDisposable
 
 	private void EmitActiveConfigChanged()
 	{
-		Utils.EmitEvents(this, ActiveConfigChanged);
+		Utils.EmitEvents(this, this.ActiveConfigChanged);
 	}
 }

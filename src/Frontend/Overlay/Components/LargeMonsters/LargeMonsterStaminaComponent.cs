@@ -17,36 +17,39 @@ internal sealed class LargeMonsterStaminaComponent
 
 	public LargeMonsterStaminaComponent(LargeMonster largeMonster, Func<LargeMonsterStaminaComponentCustomization?> customizationAccessor)
 	{
-		_largeMonster = largeMonster;
+		this._largeMonster = largeMonster;
 
-		_customizationAccessor = customizationAccessor;
+		this._customizationAccessor = customizationAccessor;
 
-		_staminaValueLabelElement = new LabelElement(() => customizationAccessor()?.ValueLabel);
-		_staminaPercentageLabelElement = new LabelElement(() => customizationAccessor()?.PercentageLabel);
-		_staminaTimerLabelElement = new LabelElement(() => customizationAccessor()?.TimerLabel);
-		_staminaBarElement = new BarElement(() => customizationAccessor()?.Bar);
-		_staminaTimerBarElement = new BarElement(() => customizationAccessor()?.TimerBar);
+		this._staminaValueLabelElement = new LabelElement(() => customizationAccessor()?.ValueLabel);
+		this._staminaPercentageLabelElement = new LabelElement(() => customizationAccessor()?.PercentageLabel);
+		this._staminaTimerLabelElement = new LabelElement(() => customizationAccessor()?.TimerLabel);
+		this._staminaBarElement = new BarElement(() => customizationAccessor()?.Bar);
+		this._staminaTimerBarElement = new BarElement(() => customizationAccessor()?.TimerBar);
 	}
 
 	public void Draw(ImDrawListPtr drawList, Vector2 position, float opacityScale = 1f)
 	{
-		if (!_largeMonster.IsStaminaValid)
-			return;
-
-		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
-
-		var offset = _customizationAccessor()?.Offset;
-		var offsetPosition = new Vector2(position.X + sizeScaleModifier * (offset?.X ?? 0f), position.Y + sizeScaleModifier * (offset?.Y ?? 0f));
-
-		if (_largeMonster.IsTired)
+		if(!this._largeMonster.IsStaminaValid)
 		{
-			_staminaTimerBarElement.Draw(drawList, offsetPosition, _largeMonster.StaminaRemainingTimerPercentage, opacityScale);
-			_staminaTimerLabelElement.Draw(drawList, offsetPosition, opacityScale, _largeMonster.StaminaRemainingTimerString);
 			return;
 		}
 
-		_staminaBarElement.Draw(drawList, offsetPosition, _largeMonster.StaminaPercentage, opacityScale);
-		_staminaPercentageLabelElement.Draw(drawList, offsetPosition, opacityScale, _largeMonster.StaminaPercentage);
-		_staminaValueLabelElement.Draw(drawList, offsetPosition, opacityScale, _largeMonster.Stamina, _largeMonster.MaxStamina);
+		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
+
+		var offset = this._customizationAccessor()?.Offset;
+		var offsetPosition = new Vector2(position.X + sizeScaleModifier * (offset?.X ?? 0f), position.Y + sizeScaleModifier * (offset?.Y ?? 0f));
+
+		if(this._largeMonster.IsTired)
+		{
+			this._staminaTimerBarElement.Draw(drawList, offsetPosition, this._largeMonster.StaminaRemainingTimerPercentage, opacityScale);
+			this._staminaTimerLabelElement.Draw(drawList, offsetPosition, opacityScale, this._largeMonster.StaminaRemainingTimerString);
+
+			return;
+		}
+
+		this._staminaBarElement.Draw(drawList, offsetPosition, this._largeMonster.StaminaPercentage, opacityScale);
+		this._staminaPercentageLabelElement.Draw(drawList, offsetPosition, opacityScale, this._largeMonster.StaminaPercentage);
+		this._staminaValueLabelElement.Draw(drawList, offsetPosition, opacityScale, this._largeMonster.Stamina, this._largeMonster.MaxStamina);
 	}
 }

@@ -18,14 +18,14 @@ internal sealed class UpdateDelaysCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-update-delays";
 
-		if (ImGuiHelper.ResettableTreeNode(localization.UpdateDelaysSeconds, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.UpdateDelaysSeconds, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			isChanged |= ScreenManager.RenderImGui(customizationName, defaultCustomization?.ScreenManager);
-			isChanged |= PlayerManager.RenderImGui(customizationName, defaultCustomization?.PlayerManager);
-			isChanged |= LargeMonsters.RenderImGui(customizationName, defaultCustomization?.LargeMonsters);
-			isChanged |= SmallMonsters.RenderImGui(customizationName, defaultCustomization?.SmallMonsters);
-			isChanged |= EndemicLife.RenderImGui(customizationName, defaultCustomization?.EndemicLife);
-			isChanged |= UIs.RenderImGui(customizationName, defaultCustomization?.UIs);
+			isChanged |= this.ScreenManager.RenderImGui(customizationName, defaultCustomization?.ScreenManager);
+			isChanged |= this.PlayerManager.RenderImGui(customizationName, defaultCustomization?.PlayerManager);
+			isChanged |= this.LargeMonsters.RenderImGui(customizationName, defaultCustomization?.LargeMonsters);
+			isChanged |= this.SmallMonsters.RenderImGui(customizationName, defaultCustomization?.SmallMonsters);
+			isChanged |= this.EndemicLife.RenderImGui(customizationName, defaultCustomization?.EndemicLife);
+			isChanged |= this.UIs.RenderImGui(customizationName, defaultCustomization?.UIs);
 
 			ImGui.TreePop();
 		}
@@ -35,14 +35,16 @@ internal sealed class UpdateDelaysCustomization : Customization
 
 	public void Reset(UpdateDelaysCustomization? defaultCustomization = null)
 	{
-		if (defaultCustomization is null)
+		if(defaultCustomization is null)
+		{
 			return;
+		}
 
-		ScreenManager.Reset(defaultCustomization.ScreenManager);
-		PlayerManager.Reset(defaultCustomization.PlayerManager);
-		LargeMonsters.Reset(defaultCustomization.LargeMonsters);
-		SmallMonsters.Reset(defaultCustomization.SmallMonsters);
-		EndemicLife.Reset(defaultCustomization.EndemicLife);
-		UIs.Reset(defaultCustomization.UIs);
+		this.ScreenManager.Reset(defaultCustomization.ScreenManager);
+		this.PlayerManager.Reset(defaultCustomization.PlayerManager);
+		this.LargeMonsters.Reset(defaultCustomization.LargeMonsters);
+		this.SmallMonsters.Reset(defaultCustomization.SmallMonsters);
+		this.EndemicLife.Reset(defaultCustomization.EndemicLife);
+		this.UIs.Reset(defaultCustomization.UIs);
 	}
 }

@@ -1,154 +1,116 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace YURI_Overlay;
+﻿namespace YURI_Overlay;
 
 internal static class DamageMeterStaticSorting
 {
 	public static int CompareById(DamageMeterEntity a, DamageMeterEntity b)
 	{
-		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
-		if (priorityComparison != 0)
-			return priorityComparison;
+		var priorityComparison = b.staticSortingPriority.CompareTo(a.staticSortingPriority);
 
-		return DamageMeterSorting.CompareById(a, b);
+		return priorityComparison != 0 ? priorityComparison : DamageMeterSorting.CompareById(a, b);
 	}
 
 	public static int CompareByName(DamageMeterEntity a, DamageMeterEntity b)
 	{
-		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
-		if (priorityComparison != 0)
-			return priorityComparison;
+		var priorityComparison = b.staticSortingPriority.CompareTo(a.staticSortingPriority);
 
-		return DamageMeterSorting.CompareByName(a, b);
+		return priorityComparison != 0 ? priorityComparison : DamageMeterSorting.CompareByName(a, b);
 	}
 
 	public static int CompareByHunterRank(DamageMeterEntity a, DamageMeterEntity b)
 	{
-		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
-		if (priorityComparison != 0)
-			return priorityComparison;
+		var priorityComparison = b.staticSortingPriority.CompareTo(a.staticSortingPriority);
 
-		return DamageMeterSorting.CompareByHunterRank(a, b);
+		return priorityComparison != 0 ? priorityComparison : DamageMeterSorting.CompareByHunterRank(a, b);
 	}
 
 	public static int CompareByMasterRank(DamageMeterEntity a, DamageMeterEntity b)
 	{
-		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
-		if (priorityComparison != 0)
-			return priorityComparison;
+		var priorityComparison = b.staticSortingPriority.CompareTo(a.staticSortingPriority);
 
-		return DamageMeterSorting.CompareByMasterRank(a, b);
+		return priorityComparison != 0 ? priorityComparison : DamageMeterSorting.CompareByMasterRank(a, b);
 	}
 
 	public static int CompareByDamage(DamageMeterEntity a, DamageMeterEntity b)
 	{
-		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
-		if (priorityComparison != 0)
-			return priorityComparison;
+		var priorityComparison = b.staticSortingPriority.CompareTo(a.staticSortingPriority);
 
-		return DamageMeterSorting.CompareByDamage(a, b);
+		return priorityComparison != 0 ? priorityComparison : DamageMeterSorting.CompareByDamage(a, b);
 	}
 
 	public static int CompareByDamagePercentage(DamageMeterEntity a, DamageMeterEntity b)
 	{
-		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
-		if (priorityComparison != 0)
-			return priorityComparison;
+		var priorityComparison = b.staticSortingPriority.CompareTo(a.staticSortingPriority);
 
-		return DamageMeterSorting.CompareByDamagePercentage(a, b);
+		return priorityComparison != 0 ? priorityComparison : DamageMeterSorting.CompareByDamagePercentage(a, b);
 	}
 
 	public static int CompareByDps(DamageMeterEntity a, DamageMeterEntity b)
 	{
-		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
-		if (priorityComparison != 0)
-			return priorityComparison;
+		var priorityComparison = b.staticSortingPriority.CompareTo(a.staticSortingPriority);
 
-		return DamageMeterSorting.CompareByDps(a, b);
+		return priorityComparison != 0 ? priorityComparison : DamageMeterSorting.CompareByDps(a, b);
 	}
 
 	public static int CompareByDpsPercentage(DamageMeterEntity a, DamageMeterEntity b)
 	{
-		var priorityComparison = b.StaticSortingPriority.CompareTo(a.StaticSortingPriority);
-		if (priorityComparison != 0)
-			return priorityComparison;
+		var priorityComparison = b.staticSortingPriority.CompareTo(a.staticSortingPriority);
 
-		return DamageMeterSorting.CompareByDpsPercentage(a, b);
+		return priorityComparison != 0 ? priorityComparison : DamageMeterSorting.CompareByDpsPercentage(a, b);
 	}
 
 	public static int CompareByIdReversed(DamageMeterEntity a, DamageMeterEntity b)
 	{
-		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if (priorityComparison != 0)
-			return priorityComparison;
+		var priorityComparison = a.staticSortingPriority.CompareTo(b.staticSortingPriority);
 
-		return DamageMeterSorting.CompareByIdReversed(a, b);
+		return priorityComparison != 0 ? priorityComparison : DamageMeterSorting.CompareByIdReversed(a, b);
 	}
 
 	public static int CompareByNameReversed(DamageMeterEntity a, DamageMeterEntity b)
 	{
-		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if (priorityComparison != 0)
-			return priorityComparison;
+		var priorityComparison = a.staticSortingPriority.CompareTo(b.staticSortingPriority);
 
-		return DamageMeterSorting.CompareByNameReversed(a, b);
+		return priorityComparison != 0 ? priorityComparison : DamageMeterSorting.CompareByNameReversed(a, b);
 	}
 
 	public static int CompareByHunterRankReversed(DamageMeterEntity a, DamageMeterEntity b)
 	{
-		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if (priorityComparison != 0)
-			return priorityComparison;
+		var priorityComparison = a.staticSortingPriority.CompareTo(b.staticSortingPriority);
 
-		return DamageMeterSorting.CompareByHunterRankReversed(a, b);
+		return priorityComparison != 0 ? priorityComparison : DamageMeterSorting.CompareByHunterRankReversed(a, b);
 	}
 
 	public static int CompareByMasterRankReversed(DamageMeterEntity a, DamageMeterEntity b)
 	{
-		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if (priorityComparison != 0)
-			return priorityComparison;
+		var priorityComparison = a.staticSortingPriority.CompareTo(b.staticSortingPriority);
 
-		return DamageMeterSorting.CompareByMasterRankReversed(a, b);
+		return priorityComparison != 0 ? priorityComparison : DamageMeterSorting.CompareByMasterRankReversed(a, b);
 	}
 
 	public static int CompareByDamageReversed(DamageMeterEntity a, DamageMeterEntity b)
 	{
-		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if (priorityComparison != 0)
-			return priorityComparison;
+		var priorityComparison = a.staticSortingPriority.CompareTo(b.staticSortingPriority);
 
-		return DamageMeterSorting.CompareByDamageReversed(a, b);
+		return priorityComparison != 0 ? priorityComparison : DamageMeterSorting.CompareByDamageReversed(a, b);
 	}
 
 	public static int CompareByDamagePercentageReversed(DamageMeterEntity a, DamageMeterEntity b)
 	{
-		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if (priorityComparison != 0)
-			return priorityComparison;
+		var priorityComparison = a.staticSortingPriority.CompareTo(b.staticSortingPriority);
 
-		return DamageMeterSorting.CompareByDamagePercentageReversed(a, b);
+		return priorityComparison != 0 ? priorityComparison : DamageMeterSorting.CompareByDamagePercentageReversed(a, b);
 	}
 
 	public static int CompareByDpsReversed(DamageMeterEntity a, DamageMeterEntity b)
 	{
-		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if (priorityComparison != 0)
-			return priorityComparison;
+		var priorityComparison = a.staticSortingPriority.CompareTo(b.staticSortingPriority);
 
-		return DamageMeterSorting.CompareByDpsReversed(a, b);
+		return priorityComparison != 0 ? priorityComparison : DamageMeterSorting.CompareByDpsReversed(a, b);
 	}
 
 	public static int CompareByDpsPercentageReversed(DamageMeterEntity a, DamageMeterEntity b)
 	{
-		var priorityComparison = a.StaticSortingPriority.CompareTo(b.StaticSortingPriority);
-		if (priorityComparison != 0)
-			return priorityComparison;
+		var priorityComparison = a.staticSortingPriority.CompareTo(b.staticSortingPriority);
 
-		return DamageMeterSorting.CompareByDpsPercentageReversed(a, b);
+		return priorityComparison != 0 ? priorityComparison : DamageMeterSorting.CompareByDpsPercentageReversed(a, b);
 	}
 }

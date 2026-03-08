@@ -9,16 +9,18 @@ internal sealed class ConfigCustomization : Customization
 
 	private string[] _configNames = [];
 
-	public ConfigCustomization(bool stub) { }
+	public ConfigCustomization(bool stub)
+	{
+	}
 
 	public ConfigCustomization()
 	{
 		var configManager = ConfigManager.Instance;
 
-		configManager.ActiveConfigChanged += OnAnyConfigChanged;
-		configManager.AnyConfigChanged += OnAnyConfigChanged;
+		configManager.ActiveConfigChanged += this.OnAnyConfigChanged;
+		configManager.AnyConfigChanged += this.OnAnyConfigChanged;
 
-		OnAnyConfigChanged(configManager, EventArgs.Empty);
+		this.OnAnyConfigChanged(configManager, EventArgs.Empty);
 	}
 
 	public bool RenderImGui(string? parentName = "")
@@ -28,55 +30,56 @@ internal sealed class ConfigCustomization : Customization
 
 		var isChanged = false;
 
-		if (ImGui.TreeNode($"{localization.Config}##{parentName}"))
+		if(ImGui.TreeNode($"{localization.Config}##{parentName}"))
 		{
-			var isActiveConfigChanged = ImGuiHelper.Combo(localization.ActiveConfig, ref _activeConfigIndex, _configNames);
-			if (isActiveConfigChanged)
+			var isActiveConfigChanged = ImGuiHelper.Combo(localization.ActiveConfig, ref this._activeConfigIndex, this._configNames);
+
+			if(isActiveConfigChanged)
 			{
 				isChanged |= isActiveConfigChanged;
 
-				configManager.ActivateConfig(_configNames[_activeConfigIndex]);
+				configManager.ActivateConfig(this._configNames[this._activeConfigIndex]);
 			}
 
-			ImGui.InputText($"{localization.NewConfigName}##{parentName}", ref _configNameInput, Constants.MaxConfigNameLength);
+			ImGui.InputText($"{localization.NewConfigName}##{parentName}", ref this._configNameInput, Constants.MaxConfigNameLength);
 
-			if (ImGui.Button($"{localization.New}##{parentName}"))
+			if(ImGui.Button($"{localization.New}##{parentName}"))
 			{
-				if (_configNameInput != string.Empty && !_configNames.Contains(_configNameInput))
+				if(this._configNameInput != string.Empty && !this._configNames.Contains(this._configNameInput))
 				{
 					isChanged = true;
 
-					configManager.NewConfig(_configNameInput);
+					configManager.NewConfig(this._configNameInput);
 				}
 			}
 
 			ImGui.SameLine();
 
-			if (ImGui.Button($"{localization.Duplicate}##{parentName}"))
+			if(ImGui.Button($"{localization.Duplicate}##{parentName}"))
 			{
-				if (_configNameInput != string.Empty && !_configNames.Contains(_configNameInput))
+				if(this._configNameInput != string.Empty && !this._configNames.Contains(this._configNameInput))
 				{
 					isChanged = true;
 
-					configManager.DuplicateConfig(_configNameInput);
+					configManager.DuplicateConfig(this._configNameInput);
 				}
 			}
 
 			ImGui.SameLine();
 
-			if (ImGui.Button($"{localization.Rename}##{parentName}"))
+			if(ImGui.Button($"{localization.Rename}##{parentName}"))
 			{
-				if (_configNameInput != string.Empty && !_configNames.Contains(_configNameInput))
+				if(this._configNameInput != string.Empty && !this._configNames.Contains(this._configNameInput))
 				{
 					isChanged = true;
 
-					configManager.RenameConfig(_configNameInput);
+					configManager.RenameConfig(this._configNameInput);
 				}
 			}
 
 			ImGui.SameLine();
 
-			if (ImGui.Button($"{localization.Reset}##{parentName}"))
+			if(ImGui.Button($"{localization.Reset}##{parentName}"))
 			{
 				isChanged = true;
 
@@ -93,7 +96,7 @@ internal sealed class ConfigCustomization : Customization
 	{
 		var configManager = ConfigManager.Instance;
 
-		_configNames = configManager.Configs.Values.Select(config => config.Name).ToArray();
-		_activeConfigIndex = Array.IndexOf(_configNames, configManager.ActiveConfig.Name);
+		this._configNames = configManager.Configs.Values.Select(config => config.Name).ToArray();
+		this._activeConfigIndex = Array.IndexOf(this._configNames, configManager.ActiveConfig.Name);
 	}
 }

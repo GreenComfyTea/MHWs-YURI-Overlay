@@ -4,7 +4,7 @@ namespace YURI_Overlay;
 
 internal sealed class LargeMonsterMapPinUiCustomization : Customization
 {
-	public bool? Enabled = null;
+	public bool? Enabled;
 	public LargeMonsterMapPinUiSettingsCustomization Settings = new();
 	public AnchoredPositionCustomization Position = new();
 
@@ -20,16 +20,16 @@ internal sealed class LargeMonsterMapPinUiCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-map-pin";
 
-		if (ImGuiHelper.ResettableTreeNode(localization.MapPin, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.MapPin, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref this.Enabled, defaultCustomization?.Enabled);
 
-			isChanged |= Settings.RenderImGui(customizationName, defaultCustomization?.Settings);
-			isChanged |= Position.RenderImGui(customizationName, defaultCustomization?.Position);
-			isChanged |= NameLabel.RenderImGui(localization.NameLabel, $"{customizationName}-name-label", defaultCustomization?.NameLabel);
-			isChanged |= Health.RenderImGui(customizationName, defaultCustomization?.Health);
-			isChanged |= Stamina.RenderImGui(customizationName, defaultCustomization?.Stamina);
-			isChanged |= Rage.RenderImGui(customizationName, defaultCustomization?.Rage);
+			isChanged |= this.Settings.RenderImGui(customizationName, defaultCustomization?.Settings);
+			isChanged |= this.Position.RenderImGui(customizationName, defaultCustomization?.Position);
+			isChanged |= this.NameLabel.RenderImGui(localization.NameLabel, $"{customizationName}-name-label", defaultCustomization?.NameLabel);
+			isChanged |= this.Health.RenderImGui(customizationName, defaultCustomization?.Health);
+			isChanged |= this.Stamina.RenderImGui(customizationName, defaultCustomization?.Stamina);
+			isChanged |= this.Rage.RenderImGui(customizationName, defaultCustomization?.Rage);
 
 			ImGui.TreePop();
 		}
@@ -39,16 +39,18 @@ internal sealed class LargeMonsterMapPinUiCustomization : Customization
 
 	public void Reset(LargeMonsterMapPinUiCustomization? defaultCustomization = null)
 	{
-		if (defaultCustomization is null)
+		if(defaultCustomization is null)
+		{
 			return;
+		}
 
-		Enabled = defaultCustomization.Enabled;
-		Settings.Reset(defaultCustomization.Settings);
-		Position.Reset(defaultCustomization.Position);
+		this.Enabled = defaultCustomization.Enabled;
+		this.Settings.Reset(defaultCustomization.Settings);
+		this.Position.Reset(defaultCustomization.Position);
 
-		NameLabel.Reset(defaultCustomization.NameLabel);
-		Health.Reset(defaultCustomization.Health);
-		Stamina.Reset(defaultCustomization.Stamina);
-		Rage.Reset(defaultCustomization.Rage);
+		this.NameLabel.Reset(defaultCustomization.NameLabel);
+		this.Health.Reset(defaultCustomization.Health);
+		this.Stamina.Reset(defaultCustomization.Stamina);
+		this.Rage.Reset(defaultCustomization.Rage);
 	}
 }

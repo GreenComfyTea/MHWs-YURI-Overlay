@@ -23,16 +23,18 @@ internal sealed class PlayerManager : IDisposable
 
 	private bool _isUpdatePending = true;
 
-	private PlayerManager() { }
+	private PlayerManager()
+	{
+	}
 
 	public void Initialize()
 	{
 		LogManager.Info("[PlayerManager] Initializing...");
 
-		GameUpdate();
-		InitializeTimers();
+		this.GameUpdate();
+		this.InitializeTimers();
 
-		ConfigManager.Instance.AnyConfigChanged += OnAnyConfigChanged;
+		ConfigManager.Instance.AnyConfigChanged += this.OnAnyConfigChanged;
 
 		LogManager.Info("[PlayerManager] Initialized!");
 	}
@@ -41,14 +43,14 @@ internal sealed class PlayerManager : IDisposable
 	{
 		LogManager.Info("[PlayerManager] Disposing...");
 
-		foreach (var timer in _timers)
+		foreach(var timer in this._timers)
 		{
 			timer.Dispose();
 		}
 
-		_timers.Clear();
+		this._timers.Clear();
 
-		ConfigManager.Instance.AnyConfigChanged -= OnAnyConfigChanged;
+		ConfigManager.Instance.AnyConfigChanged -= this.OnAnyConfigChanged;
 
 		LogManager.Info("[PlayerManager] Disposed!");
 	}
@@ -57,45 +59,47 @@ internal sealed class PlayerManager : IDisposable
 	{
 		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.PlayerManager;
 
-		foreach (var timer in _timers)
+		foreach(var timer in this._timers)
 		{
 			timer.Dispose();
 		}
 
-		_timers.Clear();
+		this._timers.Clear();
 
-		_timers.Add(Timers.SetInterval(SetIsUpdatePending, Utils.SecondsToMilliseconds(updateDelays.Update)));
+		this._timers.Add(Timers.SetInterval(this.SetIsUpdatePending, Utils.SecondsToMilliseconds(updateDelays.Update)));
 	}
 
 	private void SetIsUpdatePending()
 	{
-		_isUpdatePending = true;
+		this._isUpdatePending = true;
 	}
 
 	private void GameUpdate()
 	{
 		try
 		{
-			Update();
+			this.Update();
 
-			if (_masterPlayerCharacter is null)
+			if(this._masterPlayerCharacter is null)
 			{
 				//LogManager.Warn("[PlayerManager.GameUpdate] No master player character");
 				return;
 			}
 
-			var playerPosition = _masterPlayerCharacter.Pos;
-			if (playerPosition is null)
+			var playerPosition = this._masterPlayerCharacter.Pos;
+
+			if(playerPosition is null)
 			{
 				LogManager.Warn("[PlayerManager.GameUpdate] No master player position");
+
 				return;
 			}
 
-			Position.X = playerPosition.x;
-			Position.Y = playerPosition.y;
-			Position.Z = playerPosition.z;
+			this.Position.X = playerPosition.x;
+			this.Position.Y = playerPosition.y;
+			this.Position.Z = playerPosition.z;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -105,52 +109,58 @@ internal sealed class PlayerManager : IDisposable
 	{
 		try
 		{
-			if (!_isUpdatePending)
+			if(!this._isUpdatePending)
+			{
 				return;
-			_isUpdatePending = false;
+			}
+
+			this._isUpdatePending = false;
 
 			var playerManager = API.GetManagedSingletonT<app.PlayerManager>();
-			if (playerManager is null)
+
+			if(playerManager is null)
 			{
 				LogManager.Warn("[PlayerManager.Update] No player manager");
 
-				MasterPlayer = null;
-				_masterPlayerCharacter = null;
-				EmitMasterPlayerChanged();
+				this.MasterPlayer = null;
+				this._masterPlayerCharacter = null;
+				this.EmitMasterPlayerChanged();
 
 				return;
 			}
 
 			var masterPlayer = playerManager.getMasterPlayer();
-			if (masterPlayer is null)
+
+			if(masterPlayer is null)
 			{
 				//LogManager.Warn("[PlayerManager.Update] No master player");
 
-				MasterPlayer = null;
-				_masterPlayerCharacter = null;
-				EmitMasterPlayerChanged();
+				this.MasterPlayer = null;
+				this._masterPlayerCharacter = null;
+				this.EmitMasterPlayerChanged();
 
 				return;
 			}
 
-			MasterPlayer = masterPlayer;
+			this.MasterPlayer = masterPlayer;
 
 			var masterPlayerCharacter = masterPlayer.Character;
-			if (masterPlayerCharacter is null)
+
+			if(masterPlayerCharacter is null)
 			{
 				//LogManager.Warn("[PlayerManager.Update] No master player character");
 
-				MasterPlayer = null;
-				_masterPlayerCharacter = null;
-				EmitMasterPlayerChanged();
+				this.MasterPlayer = null;
+				this._masterPlayerCharacter = null;
+				this.EmitMasterPlayerChanged();
 
 				return;
 			}
 
-			_masterPlayerCharacter = masterPlayerCharacter;
-			EmitMasterPlayerChanged();
+			this._masterPlayerCharacter = masterPlayerCharacter;
+			this.EmitMasterPlayerChanged();
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -158,12 +168,12 @@ internal sealed class PlayerManager : IDisposable
 
 	private void OnAnyConfigChanged(object? sender, EventArgs e)
 	{
-		InitializeTimers();
+		this.InitializeTimers();
 	}
 
 	private void EmitMasterPlayerChanged()
 	{
-		Utils.EmitEvents(this, MasterPlayerChanged);
+		Utils.EmitEvents(this, this.MasterPlayerChanged);
 	}
 
 	[MethodHook(typeof(app.PlayerManager), nameof(app.PlayerManager.update), MethodHookType.Post)]

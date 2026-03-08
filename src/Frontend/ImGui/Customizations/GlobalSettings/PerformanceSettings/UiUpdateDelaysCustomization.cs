@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hexa.NET.ImGui;
+﻿using Hexa.NET.ImGui;
 
 namespace YURI_Overlay;
 
 internal sealed class UiUpdateDelaysCustomization
 {
-	public float? LargeMonsterDynamic = null;
-	public float? LargeMonsterStatic = null;
-	public float? LargeMonsterTargeted = null;
-	public float? LargeMonsterMapPin = null;
-	public float? SmallMonsters = null;
-	public float? EndemicLife = null;
-	public float? DamageMeter = null;
+	public float? LargeMonsterDynamic;
+	public float? LargeMonsterStatic;
+	public float? LargeMonsterTargeted;
+	public float? LargeMonsterMapPin;
+	public float? SmallMonsters;
+	public float? EndemicLife;
+	public float? DamageMeter;
 
 	public bool RenderImGui(string? parentName = "", UiUpdateDelaysCustomization? defaultCustomization = null)
 	{
@@ -24,55 +19,63 @@ internal sealed class UiUpdateDelaysCustomization
 		var isChanged = false;
 		var customizationName = $"{parentName}-uis";
 
-		if (ImGuiHelper.ResettableTreeNode(localization.UIs, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.UIs, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableDragFloat(
 				$"{localization.SmallMonsters}##{customizationName}",
-				ref SmallMonsters,
+				ref this.SmallMonsters,
 				0.001f,
 				0.001f,
 				10f,
 				"%.3f",
 				defaultCustomization?.SmallMonsters
 			);
+
 			isChanged |= ImGuiHelper.ResettableDragFloat(
 				$"{localization.LargeMonstersDynamic}##{customizationName}",
-				ref LargeMonsterDynamic,
+				ref this.LargeMonsterDynamic,
 				0.001f,
 				0.001f,
 				10f,
 				"%.3f",
 				defaultCustomization?.LargeMonsterDynamic
 			);
+
 			isChanged |= ImGuiHelper.ResettableDragFloat(
 				$"{localization.LargeMonstersStatic}##{customizationName}",
-				ref LargeMonsterStatic,
+				ref this.LargeMonsterStatic,
 				0.001f,
 				0.001f,
 				10f,
 				"%.3f",
 				defaultCustomization?.LargeMonsterStatic
 			);
+
 			isChanged |= ImGuiHelper.ResettableDragFloat(
 				$"{localization.LargeMonstersTargeted}##{customizationName}",
-				ref LargeMonsterTargeted,
+				ref this.LargeMonsterTargeted,
 				0.001f,
 				0.001f,
 				10f,
 				"%.3f",
 				defaultCustomization?.LargeMonsterTargeted
 			);
+
 			isChanged |= ImGuiHelper.ResettableDragFloat(
 				$"{localization.LargeMonstersMapPin}##{customizationName}",
-				ref LargeMonsterMapPin,
+				ref this.LargeMonsterMapPin,
 				0.001f,
 				0.001f,
 				10f,
 				"%.3f",
 				defaultCustomization?.LargeMonsterMapPin
 			);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.EndemicLife}##{customizationName}", ref EndemicLife, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.EndemicLife);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.DamageMeterUI}##{customizationName}", ref DamageMeter, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.DamageMeter);
+
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.EndemicLife}##{customizationName}", ref this.EndemicLife, 0.001f, 0.001f, 10f, "%.3f",
+				defaultCustomization?.EndemicLife);
+
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.DamageMeterUI}##{customizationName}", ref this.DamageMeter, 0.001f, 0.001f, 10f, "%.3f",
+				defaultCustomization?.DamageMeter);
 
 			ImGui.TreePop();
 		}
@@ -82,15 +85,17 @@ internal sealed class UiUpdateDelaysCustomization
 
 	public void Reset(UiUpdateDelaysCustomization? defaultCustomization = null)
 	{
-		if (defaultCustomization is null)
+		if(defaultCustomization is null)
+		{
 			return;
+		}
 
-		SmallMonsters = defaultCustomization.SmallMonsters;
-		LargeMonsterDynamic = defaultCustomization.LargeMonsterDynamic;
-		LargeMonsterStatic = defaultCustomization.LargeMonsterStatic;
-		LargeMonsterTargeted = defaultCustomization.LargeMonsterTargeted;
-		LargeMonsterMapPin = defaultCustomization.LargeMonsterMapPin;
-		EndemicLife = defaultCustomization.EndemicLife;
-		DamageMeter = defaultCustomization.DamageMeter;
+		this.SmallMonsters = defaultCustomization.SmallMonsters;
+		this.LargeMonsterDynamic = defaultCustomization.LargeMonsterDynamic;
+		this.LargeMonsterStatic = defaultCustomization.LargeMonsterStatic;
+		this.LargeMonsterTargeted = defaultCustomization.LargeMonsterTargeted;
+		this.LargeMonsterMapPin = defaultCustomization.LargeMonsterMapPin;
+		this.EndemicLife = defaultCustomization.EndemicLife;
+		this.DamageMeter = defaultCustomization.DamageMeter;
 	}
 }

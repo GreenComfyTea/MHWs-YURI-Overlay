@@ -18,10 +18,10 @@ internal sealed class EndemicLifeEntity : IDisposable
 
 	public string Name = "Endemic Life";
 
-	public float ModelRadius = 0f;
+	public float ModelRadius;
 
 	public Vector3 Position = Vector3.Zero;
-	public float Distance = 0f;
+	public float Distance;
 
 	private readonly List<Timer> _timers = [];
 
@@ -34,21 +34,21 @@ internal sealed class EndemicLifeEntity : IDisposable
 
 	public EndemicLifeEntity(EnemyCharacter enemyCharacter, cEnemyContext enemyContext)
 	{
-		EnemyCharacter = enemyCharacter;
-		EnemyContext = enemyContext;
+		this.EnemyCharacter = enemyCharacter;
+		this.EnemyContext = enemyContext;
 
 		try
 		{
-			InitializeTdb();
-			Initialize();
+			this.InitializeTdb();
+			this.Initialize();
 
-			DynamicUi = new EndemicLifeDynamicUi(this);
+			this.DynamicUi = new EndemicLifeDynamicUi(this);
 
-			ConfigManager.Instance.AnyConfigChanged += OnAnyConfigChanged;
+			ConfigManager.Instance.AnyConfigChanged += this.OnAnyConfigChanged;
 
-			LogManager.Info($"[EndemicLife] Initialized {Name}!");
+			LogManager.Info($"[EndemicLife] Initialized {this.Name}!");
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -58,13 +58,13 @@ internal sealed class EndemicLifeEntity : IDisposable
 	{
 		try
 		{
-			UpdatePosition();
-			UpdateDistance();
+			this.UpdatePosition();
+			this.UpdateDistance();
 
-			UpdateName();
-			UpdateModelRadius();
+			this.UpdateName();
+			this.UpdateModelRadius();
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -72,29 +72,29 @@ internal sealed class EndemicLifeEntity : IDisposable
 
 	public void Dispose()
 	{
-		LogManager.Info($"[EndemicLife] Disposing {Name}...");
+		LogManager.Info($"[EndemicLife] Disposing {this.Name}...");
 
-		foreach (var timer in _timers)
+		foreach(var timer in this._timers)
 		{
 			timer.Dispose();
 		}
 
-		_timers.Clear();
+		this._timers.Clear();
 
-		ConfigManager.Instance.AnyConfigChanged -= OnAnyConfigChanged;
+		ConfigManager.Instance.AnyConfigChanged -= this.OnAnyConfigChanged;
 
-		LogManager.Info($"[EndemicLife] {Name} Disposed!");
+		LogManager.Info($"[EndemicLife] {this.Name} Disposed!");
 	}
 
 	private void Initialize()
 	{
 		try
 		{
-			InitializeTimers();
-			UpdateIds();
-			Update();
+			this.InitializeTimers();
+			this.UpdateIds();
+			this.Update();
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -104,35 +104,37 @@ internal sealed class EndemicLifeEntity : IDisposable
 	{
 		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.EndemicLife;
 
-		foreach (var timer in _timers)
+		foreach(var timer in this._timers)
 		{
 			timer.Dispose();
 		}
 
-		_timers.Clear();
+		this._timers.Clear();
 
-		_timers.Add(Timers.SetInterval(SetUpdateNamePending, Utils.SecondsToMilliseconds(updateDelays.Name)));
-		_timers.Add(Timers.SetInterval(SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays.ModelRadius)));
+		this._timers.Add(Timers.SetInterval(this.SetUpdateNamePending, Utils.SecondsToMilliseconds(updateDelays.Name)));
+		this._timers.Add(Timers.SetInterval(this.SetUpdateModelRadius, Utils.SecondsToMilliseconds(updateDelays.ModelRadius)));
 	}
 
 	private void SetUpdateNamePending()
 	{
-		_isUpdateNamePending = true;
+		this._isUpdateNamePending = true;
 	}
 
 	private void SetUpdateModelRadius()
 	{
-		_isUpdateModelRadiusPending = true;
+		this._isUpdateModelRadiusPending = true;
 	}
 
 	private void UpdatePosition()
 	{
 		try
 		{
-			var position = EnemyCharacter.Pos;
-			if (position is null)
+			var position = this.EnemyCharacter.Pos;
+
+			if(position is null)
 			{
 				LogManager.Warn("[EndemicLife.UpdatePositionAndDistance] No enemy pos");
+
 				return;
 			}
 
@@ -140,7 +142,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 			this.Position.Y = position.y;
 			this.Position.Z = position.z;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -148,25 +150,27 @@ internal sealed class EndemicLifeEntity : IDisposable
 
 	private void UpdateDistance()
 	{
-		Distance = Vector3.Distance(Position, PlayerManager.Instance.Position);
+		this.Distance = Vector3.Distance(this.Position, PlayerManager.Instance.Position);
 	}
 
 	private void UpdateIds()
 	{
 		try
 		{
-			var basicModule = EnemyContext.Basic;
-			if (basicModule is null)
+			var basicModule = this.EnemyContext.Basic;
+
+			if(basicModule is null)
 			{
 				LogManager.Warn("[EndemicLife.UpdateIds] No enemy basic module");
+
 				return;
 			}
 
-			Id = basicModule.EmID;
-			RoleId = basicModule.RoleID;
-			LegendaryId = basicModule.LegendaryID;
+			this.Id = basicModule.EmID;
+			this.RoleId = basicModule.RoleID;
+			this.LegendaryId = basicModule.LegendaryID;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -176,21 +180,26 @@ internal sealed class EndemicLifeEntity : IDisposable
 	{
 		try
 		{
-			if (!_isUpdateNamePending)
+			if(!this._isUpdateNamePending)
+			{
 				return;
-			_isUpdateNamePending = false;
+			}
 
-			var name = (string?)_nameStringMethod?.InvokeBoxed(_stringType, null, [Id, RoleId, LegendaryId]);
-			if (name is null)
+			this._isUpdateNamePending = false;
+
+			var name = (string?) this._nameStringMethod?.InvokeBoxed(this._stringType, null, [this.Id, this.RoleId, this.LegendaryId]);
+
+			if(name is null)
 			{
 				LogManager.Warn("[EndemicLife.UpdateName] No enemy name");
+
 				return;
 			}
 
 			this.Name = name;
 			//Name = "Nerscylla Hatchling";
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -200,13 +209,16 @@ internal sealed class EndemicLifeEntity : IDisposable
 	{
 		try
 		{
-			if (!_isUpdateModelRadiusPending)
+			if(!this._isUpdateModelRadiusPending)
+			{
 				return;
-			_isUpdateModelRadiusPending = false;
+			}
 
-			ModelRadius = EnemyContext.ModelRadius;
+			this._isUpdateModelRadiusPending = false;
+
+			this.ModelRadius = this.EnemyContext.ModelRadius;
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -218,11 +230,11 @@ internal sealed class EndemicLifeEntity : IDisposable
 		{
 			var enemyDefTypeDef = EnemyDef.REFType;
 
-			_nameStringMethod = enemyDefTypeDef.GetMethod("NameString");
+			this._nameStringMethod = enemyDefTypeDef.GetMethod("NameString");
 
-			_stringType = _nameStringMethod.ReturnType.GetType();
+			this._stringType = this._nameStringMethod.ReturnType.GetType();
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}
@@ -230,6 +242,6 @@ internal sealed class EndemicLifeEntity : IDisposable
 
 	private void OnAnyConfigChanged(object? sender, EventArgs e)
 	{
-		InitializeTimers();
+		this.InitializeTimers();
 	}
 }

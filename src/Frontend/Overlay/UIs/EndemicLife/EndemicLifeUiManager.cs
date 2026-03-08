@@ -11,33 +11,33 @@ internal sealed class EndemicLifeUiManager : IDisposable
 
 	public EndemicLifeUiManager()
 	{
-		Initialize();
+		this.Initialize();
 	}
 
 	~EndemicLifeUiManager()
 	{
-		Dispose();
+		this.Dispose();
 	}
 
 	public void Initialize()
 	{
 		LogManager.Info("[EndemicLifeUiManager] Initializing...");
 
-		InitializeTimers();
+		this.InitializeTimers();
 
 		LogManager.Info("[EndemicLifeUiManager] Initialized!");
 	}
 
 	public void Draw(ImDrawListPtr drawList)
 	{
-		DrawDynamicUi(drawList);
+		this.DrawDynamicUi(drawList);
 	}
 
 	public void Dispose()
 	{
 		LogManager.Info("[EndemicLifeUiManager] Disposing...");
 
-		foreach (var timer in _timers)
+		foreach(var timer in this._timers)
 		{
 			timer.Dispose();
 		}
@@ -49,23 +49,24 @@ internal sealed class EndemicLifeUiManager : IDisposable
 	{
 		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.UIs;
 
-		foreach (var timer in _timers)
+		foreach(var timer in this._timers)
 		{
 			timer.Dispose();
 		}
 
-		_timers.Clear();
+		this._timers.Clear();
 
-		_timers.Add(Timers.SetInterval(UpdateDynamic, Utils.SecondsToMilliseconds(updateDelays.EndemicLife)));
+		this._timers.Add(Timers.SetInterval(this.UpdateDynamic, Utils.SecondsToMilliseconds(updateDelays.EndemicLife)));
 	}
 
 	private void UpdateDynamic()
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.EndemicLifeUI;
 
-		if (customization.Enabled != true)
+		if(customization.Enabled != true)
 		{
-			_dynamicEndemicLifeEntities = [];
+			this._dynamicEndemicLifeEntities = [];
+
 			return;
 		}
 
@@ -73,7 +74,7 @@ internal sealed class EndemicLifeUiManager : IDisposable
 
 		// Filter out dead and captured
 
-		foreach (var endemicLifeEntityPair in MonsterManager.Instance.EndemicLifeEntities)
+		foreach(var endemicLifeEntityPair in MonsterManager.Instance.EndemicLifeEntities)
 		{
 			var endemicLifeEntity = endemicLifeEntityPair.Value;
 
@@ -84,17 +85,19 @@ internal sealed class EndemicLifeUiManager : IDisposable
 		// Closest are drawn last
 		newEndemicLifeEntities.Sort(EndemicLifeSorting.CompareByDistanceReversed);
 
-		_dynamicEndemicLifeEntities = newEndemicLifeEntities;
+		this._dynamicEndemicLifeEntities = newEndemicLifeEntities;
 	}
 
 	private void DrawDynamicUi(ImDrawListPtr drawList)
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.EndemicLifeUI;
 
-		if (customization.Enabled != true)
+		if(customization.Enabled != true)
+		{
 			return;
+		}
 
-		foreach (var endemicLifeEntity in _dynamicEndemicLifeEntities)
+		foreach(var endemicLifeEntity in this._dynamicEndemicLifeEntities)
 		{
 			endemicLifeEntity.DynamicUi?.Draw(drawList);
 		}

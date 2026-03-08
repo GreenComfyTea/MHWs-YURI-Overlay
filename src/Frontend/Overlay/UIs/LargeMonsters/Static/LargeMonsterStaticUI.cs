@@ -14,21 +14,23 @@ internal sealed class LargeMonsterStaticUi
 
 	public LargeMonsterStaticUi(LargeMonster largeMonster)
 	{
-		_largeMonster = largeMonster;
-		_customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI.Static;
+		this._largeMonster = largeMonster;
+		this._customizationAccessor = () => ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI.Static;
 
-		_nameLabelElement = new LabelElement(() => _customizationAccessor()?.NameLabel);
-		_healthComponent = new LargeMonsterHealthComponent(largeMonster, () => _customizationAccessor()?.Health);
-		_staminaComponent = new LargeMonsterStaminaComponent(largeMonster, () => _customizationAccessor()?.Stamina);
-		_rageComponent = new LargeMonsterRageComponent(largeMonster, () => _customizationAccessor()?.Rage);
+		this._nameLabelElement = new LabelElement(() => this._customizationAccessor()?.NameLabel);
+		this._healthComponent = new LargeMonsterHealthComponent(largeMonster, () => this._customizationAccessor()?.Health);
+		this._staminaComponent = new LargeMonsterStaminaComponent(largeMonster, () => this._customizationAccessor()?.Stamina);
+		this._rageComponent = new LargeMonsterRageComponent(largeMonster, () => this._customizationAccessor()?.Rage);
 	}
 
 	public void Draw(ImDrawListPtr drawList, int locationIndex)
 	{
-		var customization = _customizationAccessor();
+		var customization = this._customizationAccessor();
 
-		if (customization?.Enabled != true)
+		if(customization?.Enabled != true)
+		{
 			return;
+		}
 
 		var spacing = customization.Spacing;
 		var anchoredPosition = customization.Position;
@@ -40,9 +42,9 @@ internal sealed class LargeMonsterStaticUi
 		position.X += (spacing.X ?? 0f) * positionScaleModifier * locationIndex;
 		position.Y += (spacing.Y ?? 0f) * positionScaleModifier * locationIndex;
 
-		_rageComponent.Draw(drawList, position);
-		_staminaComponent.Draw(drawList, position);
-		_healthComponent.Draw(drawList, position);
-		_nameLabelElement.Draw(drawList, position, 1f, _largeMonster.Name);
+		this._rageComponent.Draw(drawList, position);
+		this._staminaComponent.Draw(drawList, position);
+		this._healthComponent.Draw(drawList, position);
+		this._nameLabelElement.Draw(drawList, position, 1f, this._largeMonster.Name);
 	}
 }

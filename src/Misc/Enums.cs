@@ -67,5 +67,5 @@ internal enum DamageMeterEntityTypeEnum
 	LocalPlayer,
 	OtherPlayer,
 	SupportHunter,
-	TotalDamage,
+	Total,
 }

@@ -4,7 +4,7 @@ namespace YURI_Overlay;
 
 internal sealed class ScreenManagerUpdateDelaysCustomization : Customization
 {
-	public float? Update = null;
+	public float? Update;
 
 	public bool RenderImGui(string? parentName = "", ScreenManagerUpdateDelaysCustomization? defaultCustomization = null)
 	{
@@ -13,9 +13,9 @@ internal sealed class ScreenManagerUpdateDelaysCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-screen-manager";
 
-		if (ImGuiHelper.ResettableTreeNode(localization.ScreenManager, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.ScreenManager, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Update}##{customizationName}", ref Update, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Update);
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Update}##{customizationName}", ref this.Update, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Update);
 
 			ImGui.TreePop();
 		}
@@ -25,9 +25,11 @@ internal sealed class ScreenManagerUpdateDelaysCustomization : Customization
 
 	public void Reset(ScreenManagerUpdateDelaysCustomization? defaultCustomization = null)
 	{
-		if (defaultCustomization is null)
+		if(defaultCustomization is null)
+		{
 			return;
+		}
 
-		Update = defaultCustomization.Update;
+		this.Update = defaultCustomization.Update;
 	}
 }

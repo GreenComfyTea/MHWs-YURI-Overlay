@@ -1,123 +1,127 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	<TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
-	<ImplicitUsings>enable</ImplicitUsings>
-	<Nullable>enable</Nullable>
-	<Platforms>AnyCPU;x64</Platforms>
-	<SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
-	<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-	<SignAssembly>False</SignAssembly>
-	<ErrorReport>prompt</ErrorReport>
-	<Title>YURI Overlay</Title>
-	<Authors>GreenComfyTea</Authors>
-	<Company>GreenComfyTea</Company>
-	<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-	<PlatformTarget>x64</PlatformTarget>
-	<EnableWindowsTargeting>true</EnableWindowsTargeting>
-	<OutputPath>bin</OutputPath>
-	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-	<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-  </PropertyGroup>
-  
-  <Target Name="MoveDependenciesToSubfolder" AfterTargets="PostBuildEvent">
+	<PropertyGroup>
+		<TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Platforms>AnyCPU;x64</Platforms>
+		<SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<SignAssembly>False</SignAssembly>
+		<ErrorReport>prompt</ErrorReport>
+		<Title>YURI Overlay</Title>
+		<Authors>GreenComfyTea</Authors>
+		<Company>GreenComfyTea</Company>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+		<PlatformTarget>x64</PlatformTarget>
+		<EnableWindowsTargeting>true</EnableWindowsTargeting>
+		<OutputPath>bin</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	</PropertyGroup>
+
+	<Target Name="MoveDependenciesToSubfolder" AfterTargets="PostBuildEvent">
+		<ItemGroup>
+			<FilesToDelete
+				Include="$(OutputPath)Hexa.NET.ImGui.dll;$(OutputPath)Hexa.NET.ImGui.xml;$(OutputPath)HexaGen.Runtime.dll;$(OutputPath)HexaGen.Runtime.xml;$(OutputPath)Microsoft.CodeAnalysis.CSharp.dll;$(OutputPath)Microsoft.CodeAnalysis.CSharp.xml;$(OutputPath)Microsoft.CodeAnalysis.dll;$(OutputPath)Microsoft.CodeAnalysis.xml;$(OutputPath)Microsoft.Windows.SDK.NET.dll;$(OutputPath)REFCoreDeps.dll;$(OutputPath)REFramework.NET.dll;$(OutputPath)REFramework.NET.xml;$(OutputPath)YURI_Overlay.deps.json;$(OutputPath)REFramework.NET._System.Private.CoreLib.dll;$(OutputPath)REFramework.NET.application.dll;$(OutputPath)REFramework.NET.viacore.dll;$(OutputPath)AssemblyGenerator.dll" />
+		</ItemGroup>
+
+		<ItemGroup>
+			<Dependencies Include="$(OutputPath)*"
+			              Exclude="$(OutputPath)dependencies\**;$(OutputPath)Hexa.NET.ImGui.dll;$(OutputPath)Hexa.NET.ImGui.xml;$(OutputPath)HexaGen.Runtime.dll;$(OutputPath)HexaGen.Runtime.xml;$(OutputPath)Microsoft.CodeAnalysis.CSharp.dll;$(OutputPath)Microsoft.CodeAnalysis.CSharp.xml;$(OutputPath)Microsoft.CodeAnalysis.dll;$(OutputPath)Microsoft.CodeAnalysis.xml;$(OutputPath)Microsoft.Windows.SDK.NET.dll;$(OutputPath)REFCoreDeps.dll;$(OutputPath)REFramework.NET.dll;$(OutputPath)REFramework.NET.xml;$(OutputPath)YURI_Overlay.deps.json;$(OutputPath)YURI_Overlay.dll;$(OutputPath)REFramework.NET._System.Private.CoreLib.dll;$(OutputPath)REFramework.NET.application.dll;$(OutputPath)REFramework.NET.viacore.dll;$(OutputPath)AssemblyGenerator.dll;$(OutputPath)modinfo.ini;$(OutputPath)cover.png" />
+		</ItemGroup>
+
+		<ItemGroup>
+			<PluginDll Include="$(OutputPath)YURI_Overlay.dll" />
+		</ItemGroup>
+
+		<MakeDir Directories="$(OutputPath)reframework\plugins\managed\dependencies" />
+
+		<Delete Files="@(FilesToDelete)" />
+
+		<Move SourceFiles="@(PluginDll)" DestinationFolder="$(OutputPath)reframework\plugins\managed" />
+
+		<Move SourceFiles="@(Dependencies)" DestinationFolder="$(OutputPath)reframework\plugins\managed\dependencies" />
+	</Target>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DebugType>embedded</DebugType>
+		<CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<DebugType>embedded</DebugType>
+		<CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DebugType>embedded</DebugType>
+		<CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+		<DebugType>embedded</DebugType>
+		<CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+	</PropertyGroup>
+
 	<ItemGroup>
-        <FilesToDelete Include="$(OutputPath)Hexa.NET.ImGui.dll;$(OutputPath)Hexa.NET.ImGui.xml;$(OutputPath)HexaGen.Runtime.dll;$(OutputPath)HexaGen.Runtime.xml;$(OutputPath)Microsoft.CodeAnalysis.CSharp.dll;$(OutputPath)Microsoft.CodeAnalysis.CSharp.xml;$(OutputPath)Microsoft.CodeAnalysis.dll;$(OutputPath)Microsoft.CodeAnalysis.xml;$(OutputPath)Microsoft.Windows.SDK.NET.dll;$(OutputPath)REFCoreDeps.dll;$(OutputPath)REFramework.NET.dll;$(OutputPath)REFramework.NET.xml;$(OutputPath)YURI_Overlay.deps.json;$(OutputPath)REFramework.NET._System.Private.CoreLib.dll;$(OutputPath)REFramework.NET.application.dll;$(OutputPath)REFramework.NET.viacore.dll;$(OutputPath)AssemblyGenerator.dll" />  
-    </ItemGroup>
-  
-    <ItemGroup>
-        <Dependencies Include="$(OutputPath)*" Exclude="$(OutputPath)dependencies\**;$(OutputPath)Hexa.NET.ImGui.dll;$(OutputPath)Hexa.NET.ImGui.xml;$(OutputPath)HexaGen.Runtime.dll;$(OutputPath)HexaGen.Runtime.xml;$(OutputPath)Microsoft.CodeAnalysis.CSharp.dll;$(OutputPath)Microsoft.CodeAnalysis.CSharp.xml;$(OutputPath)Microsoft.CodeAnalysis.dll;$(OutputPath)Microsoft.CodeAnalysis.xml;$(OutputPath)Microsoft.Windows.SDK.NET.dll;$(OutputPath)REFCoreDeps.dll;$(OutputPath)REFramework.NET.dll;$(OutputPath)REFramework.NET.xml;$(OutputPath)YURI_Overlay.deps.json;$(OutputPath)YURI_Overlay.dll;$(OutputPath)REFramework.NET._System.Private.CoreLib.dll;$(OutputPath)REFramework.NET.application.dll;$(OutputPath)REFramework.NET.viacore.dll;$(OutputPath)AssemblyGenerator.dll;$(OutputPath)modinfo.ini;$(OutputPath)cover.png" />	  
-    </ItemGroup>
-	
+		<Compile Remove="src\Frontend\ImGui\Customizations\Font\**" />
+		<EmbeddedResource Remove="src\Frontend\ImGui\Customizations\Font\**" />
+		<None Remove="src\Frontend\ImGui\Customizations\Font\**" />
+	</ItemGroup>
+
 	<ItemGroup>
-        <PluginDll Include="$(OutputPath)YURI_Overlay.dll" />	  
-    </ItemGroup>
-	
-	<MakeDir Directories="$(OutputPath)reframework\plugins\managed\dependencies" />
-	
-	<Delete Files="@(FilesToDelete)" />
-	
-	<Move SourceFiles="@(PluginDll)" DestinationFolder="$(OutputPath)reframework\plugins\managed" />
-    
-    <Move SourceFiles="@(Dependencies)" DestinationFolder="$(OutputPath)reframework\plugins\managed\dependencies" /> 
-  </Target>
+		<Reference Include="Hexa.NET.ImGui">
+			<HintPath>reframework\plugins\managed\dependencies\Hexa.NET.ImGui.dll</HintPath>
+		</Reference>
+		<Reference Include="HexaGen.Runtime">
+			<HintPath>reframework\plugins\managed\dependencies\HexaGen.Runtime.dll</HintPath>
+		</Reference>
+		<Reference Include="REFramework.NET">
+			<HintPath>reframework\plugins\REFramework.NET.dll</HintPath>
+		</Reference>
+		<Reference Include="ljwhost">
+			<HintPath>reframework\plugins\ljwhost.dll</HintPath>
+		</Reference>
+		<Reference Include="AssemblyGenerator">
+			<HintPath>reframework\plugins\managed\dependencies\AssemblyGenerator.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.CodeAnalysis">
+			<HintPath>reframework\plugins\managed\dependencies\Microsoft.CodeAnalysis.dll</HintPath>
+		</Reference>
+		<Reference Include="Microsoft.CodeAnalysis.CSharp">
+			<HintPath>reframework\plugins\managed\dependencies\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="REFCoreDeps">
+			<HintPath>reframework\plugins\managed\dependencies\REFCoreDeps.dll</HintPath>
+		</Reference>
+		<Reference Include="REFramework.NET.application">
+			<HintPath>reframework\plugins\managed\generated\REFramework.NET.application.dll</HintPath>
+		</Reference>
+		<Reference Include="REFramework.NET.viacore">
+			<HintPath>reframework\plugins\managed\generated\REFramework.NET.viacore.dll</HintPath>
+		</Reference>
+		<Reference Include="REFramework.NET._System.Private.CoreLib">
+			<HintPath>reframework\plugins\managed\generated\REFramework.NET._System.Private.CoreLib.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	<DebugType>embedded</DebugType>
-	<CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-	<DebugType>embedded</DebugType>
-	<CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	<DebugType>embedded</DebugType>
-	<CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-	<DebugType>embedded</DebugType>
-	<CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="Hexa.NET.ImGui">
-      <HintPath>reframework\plugins\managed\dependencies\Hexa.NET.ImGui.dll</HintPath>
-    </Reference>
-    <Reference Include="HexaGen.Runtime">
-      <HintPath>reframework\plugins\managed\dependencies\HexaGen.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="REFramework.NET">
-      <HintPath>reframework\plugins\REFramework.NET.dll</HintPath>
-    </Reference>
-	<Reference Include="ljwhost">
-      <HintPath>reframework\plugins\ljwhost.dll</HintPath>
-    </Reference>
-    <Reference Include="AssemblyGenerator">
-      <HintPath>reframework\plugins\managed\dependencies\AssemblyGenerator.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis">
-      <HintPath>reframework\plugins\managed\dependencies\Microsoft.CodeAnalysis.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.CSharp">
-      <HintPath>reframework\plugins\managed\dependencies\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="REFCoreDeps">
-      <HintPath>reframework\plugins\managed\dependencies\REFCoreDeps.dll</HintPath>
-    </Reference>
-    <Reference Include="REFramework.NET.application">
-      <HintPath>reframework\plugins\managed\generated\REFramework.NET.application.dll</HintPath>
-    </Reference>
-    <Reference Include="REFramework.NET.viacore">
-      <HintPath>reframework\plugins\managed\generated\REFramework.NET.viacore.dll</HintPath>
-    </Reference>
-    <Reference Include="REFramework.NET._System.Private.CoreLib">
-      <HintPath>reframework\plugins\managed\generated\REFramework.NET._System.Private.CoreLib.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="cover.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="modinfo.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="reframework\data\YURI_Overlay\localizations\de-DE.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+	<ItemGroup>
+		<None Update="cover.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="modinfo.ini">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="reframework\data\YURI_Overlay\localizations\de-DE.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="reframework\data\YURI_Overlay\localizations\ko-KR.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="reframework\data\YURI_Overlay\localizations\zh-Hans.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="src\Frontend\ImGui\Customizations\Font\" />
-  </ItemGroup>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="reframework\data\YURI_Overlay\localizations\zh-Hans.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 </Project>

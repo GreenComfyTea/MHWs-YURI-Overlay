@@ -4,7 +4,7 @@ namespace YURI_Overlay;
 
 internal sealed class LargeMonsterRageComponentCustomization : Customization
 {
-	public bool? Visible = null;
+	public bool? Visible;
 	public OffsetCustomization Offset = new();
 	public LabelElementCustomization ValueLabel = new();
 	public LabelElementCustomization PercentageLabel = new();
@@ -19,15 +19,15 @@ internal sealed class LargeMonsterRageComponentCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-rage";
 
-		if (ImGuiHelper.ResettableTreeNode(localization.Rage, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.Rage, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref Visible, defaultCustomization?.Visible);
-			isChanged |= Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
-			isChanged |= ValueLabel.RenderImGui(localization.ValueLabel, $"{customizationName}-value-label", defaultCustomization?.ValueLabel);
-			isChanged |= PercentageLabel.RenderImGui(localization.PercentageLabel, $"{customizationName}-percentage-label", defaultCustomization?.PercentageLabel);
-			isChanged |= Bar.RenderImGui(localization.Bar, $"{customizationName}-bar", defaultCustomization?.Bar);
-			isChanged |= TimerLabel.RenderImGui(localization.TimerLabel, $"{customizationName}-timer-label", defaultCustomization?.TimerLabel);
-			isChanged |= TimerBar.RenderImGui(localization.TimerBar, $"{customizationName}-timer-bar", defaultCustomization?.TimerBar);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref this.Visible, defaultCustomization?.Visible);
+			isChanged |= this.Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
+			isChanged |= this.ValueLabel.RenderImGui(localization.ValueLabel, $"{customizationName}-value-label", defaultCustomization?.ValueLabel);
+			isChanged |= this.PercentageLabel.RenderImGui(localization.PercentageLabel, $"{customizationName}-percentage-label", defaultCustomization?.PercentageLabel);
+			isChanged |= this.Bar.RenderImGui(localization.Bar, $"{customizationName}-bar", defaultCustomization?.Bar);
+			isChanged |= this.TimerLabel.RenderImGui(localization.TimerLabel, $"{customizationName}-timer-label", defaultCustomization?.TimerLabel);
+			isChanged |= this.TimerBar.RenderImGui(localization.TimerBar, $"{customizationName}-timer-bar", defaultCustomization?.TimerBar);
 
 			ImGui.TreePop();
 		}
@@ -37,15 +37,17 @@ internal sealed class LargeMonsterRageComponentCustomization : Customization
 
 	public void Reset(LargeMonsterRageComponentCustomization? defaultCustomization = null)
 	{
-		if (defaultCustomization is null)
+		if(defaultCustomization is null)
+		{
 			return;
+		}
 
-		Visible = defaultCustomization.Visible;
-		Offset.Reset(defaultCustomization.Offset);
-		ValueLabel.Reset(defaultCustomization.ValueLabel);
-		PercentageLabel.Reset(defaultCustomization.PercentageLabel);
-		Bar.Reset(defaultCustomization.Bar);
-		TimerLabel.Reset(defaultCustomization.TimerLabel);
-		TimerBar.Reset(defaultCustomization.TimerBar);
+		this.Visible = defaultCustomization.Visible;
+		this.Offset.Reset(defaultCustomization.Offset);
+		this.ValueLabel.Reset(defaultCustomization.ValueLabel);
+		this.PercentageLabel.Reset(defaultCustomization.PercentageLabel);
+		this.Bar.Reset(defaultCustomization.Bar);
+		this.TimerLabel.Reset(defaultCustomization.TimerLabel);
+		this.TimerBar.Reset(defaultCustomization.TimerBar);
 	}
 }

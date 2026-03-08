@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace YURI_Overlay;
+﻿namespace YURI_Overlay;
 
 internal class SupportHunter : DamageMeterEntity
 {
 	public SupportHunter()
 	{
-		Name = "Support Hunter";
+		this.Name = "Support Hunter";
 
-		StaticUi = new DamageMeterStaticUi(this);
+		this.StaticUi = new DamageMeterStaticUi(this);
 
-		Type = DamageMeterEntityTypeEnum.SupportHunter;
+		this.Type = DamageMeterEntityTypeEnum.SupportHunter;
 	}
 
 	public override void Dispose()

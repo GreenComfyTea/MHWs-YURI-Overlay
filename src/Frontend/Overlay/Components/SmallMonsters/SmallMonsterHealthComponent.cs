@@ -15,24 +15,24 @@ internal sealed class SmallMonsterHealthComponent
 
 	public SmallMonsterHealthComponent(SmallMonster smallMonster, Func<SmallMonsterHealthComponentCustomization?> customizationAccessor)
 	{
-		_smallMonster = smallMonster;
+		this._smallMonster = smallMonster;
 
-		_customizationAccessor = customizationAccessor;
+		this._customizationAccessor = customizationAccessor;
 
-		_healthValueLabelElement = new LabelElement(() => customizationAccessor()?.ValueLabel);
-		_healthPercentageLabelElement = new LabelElement(() => customizationAccessor()?.PercentageLabel);
-		_healthBarElement = new BarElement(() => customizationAccessor()?.Bar);
+		this._healthValueLabelElement = new LabelElement(() => customizationAccessor()?.ValueLabel);
+		this._healthPercentageLabelElement = new LabelElement(() => customizationAccessor()?.PercentageLabel);
+		this._healthBarElement = new BarElement(() => customizationAccessor()?.Bar);
 	}
 
 	public void Draw(ImDrawListPtr drawList, Vector2 position, float opacityScale = 1f)
 	{
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
 
-		var offset = _customizationAccessor()?.Offset;
+		var offset = this._customizationAccessor()?.Offset;
 		var offsetPosition = new Vector2(position.X + sizeScaleModifier * (offset?.X ?? 0f), position.Y + sizeScaleModifier * (offset?.Y ?? 0f));
 
-		_healthBarElement.Draw(drawList, offsetPosition, _smallMonster.HealthPercentage, opacityScale);
-		_healthPercentageLabelElement.Draw(drawList, offsetPosition, opacityScale, _smallMonster.HealthPercentage);
-		_healthValueLabelElement.Draw(drawList, offsetPosition, opacityScale, _smallMonster.Health, _smallMonster.MaxHealth);
+		this._healthBarElement.Draw(drawList, offsetPosition, this._smallMonster.HealthPercentage, opacityScale);
+		this._healthPercentageLabelElement.Draw(drawList, offsetPosition, opacityScale, this._smallMonster.HealthPercentage);
+		this._healthValueLabelElement.Draw(drawList, offsetPosition, opacityScale, this._smallMonster.Health, this._smallMonster.MaxHealth);
 	}
 }

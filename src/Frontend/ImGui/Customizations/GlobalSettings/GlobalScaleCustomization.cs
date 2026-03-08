@@ -4,8 +4,8 @@ namespace YURI_Overlay;
 
 internal sealed class GlobalScaleCustomization : Customization
 {
-	public float? PositionScaleModifier = null;
-	public float? SizeScaleModifier = null;
+	public float? PositionScaleModifier;
+	public float? SizeScaleModifier;
 
 	public OverlayFontScaleCustomization OverlayFontScale = new();
 
@@ -16,20 +16,21 @@ internal sealed class GlobalScaleCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-global-settings";
 
-		if (ImGuiHelper.ResettableTreeNode(localization.GlobalScale, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.GlobalScale, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableDragFloat(
 				$"{localization.PositionScaleModifier}##{customizationName}",
-				ref PositionScaleModifier,
+				ref this.PositionScaleModifier,
 				0.001f,
 				0.001f,
 				10f,
 				"%.3f",
 				defaultCustomization?.PositionScaleModifier
 			);
+
 			isChanged |= ImGuiHelper.ResettableDragFloat(
 				$"{localization.SizeScaleModifier}##{customizationName}",
-				ref SizeScaleModifier,
+				ref this.SizeScaleModifier,
 				0.001f,
 				0.001f,
 				10f,
@@ -37,7 +38,7 @@ internal sealed class GlobalScaleCustomization : Customization
 				defaultCustomization?.SizeScaleModifier
 			);
 
-			isChanged |= OverlayFontScale.RenderImGui(customizationName, defaultCustomization?.OverlayFontScale);
+			isChanged |= this.OverlayFontScale.RenderImGui(customizationName, defaultCustomization?.OverlayFontScale);
 
 			ImGui.TreePop();
 		}
@@ -47,12 +48,14 @@ internal sealed class GlobalScaleCustomization : Customization
 
 	public void Reset(GlobalScaleCustomization? defaultCustomization = null)
 	{
-		if (defaultCustomization is null)
+		if(defaultCustomization is null)
+		{
 			return;
+		}
 
-		PositionScaleModifier = defaultCustomization.PositionScaleModifier;
-		SizeScaleModifier = defaultCustomization.SizeScaleModifier;
+		this.PositionScaleModifier = defaultCustomization.PositionScaleModifier;
+		this.SizeScaleModifier = defaultCustomization.SizeScaleModifier;
 
-		OverlayFontScale.Reset(defaultCustomization.OverlayFontScale);
+		this.OverlayFontScale.Reset(defaultCustomization.OverlayFontScale);
 	}
 }

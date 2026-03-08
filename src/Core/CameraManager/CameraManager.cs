@@ -1,6 +1,5 @@
 ﻿using app;
 using REFrameworkNET;
-using REFrameworkNET.Attributes;
 
 namespace YURI_Overlay;
 
@@ -10,15 +9,13 @@ internal sealed class CameraManager
 
 	public static CameraManager Instance => Lazy.Value;
 
-	public LargeMonster? TargetedLargeMonster = null;
-
-	public CameraManager() { }
+	public LargeMonster? TargetedLargeMonster;
 
 	public void Initialize()
 	{
 		LogManager.Info("[CameraManager] Initializing...");
 
-		UpdateCameraTarget();
+		this.UpdateCameraTarget();
 
 		LogManager.Info("[CameraManager] Initialized!");
 	}
@@ -29,7 +26,7 @@ internal sealed class CameraManager
 		{
 			var customization = ConfigManager.Instance.ActiveConfig.Data;
 
-			if (
+			if(
 				customization.LargeMonsterUI.Enabled != true
 				&& customization.LargeMonsterUI.Dynamic.Enabled != true
 				&& customization.LargeMonsterUI.Static.Enabled != true
@@ -41,27 +38,31 @@ internal sealed class CameraManager
 			}
 
 			var cameraManager = API.GetManagedSingletonT<app.CameraManager>();
-			if (cameraManager is null)
+
+			if(cameraManager is null)
 			{
 				LogManager.Warn("[CameraManager.UpdateCameraTarget] No camera manager");
+
 				return;
 			}
 
 			var masterPlayerCamera = cameraManager._MasterPlCamera;
-			if (masterPlayerCamera is null)
+
+			if(masterPlayerCamera is null)
 			{
 				//LogManager.Warn("[CameraManager.UpdateCameraTarget] No master player camera");
 				return;
 			}
 
 			var lockTarget = masterPlayerCamera.LockTarget;
-			if (lockTarget is null)
+
+			if(lockTarget is null)
 			{
 				// No target is selected anymore
-				if (TargetedLargeMonster is not null)
+				if(this.TargetedLargeMonster is not null)
 				{
-					TargetedLargeMonster.SetIsTargeted(false);
-					TargetedLargeMonster = null;
+					this.TargetedLargeMonster.SetIsTargeted(false);
+					this.TargetedLargeMonster = null;
 				}
 
 				return;
@@ -69,16 +70,17 @@ internal sealed class CameraManager
 
 			var largeMonster = MonsterManager.Instance.LargeMonsters.FirstOrDefault(iteratedLargeMonster => iteratedLargeMonster.Value.EnemyCharacter == lockTarget._Character);
 
-			if (largeMonster.Value is null)
+			if(largeMonster.Value is null)
 			{
 				LogManager.Warn("[CameraManager.UpdateCameraTarget] No large monster");
+
 				return;
 			}
 
-			TargetedLargeMonster = largeMonster.Value;
-			TargetedLargeMonster.SetIsTargeted(true);
+			this.TargetedLargeMonster = largeMonster.Value;
+			this.TargetedLargeMonster.SetIsTargeted(true);
 		}
-		catch (Exception exception)
+		catch(Exception exception)
 		{
 			LogManager.Error(exception);
 		}

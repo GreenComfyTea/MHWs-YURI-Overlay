@@ -4,7 +4,7 @@ namespace YURI_Overlay;
 
 internal sealed class LargeMonsterUiCustomization : Customization
 {
-	public bool? Enabled = null;
+	public bool? Enabled;
 
 	public LargeMonsterDynamicUiCustomization Dynamic = new();
 	public LargeMonsterStaticUiCustomization Static = new();
@@ -18,14 +18,14 @@ internal sealed class LargeMonsterUiCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-large-monster";
 
-		if (ImGuiHelper.ResettableTreeNode(localization.LargeMonstersUI, customizationName, ref isChanged, defaultCustomization, Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.LargeMonstersUI, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref Enabled, defaultCustomization?.Enabled);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref this.Enabled, defaultCustomization?.Enabled);
 
-			isChanged |= Dynamic.RenderImGui(customizationName, defaultCustomization?.Dynamic);
-			isChanged |= Static.RenderImGui(customizationName, defaultCustomization?.Static);
-			isChanged |= Targeted.RenderImGui(customizationName, defaultCustomization?.Targeted);
-			isChanged |= MapPin.RenderImGui(customizationName, defaultCustomization?.MapPin);
+			isChanged |= this.Dynamic.RenderImGui(customizationName, defaultCustomization?.Dynamic);
+			isChanged |= this.Static.RenderImGui(customizationName, defaultCustomization?.Static);
+			isChanged |= this.Targeted.RenderImGui(customizationName, defaultCustomization?.Targeted);
+			isChanged |= this.MapPin.RenderImGui(customizationName, defaultCustomization?.MapPin);
 
 			ImGui.TreePop();
 		}
@@ -35,13 +35,15 @@ internal sealed class LargeMonsterUiCustomization : Customization
 
 	public void Reset(LargeMonsterUiCustomization? defaultCustomization = null)
 	{
-		if (defaultCustomization is null)
+		if(defaultCustomization is null)
+		{
 			return;
+		}
 
-		Enabled = defaultCustomization.Enabled;
-		Dynamic.Reset(defaultCustomization.Dynamic);
-		Static.Reset(defaultCustomization.Static);
-		Targeted.Reset(defaultCustomization.Targeted);
-		MapPin.Reset(defaultCustomization.MapPin);
+		this.Enabled = defaultCustomization.Enabled;
+		this.Dynamic.Reset(defaultCustomization.Dynamic);
+		this.Static.Reset(defaultCustomization.Static);
+		this.Targeted.Reset(defaultCustomization.Targeted);
+		this.MapPin.Reset(defaultCustomization.MapPin);
 	}
 }

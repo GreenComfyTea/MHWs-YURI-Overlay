@@ -11,33 +11,33 @@ internal sealed class SmallMonsterUiManager : IDisposable
 
 	public SmallMonsterUiManager()
 	{
-		Initialize();
+		this.Initialize();
 	}
 
 	~SmallMonsterUiManager()
 	{
-		Dispose();
+		this.Dispose();
 	}
 
 	public void Initialize()
 	{
 		LogManager.Info("[SmallMonsterUiManager] Initializing...");
 
-		InitializeTimers();
+		this.InitializeTimers();
 
 		LogManager.Info("[SmallMonsterUiManager] Initialized!");
 	}
 
 	public void Draw(ImDrawListPtr drawList)
 	{
-		DrawDynamicUi(drawList);
+		this.DrawDynamicUi(drawList);
 	}
 
 	public void Dispose()
 	{
 		LogManager.Info("[SmallMonsterUiManager] Disposing...");
 
-		foreach (var timer in _timers)
+		foreach(var timer in this._timers)
 		{
 			timer.Dispose();
 		}
@@ -49,14 +49,14 @@ internal sealed class SmallMonsterUiManager : IDisposable
 	{
 		var updateDelays = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.Performance.UpdateDelays.UIs;
 
-		foreach (var timer in _timers)
+		foreach(var timer in this._timers)
 		{
 			timer.Dispose();
 		}
 
-		_timers.Clear();
+		this._timers.Clear();
 
-		_timers.Add(Timers.SetInterval(UpdateDynamic, Utils.SecondsToMilliseconds(updateDelays.SmallMonsters)));
+		this._timers.Add(Timers.SetInterval(this.UpdateDynamic, Utils.SecondsToMilliseconds(updateDelays.SmallMonsters)));
 	}
 
 	private void UpdateDynamic()
@@ -64,9 +64,10 @@ internal sealed class SmallMonsterUiManager : IDisposable
 		var customization = ConfigManager.Instance.ActiveConfig.Data.SmallMonsterUI;
 		var settings = customization.Settings;
 
-		if (customization.Enabled != true)
+		if(customization.Enabled != true)
 		{
-			_dynamicSmallMonsters = [];
+			this._dynamicSmallMonsters = [];
+
 			return;
 		}
 
@@ -74,12 +75,14 @@ internal sealed class SmallMonsterUiManager : IDisposable
 
 		// Filter out dead and captured
 
-		foreach (var smallMonsterPair in MonsterManager.Instance.SmallMonsters)
+		foreach(var smallMonsterPair in MonsterManager.Instance.SmallMonsters)
 		{
 			var smallMonster = smallMonsterPair.Value;
 
-			if (settings?.RenderDeadMonsters != true && !smallMonster.IsAlive)
+			if(settings?.RenderDeadMonsters != true && !smallMonster.IsAlive)
+			{
 				continue;
+			}
 
 			newSmallMonsters.Add(smallMonster);
 		}
@@ -88,17 +91,19 @@ internal sealed class SmallMonsterUiManager : IDisposable
 		// Closest are drawn last
 		newSmallMonsters.Sort(SmallMonsterSorting.CompareByDistanceReversed);
 
-		_dynamicSmallMonsters = newSmallMonsters;
+		this._dynamicSmallMonsters = newSmallMonsters;
 	}
 
 	private void DrawDynamicUi(ImDrawListPtr drawList)
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.SmallMonsterUI;
 
-		if (customization?.Enabled != true)
+		if(customization?.Enabled != true)
+		{
 			return;
+		}
 
-		foreach (var smallMonster in _dynamicSmallMonsters)
+		foreach(var smallMonster in this._dynamicSmallMonsters)
 		{
 			smallMonster.DynamicUi?.Draw(drawList);
 		}

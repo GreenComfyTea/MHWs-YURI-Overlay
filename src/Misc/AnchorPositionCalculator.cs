@@ -42,7 +42,7 @@ internal static class AnchorPositionCalculator
 				displayWidth + (anchoredPositionCustomization.X ?? 0f) * positionScaleModifier,
 				displayHeight + (anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier
 			),
-			_ => new Vector2((anchoredPositionCustomization.X ?? 0f) * positionScaleModifier, (anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier),
+			var _ => new Vector2((anchoredPositionCustomization.X ?? 0f) * positionScaleModifier, (anchoredPositionCustomization.Y ?? 0f) * positionScaleModifier),
 		};
 	}
 }
