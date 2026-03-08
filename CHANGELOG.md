@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.8](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.7...v1.5.8) (2026-03-08)
+
+
+### Bug Fixes
+
+* Fixed event subscribers not unsubscribing ([7092ca0](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/7092ca06ca829e3f6f3e1b1b814ac136eeda7515))
+* Improved resource releasing and fixed memory leaks ([40125bf](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/commit/40125bf445ac86bdddc0d30864f819b5acfa93f5))
+
 ## [1.5.7](https://github.com/GreenComfyTea/MHWs-YURI-Overlay/compare/v1.5.6...v1.5.7) (2026-02-28)
 
 
