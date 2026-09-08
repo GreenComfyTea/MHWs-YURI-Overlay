@@ -7,7 +7,7 @@ internal static class ImGuiHelper
 {
 	public static bool Combo(string? label, ref int currentItem, string[] items)
 	{
-		ImGui.SetNextItemWidth(ImGuiManager.instanceP.comboBoxWidth);
+		ImGui.SetNextItemWidth(ImGuiManager.Instance.ComboBoxWidth);
 
 		return ImGui.Combo(label, ref currentItem, items, items.Length);
 	}
@@ -19,7 +19,7 @@ internal static class ImGuiHelper
 
 	public static bool ResettableCombo(string? label, ref int currentItem, string[] items, int? defaultValue = null)
 	{
-		var localization = LocalizationManager.instanceP.activeLocalization.data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 
@@ -27,16 +27,13 @@ internal static class ImGuiHelper
 		{
 			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
 
-			if(isChanged)
-			{
-				currentItem = (int) defaultValue;
-			}
+			if(isChanged) currentItem = (int)defaultValue;
 
 			Tooltip(localization.ResetToDefault);
 			ImGui.SameLine();
 		}
 
-		ImGui.SetNextItemWidth(ImGuiManager.instanceP.comboBoxWidth);
+		ImGui.SetNextItemWidth(ImGuiManager.Instance.ComboBoxWidth);
 		isChanged |= Combo(label, ref currentItem, items);
 
 		return isChanged;
@@ -44,7 +41,7 @@ internal static class ImGuiHelper
 
 	public static bool ResettableCombo(string? label, ref int? currentItem, string[] items, int? defaultValue = null)
 	{
-		var localization = LocalizationManager.instanceP.activeLocalization.data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var nonNullCurrentItem = currentItem ?? 0;
@@ -53,29 +50,23 @@ internal static class ImGuiHelper
 		{
 			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
 
-			if(isChanged)
-			{
-				nonNullCurrentItem = (int) defaultValue;
-			}
+			if(isChanged) nonNullCurrentItem = (int)defaultValue;
 
 			Tooltip(localization.ResetToDefault);
 			ImGui.SameLine();
 		}
 
-		ImGui.SetNextItemWidth(ImGuiManager.instanceP.comboBoxWidth);
+		ImGui.SetNextItemWidth(ImGuiManager.Instance.ComboBoxWidth);
 		isChanged |= Combo(label, ref nonNullCurrentItem, items);
 
-		if(isChanged)
-		{
-			currentItem = nonNullCurrentItem;
-		}
+		if(isChanged) currentItem = nonNullCurrentItem;
 
 		return isChanged;
 	}
 
 	public static bool ResettableInputText(string? label, ref string? input, uint maxLength = 256, string? defaultValue = null)
 	{
-		var localization = LocalizationManager.instanceP.activeLocalization.data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var nonNullInput = input ?? string.Empty;
@@ -84,10 +75,7 @@ internal static class ImGuiHelper
 		{
 			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
 
-			if(isChanged)
-			{
-				nonNullInput = defaultValue;
-			}
+			if(isChanged) nonNullInput = defaultValue;
 
 			Tooltip(localization.ResetToDefault);
 			ImGui.SameLine();
@@ -95,10 +83,7 @@ internal static class ImGuiHelper
 
 		isChanged |= InputText(label, ref nonNullInput, maxLength);
 
-		if(isChanged)
-		{
-			input = nonNullInput;
-		}
+		if(isChanged) input = nonNullInput;
 
 		return isChanged;
 	}
@@ -113,7 +98,7 @@ internal static class ImGuiHelper
 		float? defaultValue = null
 	)
 	{
-		var localization = LocalizationManager.instanceP.activeLocalization.data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var nonNullValue = value ?? 0f;
@@ -122,10 +107,7 @@ internal static class ImGuiHelper
 		{
 			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
 
-			if(isChanged)
-			{
-				nonNullValue = (float) defaultValue;
-			}
+			if(isChanged) nonNullValue = (float)defaultValue;
 
 			Tooltip(localization.ResetToDefault);
 			ImGui.SameLine();
@@ -133,17 +115,14 @@ internal static class ImGuiHelper
 
 		isChanged |= ImGui.DragFloat(label, ref nonNullValue, speed, minValue, maxValue, format);
 
-		if(isChanged)
-		{
-			value = nonNullValue;
-		}
+		if(isChanged) value = nonNullValue;
 
 		return isChanged;
 	}
 
 	public static bool ResettableSliderInt(string? label, ref int? value, int minValue = -4096, int maxValue = 4096, string format = "%d", int? defaultValue = null)
 	{
-		var localization = LocalizationManager.instanceP.activeLocalization.data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 
@@ -151,10 +130,7 @@ internal static class ImGuiHelper
 		{
 			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
 
-			if(isChanged)
-			{
-				value = defaultValue;
-			}
+			if(isChanged) value = defaultValue;
 
 			Tooltip(localization.ResetToDefault);
 			ImGui.SameLine();
@@ -171,7 +147,7 @@ internal static class ImGuiHelper
 
 	public static bool ResettableColorPicker4(string? label, ref Vector4 value, Vector4? defaultValue = null)
 	{
-		var localization = LocalizationManager.instanceP.activeLocalization.data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 
@@ -179,16 +155,13 @@ internal static class ImGuiHelper
 		{
 			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
 
-			if(isChanged)
-			{
-				value = (Vector4) defaultValue;
-			}
+			if(isChanged) value = (Vector4)defaultValue;
 
 			Tooltip(localization.ResetToDefault);
 			ImGui.SameLine();
 		}
 
-		ImGui.SetNextItemWidth(ImGuiManager.instanceP.colorPickerWidth);
+		ImGui.SetNextItemWidth(ImGuiManager.Instance.ColorPickerWidth);
 		isChanged |= ImGui.ColorPicker4(label, ref value);
 
 		return isChanged;
@@ -196,7 +169,7 @@ internal static class ImGuiHelper
 
 	public static bool ResettableColorPicker4(string? label, ref ColorInfo? value, ColorInfo? defaultValue = null)
 	{
-		var localization = LocalizationManager.instanceP.activeLocalization.data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var nonNullValue = value ?? new ColorInfo();
@@ -205,29 +178,23 @@ internal static class ImGuiHelper
 		{
 			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
 
-			if(isChanged)
-			{
-				nonNullValue.vector = defaultValue.vector;
-			}
+			if(isChanged) nonNullValue.vector = defaultValue.vector;
 
 			Tooltip(localization.ResetToDefault);
 			ImGui.SameLine();
 		}
 
-		ImGui.SetNextItemWidth(ImGuiManager.instanceP.colorPickerWidth);
+		ImGui.SetNextItemWidth(ImGuiManager.Instance.ColorPickerWidth);
 		isChanged |= ImGui.ColorPicker4(label, ref nonNullValue.vector);
 
-		if(isChanged)
-		{
-			value = nonNullValue;
-		}
+		if(isChanged) value = nonNullValue;
 
 		return isChanged;
 	}
 
 	public static bool ResettableCheckbox(string? label, ref bool? value, bool? defaultValue = null)
 	{
-		var localization = LocalizationManager.instanceP.activeLocalization.data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var nonNullValue = value ?? false;
@@ -236,10 +203,7 @@ internal static class ImGuiHelper
 		{
 			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
 
-			if(isChanged)
-			{
-				nonNullValue = (bool) defaultValue;
-			}
+			if(isChanged) nonNullValue = (bool)defaultValue;
 
 			Tooltip(localization.ResetToDefault);
 			ImGui.SameLine();
@@ -247,17 +211,14 @@ internal static class ImGuiHelper
 
 		isChanged |= ImGui.Checkbox(label, ref nonNullValue);
 
-		if(isChanged)
-		{
-			value = nonNullValue;
-		}
+		if(isChanged) value = nonNullValue;
 
 		return isChanged;
 	}
 
 	public static bool ResettableInputInt(string? label, ref int? value, int? defaultValue = null)
 	{
-		var localization = LocalizationManager.instanceP.activeLocalization.data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 		var nonNullValue = value ?? 0;
@@ -266,10 +227,7 @@ internal static class ImGuiHelper
 		{
 			isChanged |= ImGui.Button($"{localization.ResetIcon}##{label}");
 
-			if(isChanged)
-			{
-				nonNullValue = (int) defaultValue;
-			}
+			if(isChanged) nonNullValue = (int)defaultValue;
 
 			Tooltip(localization.ResetToDefault);
 			ImGui.SameLine();
@@ -277,17 +235,14 @@ internal static class ImGuiHelper
 
 		isChanged |= ImGui.InputInt(label, ref nonNullValue);
 
-		if(isChanged)
-		{
-			value = nonNullValue;
-		}
+		if(isChanged) value = nonNullValue;
 
 		return isChanged;
 	}
 
 	public static bool ResetButton<T>(string? parentName, T defaultCustomization, Action<T> resetMethod, bool isSameLine = true)
 	{
-		var localization = LocalizationManager.instanceP.activeLocalization.data.ImGui;
+		var localization = LocalizationManager.Instance.ActiveLocalization.Data.ImGui;
 
 		var isChanged = false;
 
@@ -295,17 +250,11 @@ internal static class ImGuiHelper
 		{
 			isChanged |= ImGui.Button($"{localization.ResetIcon}##{parentName}");
 
-			if(isChanged)
-			{
-				resetMethod(defaultCustomization);
-			}
+			if(isChanged) resetMethod(defaultCustomization);
 
 			Tooltip(localization.ResetToDefault);
 
-			if(isSameLine)
-			{
-				ImGui.SameLine();
-			}
+			if(isSameLine) ImGui.SameLine();
 		}
 
 		return isChanged;
@@ -330,27 +279,15 @@ internal static class ImGuiHelper
 
 	public static string? TruncateTextByMaxWidth(string? text, float maxWidth, Vector2? textSize)
 	{
-		if(text is null)
-		{
-			return text;
-		}
+		if(text is null) return text;
 
-		if(Utils.IsApproximatelyEqual(maxWidth, 0f))
-		{
-			return text;
-		}
+		if(Utils.IsApproximatelyEqual(maxWidth, 0f)) return text;
 
-		if(text.Length == 0)
-		{
-			return text;
-		}
+		if(text.Length == 0) return text;
 
 		var textSizeInternal = textSize ?? ImGui.CalcTextSize(text);
 
-		if(textSizeInternal.X <= maxWidth)
-		{
-			return text;
-		}
+		if(textSizeInternal.X <= maxWidth) return text;
 
 		var truncatedText = text;
 
@@ -359,10 +296,7 @@ internal static class ImGuiHelper
 			truncatedText = $"{text[..^i]}...";
 			textSizeInternal = ImGui.CalcTextSize(truncatedText);
 
-			if(truncatedText.Length <= 3)
-			{
-				return truncatedText;
-			}
+			if(truncatedText.Length <= 3) return truncatedText;
 		}
 
 		return truncatedText;

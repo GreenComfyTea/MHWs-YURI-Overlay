@@ -16,7 +16,8 @@ internal sealed class PerformanceCustomization : Customization
 
 		if(ImGuiHelper.ResettableTreeNode(localization.Performance, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.CalculationCaching}##{customizationName}", ref this.CalculationCaching, defaultCustomization?.CalculationCaching);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.CalculationCaching}##{customizationName}", ref this.CalculationCaching,
+				defaultCustomization?.CalculationCaching);
 			isChanged |= this.UpdateDelays.RenderImGui(customizationName, defaultCustomization?.UpdateDelays);
 
 			ImGui.TreePop();
@@ -27,10 +28,7 @@ internal sealed class PerformanceCustomization : Customization
 
 	public void Reset(PerformanceCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.CalculationCaching = defaultCustomization.CalculationCaching;
 		this.UpdateDelays.Reset(defaultCustomization.UpdateDelays);

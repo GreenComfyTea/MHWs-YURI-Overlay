@@ -4,13 +4,13 @@ namespace YURI_Overlay;
 
 internal sealed class UiUpdateDelaysCustomization
 {
+	public float? DamageMeter;
+	public float? EndemicLife;
 	public float? LargeMonsterDynamic;
+	public float? LargeMonsterMapPin;
 	public float? LargeMonsterStatic;
 	public float? LargeMonsterTargeted;
-	public float? LargeMonsterMapPin;
 	public float? SmallMonsters;
-	public float? EndemicLife;
-	public float? DamageMeter;
 
 	public bool RenderImGui(string? parentName = "", UiUpdateDelaysCustomization? defaultCustomization = null)
 	{
@@ -74,7 +74,7 @@ internal sealed class UiUpdateDelaysCustomization
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.EndemicLife}##{customizationName}", ref this.EndemicLife, 0.001f, 0.001f, 10f, "%.3f",
 				defaultCustomization?.EndemicLife);
 
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.DamageMeterUI}##{customizationName}", ref this.DamageMeter, 0.001f, 0.001f, 10f, "%.3f",
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.DamageMeterUi}##{customizationName}", ref this.DamageMeter, 0.001f, 0.001f, 10f, "%.3f",
 				defaultCustomization?.DamageMeter);
 
 			ImGui.TreePop();
@@ -85,10 +85,7 @@ internal sealed class UiUpdateDelaysCustomization
 
 	public void Reset(UiUpdateDelaysCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.SmallMonsters = defaultCustomization.SmallMonsters;
 		this.LargeMonsterDynamic = defaultCustomization.LargeMonsterDynamic;

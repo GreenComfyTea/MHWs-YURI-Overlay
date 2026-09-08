@@ -2,5 +2,5 @@
 
 internal sealed class CurrentConfig
 {
-	public string config = Constants.CurrentConfig;
+	public string Config = Constants.CURRENT_CONFIG;
 }

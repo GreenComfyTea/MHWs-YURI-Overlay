@@ -7,30 +7,29 @@ namespace YURI_Overlay;
 
 internal sealed class EndemicLifeEntity : IDisposable
 {
+	private readonly List<Timer> _timers = [];
+	private bool _isUpdateModelRadiusPending = true;
+
+	private bool _isUpdateNamePending = true;
+
+	private Method? _nameStringMethod;
+
+	private Type? _stringType;
+	public float Distance;
+
+	public EndemicLifeDynamicUi? DynamicUi;
 	public EnemyCharacter EnemyCharacter;
 	public cEnemyContext EnemyContext;
 
-	public EndemicLifeDynamicUi? DynamicUi;
-
 	public EnemyDef.ID Id = 0;
-	public EnemyDef.ROLE_ID RoleId = 0;
 	public EnemyDef.LEGENDARY_ID LegendaryId = 0;
-
-	public string Name = "Endemic Life";
 
 	public float ModelRadius;
 
+	public string Name = "Endemic Life";
+
 	public Vector3 Position = Vector3.Zero;
-	public float Distance;
-
-	private readonly List<Timer> _timers = [];
-
-	private bool _isUpdateNamePending = true;
-	private bool _isUpdateModelRadiusPending = true;
-
-	private Type? _stringType;
-
-	private Method? _nameStringMethod;
+	public EnemyDef.ROLE_ID RoleId = 0;
 
 	public EndemicLifeEntity(EnemyCharacter enemyCharacter, cEnemyContext enemyContext)
 	{
@@ -54,22 +53,6 @@ internal sealed class EndemicLifeEntity : IDisposable
 		}
 	}
 
-	public void Update()
-	{
-		try
-		{
-			this.UpdatePosition();
-			this.UpdateDistance();
-
-			this.UpdateName();
-			this.UpdateModelRadius();
-		}
-		catch(Exception exception)
-		{
-			LogManager.Error(exception);
-		}
-	}
-
 	public void Dispose()
 	{
 		LogManager.Info($"[EndemicLife] Disposing {this.Name}...");
@@ -84,6 +67,22 @@ internal sealed class EndemicLifeEntity : IDisposable
 		ConfigManager.Instance.AnyConfigChanged -= this.OnAnyConfigChanged;
 
 		LogManager.Info($"[EndemicLife] {this.Name} Disposed!");
+	}
+
+	public void Update()
+	{
+		try
+		{
+			this.UpdatePosition();
+			this.UpdateDistance();
+
+			this.UpdateName();
+			this.UpdateModelRadius();
+		}
+		catch(Exception exception)
+		{
+			LogManager.Error(exception);
+		}
 	}
 
 	private void Initialize()
@@ -180,14 +179,11 @@ internal sealed class EndemicLifeEntity : IDisposable
 	{
 		try
 		{
-			if(!this._isUpdateNamePending)
-			{
-				return;
-			}
+			if(!this._isUpdateNamePending) return;
 
 			this._isUpdateNamePending = false;
 
-			var name = (string?) this._nameStringMethod?.InvokeBoxed(this._stringType, null, [this.Id, this.RoleId, this.LegendaryId]);
+			var name = (string?)this._nameStringMethod?.InvokeBoxed(this._stringType, null, [this.Id, this.RoleId, this.LegendaryId]);
 
 			if(name is null)
 			{
@@ -209,10 +205,7 @@ internal sealed class EndemicLifeEntity : IDisposable
 	{
 		try
 		{
-			if(!this._isUpdateModelRadiusPending)
-			{
-				return;
-			}
+			if(!this._isUpdateModelRadiusPending) return;
 
 			this._isUpdateModelRadiusPending = false;
 

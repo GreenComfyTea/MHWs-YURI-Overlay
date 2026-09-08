@@ -5,24 +5,23 @@ namespace YURI_Overlay;
 
 internal sealed class DamageMeterStaticUiSortingCustomization : Customization
 {
-	public bool? ReversedOrder;
+	private int? _localPlayerPriorityIndex;
 
 	private int? _typeIndex;
+	public bool? ReversedOrder;
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public DamageMeterSortingEnum? Type
 	{
-		get => this._typeIndex.HasValue ? (DamageMeterSortingEnum) this._typeIndex.Value : null;
-		set => this._typeIndex = value.HasValue ? (int) value.Value : null;
+		get => this._typeIndex.HasValue ? (DamageMeterSortingEnum)this._typeIndex.Value : null;
+		set => this._typeIndex = value.HasValue ? (int)value.Value : null;
 	}
-
-	private int? _localPlayerPriorityIndex;
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public PriorityEnum? LocalPlayerPriority
 	{
-		get => this._localPlayerPriorityIndex.HasValue ? (PriorityEnum) this._localPlayerPriorityIndex.Value : null;
-		set => this._localPlayerPriorityIndex = value.HasValue ? (int) value.Value : null;
+		get => this._localPlayerPriorityIndex.HasValue ? (PriorityEnum)this._localPlayerPriorityIndex.Value : null;
+		set => this._localPlayerPriorityIndex = value.HasValue ? (int)value.Value : null;
 	}
 
 	public bool RenderImGui(string? parentName = "", DamageMeterStaticUiSortingCustomization? defaultCustomization = null)
@@ -36,7 +35,9 @@ internal sealed class DamageMeterStaticUiSortingCustomization : Customization
 		if(ImGuiHelper.ResettableTreeNode($"{localization.Sorting}##{customizationName}", customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.ReversedOrder}##{customizationName}", ref this.ReversedOrder, defaultCustomization?.ReversedOrder);
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Type}##{customizationName}", ref this._typeIndex, localizationHelper.DamageMeterSortings, defaultCustomization?._typeIndex);
+
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Type}##{customizationName}", ref this._typeIndex, localizationHelper.DamageMeterSortings,
+				defaultCustomization?._typeIndex);
 
 			isChanged |= ImGuiHelper.ResettableCombo(
 				$"{localization.LocalPlayerPriority}##{customizationName}",
@@ -53,10 +54,7 @@ internal sealed class DamageMeterStaticUiSortingCustomization : Customization
 
 	public void Reset(DamageMeterStaticUiSortingCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.ReversedOrder = defaultCustomization.ReversedOrder;
 		this.Type = defaultCustomization.Type;

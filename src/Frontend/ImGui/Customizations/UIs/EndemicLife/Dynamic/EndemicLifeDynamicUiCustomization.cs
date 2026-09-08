@@ -5,11 +5,11 @@ namespace YURI_Overlay;
 internal sealed class EndemicLifeDynamicUiCustomization : Customization
 {
 	public bool? Enabled;
-	public EndemicLifeDynamicUiSettingsCustomization Settings = new();
-	public WorldOffsetCustomization WorldOffset = new();
-	public OffsetCustomization Offset = new();
 
 	public LabelElementCustomization NameLabel = new();
+	public OffsetCustomization Offset = new();
+	public EndemicLifeDynamicUiSettingsCustomization Settings = new();
+	public WorldOffsetCustomization WorldOffset = new();
 
 	public bool RenderImGui(string? parentName = "", EndemicLifeDynamicUiCustomization? defaultCustomization = null)
 	{
@@ -18,7 +18,7 @@ internal sealed class EndemicLifeDynamicUiCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-dynamic";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.EndemicLifeUI, customizationName, ref isChanged, defaultCustomization, this.Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.EndemicLifeUi, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref this.Enabled, defaultCustomization?.Enabled);
 
@@ -35,10 +35,7 @@ internal sealed class EndemicLifeDynamicUiCustomization : Customization
 
 	public void Reset(EndemicLifeDynamicUiCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Enabled = defaultCustomization.Enabled;
 		this.Settings.Reset(defaultCustomization.Settings);

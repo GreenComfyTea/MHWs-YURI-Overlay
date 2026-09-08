@@ -21,7 +21,7 @@ internal partial class ConfigManager
 	{
 		var globalSettingsConfig = config.GlobalSettings;
 
-		globalSettingsConfig.Localization = Constants.DefaultLocalization;
+		globalSettingsConfig.Localization = Constants.DEFAULT_LOCALIZATION;
 
 		globalSettingsConfig.GlobalScale.PositionScaleModifier = 1f;
 		globalSettingsConfig.GlobalScale.SizeScaleModifier = 1f;

@@ -41,41 +41,35 @@ internal sealed class ConfigCustomization : Customization
 				configManager.ActivateConfig(this._configNames[this._activeConfigIndex]);
 			}
 
-			ImGui.InputText($"{localization.NewConfigName}##{parentName}", ref this._configNameInput, Constants.MaxConfigNameLength);
+			ImGui.InputText($"{localization.NewConfigName}##{parentName}", ref this._configNameInput, Constants.MAX_CONFIG_NAME_LENGTH);
 
 			if(ImGui.Button($"{localization.New}##{parentName}"))
-			{
 				if(this._configNameInput != string.Empty && !this._configNames.Contains(this._configNameInput))
 				{
 					isChanged = true;
 
 					configManager.NewConfig(this._configNameInput);
 				}
-			}
 
 			ImGui.SameLine();
 
 			if(ImGui.Button($"{localization.Duplicate}##{parentName}"))
-			{
 				if(this._configNameInput != string.Empty && !this._configNames.Contains(this._configNameInput))
 				{
 					isChanged = true;
 
 					configManager.DuplicateConfig(this._configNameInput);
 				}
-			}
 
 			ImGui.SameLine();
 
 			if(ImGui.Button($"{localization.Rename}##{parentName}"))
-			{
 				if(this._configNameInput != string.Empty && !this._configNames.Contains(this._configNameInput))
 				{
 					isChanged = true;
 
 					configManager.RenameConfig(this._configNameInput);
 				}
-			}
 
 			ImGui.SameLine();
 

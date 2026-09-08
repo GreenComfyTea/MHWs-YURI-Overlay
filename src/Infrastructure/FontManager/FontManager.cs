@@ -2,8 +2,7 @@
 
 internal sealed class FontManager
 {
-	private static readonly Lazy<FontManager> Lazy = new(() => new FontManager());
-	public static FontManager Instance => Lazy.Value;
+	private static readonly Lazy<FontManager> _lazy = new(() => new FontManager());
 
 	//public bool IsInitialized = false;
 	//public ImGuiFontCustomization Customization;
@@ -22,6 +21,8 @@ internal sealed class FontManager
 	private FontManager()
 	{
 	}
+
+	public static FontManager Instance => _lazy.Value;
 
 	//public void Initialize()
 	//{

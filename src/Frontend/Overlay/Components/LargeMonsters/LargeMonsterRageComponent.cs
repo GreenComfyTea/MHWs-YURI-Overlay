@@ -5,15 +5,14 @@ namespace YURI_Overlay;
 
 internal sealed class LargeMonsterRageComponent
 {
+	private readonly Func<LargeMonsterRageComponentCustomization?> _customizationAccessor;
 	private readonly LargeMonster _largeMonster;
+	private readonly BarElement _rageBarElement;
+	private readonly LabelElement _ragePercentageLabelElement;
+	private readonly BarElement _rageTimerBarElement;
+	private readonly LabelElement _rageTimerLabelElement;
 
 	private readonly LabelElement _rageValueLabelElement;
-	private readonly LabelElement _ragePercentageLabelElement;
-	private readonly BarElement _rageBarElement;
-	private readonly LabelElement _rageTimerLabelElement;
-	private readonly BarElement _rageTimerBarElement;
-
-	private readonly Func<LargeMonsterRageComponentCustomization?> _customizationAccessor;
 
 	public LargeMonsterRageComponent(LargeMonster largeMonster, Func<LargeMonsterRageComponentCustomization?> customizationAccessor)
 	{
@@ -30,10 +29,7 @@ internal sealed class LargeMonsterRageComponent
 
 	public void Draw(ImDrawListPtr drawList, Vector2 position, float opacityScale = 1f)
 	{
-		if(!this._largeMonster.IsRageValid)
-		{
-			return;
-		}
+		if(!this._largeMonster.IsRageValid) return;
 
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
 

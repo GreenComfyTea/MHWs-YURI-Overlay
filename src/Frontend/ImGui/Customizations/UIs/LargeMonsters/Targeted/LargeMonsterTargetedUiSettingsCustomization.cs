@@ -5,10 +5,10 @@ namespace YURI_Overlay;
 internal sealed class LargeMonsterTargetedUiSettingsCustomization : Customization
 {
 	public bool? RenderDeadMonster;
-	public bool? RenderTargetedMonster;
+	public bool? RenderNonPinnedMonsters;
 	public bool? RenderNonTargetedMonsters;
 	public bool? RenderPinnedMonster;
-	public bool? RenderNonPinnedMonsters;
+	public bool? RenderTargetedMonster;
 
 	public bool RenderImGui(string? parentName = "", LargeMonsterTargetedUiSettingsCustomization? defaultCustomization = null)
 	{
@@ -19,7 +19,8 @@ internal sealed class LargeMonsterTargetedUiSettingsCustomization : Customizatio
 
 		if(ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderDeadMonster}##{customizationName}", ref this.RenderDeadMonster, defaultCustomization?.RenderDeadMonster);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderDeadMonster}##{customizationName}", ref this.RenderDeadMonster,
+				defaultCustomization?.RenderDeadMonster);
 
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderTargetedMonster}##{customizationName}", ref this.RenderTargetedMonster,
 				defaultCustomization?.RenderTargetedMonster);
@@ -29,7 +30,9 @@ internal sealed class LargeMonsterTargetedUiSettingsCustomization : Customizatio
 				ref this.RenderNonTargetedMonsters,
 				defaultCustomization?.RenderNonTargetedMonsters
 			);
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderPinnedMonster}##{customizationName}", ref this.RenderPinnedMonster, defaultCustomization?.RenderPinnedMonster);
+
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderPinnedMonster}##{customizationName}", ref this.RenderPinnedMonster,
+				defaultCustomization?.RenderPinnedMonster);
 
 			isChanged |= ImGuiHelper.ResettableCheckbox(
 				$"{localization.RenderNonPinnedMonsters}##{customizationName}",
@@ -45,10 +48,7 @@ internal sealed class LargeMonsterTargetedUiSettingsCustomization : Customizatio
 
 	public void Reset(LargeMonsterTargetedUiSettingsCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.RenderDeadMonster = defaultCustomization.RenderDeadMonster;
 		this.RenderTargetedMonster = defaultCustomization.RenderTargetedMonster;

@@ -4,17 +4,16 @@ namespace YURI_Overlay;
 
 internal sealed class LargeMonsterDynamicUiSettingsCustomization : Customization
 {
-	public bool? RenderDeadMonsters;
-	public bool? RenderTargetedMonster;
-	public bool? RenderNonTargetedMonsters;
-	public bool? RenderPinnedMonster;
-	public bool? RenderNonPinnedMonsters;
-
 	public bool? AddMissionBeaconOffsetToWorldOffset;
 	public bool? AddModelRadiusToWorldOffsetY;
+	public float? MaxDistance;
 
 	public bool? OpacityFalloff;
-	public float? MaxDistance;
+	public bool? RenderDeadMonsters;
+	public bool? RenderNonPinnedMonsters;
+	public bool? RenderNonTargetedMonsters;
+	public bool? RenderPinnedMonster;
+	public bool? RenderTargetedMonster;
 
 	public bool RenderImGui(string? parentName = "", LargeMonsterDynamicUiSettingsCustomization? defaultCustomization = null)
 	{
@@ -25,7 +24,8 @@ internal sealed class LargeMonsterDynamicUiSettingsCustomization : Customization
 
 		if(ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderDeadMonsters}##{customizationName}", ref this.RenderDeadMonsters, defaultCustomization?.RenderDeadMonsters);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderDeadMonsters}##{customizationName}", ref this.RenderDeadMonsters,
+				defaultCustomization?.RenderDeadMonsters);
 
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderTargetedMonster}##{customizationName}", ref this.RenderTargetedMonster,
 				defaultCustomization?.RenderTargetedMonster);
@@ -35,7 +35,9 @@ internal sealed class LargeMonsterDynamicUiSettingsCustomization : Customization
 				ref this.RenderNonTargetedMonsters,
 				defaultCustomization?.RenderNonTargetedMonsters
 			);
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderPinnedMonster}##{customizationName}", ref this.RenderPinnedMonster, defaultCustomization?.RenderPinnedMonster);
+
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderPinnedMonster}##{customizationName}", ref this.RenderPinnedMonster,
+				defaultCustomization?.RenderPinnedMonster);
 
 			isChanged |= ImGuiHelper.ResettableCheckbox(
 				$"{localization.RenderNonPinnedMonsters}##{customizationName}",
@@ -55,7 +57,9 @@ internal sealed class LargeMonsterDynamicUiSettingsCustomization : Customization
 				defaultCustomization?.AddModelRadiusToWorldOffsetY
 			);
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.OpacityFalloff}##{customizationName}", ref this.OpacityFalloff, defaultCustomization?.OpacityFalloff);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MaxDistance}##{customizationName}", ref this.MaxDistance, 0.1f, 0, 65536f, "%.1f", defaultCustomization?.MaxDistance);
+
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MaxDistance}##{customizationName}", ref this.MaxDistance, 0.1f, 0, 65536f, "%.1f",
+				defaultCustomization?.MaxDistance);
 
 			ImGui.TreePop();
 		}
@@ -65,10 +69,7 @@ internal sealed class LargeMonsterDynamicUiSettingsCustomization : Customization
 
 	public void Reset(LargeMonsterDynamicUiSettingsCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.RenderDeadMonsters = defaultCustomization.RenderDeadMonsters;
 		this.RenderTargetedMonster = defaultCustomization.RenderTargetedMonster;

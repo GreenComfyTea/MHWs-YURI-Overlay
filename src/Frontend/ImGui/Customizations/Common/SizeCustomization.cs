@@ -4,8 +4,8 @@ namespace YURI_Overlay;
 
 internal sealed class SizeCustomization : Customization
 {
-	public float? Width;
 	public float? Height;
+	public float? Width;
 
 	public bool RenderImGui(string? parentName = "", SizeCustomization? defaultCustomization = null)
 	{
@@ -27,10 +27,7 @@ internal sealed class SizeCustomization : Customization
 
 	public void Reset(SizeCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Width = defaultCustomization.Width;
 		this.Height = defaultCustomization.Height;

@@ -28,7 +28,7 @@ using ValueType = REFrameworkNET.ValueType;
 
 namespace YURI_Overlay;
 
-internal sealed class ReFrameworkWebApi
+internal sealed class REFrameworkWebApi
 {
 	private static HttpListener _sListenerS;
 	private static Thread _sThreadS;
@@ -83,7 +83,7 @@ internal sealed class ReFrameworkWebApi
 	{
 		try
 		{
-			var pluginDir = API.GetPluginDirectory(typeof(ReFrameworkWebApi).Assembly);
+			var pluginDir = API.GetPluginDirectory(typeof(REFrameworkWebApi).Assembly);
 			_sWebRootS = Path.Combine(pluginDir, "WebAPI");
 
 			if(!Directory.Exists(_sWebRootS))
@@ -139,10 +139,7 @@ internal sealed class ReFrameworkWebApi
 
 	private static void HandleRequest(HttpListenerContext ctx)
 	{
-		if(sCtsS.IsCancellationRequested)
-		{
-			return;
-		}
+		if(sCtsS.IsCancellationRequested) return;
 
 		var calledGameApi = false;
 
@@ -170,7 +167,7 @@ internal sealed class ReFrameworkWebApi
 						"/api/explorer/method" => PostExplorerMethod(ctx.Request),
 						"/api/explorer/batch" => PostExplorerBatch(ctx.Request),
 						"/api/explorer/chain" => PostExplorerChain(ctx.Request),
-						var _ => null,
+						_ => null,
 					};
 
 					if(postResult == null)
@@ -233,7 +230,7 @@ internal sealed class ReFrameworkWebApi
 					"/api/huntlog" => GetHuntLog(),
 					"/api/palico" => GetPalicoStats(),
 					"/api/debug/byref" => DebugByRef(),
-					var _ => null,
+					_ => null,
 				};
 
 				if(result == null)
@@ -273,7 +270,6 @@ internal sealed class ReFrameworkWebApi
 			// Only call when we actually invoked game APIs — calling on a thread
 			// that only served static files can crash if there's no frame to GC.
 			if(calledGameApi)
-			{
 				try
 				{
 					API.LocalFrameGC();
@@ -281,16 +277,12 @@ internal sealed class ReFrameworkWebApi
 				catch
 				{
 				}
-			}
 		}
 	}
 
 	private static void ServeFile(HttpListenerContext ctx, string path)
 	{
-		if(path == "" || path == "/")
-		{
-			path = "/index.html";
-		}
+		if(path == "" || path == "/") path = "/index.html";
 
 		// Sanitize: only allow filenames directly in WebAPI folder
 		var fileName = Path.GetFileName(path);
@@ -356,7 +348,11 @@ internal sealed class ReFrameworkWebApi
 		};
 
 		endpoints.AddRange(
-			new[] { "/api/player", "/api/lobby", "/api/weather", "/api/equipment", "/api/inventory", "/api/meshes", "/api/materials", "/api/map", "/api/chat", "/api/huntlog", "/api/palico" }
+			new[]
+			{
+				"/api/player", "/api/lobby", "/api/weather", "/api/equipment", "/api/inventory", "/api/meshes", "/api/materials", "/api/map", "/api/chat", "/api/huntlog",
+				"/api/palico",
+			}
 		);
 
 		return new
@@ -385,30 +381,21 @@ internal sealed class ReFrameworkWebApi
 		{
 			var pm = API.GetManagedSingletonT<app.PlayerManager>();
 
-			if(pm == null)
-			{
-				return new { error = "PlayerManager not available" };
-			}
+			if(pm == null) return new { error = "PlayerManager not available" };
 
 			var player = pm.getMasterPlayer();
 
-			if(player == null)
-			{
-				return new { error = "Player is null" };
-			}
+			if(player == null) return new { error = "Player is null" };
 
 			var createInfo = player.ContextHolder.Hunter.CreateInfo;
 
-			if(createInfo == null)
-			{
-				return new { error = "CreateInfo not available" };
-			}
+			if(createInfo == null) return new { error = "CreateInfo not available" };
 
 			var wpType = createInfo._WpType;
 			var wpId = createInfo._WpID;
 
 			string weaponName = null,
-				   weaponDesc = null;
+				weaponDesc = null;
 
 			try
 			{
@@ -427,7 +414,6 @@ internal sealed class ReFrameworkWebApi
 			}
 
 			if(weaponDesc == null)
-			{
 				try
 				{
 					weaponDesc = ResolveGuid(WeaponDef.Data(wpType, wpId).Explain);
@@ -435,7 +421,6 @@ internal sealed class ReFrameworkWebApi
 				catch
 				{
 				}
-			}
 
 			string wpTypeName = null;
 
@@ -454,8 +439,8 @@ internal sealed class ReFrameworkWebApi
 				subAttributeValue = 0;
 
 			string attribute = null,
-				   subAttribute = null,
-				   rarity = null;
+				subAttribute = null,
+				rarity = null;
 			var slotLevels = new int[3];
 
 			try
@@ -526,7 +511,7 @@ internal sealed class ReFrameworkWebApi
 			{
 				for(uint s = 0; s < 3; s++)
 				{
-					slotLevels[s] = (int) WeaponDef.SlotLevel(wpType, wpId, s);
+					slotLevels[s] = (int)WeaponDef.SlotLevel(wpType, wpId, s);
 				}
 			}
 			catch
@@ -557,12 +542,12 @@ internal sealed class ReFrameworkWebApi
 			for(var i = 0; i < 5; i++)
 			{
 				string name = null,
-					   desc = null;
+					desc = null;
 
 				if(armorIds[i] > 0)
 				{
-					var parts = (ArmorDef.ARMOR_PARTS) i;
-					var series = (ArmorDef.SERIES) armorIds[i];
+					var parts = (ArmorDef.ARMOR_PARTS)i;
+					var series = (ArmorDef.SERIES)armorIds[i];
 
 					try
 					{
@@ -607,21 +592,21 @@ internal sealed class ReFrameworkWebApi
 
 					if(otomoCtx != null && otomoCtx._IsValid)
 					{
-						var wpDataId = (OtEquipDef.EQUIP_DATA_ID) otomoCtx._WeaponDataId;
-						var helmDataId = (OtEquipDef.EQUIP_DATA_ID) otomoCtx._HeadDataId;
-						var bodyDataId = (OtEquipDef.EQUIP_DATA_ID) otomoCtx._ArmorDataId;
+						var wpDataId = (OtEquipDef.EQUIP_DATA_ID)otomoCtx._WeaponDataId;
+						var helmDataId = (OtEquipDef.EQUIP_DATA_ID)otomoCtx._HeadDataId;
+						var bodyDataId = (OtEquipDef.EQUIP_DATA_ID)otomoCtx._ArmorDataId;
 
 						string wpName = null,
-							   helmName = null,
-							   bodyName = null;
+							helmName = null,
+							bodyName = null;
 
 						string wpDesc = null,
-							   helmDesc = null,
-							   bodyDesc = null;
+							helmDesc = null,
+							bodyDesc = null;
 
 						string wpRare = null,
-							   helmRare = null,
-							   bodyRare = null;
+							helmRare = null,
+							bodyRare = null;
 
 						try
 						{
@@ -630,7 +615,7 @@ internal sealed class ReFrameworkWebApi
 
 							if(otWpData != null)
 							{
-								var idx = vdm.Setting.EquipDatas.OtomoWeaponDataIndex[(int) wpDataId];
+								var idx = vdm.Setting.EquipDatas.OtomoWeaponDataIndex[(int)wpDataId];
 
 								if(idx >= 0)
 								{
@@ -649,7 +634,6 @@ internal sealed class ReFrameworkWebApi
 						}
 
 						if(wpName == null)
-						{
 							try
 							{
 								wpName = ResolveGuid(OtEquipDef.Name(wpDataId));
@@ -657,7 +641,6 @@ internal sealed class ReFrameworkWebApi
 							catch
 							{
 							}
-						}
 
 						try
 						{
@@ -752,7 +735,7 @@ internal sealed class ReFrameworkWebApi
 					name = weaponName ?? $"Weapon {wpId}",
 					description = weaponDesc,
 					type = wpTypeName ?? wpType.ToString(),
-					typeId = (int) wpType,
+					typeId = (int)wpType,
 					id = wpId,
 					attack,
 					critical,
@@ -780,10 +763,7 @@ internal sealed class ReFrameworkWebApi
 		{
 			var fm = API.GetManagedSingletonT<MasterFieldManager>();
 
-			if(fm == null)
-			{
-				return new { error = "MasterFieldManager not available" };
-			}
+			if(fm == null) return new { error = "MasterFieldManager not available" };
 
 			var currentStage = fm.CurrentStage;
 			var prevStage = fm.PrevStage;
@@ -829,7 +809,6 @@ internal sealed class ReFrameworkWebApi
 				}
 
 				if(isQuest)
-				{
 					try
 					{
 						var qd = mm.QuestDirector;
@@ -866,7 +845,6 @@ internal sealed class ReFrameworkWebApi
 					catch
 					{
 					}
-				}
 			}
 
 			return new
@@ -899,17 +877,11 @@ internal sealed class ReFrameworkWebApi
 		{
 			var sdm = API.GetManagedSingletonT<SaveDataManager>();
 
-			if(sdm == null)
-			{
-				return new { error = "SaveDataManager not available" };
-			}
+			if(sdm == null) return new { error = "SaveDataManager not available" };
 
 			var saves = sdm.UserSaveData;
 
-			if(saves == null)
-			{
-				return new { error = "No save data" };
-			}
+			if(saves == null) return new { error = "No save data" };
 
 			cUserSaveParam activeSave = null;
 
@@ -923,24 +895,15 @@ internal sealed class ReFrameworkWebApi
 				}
 			}
 
-			if(activeSave == null)
-			{
-				return new { error = "No active save" };
-			}
+			if(activeSave == null) return new { error = "No active save" };
 
 			var itemParam = activeSave._Item;
 
-			if(itemParam == null)
-			{
-				return new { error = "Item data not available" };
-			}
+			if(itemParam == null) return new { error = "Item data not available" };
 
 			var pouch = itemParam._PouchItem;
 
-			if(pouch == null)
-			{
-				return new { error = "Pouch not available" };
-			}
+			if(pouch == null) return new { error = "Pouch not available" };
 
 			var items = new List<object>();
 
@@ -948,17 +911,11 @@ internal sealed class ReFrameworkWebApi
 			{
 				var slot = pouch[i];
 
-				if(slot == null)
-				{
-					continue;
-				}
+				if(slot == null) continue;
 
-				var num = (int) slot.Num;
+				var num = (int)slot.Num;
 
-				if(num <= 0)
-				{
-					continue;
-				}
+				if(num <= 0) continue;
 
 				ItemDef.ID itemId;
 
@@ -968,7 +925,7 @@ internal sealed class ReFrameworkWebApi
 				}
 				catch
 				{
-					itemId = (ItemDef.ID) slot.ItemIdFixed;
+					itemId = (ItemDef.ID)slot.ItemIdFixed;
 				}
 
 				string name = null;
@@ -985,8 +942,8 @@ internal sealed class ReFrameworkWebApi
 					new
 					{
 						slotIndex = i,
-						id = (int) itemId,
-						name = name ?? $"Item {(int) itemId}",
+						id = (int)itemId,
+						name = name ?? $"Item {(int)itemId}",
 						quantity = num,
 					}
 				);
@@ -1009,24 +966,18 @@ internal sealed class ReFrameworkWebApi
 	{
 		var pm = API.GetManagedSingletonT<app.PlayerManager>();
 
-		if(pm == null)
-		{
-			return new { error = "PlayerManager not available" };
-		}
+		if(pm == null) return new { error = "PlayerManager not available" };
 
 		var player = pm.getMasterPlayer();
 
-		if(player == null)
-		{
-			return new { error = "Player is null" };
-		}
+		if(player == null) return new { error = "Player is null" };
 
 		var ctx = player.ContextHolder;
 		var pl = ctx.Pl;
 
 		float? posX = null,
-			   posY = null,
-			   posZ = null;
+			posY = null,
+			posZ = null;
 
 		try
 		{
@@ -1050,7 +1001,7 @@ internal sealed class ReFrameworkWebApi
 		}
 
 		float? health = null,
-			   maxHealth = null;
+			maxHealth = null;
 
 		try
 		{
@@ -1067,10 +1018,10 @@ internal sealed class ReFrameworkWebApi
 		}
 
 		string otomoName = null,
-			   seikretName = null;
+			seikretName = null;
 
 		int? zenny = null,
-			 points = null;
+			points = null;
 		uint? playTime = null;
 
 		try
@@ -1082,7 +1033,6 @@ internal sealed class ReFrameworkWebApi
 				var saves = sdm.UserSaveData;
 
 				if(saves != null)
-				{
 					for(var i = 0; i < saves.Length; i++)
 					{
 						if(saves[i] != null && saves[i].Active == 1)
@@ -1135,7 +1085,6 @@ internal sealed class ReFrameworkWebApi
 							break;
 						}
 					}
-				}
 			}
 		}
 		catch
@@ -1145,7 +1094,7 @@ internal sealed class ReFrameworkWebApi
 		return new
 		{
 			name = pl._PlayerName,
-			level = (int) pl._CurrentStage,
+			level = (int)pl._CurrentStage,
 			health,
 			maxHealth,
 			zenny,
@@ -1179,24 +1128,15 @@ internal sealed class ReFrameworkWebApi
 
 		var pm = API.GetManagedSingletonT<app.PlayerManager>();
 
-		if(pm == null)
-		{
-			return new { error = "PlayerManager not available" };
-		}
+		if(pm == null) return new { error = "PlayerManager not available" };
 
 		var player = pm.getMasterPlayer();
 
-		if(player == null)
-		{
-			return new { error = "Player is null" };
-		}
+		if(player == null) return new { error = "Player is null" };
 
 		var hm = player.ContextHolder.Chara.HealthManager;
 
-		if(hm == null)
-		{
-			return new { error = "HealthManager not available" };
-		}
+		if(hm == null) return new { error = "HealthManager not available" };
 
 		hm._Health.write(value);
 
@@ -1214,48 +1154,27 @@ internal sealed class ReFrameworkWebApi
 
 			var pm = API.GetManagedSingletonT<app.PlayerManager>();
 
-			if(pm == null)
-			{
-				return new { error = "PlayerManager not available" };
-			}
+			if(pm == null) return new { error = "PlayerManager not available" };
 
 			var player = pm.getMasterPlayer();
 
-			if(player == null)
-			{
-				return new { error = "Player is null" };
-			}
+			if(player == null) return new { error = "Player is null" };
 
 			var go = player.Object;
 
-			if(go == null)
-			{
-				return new { error = "GameObject is null" };
-			}
+			if(go == null) return new { error = "GameObject is null" };
 
 			var tf = go.Transform;
 
-			if(tf == null)
-			{
-				return new { error = "Transform is null" };
-			}
+			if(tf == null) return new { error = "Transform is null" };
 
 			var pos = tf.Position;
 
-			if(root.TryGetProperty("x", out var xProp))
-			{
-				pos.x = xProp.GetSingle();
-			}
+			if(root.TryGetProperty("x", out var xProp)) pos.x = xProp.GetSingle();
 
-			if(root.TryGetProperty("y", out var yProp))
-			{
-				pos.y = yProp.GetSingle();
-			}
+			if(root.TryGetProperty("y", out var yProp)) pos.y = yProp.GetSingle();
 
-			if(root.TryGetProperty("z", out var zProp))
-			{
-				pos.z = zProp.GetSingle();
-			}
+			if(root.TryGetProperty("z", out var zProp)) pos.z = zProp.GetSingle();
 
 			tf.Position = pos;
 
@@ -1278,30 +1197,15 @@ internal sealed class ReFrameworkWebApi
 
 	private static string GuessMeshLabel(string name)
 	{
-		if(sMeshLabelsS.TryGetValue(name, out var label))
-		{
-			return label;
-		}
+		if(sMeshLabelsS.TryGetValue(name, out var label)) return label;
 
-		if(name.StartsWith("Acc"))
-		{
-			return "Accessory";
-		}
+		if(name.StartsWith("Acc")) return "Accessory";
 
-		if(name.StartsWith("ch02_"))
-		{
-			return "Body";
-		}
+		if(name.StartsWith("ch02_")) return "Body";
 
-		if(name.StartsWith("Wp_"))
-		{
-			return "Weapon";
-		}
+		if(name.StartsWith("Wp_")) return "Weapon";
 
-		if(name.StartsWith("WpSub_"))
-		{
-			return "Sub Weapon";
-		}
+		if(name.StartsWith("WpSub_")) return "Sub Weapon";
 
 		return name;
 	}
@@ -1310,31 +1214,19 @@ internal sealed class ReFrameworkWebApi
 	{
 		var pm = API.GetManagedSingletonT<app.PlayerManager>();
 
-		if(pm == null)
-		{
-			return null;
-		}
+		if(pm == null) return null;
 
 		var player = pm.getMasterPlayer();
 
-		if(player == null)
-		{
-			return null;
-		}
+		if(player == null) return null;
 
 		var go = player.Object;
 
-		if(go == null)
-		{
-			return null;
-		}
+		if(go == null) return null;
 
 		var tf = go.Transform;
 
-		if(tf == null)
-		{
-			return null;
-		}
+		if(tf == null) return null;
 
 		var children = new List<(GameObject, string)>();
 		var child = tf.Child;
@@ -1345,10 +1237,7 @@ internal sealed class ReFrameworkWebApi
 			{
 				var childGo = child.GameObject;
 
-				if(childGo != null)
-				{
-					children.Add((childGo, childGo.Name));
-				}
+				if(childGo != null) children.Add((childGo, childGo.Name));
 			}
 			catch
 			{
@@ -1373,10 +1262,7 @@ internal sealed class ReFrameworkWebApi
 		{
 			var children = GetPlayerChildObjects();
 
-			if(children == null)
-			{
-				return new { error = "Player not available" };
-			}
+			if(children == null) return new { error = "Player not available" };
 
 			var meshes = new List<object>();
 
@@ -1420,10 +1306,7 @@ internal sealed class ReFrameworkWebApi
 
 			var children = GetPlayerChildObjects();
 
-			if(children == null)
-			{
-				return new { error = "Player not available" };
-			}
+			if(children == null) return new { error = "Player not available" };
 
 			foreach(var (go, name) in children)
 			{
@@ -1454,54 +1337,33 @@ internal sealed class ReFrameworkWebApi
 		{
 			var pm = API.GetManagedSingletonT<app.PlayerManager>();
 
-			if(pm == null)
-			{
-				return null;
-			}
+			if(pm == null) return null;
 
 			var player = pm.getMasterPlayer();
 
-			if(player == null)
-			{
-				return null;
-			}
+			if(player == null) return null;
 
 			var go = player.Object;
 
-			if(go == null)
-			{
-				return null;
-			}
+			if(go == null) return null;
 
 			var components = go.Components;
 
-			if(components == null)
-			{
-				return null;
-			}
+			if(components == null) return null;
 
 			for(var i = 0; i < components.Length; i++)
 			{
 				var comp = components[i];
 
-				if(comp == null)
-				{
-					continue;
-				}
+				if(comp == null) continue;
 
 				var iobj = comp as IObject;
 
-				if(iobj == null)
-				{
-					continue;
-				}
+				if(iobj == null) continue;
 
 				var tname = iobj.GetTypeDefinition()?.GetFullName();
 
-				if(tname == "app.MeshSettingController")
-				{
-					return iobj;
-				}
+				if(tname == "app.MeshSettingController") return iobj;
 			}
 
 			return null;
@@ -1516,26 +1378,17 @@ internal sealed class ReFrameworkWebApi
 	{
 		var ctrl = GetPlayerMeshSettingController();
 
-		if(ctrl == null)
-		{
-			return null;
-		}
+		if(ctrl == null) return null;
 
 		// get_MeshSettingsAll() returns an IEnumerable (C# iterator state machine).
 		// Must call the explicit interface GetEnumerator to get a properly initialized enumerator.
 		var enumerable = ctrl.Call("get_MeshSettingsAll") as IObject;
 
-		if(enumerable == null)
-		{
-			return null;
-		}
+		if(enumerable == null) return null;
 
 		var enumerator = enumerable.Call("System.Collections.IEnumerable.GetEnumerator") as IObject;
 
-		if(enumerator == null)
-		{
-			return null;
-		}
+		if(enumerator == null) return null;
 
 		var results = new List<(IObject, string)>();
 		var safety = 0;
@@ -1553,17 +1406,11 @@ internal sealed class ReFrameworkWebApi
 				break;
 			}
 
-			if(moveResult == null || !(bool) moveResult)
-			{
-				break;
-			}
+			if(moveResult == null || !(bool)moveResult) break;
 
 			var msObj = enumerator.Call("System.Collections.IEnumerator.get_Current") as IObject;
 
-			if(msObj == null)
-			{
-				continue;
-			}
+			if(msObj == null) continue;
 
 			var goName = "";
 
@@ -1571,10 +1418,7 @@ internal sealed class ReFrameworkWebApi
 			{
 				var goObj = msObj.Call("get_GameObject") as IObject;
 
-				if(goObj != null)
-				{
-					goName = goObj.Call("get_Name") as string ?? "";
-				}
+				if(goObj != null) goName = goObj.Call("get_Name") as string ?? "";
 			}
 			catch
 			{
@@ -1592,10 +1436,7 @@ internal sealed class ReFrameworkWebApi
 		{
 			var meshSettings = GetPlayerMeshSettings();
 
-			if(meshSettings == null)
-			{
-				return new { error = "MeshSettingController not available" };
-			}
+			if(meshSettings == null) return new { error = "MeshSettingController not available" };
 
 			var meshSettingsList = new List<object>();
 
@@ -1605,16 +1446,13 @@ internal sealed class ReFrameworkWebApi
 				{
 					var meshObj = msObj.Call("get_Mesh") as IObject;
 
-					if(meshObj == null)
-					{
-						continue;
-					}
+					if(meshObj == null) continue;
 
 					uint matNum = 0;
 
 					try
 					{
-						matNum = (uint) meshObj.Call("get_MaterialNum");
+						matNum = (uint)meshObj.Call("get_MaterialNum");
 					}
 					catch
 					{
@@ -1638,7 +1476,7 @@ internal sealed class ReFrameworkWebApi
 
 						try
 						{
-							matEnabled = (bool) meshObj.Call("getMaterialsEnable", (ulong) j);
+							matEnabled = (bool)meshObj.Call("getMaterialsEnable", (ulong)j);
 						}
 						catch
 						{
@@ -1658,7 +1496,7 @@ internal sealed class ReFrameworkWebApi
 
 					try
 					{
-						visible = (bool) msObj.Call("get_Visible");
+						visible = (bool)msObj.Call("get_Visible");
 					}
 					catch
 					{
@@ -1703,10 +1541,7 @@ internal sealed class ReFrameworkWebApi
 
 			var meshSettings = GetPlayerMeshSettings();
 
-			if(meshSettings == null)
-			{
-				return new { error = "MeshSettingController not available" };
-			}
+			if(meshSettings == null) return new { error = "MeshSettingController not available" };
 
 			foreach(var (msObj, goName) in meshSettings)
 			{
@@ -1714,12 +1549,9 @@ internal sealed class ReFrameworkWebApi
 				{
 					var meshObj = msObj.Call("get_Mesh") as IObject;
 
-					if(meshObj == null)
-					{
-						return new { error = "No mesh on this MeshSetting" };
-					}
+					if(meshObj == null) return new { error = "No mesh on this MeshSetting" };
 
-					meshObj.Call("setMaterialsEnable", (ulong) materialIndex, enabled);
+					meshObj.Call("setMaterialsEnable", (ulong)materialIndex, enabled);
 
 					return new
 					{
@@ -1750,24 +1582,15 @@ internal sealed class ReFrameworkWebApi
 
 			var message = root.GetProperty("message").GetString();
 
-			if(string.IsNullOrEmpty(message))
-			{
-				return new { error = "message is required" };
-			}
+			if(string.IsNullOrEmpty(message)) return new { error = "message is required" };
 
 			var chatMgr = API.GetManagedSingletonT<ChatManager>();
 
-			if(chatMgr == null)
-			{
-				return new { error = "ChatManager not available" };
-			}
+			if(chatMgr == null) return new { error = "ChatManager not available" };
 
 			var iobj = chatMgr as IObject;
 
-			if(iobj == null)
-			{
-				return new { error = "Cannot get IObject for ChatManager" };
-			}
+			if(iobj == null) return new { error = "Cannot get IObject for ChatManager" };
 
 			iobj.Call("sendText", message);
 
@@ -1785,10 +1608,7 @@ internal sealed class ReFrameworkWebApi
 		{
 			var guidStr = req.QueryString["guid"];
 
-			if(string.IsNullOrEmpty(guidStr))
-			{
-				return new { error = "Missing 'guid' parameter" };
-			}
+			if(string.IsNullOrEmpty(guidStr)) return new { error = "Missing 'guid' parameter" };
 
 			// Support comma-separated GUIDs for batch resolution
 			var guids = guidStr.Split(',');
@@ -1838,10 +1658,7 @@ internal sealed class ReFrameworkWebApi
 		{
 			var tdef = TDB.Get().FindType("ace.cFixedRingBuffer`1<app.ChatDef.MessageElement>");
 
-			if(tdef == null)
-			{
-				return new { error = "Type not found" };
-			}
+			if(tdef == null) return new { error = "Type not found" };
 
 			var methods = tdef.GetMethods();
 			var results = new List<object>();
@@ -1881,17 +1698,11 @@ internal sealed class ReFrameworkWebApi
 		{
 			var chatMgr = API.GetManagedSingletonT<ChatManager>();
 
-			if(chatMgr is null)
-			{
-				return new { error = "ChatManager not available" };
-			}
+			if(chatMgr is null) return new { error = "ChatManager not available" };
 
 			var logObj = (chatMgr as IObject)?.GetField("_AllLog") as IObject;
 
-			if(logObj is null)
-			{
-				return new { error = "_AllLog is null" };
-			}
+			if(logObj is null) return new { error = "_AllLog is null" };
 
 			var size = 0;
 
@@ -1899,10 +1710,7 @@ internal sealed class ReFrameworkWebApi
 			{
 				var s = logObj.Call("get_Size");
 
-				if(s != null)
-				{
-					size = (int) s;
-				}
+				if(s != null) size = (int)s;
 			}
 			catch
 			{
@@ -1928,10 +1736,7 @@ internal sealed class ReFrameworkWebApi
 				{
 					var elem = logObj.Call("get_Item", i) as IObject;
 
-					if(elem is null)
-					{
-						continue;
-					}
+					if(elem is null) continue;
 
 					string typeName = null;
 
@@ -1954,11 +1759,12 @@ internal sealed class ReFrameworkWebApi
 					}
 
 					string text = null,
-						   sender = null,
-						   target = null;
+						sender = null,
+						target = null;
 
 					var isChatBase =
-						typeName != null && (typeName.Contains("ChatBase") || typeName.Contains("ChatMessage") || typeName.Contains("ChatSystemLog") || typeName.Contains("ChatSystemSendLog"));
+						typeName != null && (typeName.Contains("ChatBase") || typeName.Contains("ChatMessage") || typeName.Contains("ChatSystemLog") ||
+						                     typeName.Contains("ChatSystemSendLog"));
 
 					if(isChatBase)
 					{
@@ -1981,7 +1787,6 @@ internal sealed class ReFrameworkWebApi
 
 					// ChatMessage has <Text>k__BackingField for user-typed text
 					if(typeName != null && typeName.Contains("ChatMessage"))
-					{
 						try
 						{
 							text = elem.GetField("<Text>k__BackingField") as string;
@@ -1989,11 +1794,9 @@ internal sealed class ReFrameworkWebApi
 						catch
 						{
 						}
-					}
 
 					// If no direct text, try resolving the MessageInfo GUID to localized text
 					if(string.IsNullOrEmpty(text))
-					{
 						try
 						{
 							var msgInfo = elem.GetField("<MessageInfo>k__BackingField") as IObject;
@@ -2002,14 +1805,10 @@ internal sealed class ReFrameworkWebApi
 							{
 								var msgId = msgInfo.GetField("<MsgID>k__BackingField");
 
-								if(msgId != null)
-								{
-									text = messageGetMethod.InvokeBoxed(typeof(string), null, new[] { msgId }) as string;
-								}
+								if(msgId != null) text = messageGetMethod.InvokeBoxed(typeof(string), null, new[] { msgId }) as string;
 
 								// Substitute {0}, {1}, etc. with paramToString() results
 								if(!string.IsNullOrEmpty(text) && text.Contains("{0}"))
-								{
 									try
 									{
 										var paramArray = msgInfo.Call("paramToString") as IObject;
@@ -2021,7 +1820,7 @@ internal sealed class ReFrameworkWebApi
 
 											try
 											{
-												len = (int) paramArray.Call("get_Length");
+												len = (int)paramArray.Call("get_Length");
 											}
 											catch
 											{
@@ -2038,7 +1837,6 @@ internal sealed class ReFrameworkWebApi
 									catch
 									{
 									}
-								}
 
 								// Strip markup tags: <BOLD>x</BOLD> -> x, <PLURAL n "singular" "plural"> -> pick by n
 								if(!string.IsNullOrEmpty(text))
@@ -2057,7 +1855,6 @@ internal sealed class ReFrameworkWebApi
 						catch
 						{
 						}
-					}
 
 					messages.Add(
 						new
@@ -2086,10 +1883,7 @@ internal sealed class ReFrameworkWebApi
 
 	private static Dictionary<int, string> GetMonsterNameMap()
 	{
-		if(_sMonsterNamesS != null)
-		{
-			return _sMonsterNamesS;
-		}
+		if(_sMonsterNamesS != null) return _sMonsterNamesS;
 
 		var map = new Dictionary<int, string>();
 
@@ -2099,20 +1893,14 @@ internal sealed class ReFrameworkWebApi
 			{
 				try
 				{
-					var eid = (EnemyDef.ID) id;
+					var eid = (EnemyDef.ID)id;
 
-					if(!EnemyDef.isBossID(eid))
-					{
-						continue;
-					}
+					if(!EnemyDef.isBossID(eid)) continue;
 
-					var fixedId = (int) EnemyDef.enemyId(eid);
+					var fixedId = (int)EnemyDef.enemyId(eid);
 					var name = EnemyDef.NameString(eid, 0, 0);
 
-					if(!string.IsNullOrEmpty(name) && fixedId != 0)
-					{
-						map[fixedId] = name;
-					}
+					if(!string.IsNullOrEmpty(name) && fixedId != 0) map[fixedId] = name;
 				}
 				catch
 				{
@@ -2123,10 +1911,7 @@ internal sealed class ReFrameworkWebApi
 		{
 		}
 
-		if(map.Count > 0)
-		{
-			_sMonsterNamesS = map;
-		}
+		if(map.Count > 0) _sMonsterNamesS = map;
 
 		return map;
 	}
@@ -2137,17 +1922,11 @@ internal sealed class ReFrameworkWebApi
 		{
 			var sdm = API.GetManagedSingletonT<SaveDataManager>();
 
-			if(sdm == null)
-			{
-				return new { error = "SaveDataManager not available" };
-			}
+			if(sdm == null) return new { error = "SaveDataManager not available" };
 
 			var saves = sdm.UserSaveData;
 
-			if(saves == null)
-			{
-				return new { error = "No save data" };
-			}
+			if(saves == null) return new { error = "No save data" };
 
 			cUserSaveParam activeSave = null;
 
@@ -2161,24 +1940,15 @@ internal sealed class ReFrameworkWebApi
 				}
 			}
 
-			if(activeSave == null)
-			{
-				return new { error = "No active save" };
-			}
+			if(activeSave == null) return new { error = "No active save" };
 
 			var report = activeSave._EnemyReport;
 
-			if(report == null)
-			{
-				return new { error = "EnemyReport not available" };
-			}
+			if(report == null) return new { error = "EnemyReport not available" };
 
 			var bossArr = report._Boss;
 
-			if(bossArr == null)
-			{
-				return new { error = "Boss report array not available" };
-			}
+			if(bossArr == null) return new { error = "Boss report array not available" };
 
 			var nameMap = GetMonsterNameMap();
 			var monsters = new List<object>();
@@ -2187,10 +1957,7 @@ internal sealed class ReFrameworkWebApi
 			{
 				var boss = bossArr[i];
 
-				if(boss == null)
-				{
-					continue;
-				}
+				if(boss == null) continue;
 
 				int hunt = 0,
 					slay = 0,
@@ -2220,10 +1987,7 @@ internal sealed class ReFrameworkWebApi
 				{
 				}
 
-				if(hunt == 0 && slay == 0 && capture == 0)
-				{
-					continue;
-				}
+				if(hunt == 0 && slay == 0 && capture == 0) continue;
 
 				var fixedId = boss.FixedId;
 				string name = null;
@@ -2258,36 +2022,24 @@ internal sealed class ReFrameworkWebApi
 		{
 			var om = API.GetManagedSingletonT<OtomoManager>();
 
-			if(om == null)
-			{
-				return new { error = "OtomoManager not available" };
-			}
+			if(om == null) return new { error = "OtomoManager not available" };
 
 			var otomoInfo = om.getMasterOtomoInfo();
 
-			if(otomoInfo == null || !otomoInfo.Valid)
-			{
-				return new { error = "No palico info" };
-			}
+			if(otomoInfo == null || !otomoInfo.Valid) return new { error = "No palico info" };
 
 			var ctxHolder = otomoInfo.ContextHolder;
 
-			if(ctxHolder == null)
-			{
-				return new { error = "No context holder" };
-			}
+			if(ctxHolder == null) return new { error = "No context holder" };
 
 			var otomoCtx = ctxHolder.Otomo;
 
-			if(otomoCtx == null)
-			{
-				return new { error = "No otomo context" };
-			}
+			if(otomoCtx == null) return new { error = "No otomo context" };
 
 			int? level = null;
 
 			float? hp = null,
-				   maxHp = null;
+				maxHp = null;
 
 			var statusMgr = otomoCtx.StatusManager;
 
@@ -2330,11 +2082,11 @@ internal sealed class ReFrameworkWebApi
 			}
 
 			uint? attackMelee = null,
-				  attackRange = null,
-				  attributeValue = null;
+				attackRange = null,
+				attributeValue = null;
 
 			int? defense = null,
-				 critical = null;
+				critical = null;
 			string attribute = null;
 
 			var paramMgr = statusMgr?.OtomoStatusParamManager;
@@ -2415,10 +2167,7 @@ internal sealed class ReFrameworkWebApi
 		{
 			var camera = SceneManager.MainView.PrimaryCamera;
 
-			if(camera == null)
-			{
-				return new { error = "No primary camera" };
-			}
+			if(camera == null) return new { error = "No primary camera" };
 
 			var tf = camera.GameObject.Transform;
 			var pos = tf.Position;
@@ -2474,8 +2223,8 @@ internal sealed class ReFrameworkWebApi
 				{
 					type = tdef.GetFullName(),
 					address = "0x" + instance.GetAddress().ToString("X"),
-					methods = (int) tdef.GetNumMethods(),
-					fields = (int) tdef.GetNumFields(),
+					methods = (int)tdef.GetNumMethods(),
+					fields = (int)tdef.GetNumFields(),
 				}
 			);
 		}
@@ -2490,40 +2239,24 @@ internal sealed class ReFrameworkWebApi
 		var kind = qs["kind"];
 		var typeName = qs["typeName"];
 
-		if(string.IsNullOrEmpty(addressStr) || string.IsNullOrEmpty(kind) || string.IsNullOrEmpty(typeName))
-		{
-			return null;
-		}
+		if(string.IsNullOrEmpty(addressStr) || string.IsNullOrEmpty(kind) || string.IsNullOrEmpty(typeName)) return null;
 
 		ulong address = 0;
 
 		if(addressStr.StartsWith("0x") || addressStr.StartsWith("0X"))
-		{
 			address = Convert.ToUInt64(addressStr.Substring(2), 16);
-		}
 		else
-		{
 			address = Convert.ToUInt64(addressStr, 16);
-		}
 
-		if(address == 0)
-		{
-			return null;
-		}
+		if(address == 0) return null;
 
-		if(kind == "managed")
-		{
-			return ManagedObject.ToManagedObject(address);
-		}
+		if(kind == "managed") return ManagedObject.ToManagedObject(address);
 
 		if(kind == "native")
 		{
 			var tdef = TDB.Get().GetType(typeName);
 
-			if(tdef == null)
-			{
-				return null;
-			}
+			if(tdef == null) return null;
 
 			return new NativeObject(address, tdef);
 		}
@@ -2614,10 +2347,7 @@ internal sealed class ReFrameworkWebApi
 				return null;
 		}
 
-		if(fieldData == null)
-		{
-			return null;
-		}
+		if(fieldData == null) return null;
 
 		if(ft.IsEnum())
 		{
@@ -2668,7 +2398,7 @@ internal sealed class ReFrameworkWebApi
 					{
 						isValueType = true,
 						typeName = fullName,
-						value = (string) null,
+						value = (string)null,
 					};
 				}
 			}
@@ -2681,24 +2411,15 @@ internal sealed class ReFrameworkWebApi
 		{
 			foreach(var field in t.GetFields())
 			{
-				if(field.IsStatic())
-				{
-					continue;
-				}
+				if(field.IsStatic()) continue;
 
 				var fname = field.GetName();
 
-				if(fields.ContainsKey(fname))
-				{
-					continue;
-				}
+				if(fields.ContainsKey(fname)) continue;
 
 				var ft = field.GetType();
 
-				if(ft == null)
-				{
-					continue;
-				}
+				if(ft == null) continue;
 
 				try
 				{
@@ -2744,40 +2465,24 @@ internal sealed class ReFrameworkWebApi
 
 	private static IObject ResolveObjectFromParams(string addressStr, string kind, string typeName)
 	{
-		if(string.IsNullOrEmpty(addressStr) || string.IsNullOrEmpty(kind) || string.IsNullOrEmpty(typeName))
-		{
-			return null;
-		}
+		if(string.IsNullOrEmpty(addressStr) || string.IsNullOrEmpty(kind) || string.IsNullOrEmpty(typeName)) return null;
 
 		ulong address = 0;
 
 		if(addressStr.StartsWith("0x") || addressStr.StartsWith("0X"))
-		{
 			address = Convert.ToUInt64(addressStr.Substring(2), 16);
-		}
 		else
-		{
 			address = Convert.ToUInt64(addressStr, 16);
-		}
 
-		if(address == 0)
-		{
-			return null;
-		}
+		if(address == 0) return null;
 
-		if(kind == "managed")
-		{
-			return ManagedObject.ToManagedObject(address);
-		}
+		if(kind == "managed") return ManagedObject.ToManagedObject(address);
 
 		if(kind == "native")
 		{
 			var tdef = TDB.Get().GetType(typeName);
 
-			if(tdef == null)
-			{
-				return null;
-			}
+			if(tdef == null) return null;
 
 			return new NativeObject(address, tdef);
 		}
@@ -2831,10 +2536,7 @@ internal sealed class ReFrameworkWebApi
 				{
 					var guidTdef = TDB.Get().GetType("System.Guid");
 
-					if(guidTdef == null)
-					{
-						return null;
-					}
+					if(guidTdef == null) return null;
 
 					var guidVt = guidTdef.CreateValueType();
 					// RE Engine GUID fields: mData1 (uint), mData2 (ushort), mData3 (ushort), mData4_0..mData4_7 (bytes)
@@ -2845,34 +2547,19 @@ internal sealed class ReFrameworkWebApi
 					{
 						foreach(var f in p.GetFields())
 						{
-							if(!f.IsStatic())
-							{
-								guidFields.TryAdd(f.GetName(), f);
-							}
+							if(!f.IsStatic()) guidFields.TryAdd(f.GetName(), f);
 						}
 					}
 
-					if(guidFields.TryGetValue("mData1", out var fd1))
-					{
-						fd1.SetDataBoxed(guidVt.GetAddress(), BitConverter.ToUInt32(bytes, 0), true);
-					}
+					if(guidFields.TryGetValue("mData1", out var fd1)) fd1.SetDataBoxed(guidVt.GetAddress(), BitConverter.ToUInt32(bytes, 0), true);
 
-					if(guidFields.TryGetValue("mData2", out var fd2))
-					{
-						fd2.SetDataBoxed(guidVt.GetAddress(), BitConverter.ToUInt16(bytes, 4), true);
-					}
+					if(guidFields.TryGetValue("mData2", out var fd2)) fd2.SetDataBoxed(guidVt.GetAddress(), BitConverter.ToUInt16(bytes, 4), true);
 
-					if(guidFields.TryGetValue("mData3", out var fd3))
-					{
-						fd3.SetDataBoxed(guidVt.GetAddress(), BitConverter.ToUInt16(bytes, 6), true);
-					}
+					if(guidFields.TryGetValue("mData3", out var fd3)) fd3.SetDataBoxed(guidVt.GetAddress(), BitConverter.ToUInt16(bytes, 6), true);
 
 					for(var gi = 0; gi < 8; gi++)
 					{
-						if(guidFields.TryGetValue($"mData4_{gi}", out var fdi))
-						{
-							fdi.SetDataBoxed(guidVt.GetAddress(), bytes[8 + gi], true);
-						}
+						if(guidFields.TryGetValue($"mData4_{gi}", out var fdi)) fdi.SetDataBoxed(guidVt.GetAddress(), bytes[8 + gi], true);
 					}
 
 					return guidVt;
@@ -2888,10 +2575,7 @@ internal sealed class ReFrameworkWebApi
 	{
 		var tdef = TDB.Get().GetType(typeName);
 
-		if(tdef == null)
-		{
-			return null;
-		}
+		if(tdef == null) return null;
 
 		// Enum: accept integer or string representation
 		if(tdef.IsEnum())
@@ -2904,10 +2588,7 @@ internal sealed class ReFrameworkWebApi
 			}
 			else if(value.ValueKind == JsonValueKind.String)
 			{
-				if(!long.TryParse(value.GetString(), out longValue))
-				{
-					return null;
-				}
+				if(!long.TryParse(value.GetString(), out longValue)) return null;
 			}
 			else
 			{
@@ -2929,34 +2610,22 @@ internal sealed class ReFrameworkWebApi
 			{
 				foreach(var f in parent.GetFields())
 				{
-					if(!f.IsStatic())
-					{
-						fieldMap.TryAdd(f.GetName(), f);
-					}
+					if(!f.IsStatic()) fieldMap.TryAdd(f.GetName(), f);
 				}
 			}
 
 			// Set each field from the JSON properties
 			foreach(var prop in value.EnumerateObject())
 			{
-				if(!fieldMap.TryGetValue(prop.Name, out var field))
-				{
-					continue;
-				}
+				if(!fieldMap.TryGetValue(prop.Name, out var field)) continue;
 
 				var ft = field.GetType();
 
-				if(ft == null)
-				{
-					continue;
-				}
+				if(ft == null) continue;
 
 				var fieldValue = ParseValueFromJson(prop.Value, ft.GetFullName());
 
-				if(fieldValue != null)
-				{
-					field.SetDataBoxed(vt.GetAddress(), fieldValue, true);
-				}
+				if(fieldValue != null) field.SetDataBoxed(vt.GetAddress(), fieldValue, true);
 			}
 
 			return vt;
@@ -2968,20 +2637,15 @@ internal sealed class ReFrameworkWebApi
 			var addrStr = value.GetString();
 
 			if(addrStr != null && addrStr.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
-			{
 				try
 				{
 					var addr = Convert.ToUInt64(addrStr.Substring(2), 16);
 
-					if(addr != 0)
-					{
-						return ManagedObject.ToManagedObject(addr);
-					}
+					if(addr != 0) return ManagedObject.ToManagedObject(addr);
 				}
 				catch
 				{
 				}
-			}
 		}
 
 		return null;
@@ -2995,10 +2659,7 @@ internal sealed class ReFrameworkWebApi
 			{
 				if(m.GetName() == methodName)
 				{
-					if(!string.IsNullOrEmpty(methodSignature) && m.GetMethodSignature() != methodSignature)
-					{
-						continue;
-					}
+					if(!string.IsNullOrEmpty(methodSignature) && m.GetMethodSignature() != methodSignature) continue;
 
 					return m;
 				}
@@ -3010,20 +2671,14 @@ internal sealed class ReFrameworkWebApi
 
 	private static object FormatMethodResult(object result, Method method)
 	{
-		if(result == null)
-		{
-			return new { isObject = false, value = "null" };
-		}
+		if(result == null) return new { isObject = false, value = "null" };
 
 		if(result is IObject objResult)
 		{
 			var childTdef = objResult.GetTypeDefinition();
 
 			// ValueType results are ephemeral (GC-managed) — read inline before they go out of scope
-			if(objResult is ValueType)
-			{
-				return ReadValueTypeInline(objResult);
-			}
+			if(objResult is ValueType) return ReadValueTypeInline(objResult);
 
 			var childManaged = objResult is ManagedObject;
 
@@ -3064,31 +2719,19 @@ internal sealed class ReFrameworkWebApi
 		{
 			var nm = API.GetManagedSingletonT<NetworkManager>();
 
-			if(nm == null)
-			{
-				return new { error = "NetworkManager not available" };
-			}
+			if(nm == null) return new { error = "NetworkManager not available" };
 
 			var userInfoMgr = nm._UserInfoManager;
 
-			if(userInfoMgr == null)
-			{
-				return new { error = "UserInfoManager not available" };
-			}
+			if(userInfoMgr == null) return new { error = "UserInfoManager not available" };
 
-			var lobbyInfo = (IObject) userInfoMgr._mlInfo;
+			var lobbyInfo = (IObject)userInfoMgr._mlInfo;
 
-			if(lobbyInfo == null)
-			{
-				return new { error = "Lobby info not available" };
-			}
+			if(lobbyInfo == null) return new { error = "Lobby info not available" };
 
 			var listInfoObj = lobbyInfo.GetField("_ListInfo") as IObject;
 
-			if(listInfoObj == null)
-			{
-				return new { error = "ListInfo array is null" };
-			}
+			if(listInfoObj == null) return new { error = "ListInfo array is null" };
 
 			var members = new List<object>();
 			var arr = listInfoObj.As<Array>();
@@ -3100,17 +2743,11 @@ internal sealed class ReFrameworkWebApi
 				{
 					var element = arr.GetValue(i);
 
-					if(element == null)
-					{
-						continue;
-					}
+					if(element == null) continue;
 
 					var userInfo = (element as IObject)?.As<Net_UserInfo>();
 
-					if(userInfo == null || !userInfo.IsValid)
-					{
-						continue;
-					}
+					if(userInfo == null || !userInfo.IsValid) continue;
 
 					string name = null;
 
@@ -3122,10 +2759,7 @@ internal sealed class ReFrameworkWebApi
 					{
 					}
 
-					if(string.IsNullOrEmpty(name))
-					{
-						continue;
-					}
+					if(string.IsNullOrEmpty(name)) continue;
 
 					string otomoName = null;
 
@@ -3222,10 +2856,7 @@ internal sealed class ReFrameworkWebApi
 		{
 			var wm = API.GetManagedSingletonT<WeatherManager>();
 
-			if(wm == null)
-			{
-				return new { error = "WeatherManager not available" };
-			}
+			if(wm == null) return new { error = "WeatherManager not available" };
 
 			var currentName = wm.CurrentWeatherName;
 
@@ -3274,7 +2905,7 @@ internal sealed class ReFrameworkWebApi
 
 			try
 			{
-				var valuesObj = ((IObject) wm).GetField("_values") as IObject;
+				var valuesObj = ((IObject)wm).GetField("_values") as IObject;
 
 				if(valuesObj != null)
 				{
@@ -3287,10 +2918,7 @@ internal sealed class ReFrameworkWebApi
 						{
 							var el = arr.GetValue(i) as IObject;
 
-							if(el == null)
-							{
-								continue;
-							}
+							if(el == null) continue;
 
 							var tdef = el.GetTypeDefinition();
 
@@ -3308,15 +2936,13 @@ internal sealed class ReFrameworkWebApi
 							var rateField = tdef.FindField("_BlendRate");
 
 							if(rateField != null)
-							{
 								try
 								{
-									rate = (float) rateField.GetDataBoxed(el.GetAddress(), false);
+									rate = (float)rateField.GetDataBoxed(el.GetAddress(), false);
 								}
 								catch
 								{
 								}
-							}
 
 							blends.Add(new { name, blendRate = rate });
 						}
@@ -3353,8 +2979,8 @@ internal sealed class ReFrameworkWebApi
 						{
 							var fraction = timeVal / oneDay;
 							var hours = fraction * 24f;
-							hour = (int) hours;
-							minute = (int) ((hours - hour) * 60);
+							hour = (int)hours;
+							minute = (int)((hours - hour) * 60);
 						}
 					}
 
@@ -3427,7 +3053,6 @@ internal sealed class ReFrameworkWebApi
 
 				// Search native singletons
 				if(startObj == null)
-				{
 					try
 					{
 						foreach(var desc in API.GetNativeSingletons())
@@ -3443,22 +3068,16 @@ internal sealed class ReFrameworkWebApi
 					catch
 					{
 					}
-				}
 
-				if(startObj == null)
-				{
-					return new { error = $"Singleton '{typeName}' not found" };
-				}
+				if(startObj == null) return new { error = $"Singleton '{typeName}' not found" };
 			}
 			else
 			{
-				startObj = ResolveObjectFromParams(startProp.GetProperty("address").GetString(), startProp.GetProperty("kind").GetString(), startProp.GetProperty("typeName").GetString());
+				startObj = ResolveObjectFromParams(startProp.GetProperty("address").GetString(), startProp.GetProperty("kind").GetString(),
+					startProp.GetProperty("typeName").GetString());
 			}
 
-			if(startObj == null)
-			{
-				return new { error = "Could not resolve start object" };
-			}
+			if(startObj == null) return new { error = "Could not resolve start object" };
 
 			// Process steps
 			var steps = root.GetProperty("steps");
@@ -3483,18 +3102,12 @@ internal sealed class ReFrameworkWebApi
 								var tdef = obj.GetTypeDefinition();
 								var method = FindMethod(tdef, methodName, sig);
 
-								if(method == null)
-								{
-									continue;
-								}
+								if(method == null) continue;
 
 								object result = null;
 								obj.HandleInvokeMember_Internal(method, null, ref result);
 
-								if(result is IObject ioResult)
-								{
-									next.Add(ioResult);
-								}
+								if(result is IObject ioResult) next.Add(ioResult);
 							}
 							catch
 							{
@@ -3516,10 +3129,7 @@ internal sealed class ReFrameworkWebApi
 							{
 								var child = obj.GetField(fieldName) as IObject;
 
-								if(child != null)
-								{
-									next.Add(child);
-								}
+								if(child != null) next.Add(child);
 							}
 							catch
 							{
@@ -3542,10 +3152,7 @@ internal sealed class ReFrameworkWebApi
 							{
 								var easyArray = obj.TryAs<Array>();
 
-								if(easyArray == null)
-								{
-									continue;
-								}
+								if(easyArray == null) continue;
 
 								var len = easyArray.Length;
 								var end = Math.Min(offset + count, len);
@@ -3554,10 +3161,7 @@ internal sealed class ReFrameworkWebApi
 								{
 									var el = easyArray.GetValue(i);
 
-									if(el is IObject ioEl)
-									{
-										next.Add(ioEl);
-									}
+									if(el is IObject ioEl) next.Add(ioEl);
 								}
 							}
 							catch
@@ -3582,18 +3186,12 @@ internal sealed class ReFrameworkWebApi
 								var tdef = obj.GetTypeDefinition();
 								var method = FindMethod(tdef, filterMethod, null);
 
-								if(method == null)
-								{
-									continue;
-								}
+								if(method == null) continue;
 
 								object result = null;
 								obj.HandleInvokeMember_Internal(method, null, ref result);
 
-								if(result?.ToString() == filterValue)
-								{
-									next.Add(obj);
-								}
+								if(result?.ToString() == filterValue) next.Add(obj);
 							}
 							catch
 							{
@@ -3634,11 +3232,8 @@ internal sealed class ReFrameworkWebApi
 									obj.HandleInvokeMember_Internal(method, null, ref result);
 
 									if(result is ValueType vtRes)
-									{
 										entry[mName] = ReadValueTypeInline(vtRes);
-									}
 									else if(result is IObject ioRes)
-									{
 										entry[mName] = new
 										{
 											isObject = true,
@@ -3646,11 +3241,8 @@ internal sealed class ReFrameworkWebApi
 											kind = ioRes is ManagedObject ? "managed" : "native",
 											typeName = ioRes.GetTypeDefinition().GetFullName(),
 										};
-									}
 									else
-									{
 										entry[mName] = result?.ToString();
-									}
 								}
 								catch
 								{
@@ -3665,10 +3257,7 @@ internal sealed class ReFrameworkWebApi
 					}
 				}
 
-				if(current.Count == 0)
-				{
-					return new { error = $"Chain broken at step '{stepType}': no results" };
-				}
+				if(current.Count == 0) return new { error = $"Chain broken at step '{stepType}': no results" };
 			}
 
 			// Default terminal: return addresses/types of current objects
@@ -3751,10 +3340,7 @@ internal sealed class ReFrameworkWebApi
 			{
 				var instance = desc.Instance;
 
-				if(instance == null)
-				{
-					continue;
-				}
+				if(instance == null) continue;
 
 				var tdef = instance.GetTypeDefinition();
 
@@ -3781,15 +3367,12 @@ internal sealed class ReFrameworkWebApi
 		{
 			var obj = ResolveObject(request);
 
-			if(obj == null)
-			{
-				return new { error = "Could not resolve object" };
-			}
+			if(obj == null) return new { error = "Could not resolve object" };
 
 			var qs = request.QueryString;
 			var noFields = string.Equals(qs["noFields"], "true", StringComparison.OrdinalIgnoreCase);
 			var noMethods = string.Equals(qs["noMethods"], "true", StringComparison.OrdinalIgnoreCase);
-			var filterFields = qs["fields"];   // comma-separated field names
+			var filterFields = qs["fields"]; // comma-separated field names
 			var filterMethods = qs["methods"]; // comma-separated method names
 
 			var tdef = obj.GetTypeDefinition();
@@ -3797,10 +3380,7 @@ internal sealed class ReFrameworkWebApi
 
 			int? refCount = null;
 
-			if(obj is ManagedObject managed)
-			{
-				refCount = managed.GetReferenceCount();
-			}
+			if(obj is ManagedObject managed) refCount = managed.GetReferenceCount();
 
 			// Collect fields from type hierarchy
 			List<object> fieldList = null;
@@ -3818,19 +3398,13 @@ internal sealed class ReFrameworkWebApi
 
 				HashSet<string> wantFields = null;
 
-				if(filterFields != null)
-				{
-					wantFields = new HashSet<string>(filterFields.Split(','), StringComparer.OrdinalIgnoreCase);
-				}
+				if(filterFields != null) wantFields = new HashSet<string>(filterFields.Split(','), StringComparer.OrdinalIgnoreCase);
 
 				fieldList = new List<object>();
 
 				foreach(var field in fields)
 				{
-					if(wantFields != null && !wantFields.Contains(field.GetName()))
-					{
-						continue;
-					}
+					if(wantFields != null && !wantFields.Contains(field.GetName())) continue;
 
 					var ft = field.GetType();
 					var ftName = ft != null ? ft.GetFullName() : "null";
@@ -3840,7 +3414,6 @@ internal sealed class ReFrameworkWebApi
 					string value = null;
 
 					if(ft != null && (isValueType || ftName == "System.String"))
-					{
 						try
 						{
 							value = ReadFieldValueAsString(obj, field, ft);
@@ -3848,7 +3421,6 @@ internal sealed class ReFrameworkWebApi
 						catch
 						{
 						}
-					}
 
 					ulong fieldAddr = 0;
 
@@ -3899,19 +3471,13 @@ internal sealed class ReFrameworkWebApi
 
 				HashSet<string> wantMethods = null;
 
-				if(filterMethods != null)
-				{
-					wantMethods = new HashSet<string>(filterMethods.Split(','), StringComparer.OrdinalIgnoreCase);
-				}
+				if(filterMethods != null) wantMethods = new HashSet<string>(filterMethods.Split(','), StringComparer.OrdinalIgnoreCase);
 
 				methodList = new List<object>();
 
 				foreach(var method in methods)
 				{
-					if(wantMethods != null && !wantMethods.Contains(method.GetName()))
-					{
-						continue;
-					}
+					if(wantMethods != null && !wantMethods.Contains(method.GetName())) continue;
 
 					var returnT = method.GetReturnType();
 					var returnTName = returnT != null ? returnT.GetFullName() : "void";
@@ -3944,15 +3510,13 @@ internal sealed class ReFrameworkWebApi
 			int? arrayLength = null;
 
 			if(isArray)
-			{
 				try
 				{
-					arrayLength = (int) obj.Call("get_Length");
+					arrayLength = (int)obj.Call("get_Length");
 				}
 				catch
 				{
 				}
-			}
 
 			return new
 			{
@@ -3977,10 +3541,7 @@ internal sealed class ReFrameworkWebApi
 		{
 			var obj = ResolveObject(request);
 
-			if(obj == null)
-			{
-				return new { error = "Could not resolve object" };
-			}
+			if(obj == null) return new { error = "Could not resolve object" };
 
 			var tdef = obj.GetTypeDefinition();
 			var typeName = tdef.GetFullName();
@@ -3989,10 +3550,7 @@ internal sealed class ReFrameworkWebApi
 			// "System.Collections.Generic.List`1<app.Foo.Bar>" → "List<Bar>"
 			static string ShortType(string fullName)
 			{
-				if(fullName == null)
-				{
-					return "?";
-				}
+				if(fullName == null) return "?";
 
 				// Strip namespaces inside generic args first
 				var result = Regex.Replace(
@@ -4014,9 +3572,7 @@ internal sealed class ReFrameworkWebApi
 							|| seg.Contains("_")
 							|| char.IsLower(seg[0])
 						)
-						{
 							return "";
-						}
 
 						return m.Value;
 					}
@@ -4046,26 +3602,18 @@ internal sealed class ReFrameworkWebApi
 				var isValueType = ft != null && ft.IsValueType();
 				var line = field.GetName() + ": " + ShortType(ftName);
 
-				if(field.IsStatic())
-				{
-					line += " [static]";
-				}
+				if(field.IsStatic()) line += " [static]";
 
 				if(ft != null && (isValueType || ftName == "System.String"))
-				{
 					try
 					{
 						var val = ReadFieldValueAsString(obj, field, ft);
 
-						if(val != null)
-						{
-							line += " = " + val;
-						}
+						if(val != null) line += " = " + val;
 					}
 					catch
 					{
 					}
-				}
 
 				fieldLines.Add(line);
 			}
@@ -4088,21 +3636,12 @@ internal sealed class ReFrameworkWebApi
 			{
 				var name = method.GetName();
 
-				if(name == ".ctor" || name == ".cctor" || name == "Finalize" || name == "MemberwiseClone")
-				{
-					continue;
-				}
+				if(name == ".ctor" || name == ".cctor" || name == "Finalize" || name == "MemberwiseClone") continue;
 
-				if(name == "Equals" || name == "GetHashCode" || name == "GetType")
-				{
-					continue;
-				}
+				if(name == "Equals" || name == "GetHashCode" || name == "GetType") continue;
 
 				// Skip compiler-generated lambda methods (noise)
-				if(name.Contains(">g__") || name.Contains("<>"))
-				{
-					continue;
-				}
+				if(name.Contains(">g__") || name.Contains("<>")) continue;
 
 				var ps = method.GetParameters();
 				var paramStr = string.Join(", ", ps.Select(p => ShortType(p.Type.GetFullName())));
@@ -4110,10 +3649,7 @@ internal sealed class ReFrameworkWebApi
 				var retStr = retType != null ? ShortType(retType.GetFullName()) : "Void";
 				var line = $"{name}({paramStr}) → {retStr}";
 
-				if(seen.Add(line))
-				{
-					methodLines.Add(line);
-				}
+				if(seen.Add(line)) methodLines.Add(line);
 			}
 
 			return new
@@ -4135,24 +3671,15 @@ internal sealed class ReFrameworkWebApi
 		{
 			var obj = ResolveObject(request);
 
-			if(obj == null)
-			{
-				return new { error = "Could not resolve object" };
-			}
+			if(obj == null) return new { error = "Could not resolve object" };
 
 			var fieldName = request.QueryString["fieldName"];
 
-			if(string.IsNullOrEmpty(fieldName))
-			{
-				return new { error = "fieldName required" };
-			}
+			if(string.IsNullOrEmpty(fieldName)) return new { error = "fieldName required" };
 
 			var child = obj.GetField(fieldName) as IObject;
 
-			if(child == null)
-			{
-				return new { isNull = true };
-			}
+			if(child == null) return new { isNull = true };
 
 			var childTdef = child.GetTypeDefinition();
 			var childManaged = child is ManagedObject;
@@ -4177,18 +3704,12 @@ internal sealed class ReFrameworkWebApi
 		{
 			var obj = ResolveObject(request);
 
-			if(obj == null)
-			{
-				return new { error = "Could not resolve object" };
-			}
+			if(obj == null) return new { error = "Could not resolve object" };
 
 			var methodName = request.QueryString["methodName"];
 			var methodSignature = request.QueryString["methodSignature"];
 
-			if(string.IsNullOrEmpty(methodName))
-			{
-				return new { error = "methodName required" };
-			}
+			if(string.IsNullOrEmpty(methodName)) return new { error = "methodName required" };
 
 			// Find the method by name and optionally signature
 			var tdef = obj.GetTypeDefinition();
@@ -4200,10 +3721,7 @@ internal sealed class ReFrameworkWebApi
 				{
 					if(m.GetName() == methodName)
 					{
-						if(!string.IsNullOrEmpty(methodSignature) && m.GetMethodSignature() != methodSignature)
-						{
-							continue;
-						}
+						if(!string.IsNullOrEmpty(methodSignature) && m.GetMethodSignature() != methodSignature) continue;
 
 						targetMethod = m;
 
@@ -4211,40 +3729,25 @@ internal sealed class ReFrameworkWebApi
 					}
 				}
 
-				if(targetMethod != null)
-				{
-					break;
-				}
+				if(targetMethod != null) break;
 			}
 
-			if(targetMethod == null)
-			{
-				return new { error = "Method not found" };
-			}
+			if(targetMethod == null) return new { error = "Method not found" };
 
 			// Only invoke 0-parameter methods (getters, ToString, or other read-only calls)
 			var ps = targetMethod.GetParameters();
 
-			if(ps.Count != 0)
-			{
-				return new { error = "Method has parameters, use invoke_method instead" };
-			}
+			if(ps.Count != 0) return new { error = "Method has parameters, use invoke_method instead" };
 
 			object result = null;
 			obj.HandleInvokeMember_Internal(targetMethod, null, ref result);
 
-			if(result == null)
-			{
-				return new { isObject = false, value = "null" };
-			}
+			if(result == null) return new { isObject = false, value = "null" };
 
 			if(result is IObject objResult)
 			{
 				// ValueType results are ephemeral — read inline
-				if(objResult is ValueType)
-				{
-					return ReadValueTypeInline(objResult);
-				}
+				if(objResult is ValueType) return ReadValueTypeInline(objResult);
 
 				var childTdef = objResult.GetTypeDefinition();
 				var childManaged = objResult is ManagedObject;
@@ -4290,30 +3793,18 @@ internal sealed class ReFrameworkWebApi
 		{
 			var obj = ResolveObject(request);
 
-			if(obj == null)
-			{
-				return new { error = "Could not resolve object" };
-			}
+			if(obj == null) return new { error = "Could not resolve object" };
 
 			var tdef = obj.GetTypeDefinition();
 
-			if(!tdef.IsDerivedFrom(sSystemArrayTS))
-			{
-				return new { error = "Object is not an array" };
-			}
+			if(!tdef.IsDerivedFrom(sSystemArrayTS)) return new { error = "Object is not an array" };
 
 			var offset = 0;
 			var count = 50;
 
-			if(!string.IsNullOrEmpty(request.QueryString["offset"]))
-			{
-				int.TryParse(request.QueryString["offset"], out offset);
-			}
+			if(!string.IsNullOrEmpty(request.QueryString["offset"])) int.TryParse(request.QueryString["offset"], out offset);
 
-			if(!string.IsNullOrEmpty(request.QueryString["count"]))
-			{
-				int.TryParse(request.QueryString["count"], out count);
-			}
+			if(!string.IsNullOrEmpty(request.QueryString["count"])) int.TryParse(request.QueryString["count"], out count);
 
 			var easyArray = obj.As<Array>();
 			var totalLength = easyArray.Length;
@@ -4418,17 +3909,11 @@ internal sealed class ReFrameworkWebApi
 		{
 			var query = request.QueryString["query"];
 
-			if(string.IsNullOrEmpty(query))
-			{
-				return new { error = "query parameter required" };
-			}
+			if(string.IsNullOrEmpty(query)) return new { error = "query parameter required" };
 
 			var limit = 50;
 
-			if(!string.IsNullOrEmpty(request.QueryString["limit"]))
-			{
-				int.TryParse(request.QueryString["limit"], out limit);
-			}
+			if(!string.IsNullOrEmpty(request.QueryString["limit"])) int.TryParse(request.QueryString["limit"], out limit);
 
 			var tdb = TDB.Get();
 			var numTypes = tdb.GetNumTypes();
@@ -4441,22 +3926,13 @@ internal sealed class ReFrameworkWebApi
 				{
 					var t = tdb.GetType(i);
 
-					if(t == null)
-					{
-						continue;
-					}
+					if(t == null) continue;
 
 					var fullName = t.GetFullName();
 
-					if(string.IsNullOrEmpty(fullName))
-					{
-						continue;
-					}
+					if(string.IsNullOrEmpty(fullName)) continue;
 
-					if(!fullName.ToLower().Contains(queryLower))
-					{
-						continue;
-					}
+					if(!fullName.ToLower().Contains(queryLower)) continue;
 
 					var parentT = t.ParentType;
 
@@ -4466,8 +3942,8 @@ internal sealed class ReFrameworkWebApi
 							fullName,
 							isValueType = t.IsValueType(),
 							isEnum = t.IsEnum(),
-							numFields = (int) t.GetNumFields(),
-							numMethods = (int) t.GetNumMethods(),
+							numFields = (int)t.GetNumFields(),
+							numMethods = (int)t.GetNumMethods(),
 							parentType = parentT?.GetFullName(),
 						}
 					);
@@ -4496,17 +3972,11 @@ internal sealed class ReFrameworkWebApi
 		{
 			var typeName = request.QueryString["typeName"];
 
-			if(string.IsNullOrEmpty(typeName))
-			{
-				return new { error = "typeName parameter required" };
-			}
+			if(string.IsNullOrEmpty(typeName)) return new { error = "typeName parameter required" };
 
 			var tdef = TDB.Get().GetType(typeName);
 
-			if(tdef == null)
-			{
-				return new { error = $"Type '{typeName}' not found" };
-			}
+			if(tdef == null) return new { error = $"Type '{typeName}' not found" };
 
 			var parentT = tdef.ParentType;
 			var declaringT = tdef.DeclaringType;
@@ -4521,16 +3991,12 @@ internal sealed class ReFrameworkWebApi
 			if(!noFields)
 			{
 				if(includeInherited)
-				{
 					for(var parent = tdef; parent != null; parent = parent.ParentType)
 					{
 						fields.AddRange(parent.GetFields());
 					}
-				}
 				else
-				{
 					fields.AddRange(tdef.GetFields());
-				}
 
 				fields.Sort((a, b) => a.GetName().CompareTo(b.GetName()));
 			}
@@ -4562,16 +4028,12 @@ internal sealed class ReFrameworkWebApi
 			if(!noMethods)
 			{
 				if(includeInherited)
-				{
 					for(var parent = tdef; parent != null; parent = parent.ParentType)
 					{
 						methods.AddRange(parent.GetMethods());
 					}
-				}
 				else
-				{
 					methods.AddRange(tdef.GetMethods());
-				}
 
 				methods.Sort((a, b) => a.GetName().CompareTo(b.GetName()));
 				methods.RemoveAll(m => m.GetParameters().Exists(p => p.Type.Name.Contains("!")));
@@ -4582,15 +4044,15 @@ internal sealed class ReFrameworkWebApi
 					var name = m.GetName();
 
 					return name == ".ctor"
-						   || name == ".cctor"
-						   || name == "Finalize"
-						   || name == "MemberwiseClone"
-						   || name == "Equals"
-						   || name == "GetHashCode"
-						   || name == "GetType"
-						   || name.StartsWith("<")
-						   || name.Contains(">g__")
-						   || name.Contains("<>");
+					       || name == ".cctor"
+					       || name == "Finalize"
+					       || name == "MemberwiseClone"
+					       || name == "Equals"
+					       || name == "GetHashCode"
+					       || name == "GetType"
+					       || name.StartsWith("<")
+					       || name.Contains(">g__")
+					       || name.Contains("<>");
 				});
 			}
 
@@ -4603,10 +4065,7 @@ internal sealed class ReFrameworkWebApi
 				var returnTName = returnT != null ? returnT.GetFullName() : "void";
 				var sig = method.GetMethodSignature();
 
-				if(!seen.Add(sig))
-				{
-					continue;
-				}
+				if(!seen.Add(sig)) continue;
 
 				dedupedMethods.Add((returnTName, sig));
 			}
@@ -4621,7 +4080,6 @@ internal sealed class ReFrameworkWebApi
 				var first = group.First();
 
 				if(group.Count() > 2)
-				{
 					methodList.Add(
 						new
 						{
@@ -4630,14 +4088,11 @@ internal sealed class ReFrameworkWebApi
 							similarCount = group.Count(),
 						}
 					);
-				}
 				else
-				{
 					foreach(var m in group)
 					{
 						methodList.Add(new { m.returnType, m.signature });
 					}
-				}
 			}
 
 			// Count totals (before filtering) for informational purposes
@@ -4671,10 +4126,7 @@ internal sealed class ReFrameworkWebApi
 		{
 			var typeName = request.QueryString["typeName"];
 
-			if(string.IsNullOrEmpty(typeName))
-			{
-				return new { error = "typeName parameter required" };
-			}
+			if(string.IsNullOrEmpty(typeName)) return new { error = "typeName parameter required" };
 
 			// Search managed singletons
 			try
@@ -4685,20 +4137,15 @@ internal sealed class ReFrameworkWebApi
 				{
 					var instance = desc.Instance;
 
-					if(instance == null)
-					{
-						continue;
-					}
+					if(instance == null) continue;
 
 					if(instance.GetTypeDefinition().GetFullName() == typeName)
-					{
 						return new
 						{
 							address = "0x" + instance.GetAddress().ToString("X"),
 							kind = "managed",
 							typeName,
 						};
-					}
 				}
 			}
 			catch
@@ -4714,20 +4161,15 @@ internal sealed class ReFrameworkWebApi
 				{
 					var instance = desc.Instance;
 
-					if(instance == null)
-					{
-						continue;
-					}
+					if(instance == null) continue;
 
 					if(instance.GetTypeDefinition().GetFullName() == typeName)
-					{
 						return new
 						{
 							address = "0x" + instance.GetAddress().ToString("X"),
 							kind = "native",
 							typeName,
 						};
-					}
 				}
 			}
 			catch
@@ -4758,10 +4200,7 @@ internal sealed class ReFrameworkWebApi
 
 			var obj = ResolveObjectFromParams(addressStr, kind, typeName);
 
-			if(obj == null)
-			{
-				return new { error = "Could not resolve object" };
-			}
+			if(obj == null) return new { error = "Could not resolve object" };
 
 			// Find field by walking parent chain
 			var tdef = obj.GetTypeDefinition();
@@ -4779,44 +4218,26 @@ internal sealed class ReFrameworkWebApi
 					}
 				}
 
-				if(targetField != null)
-				{
-					break;
-				}
+				if(targetField != null) break;
 			}
 
-			if(targetField == null)
-			{
-				return new { error = $"Field '{fieldName}' not found" };
-			}
+			if(targetField == null) return new { error = $"Field '{fieldName}' not found" };
 
 			var ft = targetField.GetType();
 
-			if(ft == null)
-			{
-				return new { error = "Field type is null" };
-			}
+			if(ft == null) return new { error = "Field type is null" };
 
-			if(!ft.IsValueType())
-			{
-				return new { error = "Can only write value-type fields" };
-			}
+			if(!ft.IsValueType()) return new { error = "Can only write value-type fields" };
 
 			// Determine type name for parsing
 			var valueTypeName = root.TryGetProperty("valueType", out var vtProp) ? vtProp.GetString() : null;
 
-			if(string.IsNullOrEmpty(valueTypeName))
-			{
-				valueTypeName = ft.IsEnum() ? ft.GetUnderlyingType().GetFullName() : ft.GetFullName();
-			}
+			if(string.IsNullOrEmpty(valueTypeName)) valueTypeName = ft.IsEnum() ? ft.GetUnderlyingType().GetFullName() : ft.GetFullName();
 
 			var valueElement = root.GetProperty("value");
 			var boxedValue = ParseValueFromJson(valueElement, valueTypeName);
 
-			if(boxedValue == null)
-			{
-				return new { error = $"Could not parse value as '{valueTypeName}'" };
-			}
+			if(boxedValue == null) return new { error = $"Could not parse value as '{valueTypeName}'" };
 
 			targetField.SetDataBoxed(obj.GetAddress(), boxedValue, false);
 
@@ -4856,32 +4277,23 @@ internal sealed class ReFrameworkWebApi
 			{
 				tdef = TDB.Get().GetType(typeName);
 
-				if(tdef == null)
-				{
-					return new { error = $"Type '{typeName}' not found" };
-				}
+				if(tdef == null) return new { error = $"Type '{typeName}' not found" };
 
 				// Try managed instance first, fall back to native object at address 0
-				obj = tdef.CreateInstance(0) ?? (IObject) new NativeObject(0, tdef);
+				obj = tdef.CreateInstance(0) ?? (IObject)new NativeObject(0, tdef);
 			}
 			else
 			{
 				obj = ResolveObjectFromParams(addressStr, kind, typeName);
 
-				if(obj == null)
-				{
-					return new { error = "Could not resolve object" };
-				}
+				if(obj == null) return new { error = "Could not resolve object" };
 
 				tdef = obj.GetTypeDefinition();
 			}
 
 			var targetMethod = FindMethod(tdef, methodName, methodSignature);
 
-			if(targetMethod == null)
-			{
-				return new { error = "Method not found" };
-			}
+			if(targetMethod == null) return new { error = "Method not found" };
 
 			// Parse arguments
 			object[] args = null;
@@ -4898,10 +4310,7 @@ internal sealed class ReFrameworkWebApi
 					// Use explicit type if provided, otherwise infer from method parameter
 					var argType = argEl.TryGetProperty("type", out var atProp) ? atProp.GetString() : null;
 
-					if(string.IsNullOrEmpty(argType) && i < ps.Count)
-					{
-						argType = ps[i].Type.GetFullName();
-					}
+					if(string.IsNullOrEmpty(argType) && i < ps.Count) argType = ps[i].Type.GetFullName();
 
 					args[i] = ParseValueFromJson(argValue, argType ?? "System.Int32");
 					i++;
@@ -4928,10 +4337,7 @@ internal sealed class ReFrameworkWebApi
 			var doc = JsonDocument.Parse(body);
 			var root = doc.RootElement;
 
-			if(!root.TryGetProperty("operations", out var opsProp) || opsProp.ValueKind != JsonValueKind.Array)
-			{
-				return new { error = "operations array required" };
-			}
+			if(!root.TryGetProperty("operations", out var opsProp) || opsProp.ValueKind != JsonValueKind.Array) return new { error = "operations array required" };
 
 			var results = new List<object>();
 
@@ -4951,7 +4357,7 @@ internal sealed class ReFrameworkWebApi
 						"search" => BatchSearch(parms),
 						"type" => BatchGetType(parms),
 						"setField" => BatchSetField(parms),
-						var _ => new { error = $"Unknown operation type: {opType}" },
+						_ => new { error = $"Unknown operation type: {opType}" },
 					};
 					results.Add(opResult);
 				}
@@ -4983,20 +4389,15 @@ internal sealed class ReFrameworkWebApi
 			{
 				var instance = desc.Instance;
 
-				if(instance == null)
-				{
-					continue;
-				}
+				if(instance == null) continue;
 
 				if(instance.GetTypeDefinition().GetFullName() == typeName)
-				{
 					return new
 					{
 						address = "0x" + instance.GetAddress().ToString("X"),
 						kind = "managed",
 						typeName,
 					};
-				}
 			}
 		}
 		catch
@@ -5011,20 +4412,15 @@ internal sealed class ReFrameworkWebApi
 			{
 				var instance = desc.Instance;
 
-				if(instance == null)
-				{
-					continue;
-				}
+				if(instance == null) continue;
 
 				if(instance.GetTypeDefinition().GetFullName() == typeName)
-				{
 					return new
 					{
 						address = "0x" + instance.GetAddress().ToString("X"),
 						kind = "native",
 						typeName,
 					};
-				}
 			}
 		}
 		catch
@@ -5038,10 +4434,7 @@ internal sealed class ReFrameworkWebApi
 	{
 		var obj = ResolveObjectFromParams(p.GetProperty("address").GetString(), p.GetProperty("kind").GetString(), p.GetProperty("typeName").GetString());
 
-		if(obj == null)
-		{
-			return new { error = "Could not resolve object" };
-		}
+		if(obj == null) return new { error = "Could not resolve object" };
 
 		var noFields = p.TryGetProperty("noFields", out var nf) && nf.GetBoolean();
 		var noMethods = p.TryGetProperty("noMethods", out var nm) && nm.GetBoolean();
@@ -5049,7 +4442,7 @@ internal sealed class ReFrameworkWebApi
 		var filterMethods = p.TryGetProperty("methods", out var fm) ? fm.GetString() : null;
 
 		var tdef = obj.GetTypeDefinition();
-		var refCount = obj is ManagedObject m ? m.GetReferenceCount() : (int?) null;
+		var refCount = obj is ManagedObject m ? m.GetReferenceCount() : (int?)null;
 
 		List<object> fieldList = null;
 
@@ -5066,19 +4459,13 @@ internal sealed class ReFrameworkWebApi
 
 			HashSet<string> wantFields = null;
 
-			if(filterFields != null)
-			{
-				wantFields = new HashSet<string>(filterFields.Split(','), StringComparer.OrdinalIgnoreCase);
-			}
+			if(filterFields != null) wantFields = new HashSet<string>(filterFields.Split(','), StringComparer.OrdinalIgnoreCase);
 
 			fieldList = new List<object>();
 
 			foreach(var field in fields)
 			{
-				if(wantFields != null && !wantFields.Contains(field.GetName()))
-				{
-					continue;
-				}
+				if(wantFields != null && !wantFields.Contains(field.GetName())) continue;
 
 				var ft = field.GetType();
 				var ftName = ft != null ? ft.GetFullName() : "null";
@@ -5086,7 +4473,6 @@ internal sealed class ReFrameworkWebApi
 				string value = null;
 
 				if(ft != null && (isValueType || ftName == "System.String"))
-				{
 					try
 					{
 						value = ReadFieldValueAsString(obj, field, ft);
@@ -5094,7 +4480,6 @@ internal sealed class ReFrameworkWebApi
 					catch
 					{
 					}
-				}
 
 				fieldList.Add(
 					new
@@ -5126,19 +4511,13 @@ internal sealed class ReFrameworkWebApi
 
 			HashSet<string> wantMethods = null;
 
-			if(filterMethods != null)
-			{
-				wantMethods = new HashSet<string>(filterMethods.Split(','), StringComparer.OrdinalIgnoreCase);
-			}
+			if(filterMethods != null) wantMethods = new HashSet<string>(filterMethods.Split(','), StringComparer.OrdinalIgnoreCase);
 
 			methodList = new List<object>();
 
 			foreach(var method in methods)
 			{
-				if(wantMethods != null && !wantMethods.Contains(method.GetName()))
-				{
-					continue;
-				}
+				if(wantMethods != null && !wantMethods.Contains(method.GetName())) continue;
 
 				var returnT = method.GetReturnType();
 				var ps = method.GetParameters();
@@ -5168,15 +4547,13 @@ internal sealed class ReFrameworkWebApi
 		int? arrayLength = null;
 
 		if(isArray)
-		{
 			try
 			{
-				arrayLength = (int) obj.Call("get_Length");
+				arrayLength = (int)obj.Call("get_Length");
 			}
 			catch
 			{
 			}
-		}
 
 		return new
 		{
@@ -5194,18 +4571,12 @@ internal sealed class ReFrameworkWebApi
 	{
 		var obj = ResolveObjectFromParams(p.GetProperty("address").GetString(), p.GetProperty("kind").GetString(), p.GetProperty("typeName").GetString());
 
-		if(obj == null)
-		{
-			return new { error = "Could not resolve object" };
-		}
+		if(obj == null) return new { error = "Could not resolve object" };
 
 		var fieldName = p.GetProperty("fieldName").GetString();
 		var child = obj.GetField(fieldName) as IObject;
 
-		if(child == null)
-		{
-			return new { isNull = true };
-		}
+		if(child == null) return new { isNull = true };
 
 		var childTdef = child.GetTypeDefinition();
 		var childManaged = child is ManagedObject;
@@ -5233,21 +4604,15 @@ internal sealed class ReFrameworkWebApi
 			// Static call
 			tdef = TDB.Get().GetType(typeName);
 
-			if(tdef == null)
-			{
-				return new { error = $"Type '{typeName}' not found" };
-			}
+			if(tdef == null) return new { error = $"Type '{typeName}' not found" };
 
-			obj = tdef.CreateInstance(0) ?? (IObject) new NativeObject(0, tdef);
+			obj = tdef.CreateInstance(0) ?? (IObject)new NativeObject(0, tdef);
 		}
 		else
 		{
 			obj = ResolveObjectFromParams(addressStr, kind, typeName);
 
-			if(obj == null)
-			{
-				return new { error = "Could not resolve object" };
-			}
+			if(obj == null) return new { error = "Could not resolve object" };
 
 			tdef = obj.GetTypeDefinition();
 		}
@@ -5256,10 +4621,7 @@ internal sealed class ReFrameworkWebApi
 		var methodSignature = p.TryGetProperty("methodSignature", out var sigProp) ? sigProp.GetString() : null;
 		var targetMethod = FindMethod(tdef, methodName, methodSignature);
 
-		if(targetMethod == null)
-		{
-			return new { error = "Method not found" };
-		}
+		if(targetMethod == null) return new { error = "Method not found" };
 
 		object[] args = null;
 
@@ -5274,10 +4636,7 @@ internal sealed class ReFrameworkWebApi
 				var argValue = argEl.GetProperty("value");
 				var argType = argEl.TryGetProperty("type", out var atProp) ? atProp.GetString() : null;
 
-				if(string.IsNullOrEmpty(argType) && i < ps.Count)
-				{
-					argType = ps[i].Type.GetFullName();
-				}
+				if(string.IsNullOrEmpty(argType) && i < ps.Count) argType = ps[i].Type.GetFullName();
 
 				args[i] = ParseValueFromJson(argValue, argType ?? "System.Int32");
 				i++;
@@ -5306,17 +4665,11 @@ internal sealed class ReFrameworkWebApi
 			{
 				var t = tdb.GetType(i);
 
-				if(t == null)
-				{
-					continue;
-				}
+				if(t == null) continue;
 
 				var fullName = t.GetFullName();
 
-				if(string.IsNullOrEmpty(fullName) || !fullName.ToLower().Contains(queryLower))
-				{
-					continue;
-				}
+				if(string.IsNullOrEmpty(fullName) || !fullName.ToLower().Contains(queryLower)) continue;
 
 				var parentT = t.ParentType;
 
@@ -5326,8 +4679,8 @@ internal sealed class ReFrameworkWebApi
 						fullName,
 						isValueType = t.IsValueType(),
 						isEnum = t.IsEnum(),
-						numFields = (int) t.GetNumFields(),
-						numMethods = (int) t.GetNumMethods(),
+						numFields = (int)t.GetNumFields(),
+						numMethods = (int)t.GetNumMethods(),
 						parentType = parentT?.GetFullName(),
 					}
 				);
@@ -5350,10 +4703,7 @@ internal sealed class ReFrameworkWebApi
 		var typeName = p.GetProperty("typeName").GetString();
 		var tdef = TDB.Get().GetType(typeName);
 
-		if(tdef == null)
-		{
-			return new { error = $"Type '{typeName}' not found" };
-		}
+		if(tdef == null) return new { error = $"Type '{typeName}' not found" };
 
 		var parentT = tdef.ParentType;
 		var declaringT = tdef.DeclaringType;
@@ -5440,10 +4790,7 @@ internal sealed class ReFrameworkWebApi
 	{
 		var obj = ResolveObjectFromParams(p.GetProperty("address").GetString(), p.GetProperty("kind").GetString(), p.GetProperty("typeName").GetString());
 
-		if(obj == null)
-		{
-			return new { error = "Could not resolve object" };
-		}
+		if(obj == null) return new { error = "Could not resolve object" };
 
 		var fieldName = p.GetProperty("fieldName").GetString();
 		var tdef = obj.GetTypeDefinition();
@@ -5461,42 +4808,24 @@ internal sealed class ReFrameworkWebApi
 				}
 			}
 
-			if(targetField != null)
-			{
-				break;
-			}
+			if(targetField != null) break;
 		}
 
-		if(targetField == null)
-		{
-			return new { error = $"Field '{fieldName}' not found" };
-		}
+		if(targetField == null) return new { error = $"Field '{fieldName}' not found" };
 
 		var ft = targetField.GetType();
 
-		if(ft == null)
-		{
-			return new { error = "Field type is null" };
-		}
+		if(ft == null) return new { error = "Field type is null" };
 
-		if(!ft.IsValueType())
-		{
-			return new { error = "Can only write value-type fields" };
-		}
+		if(!ft.IsValueType()) return new { error = "Can only write value-type fields" };
 
 		var valueTypeName = p.TryGetProperty("valueType", out var vtProp) ? vtProp.GetString() : null;
 
-		if(string.IsNullOrEmpty(valueTypeName))
-		{
-			valueTypeName = ft.IsEnum() ? ft.GetUnderlyingType().GetFullName() : ft.GetFullName();
-		}
+		if(string.IsNullOrEmpty(valueTypeName)) valueTypeName = ft.IsEnum() ? ft.GetUnderlyingType().GetFullName() : ft.GetFullName();
 
 		var boxedValue = ParseValueFromJson(p.GetProperty("value"), valueTypeName);
 
-		if(boxedValue == null)
-		{
-			return new { error = $"Could not parse value as '{valueTypeName}'" };
-		}
+		if(boxedValue == null) return new { error = $"Could not parse value as '{valueTypeName}'" };
 
 		targetField.SetDataBoxed(obj.GetAddress(), boxedValue, false);
 

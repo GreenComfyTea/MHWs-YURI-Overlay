@@ -25,10 +25,7 @@ internal sealed class ScreenManagerUpdateDelaysCustomization : Customization
 
 	public void Reset(ScreenManagerUpdateDelaysCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Update = defaultCustomization.Update;
 	}

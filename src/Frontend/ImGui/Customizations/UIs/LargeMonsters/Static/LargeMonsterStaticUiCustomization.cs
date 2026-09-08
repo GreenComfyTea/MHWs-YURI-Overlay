@@ -5,15 +5,15 @@ namespace YURI_Overlay;
 internal sealed class LargeMonsterStaticUiCustomization : Customization
 {
 	public bool? Enabled;
-	public LargeMonsterStaticUiSettingsCustomization Settings = new();
-	public AnchoredPositionCustomization Position = new();
-	public SpacingCustomization Spacing = new();
-	public LargeMonsterStaticUiSortingCustomization Sorting = new();
+	public LargeMonsterHealthComponentCustomization Health = new();
 
 	public LabelElementCustomization NameLabel = new();
-	public LargeMonsterHealthComponentCustomization Health = new();
-	public LargeMonsterStaminaComponentCustomization Stamina = new();
+	public AnchoredPositionCustomization Position = new();
 	public LargeMonsterRageComponentCustomization Rage = new();
+	public LargeMonsterStaticUiSettingsCustomization Settings = new();
+	public LargeMonsterStaticUiSortingCustomization Sorting = new();
+	public SpacingCustomization Spacing = new();
+	public LargeMonsterStaminaComponentCustomization Stamina = new();
 
 	public bool RenderImGui(string? parentName = "", LargeMonsterStaticUiCustomization? defaultCustomization = null)
 	{
@@ -43,10 +43,7 @@ internal sealed class LargeMonsterStaticUiCustomization : Customization
 
 	public void Reset(LargeMonsterStaticUiCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Enabled = defaultCustomization.Enabled;
 		this.Settings.Reset(defaultCustomization.Settings);

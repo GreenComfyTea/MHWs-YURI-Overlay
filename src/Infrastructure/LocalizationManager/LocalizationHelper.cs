@@ -2,30 +2,30 @@
 
 internal sealed class LocalizationHelper
 {
-	private static readonly Lazy<LocalizationHelper> Lazy = new(() => new LocalizationHelper());
-
-	public static LocalizationHelper Instance => Lazy.Value;
-
-	public string[] DefaultFillDirections = [];
-	public string[] FillDirections = [];
-
-	public string[] DefaultOutlineStyles = [];
-	public string[] OutlineStyles = [];
-
-	public string[] DefaultSortings = [];
-	public string[] Sortings = [];
-
-	public string[] DefaultDamageMeterSortings = [];
+	private static readonly Lazy<LocalizationHelper> _lazy = new(() => new LocalizationHelper());
+	public string[] Anchors = [];
 	public string[] DamageMeterSortings = [];
 
-	public string[] DefaultPriorities = [];
-	public string[] Priorities = [];
-
 	public string[] DefaultAnchors = [];
-	public string[] Anchors = [];
+
+	public string[] DefaultDamageMeterSortings = [];
 
 	public string DefaultDefinedByLocalization = "";
+
+	public string[] DefaultFillDirections = [];
+
+	public string[] DefaultOutlineStyles = [];
+
+	public string[] DefaultPriorities = [];
+
+	public string[] DefaultSortings = [];
 	public string DefinedByLocalization = "";
+	public string[] FillDirections = [];
+	public string[] OutlineStyles = [];
+	public string[] Priorities = [];
+	public string[] Sortings = [];
+
+	public static LocalizationHelper Instance => _lazy.Value;
 
 	public void Initialize()
 	{
@@ -57,8 +57,8 @@ internal sealed class LocalizationHelper
 			defaultLocalization.MasterRank,
 			defaultLocalization.Damage,
 			defaultLocalization.DamagePercentage,
-			defaultLocalization.DPS,
-			defaultLocalization.DPSPercentage,
+			defaultLocalization.Dps,
+			defaultLocalization.DpsPercentage,
 		];
 
 		this.DefaultPriorities =
@@ -108,8 +108,8 @@ internal sealed class LocalizationHelper
 			localization.MasterRank,
 			localization.Damage,
 			localization.DamagePercentage,
-			localization.DPS,
-			localization.DPSPercentage,
+			localization.Dps,
+			localization.DpsPercentage,
 		];
 
 		this.Priorities = [localization.Higher3, localization.Higher2, localization.Higher1, localization.Normal, localization.Lower1, localization.Lower2, localization.Lower3];

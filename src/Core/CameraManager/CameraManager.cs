@@ -5,11 +5,11 @@ namespace YURI_Overlay;
 
 internal sealed class CameraManager
 {
-	private static readonly Lazy<CameraManager> Lazy = new(() => new CameraManager());
-
-	public static CameraManager Instance => Lazy.Value;
+	private static readonly Lazy<CameraManager> _lazy = new(() => new CameraManager());
 
 	public LargeMonster? TargetedLargeMonster;
+
+	public static CameraManager Instance => _lazy.Value;
 
 	public void Initialize()
 	{
@@ -33,9 +33,7 @@ internal sealed class CameraManager
 				&& customization.LargeMonsterUI.Targeted.Enabled != true
 				&& customization.LargeMonsterUI.MapPin.Enabled != true
 			)
-			{
 				return;
-			}
 
 			var cameraManager = API.GetManagedSingletonT<app.CameraManager>();
 
@@ -49,10 +47,8 @@ internal sealed class CameraManager
 			var masterPlayerCamera = cameraManager._MasterPlCamera;
 
 			if(masterPlayerCamera is null)
-			{
 				//LogManager.Warn("[CameraManager.UpdateCameraTarget] No master player camera");
 				return;
-			}
 
 			var lockTarget = masterPlayerCamera.LockTarget;
 

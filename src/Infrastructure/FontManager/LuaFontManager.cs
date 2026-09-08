@@ -5,25 +5,42 @@ namespace YURI_Overlay;
 
 internal sealed class LuaFontManager : IDisposable
 {
-	private static readonly Lazy<LuaFontManager> Lazy = new(() => new LuaFontManager());
-	public static LuaFontManager Instance => Lazy.Value;
+	private static readonly Lazy<LuaFontManager> _lazy = new(() => new LuaFontManager());
 
-	public Dictionary<string, ImFontPtr> Fonts = [];
+	private Timer? _gameUpdateTimer;
+
+	private bool _isGameUpdatePending = true;
+	public (string, ImFontPtr)? ActiveGlobalOverlayFont = null;
+
+	public (string, ImFontPtr)? ActiveMenuFont = null;
 
 	public List<string> FontNames = [];
 
-	public event EventHandler FontsChanged = delegate { };
-
-	public (string, ImFontPtr)? ActiveMenuFont = null;
-	public (string, ImFontPtr)? ActiveGlobalOverlayFont = null;
-
-	private bool _isGameUpdatePending = true;
-
-	private Timer? _gameUpdateTimer;
+	public Dictionary<string, ImFontPtr> Fonts = [];
 
 	private LuaFontManager()
 	{
 	}
+
+	public static LuaFontManager Instance => _lazy.Value;
+
+	public void Dispose()
+	{
+		LogManager.Info("[LuaFontManager] Disposing...");
+
+		if(this._gameUpdateTimer is not null)
+		{
+			this._gameUpdateTimer.Stop();
+			this._gameUpdateTimer.Dispose();
+			this._gameUpdateTimer = null;
+		}
+
+		ConfigManager.Instance.AnyConfigChanged -= this.OnAnyConfigChanged;
+
+		LogManager.Info("[LuaFontManager] Disposed!");
+	}
+
+	public event EventHandler FontsChanged = delegate { };
 
 	public void Initialize()
 	{
@@ -40,10 +57,7 @@ internal sealed class LuaFontManager : IDisposable
 	{
 		try
 		{
-			if(!this._isGameUpdatePending)
-			{
-				return;
-			}
+			if(!this._isGameUpdatePending) return;
 
 			this._isGameUpdatePending = false;
 
@@ -60,10 +74,7 @@ internal sealed class LuaFontManager : IDisposable
 
 				fontName = string.Empty.Equals(fontName) ? "Default" : fontName;
 
-				if(this.FontNames.Contains(fontName))
-				{
-					continue;
-				}
+				if(this.FontNames.Contains(fontName)) continue;
 
 				LogManager.Info($"[LuaFontManager] Font \"{fontName}\": Initialized!");
 
@@ -73,10 +84,7 @@ internal sealed class LuaFontManager : IDisposable
 				areFontsAdded = true;
 			}
 
-			if(areFontsAdded)
-			{
-				this.EmitFontsChanged();
-			}
+			if(areFontsAdded) this.EmitFontsChanged();
 
 			this.UpdateActiveFonts();
 		}
@@ -170,21 +178,5 @@ internal sealed class LuaFontManager : IDisposable
 	private void EmitFontsChanged()
 	{
 		Utils.EmitEvents(this, this.FontsChanged);
-	}
-
-	public void Dispose()
-	{
-		LogManager.Info("[LuaFontManager] Disposing...");
-
-		if(this._gameUpdateTimer is not null)
-		{
-			this._gameUpdateTimer.Stop();
-			this._gameUpdateTimer.Dispose();
-			this._gameUpdateTimer = null;
-		}
-
-		ConfigManager.Instance.AnyConfigChanged -= this.OnAnyConfigChanged;
-
-		LogManager.Info("[LuaFontManager] Disposed!");
 	}
 }

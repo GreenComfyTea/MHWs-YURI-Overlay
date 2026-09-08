@@ -5,16 +5,27 @@ namespace YURI_Overlay;
 
 internal sealed class LargeMonsterUiManager : IDisposable
 {
+	private readonly List<Timer> _timers = [];
 	private List<LargeMonster> _dynamicLargeMonsters = [];
+	private LargeMonster? _pinnedLargeMonster;
 	private List<LargeMonster> _staticLargeMonsters = [];
 	private LargeMonster? _targetedLargeMonster;
-	private LargeMonster? _pinnedLargeMonster;
-
-	private readonly List<Timer> _timers = [];
 
 	public LargeMonsterUiManager()
 	{
 		this.Initialize();
+	}
+
+	public void Dispose()
+	{
+		LogManager.Info("[LargeMonsterUiManager] Disposing...");
+
+		foreach(var timer in this._timers)
+		{
+			timer.Dispose();
+		}
+
+		LogManager.Info("[LargeMonsterUiManager] Disposed!");
 	}
 
 	~LargeMonsterUiManager()
@@ -37,18 +48,6 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		this.DrawStaticUi(drawList);
 		this.DrawTargetedUi(drawList);
 		this.DrawMapPinUi(drawList);
-	}
-
-	public void Dispose()
-	{
-		LogManager.Info("[LargeMonsterUiManager] Disposing...");
-
-		foreach(var timer in this._timers)
-		{
-			timer.Dispose();
-		}
-
-		LogManager.Info("[LargeMonsterUiManager] Disposed!");
 	}
 
 	private void InitializeTimers()
@@ -90,30 +89,15 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 			if(settingsCustomization is not null)
 			{
-				if(settingsCustomization.RenderDeadMonsters != true && !largeMonster.IsAlive)
-				{
-					continue;
-				}
+				if(settingsCustomization.RenderDeadMonsters != true && !largeMonster.IsAlive) continue;
 
-				if(settingsCustomization.RenderTargetedMonster != true && largeMonster.IsTargeted)
-				{
-					continue;
-				}
+				if(settingsCustomization.RenderTargetedMonster != true && largeMonster.IsTargeted) continue;
 
-				if(settingsCustomization.RenderNonTargetedMonsters != true && !largeMonster.IsTargeted)
-				{
-					continue;
-				}
+				if(settingsCustomization.RenderNonTargetedMonsters != true && !largeMonster.IsTargeted) continue;
 
-				if(settingsCustomization.RenderPinnedMonster != true && largeMonster.IsPinned)
-				{
-					continue;
-				}
+				if(settingsCustomization.RenderPinnedMonster != true && largeMonster.IsPinned) continue;
 
-				if(settingsCustomization.RenderNonPinnedMonsters != true && !largeMonster.IsPinned)
-				{
-					continue;
-				}
+				if(settingsCustomization.RenderNonPinnedMonsters != true && !largeMonster.IsPinned) continue;
 			}
 
 			newLargeMonsters.Add(largeMonster);
@@ -148,30 +132,15 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 			if(settingsCustomization is not null)
 			{
-				if(settingsCustomization.RenderDeadMonsters != true && !largeMonster.IsAlive)
-				{
-					continue;
-				}
+				if(settingsCustomization.RenderDeadMonsters != true && !largeMonster.IsAlive) continue;
 
-				if(settingsCustomization.RenderTargetedMonster != true && largeMonster.IsTargeted)
-				{
-					continue;
-				}
+				if(settingsCustomization.RenderTargetedMonster != true && largeMonster.IsTargeted) continue;
 
-				if(settingsCustomization.RenderNonTargetedMonsters != true && !largeMonster.IsTargeted)
-				{
-					continue;
-				}
+				if(settingsCustomization.RenderNonTargetedMonsters != true && !largeMonster.IsTargeted) continue;
 
-				if(settingsCustomization.RenderPinnedMonster != true && largeMonster.IsPinned)
-				{
-					continue;
-				}
+				if(settingsCustomization.RenderPinnedMonster != true && largeMonster.IsPinned) continue;
 
-				if(settingsCustomization.RenderNonPinnedMonsters != true && !largeMonster.IsPinned)
-				{
-					continue;
-				}
+				if(settingsCustomization.RenderNonPinnedMonsters != true && !largeMonster.IsPinned) continue;
 			}
 
 			newLargeMonsters.Add(largeMonster);
@@ -180,7 +149,6 @@ internal sealed class LargeMonsterUiManager : IDisposable
 		// Sort
 
 		if(customization.Static.Sorting.ReversedOrder == true)
-		{
 			switch(customization.Static.Sorting.Type)
 			{
 				case SortingEnum.Id:
@@ -209,9 +177,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 					break;
 			}
-		}
 		else
-		{
 			switch(customization.Static.Sorting.Type)
 			{
 				case SortingEnum.Id:
@@ -241,7 +207,6 @@ internal sealed class LargeMonsterUiManager : IDisposable
 
 					break;
 			}
-		}
 
 		this._staticLargeMonsters = newLargeMonsters;
 	}
@@ -368,10 +333,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
-		if(customization.Enabled != true || customization.Dynamic.Enabled != true)
-		{
-			return;
-		}
+		if(customization.Enabled != true || customization.Dynamic.Enabled != true) return;
 
 		foreach(var largeMonster in this._dynamicLargeMonsters)
 		{
@@ -383,10 +345,7 @@ internal sealed class LargeMonsterUiManager : IDisposable
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
-		if(customization.Enabled != true || customization.Static.Enabled != true)
-		{
-			return;
-		}
+		if(customization.Enabled != true || customization.Static.Enabled != true) return;
 
 		for(var locationIndex = 0; locationIndex < this._staticLargeMonsters.Count; locationIndex++)
 		{
@@ -400,15 +359,9 @@ internal sealed class LargeMonsterUiManager : IDisposable
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
-		if(customization.Enabled != true || customization.Targeted.Enabled != true)
-		{
-			return;
-		}
+		if(customization.Enabled != true || customization.Targeted.Enabled != true) return;
 
-		if(this._targetedLargeMonster is null)
-		{
-			return;
-		}
+		if(this._targetedLargeMonster is null) return;
 
 		this._targetedLargeMonster.TargetedUi?.Draw(drawList);
 	}
@@ -417,15 +370,9 @@ internal sealed class LargeMonsterUiManager : IDisposable
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.LargeMonsterUI;
 
-		if(customization.Enabled != true || customization.MapPin.Enabled != true)
-		{
-			return;
-		}
+		if(customization.Enabled != true || customization.MapPin.Enabled != true) return;
 
-		if(this._pinnedLargeMonster is null)
-		{
-			return;
-		}
+		if(this._pinnedLargeMonster is null) return;
 
 		this._pinnedLargeMonster.MapPinUi?.Draw(drawList);
 	}

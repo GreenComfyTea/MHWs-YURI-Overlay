@@ -5,13 +5,24 @@ namespace YURI_Overlay;
 
 internal sealed class EndemicLifeUiManager : IDisposable
 {
-	private List<EndemicLifeEntity> _dynamicEndemicLifeEntities = [];
-
 	private readonly List<Timer> _timers = [];
+	private List<EndemicLifeEntity> _dynamicEndemicLifeEntities = [];
 
 	public EndemicLifeUiManager()
 	{
 		this.Initialize();
+	}
+
+	public void Dispose()
+	{
+		LogManager.Info("[EndemicLifeUiManager] Disposing...");
+
+		foreach(var timer in this._timers)
+		{
+			timer.Dispose();
+		}
+
+		LogManager.Info("[EndemicLifeUiManager] Disposed!");
 	}
 
 	~EndemicLifeUiManager()
@@ -31,18 +42,6 @@ internal sealed class EndemicLifeUiManager : IDisposable
 	public void Draw(ImDrawListPtr drawList)
 	{
 		this.DrawDynamicUi(drawList);
-	}
-
-	public void Dispose()
-	{
-		LogManager.Info("[EndemicLifeUiManager] Disposing...");
-
-		foreach(var timer in this._timers)
-		{
-			timer.Dispose();
-		}
-
-		LogManager.Info("[EndemicLifeUiManager] Disposed!");
 	}
 
 	private void InitializeTimers()
@@ -92,10 +91,7 @@ internal sealed class EndemicLifeUiManager : IDisposable
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.EndemicLifeUI;
 
-		if(customization.Enabled != true)
-		{
-			return;
-		}
+		if(customization.Enabled != true) return;
 
 		foreach(var endemicLifeEntity in this._dynamicEndemicLifeEntities)
 		{

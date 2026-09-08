@@ -4,11 +4,11 @@ namespace YURI_Overlay;
 
 internal sealed class DamageMeterDamageComponentCustomization : Customization
 {
-	public bool? Visible;
-	public OffsetCustomization Offset = new();
-	public LabelElementCustomization ValueLabel = new();
-	public LabelElementCustomization PercentageLabel = new();
 	public BarElementCustomization Bar = new();
+	public OffsetCustomization Offset = new();
+	public LabelElementCustomization PercentageLabel = new();
+	public LabelElementCustomization ValueLabel = new();
+	public bool? Visible;
 
 	public bool RenderImGui(string? parentName = "", DamageMeterDamageComponentCustomization? defaultCustomization = null)
 	{
@@ -33,10 +33,7 @@ internal sealed class DamageMeterDamageComponentCustomization : Customization
 
 	public void Reset(DamageMeterDamageComponentCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Visible = defaultCustomization.Visible;
 		this.Offset.Reset(defaultCustomization.Offset);

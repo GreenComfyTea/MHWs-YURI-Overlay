@@ -4,13 +4,13 @@ namespace YURI_Overlay;
 
 internal sealed class LargeMonstersUpdateDelaysCustomization : Customization
 {
-	public float? Name;
+	public float? Health;
+	public float? MapPin;
 	public float? MissionBeaconOffset;
 	public float? ModelRadius;
-	public float? Health;
-	public float? Stamina;
+	public float? Name;
 	public float? Rage;
-	public float? MapPin;
+	public float? Stamina;
 
 	public bool RenderImGui(string? parentName = "", LargeMonstersUpdateDelaysCustomization? defaultCustomization = null)
 	{
@@ -36,7 +36,9 @@ internal sealed class LargeMonstersUpdateDelaysCustomization : Customization
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.ModelRadius}##{customizationName}", ref this.ModelRadius, 0.001f, 0.001f, 10f, "%.3f",
 				defaultCustomization?.ModelRadius);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Health}##{customizationName}", ref this.Health, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Health);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Stamina}##{customizationName}", ref this.Stamina, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Stamina);
+
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Stamina}##{customizationName}", ref this.Stamina, 0.001f, 0.001f, 10f, "%.3f",
+				defaultCustomization?.Stamina);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Rage}##{customizationName}", ref this.Rage, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.Rage);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MapPin}##{customizationName}", ref this.MapPin, 0.001f, 0.001f, 10f, "%.3f", defaultCustomization?.MapPin);
 
@@ -48,10 +50,7 @@ internal sealed class LargeMonstersUpdateDelaysCustomization : Customization
 
 	public void Reset(LargeMonstersUpdateDelaysCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Name = defaultCustomization.Name;
 		this.MissionBeaconOffset = defaultCustomization.MissionBeaconOffset;

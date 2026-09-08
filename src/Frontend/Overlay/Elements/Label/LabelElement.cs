@@ -16,27 +16,15 @@ internal sealed class LabelElement
 	{
 		var customization = this._customizationAccessor();
 
-		if(customization is null)
-		{
-			return;
-		}
+		if(customization is null) return;
 
-		if(customization.Visible != true)
-		{
-			return;
-		}
+		if(customization.Visible != true) return;
 
-		if(args.Length == 0)
-		{
-			return;
-		}
+		if(args.Length == 0) return;
 
 		var text = string.Format(customization.Format ?? "", args);
 
-		if(string.IsNullOrEmpty(text))
-		{
-			return;
-		}
+		if(string.IsNullOrEmpty(text)) return;
 
 		var globalScaleCustomization = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale;
 
@@ -66,21 +54,15 @@ internal sealed class LabelElement
 		Vector2 shadowPosition = new(shadowPositionX + alignmentX, shadowPositionY + alignmentY);
 
 		var font = ImGui.GetFont();
-		var fontSize = (customization.Settings.FontSize ?? Constants.DefaultReframeworkFontSize) * (overlayFontScale.OverlayFontScaleModifier ?? 1f);
+		var fontSize = (customization.Settings.FontSize ?? Constants.DEFAULT_REFRAMEWORK_FONT_SIZE) * (overlayFontScale.OverlayFontScaleModifier ?? 1f);
 
-		if(overlayFontScale?.ScaleWithReframeworkFontSize == true)
-		{
-			fontSize *= ImGuiManager.Instance.ReframeworkFontSize / Constants.DefaultReframeworkFontSize;
-		}
+		if(overlayFontScale?.ScaleWithReframeworkFontSize == true) fontSize *= ImGuiManager.Instance.ReframeworkFontSize / Constants.DEFAULT_REFRAMEWORK_FONT_SIZE;
 
 		if(customization.Shadow.Visible == true)
 		{
 			var shadowColor = customization.Shadow.Color.ColorInfo?.Abgr ?? 0xFF000000;
 
-			if(opacityScale < 1)
-			{
-				shadowColor = Utils.ScaleColorOpacityAbgr(shadowColor, opacityScale);
-			}
+			if(opacityScale < 1) shadowColor = Utils.ScaleColorOpacityAbgr(shadowColor, opacityScale);
 
 			unsafe
 			{
@@ -90,10 +72,7 @@ internal sealed class LabelElement
 
 		var color = customization.Color.ColorInfo?.Abgr ?? 0xFFFFFFFF;
 
-		if(opacityScale < 1)
-		{
-			color = Utils.ScaleColorOpacityAbgr(color, opacityScale);
-		}
+		if(opacityScale < 1) color = Utils.ScaleColorOpacityAbgr(color, opacityScale);
 
 		unsafe
 		{

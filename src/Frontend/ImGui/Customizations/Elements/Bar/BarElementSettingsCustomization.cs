@@ -8,14 +8,14 @@ internal sealed class BarElementSettingsCustomization : Customization
 	[JsonIgnore]
 	private int? _fillDirectionIndex;
 
+	public bool? Inverted;
+
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public FillDirectionEnum? FillDirection
 	{
-		get => this._fillDirectionIndex.HasValue ? (FillDirectionEnum?) this._fillDirectionIndex.Value : null;
-		set => this._fillDirectionIndex = value.HasValue ? (int) value.Value : null;
+		get => this._fillDirectionIndex.HasValue ? (FillDirectionEnum?)this._fillDirectionIndex.Value : null;
+		set => this._fillDirectionIndex = value.HasValue ? (int)value.Value : null;
 	}
-
-	public bool? Inverted;
 
 	public bool RenderImGui(string? parentName = "", BarElementSettingsCustomization? defaultCustomization = null)
 	{
@@ -43,10 +43,7 @@ internal sealed class BarElementSettingsCustomization : Customization
 
 	public void Reset(BarElementSettingsCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.FillDirection = defaultCustomization.FillDirection;
 		this.Inverted = defaultCustomization.Inverted;

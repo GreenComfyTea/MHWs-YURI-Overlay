@@ -14,7 +14,7 @@ internal sealed class PriorityUtils
 				PriorityEnum.Lower1 => -1,
 				PriorityEnum.Lower2 => -2,
 				PriorityEnum.Lower3 => -3,
-				var _ => 0,
+				_ => 0,
 			};
 	}
 }

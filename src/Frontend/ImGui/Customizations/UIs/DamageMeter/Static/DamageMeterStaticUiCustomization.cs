@@ -5,13 +5,13 @@ namespace YURI_Overlay;
 internal sealed class DamageMeterStaticUiCustomization : Customization
 {
 	public bool? Enabled;
-	public DamageMeterStaticUiSettingsCustomization Settings = new();
-	public AnchoredPositionCustomization Position = new();
-	public SpacingCustomization Spacing = new();
-	public DamageMeterStaticUiSortingCustomization Sorting = new();
 
 	public DamageMeterPlayerWidgetCustomization LocalPlayer = new();
 	public DamageMeterPlayerWidgetCustomization OtherPlayers = new();
+	public AnchoredPositionCustomization Position = new();
+	public DamageMeterStaticUiSettingsCustomization Settings = new();
+	public DamageMeterStaticUiSortingCustomization Sorting = new();
+	public SpacingCustomization Spacing = new();
 	public DamageMeterPlayerWidgetCustomization SupportHunters = new();
 
 	public bool RenderImGui(string? parentName = "", DamageMeterStaticUiCustomization? defaultCustomization = null)
@@ -21,7 +21,7 @@ internal sealed class DamageMeterStaticUiCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}";
 
-		if(ImGuiHelper.ResettableTreeNode($"{localization.DamageMeterUI}##{customizationName}", customizationName, ref isChanged, defaultCustomization, this.Reset))
+		if(ImGuiHelper.ResettableTreeNode($"{localization.DamageMeterUi}##{customizationName}", customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Enabled}##{customizationName}", ref this.Enabled, defaultCustomization?.Enabled);
 
@@ -42,10 +42,7 @@ internal sealed class DamageMeterStaticUiCustomization : Customization
 
 	public void Reset(DamageMeterStaticUiCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Enabled = defaultCustomization.Enabled;
 		this.Settings.Reset(defaultCustomization.Settings);

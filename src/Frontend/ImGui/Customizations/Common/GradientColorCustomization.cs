@@ -4,8 +4,8 @@ namespace YURI_Overlay;
 
 internal sealed class GradientColorCustomization : Customization
 {
-	public GradientStartColorCustomization Start = new();
 	public GradientEndColorCustomization End = new();
+	public GradientStartColorCustomization Start = new();
 
 	public bool RenderImGui(string? name = "", string? parentName = "", GradientColorCustomization? defaultCustomization = null)
 	{
@@ -25,10 +25,7 @@ internal sealed class GradientColorCustomization : Customization
 
 	public void Reset(GradientColorCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Start.Reset(defaultCustomization.Start);
 		this.End.Reset(defaultCustomization.End);

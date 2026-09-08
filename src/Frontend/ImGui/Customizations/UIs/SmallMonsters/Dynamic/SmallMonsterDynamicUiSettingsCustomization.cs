@@ -4,13 +4,12 @@ namespace YURI_Overlay;
 
 internal sealed class SmallMonsterDynamicUiSettingsCustomization : Customization
 {
-	public bool? RenderDeadMonsters;
-
 	public bool? AddMissionBeaconOffsetToWorldOffset;
 	public bool? AddModelRadiusToWorldOffsetY;
+	public float? MaxDistance;
 
 	public bool? OpacityFalloff;
-	public float? MaxDistance;
+	public bool? RenderDeadMonsters;
 
 	public bool RenderImGui(string? parentName = "", SmallMonsterDynamicUiSettingsCustomization? defaultCustomization = null)
 	{
@@ -21,7 +20,8 @@ internal sealed class SmallMonsterDynamicUiSettingsCustomization : Customization
 
 		if(ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderDeadMonsters}##{customizationName}", ref this.RenderDeadMonsters, defaultCustomization?.RenderDeadMonsters);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderDeadMonsters}##{customizationName}", ref this.RenderDeadMonsters,
+				defaultCustomization?.RenderDeadMonsters);
 
 			isChanged |= ImGuiHelper.ResettableCheckbox(
 				$"{localization.AddMissionBeaconOffsetToWorldOffset}##{customizationName}",
@@ -35,7 +35,9 @@ internal sealed class SmallMonsterDynamicUiSettingsCustomization : Customization
 				defaultCustomization?.AddModelRadiusToWorldOffsetY
 			);
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.OpacityFalloff}##{customizationName}", ref this.OpacityFalloff, defaultCustomization?.OpacityFalloff);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MaxDistance}##{customizationName}", ref this.MaxDistance, 0.1f, 0, 65536f, "%.1f", defaultCustomization?.MaxDistance);
+
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MaxDistance}##{customizationName}", ref this.MaxDistance, 0.1f, 0, 65536f, "%.1f",
+				defaultCustomization?.MaxDistance);
 
 			ImGui.TreePop();
 		}
@@ -45,10 +47,7 @@ internal sealed class SmallMonsterDynamicUiSettingsCustomization : Customization
 
 	public void Reset(SmallMonsterDynamicUiSettingsCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.RenderDeadMonsters = defaultCustomization.RenderDeadMonsters;
 

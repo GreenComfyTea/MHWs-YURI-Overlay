@@ -54,7 +54,7 @@ public class Plugin
 		API.LocalFrameGC();
 
 #if DEBUG
-		REFrameworkWebAPI.Dispose();
+		REFrameworkWebApi.Dispose();
 #endif
 
 		LogManager.Info("Disposed!");
@@ -119,7 +119,7 @@ public class Plugin
 
 #if DEBUG
 			NullChecker.ValidateConfig();
-			REFrameworkWebAPI.Initialize();
+			REFrameworkWebApi.Initialize();
 #endif
 		}
 		catch(Exception exception)
@@ -145,20 +145,14 @@ public class Plugin
 
 	private static void OnImGuiDrawUi()
 	{
-		if(!IsInitialized)
-		{
-			return;
-		}
+		if(!IsInitialized) return;
 
 		ImGuiManager.Instance.Draw();
 	}
 
 	private static void OnImGuiRender()
 	{
-		if(!IsInitialized)
-		{
-			return;
-		}
+		if(!IsInitialized) return;
 
 		OverlayManager.Instance.Draw();
 	}

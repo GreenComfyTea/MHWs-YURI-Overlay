@@ -4,16 +4,16 @@ namespace YURI_Overlay;
 
 internal sealed class FileSync
 {
-	public readonly string pathFileName;
+	public readonly string PathFileName;
 
 	public FileSync(string pathFileName)
 	{
-		this.pathFileName = pathFileName;
+		this.PathFileName = pathFileName;
 	}
 
 	public string Read()
 	{
-		return File.Exists(this.pathFileName) ? this.ReadFromFile() : Constants.EMPTY_JSON;
+		return File.Exists(this.PathFileName) ? this.ReadFromFile() : Constants.EMPTY_JSON;
 	}
 
 	public bool Write(string json)
@@ -25,7 +25,7 @@ internal sealed class FileSync
 	{
 		try
 		{
-			File.Delete(this.pathFileName);
+			File.Delete(this.PathFileName);
 		}
 		catch(Exception exception)
 		{
@@ -37,7 +37,7 @@ internal sealed class FileSync
 	{
 		try
 		{
-			using var file = File.Open(this.pathFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+			using var file = File.Open(this.PathFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 			using StreamReader streamReader = new(file);
 			var content = streamReader.ReadToEnd();
 
@@ -55,9 +55,9 @@ internal sealed class FileSync
 	{
 		try
 		{
-			Directory.CreateDirectory(Path.GetDirectoryName(this.pathFileName)!);
+			Directory.CreateDirectory(Path.GetDirectoryName(this.PathFileName)!);
 
-			using var file = File.Open(this.pathFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
+			using var file = File.Open(this.PathFileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
 
 			using StreamWriter streamWriter = new(file, Encoding.UTF8);
 			streamWriter.AutoFlush = true;

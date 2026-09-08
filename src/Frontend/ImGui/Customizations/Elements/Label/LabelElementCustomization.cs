@@ -4,12 +4,12 @@ namespace YURI_Overlay;
 
 internal sealed class LabelElementCustomization : Customization
 {
-	public bool? Visible;
-	public string? Format;
-	public LabelElementSettingsCustomization Settings = new();
-	public OffsetCustomization Offset = new();
 	public ColorCustomization Color = new();
+	public string? Format;
+	public OffsetCustomization Offset = new();
+	public LabelElementSettingsCustomization Settings = new();
 	public LabelElementShadowCustomization Shadow = new();
+	public bool? Visible;
 
 	public bool RenderImGui(string? visibleName = "", string customizationName = "label", LabelElementCustomization? defaultCustomization = null)
 	{
@@ -22,9 +22,7 @@ internal sealed class LabelElementCustomization : Customization
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref this.Visible, defaultCustomization?.Visible);
 
 			if(this.Format is not null)
-			{
 				isChanged |= ImGuiHelper.ResettableInputText($"{localization.Format}##{customizationName}", ref this.Format, defaultValue: defaultCustomization?.Format);
-			}
 
 			isChanged |= this.Settings.RenderImGui(customizationName, defaultCustomization?.Settings);
 			isChanged |= this.Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
@@ -39,10 +37,7 @@ internal sealed class LabelElementCustomization : Customization
 
 	public void Reset(LabelElementCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Visible = defaultCustomization.Visible;
 		this.Format = defaultCustomization.Format;

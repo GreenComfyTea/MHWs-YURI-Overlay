@@ -6,16 +6,38 @@ namespace YURI_Overlay;
 
 internal sealed class MonsterManager : IDisposable
 {
-	private static readonly Lazy<MonsterManager> Lazy = new(() => new MonsterManager());
-
-	public static MonsterManager Instance => Lazy.Value;
+	private static readonly Lazy<MonsterManager> _lazy = new(() => new MonsterManager());
+	public Dictionary<EnemyCharacter, EndemicLifeEntity> EndemicLifeEntities = [];
 
 	public Dictionary<EnemyCharacter, LargeMonster> LargeMonsters = [];
 	public Dictionary<EnemyCharacter, SmallMonster> SmallMonsters = [];
-	public Dictionary<EnemyCharacter, EndemicLifeEntity> EndemicLifeEntities = [];
 
 	private MonsterManager()
 	{
+	}
+
+	public static MonsterManager Instance => _lazy.Value;
+
+	public void Dispose()
+	{
+		LogManager.Info("[MonsterManager] Disposing...");
+
+		foreach(var largeMonsterPair in this.LargeMonsters)
+		{
+			largeMonsterPair.Value.Dispose();
+		}
+
+		foreach(var smallMonsterPair in this.SmallMonsters)
+		{
+			smallMonsterPair.Value.Dispose();
+		}
+
+		foreach(var endemicLifeEntityPair in this.EndemicLifeEntities)
+		{
+			endemicLifeEntityPair.Value.Dispose();
+		}
+
+		LogManager.Info("[LargeMonster] Disposed!");
 	}
 
 	public void Initialize()
@@ -40,9 +62,7 @@ internal sealed class MonsterManager : IDisposable
 				&& customization.SmallMonsterUI.Enabled != true
 				&& customization.EndemicLifeUI.Enabled != true
 			)
-			{
 				return PreHookResult.Continue;
-			}
 
 			var enemyCharacterPtr = args[1];
 
@@ -246,27 +266,5 @@ internal sealed class MonsterManager : IDisposable
 
 			return PreHookResult.Continue;
 		}
-	}
-
-	public void Dispose()
-	{
-		LogManager.Info("[MonsterManager] Disposing...");
-
-		foreach(var largeMonsterPair in this.LargeMonsters)
-		{
-			largeMonsterPair.Value.Dispose();
-		}
-
-		foreach(var smallMonsterPair in this.SmallMonsters)
-		{
-			smallMonsterPair.Value.Dispose();
-		}
-
-		foreach(var endemicLifeEntityPair in this.EndemicLifeEntities)
-		{
-			endemicLifeEntityPair.Value.Dispose();
-		}
-
-		LogManager.Info("[LargeMonster] Disposed!");
 	}
 }

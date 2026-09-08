@@ -4,8 +4,8 @@ namespace YURI_Overlay;
 
 internal sealed class EndemicLifeUpdateDelaysCustomization : Customization
 {
-	public float? Name;
 	public float? ModelRadius;
+	public float? Name;
 
 	public bool RenderImGui(string? parentName = "", EndemicLifeUpdateDelaysCustomization? defaultCustomization = null)
 	{
@@ -29,10 +29,7 @@ internal sealed class EndemicLifeUpdateDelaysCustomization : Customization
 
 	public void Reset(EndemicLifeUpdateDelaysCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Name = defaultCustomization.Name;
 		this.ModelRadius = defaultCustomization.ModelRadius;

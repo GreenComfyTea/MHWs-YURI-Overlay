@@ -5,15 +5,14 @@ namespace YURI_Overlay;
 
 internal sealed class LargeMonsterStaminaComponent
 {
+	private readonly Func<LargeMonsterStaminaComponentCustomization?> _customizationAccessor;
 	private readonly LargeMonster _largeMonster;
+	private readonly BarElement _staminaBarElement;
+	private readonly LabelElement _staminaPercentageLabelElement;
+	private readonly BarElement _staminaTimerBarElement;
+	private readonly LabelElement _staminaTimerLabelElement;
 
 	private readonly LabelElement _staminaValueLabelElement;
-	private readonly LabelElement _staminaPercentageLabelElement;
-	private readonly BarElement _staminaBarElement;
-	private readonly LabelElement _staminaTimerLabelElement;
-	private readonly BarElement _staminaTimerBarElement;
-
-	private readonly Func<LargeMonsterStaminaComponentCustomization?> _customizationAccessor;
 
 	public LargeMonsterStaminaComponent(LargeMonster largeMonster, Func<LargeMonsterStaminaComponentCustomization?> customizationAccessor)
 	{
@@ -30,10 +29,7 @@ internal sealed class LargeMonsterStaminaComponent
 
 	public void Draw(ImDrawListPtr drawList, Vector2 position, float opacityScale = 1f)
 	{
-		if(!this._largeMonster.IsStaminaValid)
-		{
-			return;
-		}
+		if(!this._largeMonster.IsStaminaValid) return;
 
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
 

@@ -6,54 +6,56 @@ namespace YURI_Overlay;
 internal sealed class BarElement
 {
 	private readonly Func<BarElementCustomization?> _customizationAccessor;
+	private Vector2 _backgroundBottomRight = Vector2.Zero;
+	private uint _backgroundColorBottomLeft;
+	private uint _backgroundColorBottomRight;
 
-	private (OutlineStyleEnum, float, float, float, float, float, float, float, float, float) _cashingKeyByPosition1 = (OutlineStyleEnum.Inside, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f);
+	private uint _backgroundColorTopLeft;
+	private uint _backgroundColorTopRight;
+	private float _backgroundHeight;
+
+	private float _backgroundShiftX;
+	private float _backgroundShiftY;
+
+	private Vector2 _backgroundTopLeft = Vector2.Zero;
+
+	private float _backgroundWidth;
+
+	private (OutlineStyleEnum, float, float, float, float, float, float, float, float, float)
+		_cashingKeyByPosition1 = (OutlineStyleEnum.Inside, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f);
+
 	private (FillDirectionEnum, float, float, float) _cashingKeyByProgress2 = (FillDirectionEnum.LeftToRight, 0f, 0f, 0f);
+	private Vector2 _foregroundBottomRight = Vector2.Zero;
+	private uint _foregroundColorBottomLeft;
+	private uint _foregroundColorBottomRight;
+
+	private uint _foregroundColorTopLeft;
+	private uint _foregroundColorTopRight;
+	private float _foregroundHeight;
+
+	private float _foregroundShiftX;
+	private float _foregroundShiftY;
+
+	private Vector2 _foregroundTopLeft = Vector2.Zero;
+
+	private float _foregroundWidth;
+	private float _height;
+	private Vector2 _outlineBottomRight = Vector2.Zero;
+
+	private uint _outlineColor;
+	private float _outlineHeight;
 
 	private float _outlinePositionX;
 	private float _outlinePositionY;
 
+	private Vector2 _outlineTopLeft = Vector2.Zero;
+
 	private float _outlineWidth;
-	private float _outlineHeight;
 
 	private float _positionX;
 	private float _positionY;
 
 	private float _width;
-	private float _height;
-
-	private float _foregroundWidth;
-	private float _foregroundHeight;
-
-	private float _backgroundWidth;
-	private float _backgroundHeight;
-
-	private float _foregroundShiftX;
-	private float _foregroundShiftY;
-
-	private float _backgroundShiftX;
-	private float _backgroundShiftY;
-
-	private uint _backgroundColorTopLeft;
-	private uint _backgroundColorTopRight;
-	private uint _backgroundColorBottomRight;
-	private uint _backgroundColorBottomLeft;
-
-	private uint _foregroundColorTopLeft;
-	private uint _foregroundColorTopRight;
-	private uint _foregroundColorBottomRight;
-	private uint _foregroundColorBottomLeft;
-
-	private uint _outlineColor;
-
-	private Vector2 _backgroundTopLeft = Vector2.Zero;
-	private Vector2 _backgroundBottomRight = Vector2.Zero;
-
-	private Vector2 _foregroundTopLeft = Vector2.Zero;
-	private Vector2 _foregroundBottomRight = Vector2.Zero;
-
-	private Vector2 _outlineTopLeft = Vector2.Zero;
-	private Vector2 _outlineBottomRight = Vector2.Zero;
 
 	public BarElement()
 	{
@@ -69,17 +71,11 @@ internal sealed class BarElement
 	{
 		var customization = this._customizationAccessor();
 
-		if(customization?.Visible != true)
-		{
-			return;
-		}
+		if(customization?.Visible != true) return;
 
 		progress = Math.Clamp(progress, 0f, 1f);
 
-		if(customization.Settings.Inverted == true)
-		{
-			progress = 1 - progress;
-		}
+		if(customization.Settings.Inverted == true) progress = 1 - progress;
 
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
 
@@ -93,32 +89,29 @@ internal sealed class BarElement
 
 		// Background
 
-		drawList.AddRectFilledMultiColor(this._backgroundTopLeft, this._backgroundBottomRight, this._backgroundColorTopLeft, this._backgroundColorTopRight, this._backgroundColorBottomRight,
+		drawList.AddRectFilledMultiColor(this._backgroundTopLeft, this._backgroundBottomRight, this._backgroundColorTopLeft, this._backgroundColorTopRight,
+			this._backgroundColorBottomRight,
 			this._backgroundColorBottomLeft
 		);
 
 		// Foreground
 
-		drawList.AddRectFilledMultiColor(this._foregroundTopLeft, this._foregroundBottomRight, this._foregroundColorTopLeft, this._foregroundColorTopRight, this._foregroundColorBottomRight,
+		drawList.AddRectFilledMultiColor(this._foregroundTopLeft, this._foregroundBottomRight, this._foregroundColorTopLeft, this._foregroundColorTopRight,
+			this._foregroundColorBottomRight,
 			this._foregroundColorBottomLeft
 		);
 
 		// Outline
 
 		if(outline.Visible == true && outlineThickness > 0f)
-		{
 			drawList.AddRect(this._outlineTopLeft, this._outlineBottomRight, this._outlineColor, 0f, ImDrawFlags.None, outlineThickness);
-		}
 	}
 
 	private void UpdateByPosition1(Vector2 position, bool disableCaching = false)
 	{
 		var customization = this._customizationAccessor();
 
-		if(customization is null)
-		{
-			return;
-		}
+		if(customization is null) return;
 
 		var offset = customization.Offset;
 		var size = customization.Size;
@@ -147,10 +140,7 @@ internal sealed class BarElement
 		outlineThickness *= sizeScaleModifier;
 		outlineOffset *= sizeScaleModifier;
 
-		if(!disableCaching && cachingKey == this._cashingKeyByPosition1)
-		{
-			return;
-		}
+		if(!disableCaching && cachingKey == this._cashingKeyByPosition1) return;
 
 		this._cashingKeyByPosition1 = cachingKey;
 
@@ -210,19 +200,13 @@ internal sealed class BarElement
 	{
 		var customization = this._customizationAccessor();
 
-		if(customization is null)
-		{
-			return;
-		}
+		if(customization is null) return;
 
 		var fillDirection = customization.Settings.FillDirection ?? FillDirectionEnum.LeftToRight;
 
 		var cachingKey = (fillDirection, this._width, this._height, progress);
 
-		if(!disableCaching && cachingKey == this._cashingKeyByProgress2)
-		{
-			return;
-		}
+		if(!disableCaching && cachingKey == this._cashingKeyByProgress2) return;
 
 		this._cashingKeyByProgress2 = cachingKey;
 
@@ -276,10 +260,7 @@ internal sealed class BarElement
 	{
 		var customization = this._customizationAccessor();
 
-		if(customization is null)
-		{
-			return;
-		}
+		if(customization is null) return;
 
 		var colors = customization.Colors;
 		var backgroundColor = colors.Background;
@@ -348,10 +329,7 @@ internal sealed class BarElement
 
 		this._outlineColor = customization.Outline.Color.ColorInfo?.Abgr ?? 0xFF000000;
 
-		if(Utils.IsApproximatelyEqual(opacityScale, 1f))
-		{
-			return;
-		}
+		if(Utils.IsApproximatelyEqual(opacityScale, 1f)) return;
 
 		this._backgroundColorTopLeft = Utils.ScaleColorOpacityAbgr(this._backgroundColorTopLeft, opacityScale);
 		this._backgroundColorTopRight = Utils.ScaleColorOpacityAbgr(this._backgroundColorTopRight, opacityScale);

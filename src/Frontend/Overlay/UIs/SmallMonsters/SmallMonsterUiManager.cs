@@ -5,13 +5,24 @@ namespace YURI_Overlay;
 
 internal sealed class SmallMonsterUiManager : IDisposable
 {
-	private List<SmallMonster> _dynamicSmallMonsters = [];
-
 	private readonly List<Timer> _timers = [];
+	private List<SmallMonster> _dynamicSmallMonsters = [];
 
 	public SmallMonsterUiManager()
 	{
 		this.Initialize();
+	}
+
+	public void Dispose()
+	{
+		LogManager.Info("[SmallMonsterUiManager] Disposing...");
+
+		foreach(var timer in this._timers)
+		{
+			timer.Dispose();
+		}
+
+		LogManager.Info("[SmallMonsterUiManager] Disposed!");
 	}
 
 	~SmallMonsterUiManager()
@@ -31,18 +42,6 @@ internal sealed class SmallMonsterUiManager : IDisposable
 	public void Draw(ImDrawListPtr drawList)
 	{
 		this.DrawDynamicUi(drawList);
-	}
-
-	public void Dispose()
-	{
-		LogManager.Info("[SmallMonsterUiManager] Disposing...");
-
-		foreach(var timer in this._timers)
-		{
-			timer.Dispose();
-		}
-
-		LogManager.Info("[SmallMonsterUiManager] Disposed!");
 	}
 
 	private void InitializeTimers()
@@ -79,10 +78,7 @@ internal sealed class SmallMonsterUiManager : IDisposable
 		{
 			var smallMonster = smallMonsterPair.Value;
 
-			if(settings?.RenderDeadMonsters != true && !smallMonster.IsAlive)
-			{
-				continue;
-			}
+			if(settings?.RenderDeadMonsters != true && !smallMonster.IsAlive) continue;
 
 			newSmallMonsters.Add(smallMonster);
 		}
@@ -98,10 +94,7 @@ internal sealed class SmallMonsterUiManager : IDisposable
 	{
 		var customization = ConfigManager.Instance.ActiveConfig.Data.SmallMonsterUI;
 
-		if(customization?.Enabled != true)
-		{
-			return;
-		}
+		if(customization?.Enabled != true) return;
 
 		foreach(var smallMonster in this._dynamicSmallMonsters)
 		{

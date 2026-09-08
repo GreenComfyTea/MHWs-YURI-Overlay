@@ -4,13 +4,13 @@ namespace YURI_Overlay;
 
 internal sealed class LargeMonsterMapPinUi
 {
-	private readonly LargeMonster _largeMonster;
 	private readonly Func<LargeMonsterMapPinUiCustomization?> _customizationAccessor;
+	private readonly LargeMonsterHealthComponent _healthComponent;
+	private readonly LargeMonster _largeMonster;
 
 	private readonly LabelElement _nameLabelElement;
-	private readonly LargeMonsterHealthComponent _healthComponent;
-	private readonly LargeMonsterStaminaComponent _staminaComponent;
 	private readonly LargeMonsterRageComponent _rageComponent;
+	private readonly LargeMonsterStaminaComponent _staminaComponent;
 
 	public LargeMonsterMapPinUi(LargeMonster largeMonster)
 	{
@@ -27,10 +27,7 @@ internal sealed class LargeMonsterMapPinUi
 	{
 		var customization = this._customizationAccessor();
 
-		if(customization?.Enabled != true)
-		{
-			return;
-		}
+		if(customization?.Enabled != true) return;
 
 		var anchoredPosition = customization.Position;
 		var positionScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.PositionScaleModifier ?? 1f;

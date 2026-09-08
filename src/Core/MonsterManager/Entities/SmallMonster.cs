@@ -7,38 +7,37 @@ namespace YURI_Overlay;
 
 internal sealed class SmallMonster : IDisposable
 {
-	public EnemyCharacter EnemyCharacter;
-	public cEnemyContext EnemyContext;
+	private readonly List<Timer> _timers = [];
+	private bool _isUpdateHealthPending = true;
+	private bool _isUpdateMissionBeaconOffsetPending = true;
+	private bool _isUpdateModelRadiusPending = true;
+
+	private bool _isUpdateNamePending = true;
+
+	private Method? _nameStringMethod;
+
+	private Type? _stringType;
+	public float Distance;
 
 	public SmallMonsterDynamicUi? DynamicUi;
+	public EnemyCharacter EnemyCharacter;
+	public cEnemyContext EnemyContext;
+	public float Health = -1;
+	public float HealthPercentage = -1;
 
 	public EnemyDef.ID Id = 0;
-	public EnemyDef.ROLE_ID RoleId = 0;
-	public EnemyDef.LEGENDARY_ID LegendaryId = 0;
 
-	public string Name = "Small Monster";
+	public bool IsAlive = true;
+	public EnemyDef.LEGENDARY_ID LegendaryId = 0;
+	public float MaxHealth = -1;
 
 	public Vector3 MissionBeaconOffset = Vector3.Zero;
 	public float ModelRadius;
 
+	public string Name = "Small Monster";
+
 	public Vector3 Position = Vector3.Zero;
-	public float Distance;
-
-	public bool IsAlive = true;
-	public float Health = -1;
-	public float MaxHealth = -1;
-	public float HealthPercentage = -1;
-
-	private bool _isUpdateNamePending = true;
-	private bool _isUpdateMissionBeaconOffsetPending = true;
-	private bool _isUpdateModelRadiusPending = true;
-	private bool _isUpdateHealthPending = true;
-
-	private readonly List<Timer> _timers = [];
-
-	private Type? _stringType;
-
-	private Method? _nameStringMethod;
+	public EnemyDef.ROLE_ID RoleId = 0;
 
 	public SmallMonster(EnemyCharacter enemyCharacter, cEnemyContext enemyContext)
 	{
@@ -62,6 +61,22 @@ internal sealed class SmallMonster : IDisposable
 		}
 	}
 
+	public void Dispose()
+	{
+		LogManager.Info($"[SmallMonster] Disposing {this.Name}...");
+
+		foreach(var timer in this._timers)
+		{
+			timer.Dispose();
+		}
+
+		this._timers.Clear();
+
+		ConfigManager.Instance.AnyConfigChanged -= this.OnAnyConfigChanged;
+
+		LogManager.Info($"[SmallMonster] {this.Name} Disposed!");
+	}
+
 	public void Update()
 	{
 		try
@@ -79,22 +94,6 @@ internal sealed class SmallMonster : IDisposable
 		{
 			LogManager.Error(exception);
 		}
-	}
-
-	public void Dispose()
-	{
-		LogManager.Info($"[SmallMonster] Disposing {this.Name}...");
-
-		foreach(var timer in this._timers)
-		{
-			timer.Dispose();
-		}
-
-		this._timers.Clear();
-
-		ConfigManager.Instance.AnyConfigChanged -= this.OnAnyConfigChanged;
-
-		LogManager.Info($"[SmallMonster] {this.Name} Disposed!");
 	}
 
 	private void Initialize()
@@ -203,14 +202,11 @@ internal sealed class SmallMonster : IDisposable
 	{
 		try
 		{
-			if(!this._isUpdateNamePending)
-			{
-				return;
-			}
+			if(!this._isUpdateNamePending) return;
 
 			this._isUpdateNamePending = false;
 
-			var name = (string?) this._nameStringMethod?.InvokeBoxed(this._stringType, null, [this.Id, this.RoleId, this.LegendaryId]);
+			var name = (string?)this._nameStringMethod?.InvokeBoxed(this._stringType, null, [this.Id, this.RoleId, this.LegendaryId]);
 
 			if(name is null)
 			{
@@ -232,10 +228,7 @@ internal sealed class SmallMonster : IDisposable
 	{
 		try
 		{
-			if(!this._isUpdateMissionBeaconOffsetPending)
-			{
-				return;
-			}
+			if(!this._isUpdateMissionBeaconOffsetPending) return;
 
 			this._isUpdateMissionBeaconOffsetPending = false;
 
@@ -262,10 +255,7 @@ internal sealed class SmallMonster : IDisposable
 	{
 		try
 		{
-			if(!this._isUpdateModelRadiusPending)
-			{
-				return;
-			}
+			if(!this._isUpdateModelRadiusPending) return;
 
 			this._isUpdateModelRadiusPending = false;
 
@@ -282,10 +272,7 @@ internal sealed class SmallMonster : IDisposable
 	{
 		try
 		{
-			if(!this._isUpdateHealthPending)
-			{
-				return;
-			}
+			if(!this._isUpdateHealthPending) return;
 
 			this._isUpdateHealthPending = false;
 
@@ -301,10 +288,7 @@ internal sealed class SmallMonster : IDisposable
 			this.Health = healthManager.Health;
 			this.MaxHealth = healthManager.MaxHealth;
 
-			if(!Utils.IsApproximatelyEqual(this.MaxHealth, 0f))
-			{
-				this.HealthPercentage = this.Health / this.MaxHealth;
-			}
+			if(!Utils.IsApproximatelyEqual(this.MaxHealth, 0f)) this.HealthPercentage = this.Health / this.MaxHealth;
 
 			this.IsAlive = !Utils.IsApproximatelyEqual(this.Health, 0f);
 		}

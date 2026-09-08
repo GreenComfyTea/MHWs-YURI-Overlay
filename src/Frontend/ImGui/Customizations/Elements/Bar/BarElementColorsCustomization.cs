@@ -4,8 +4,8 @@ namespace YURI_Overlay;
 
 internal sealed class BarElementColorsCustomization : Customization
 {
-	public GradientColorCustomization Foreground = new();
 	public GradientColorCustomization Background = new();
+	public GradientColorCustomization Foreground = new();
 
 	public bool RenderImGui(string? parentName = "", BarElementColorsCustomization? defaultCustomization = null)
 	{
@@ -27,10 +27,7 @@ internal sealed class BarElementColorsCustomization : Customization
 
 	public void Reset(BarElementColorsCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Foreground.Reset(defaultCustomization.Foreground);
 		this.Background.Reset(defaultCustomization.Background);

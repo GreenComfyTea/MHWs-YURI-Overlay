@@ -4,13 +4,13 @@ namespace YURI_Overlay;
 
 internal sealed class LocalizationWatcher : IDisposable
 {
-	private readonly FileSystemWatcher? _watcher;
 	private readonly Dictionary<string, DateTime> _lastEventTimes = [];
 
-	private bool _disabled;
+	private readonly bool _stub;
+	private readonly FileSystemWatcher? _watcher;
 	private Timer? _delayedEnableTimer;
 
-	private readonly bool _stub;
+	private bool _disabled;
 
 	public LocalizationWatcher(bool stub)
 	{
@@ -23,9 +23,10 @@ internal sealed class LocalizationWatcher : IDisposable
 
 		try
 		{
-			this._watcher = new FileSystemWatcher(Constants.LocalizationsPath);
+			this._watcher = new FileSystemWatcher(Constants.LOCALIZATIONS_PATH);
 
-			this._watcher.NotifyFilter = NotifyFilters.Attributes | NotifyFilters.CreationTime | NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.Security | NotifyFilters.Size;
+			this._watcher.NotifyFilter = NotifyFilters.Attributes | NotifyFilters.CreationTime | NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.Security |
+			                             NotifyFilters.Size;
 
 			this._watcher.Changed += this.OnLocalizationFileChanged;
 			this._watcher.Created += this.OnLocalizationFileCreated;
@@ -44,6 +45,16 @@ internal sealed class LocalizationWatcher : IDisposable
 		}
 	}
 
+	public void Dispose()
+	{
+		if(!this._stub) LogManager.Info("[LocalizationWatcher] Disposing...");
+
+		this._delayedEnableTimer?.Dispose();
+		this._watcher?.Dispose();
+
+		if(!this._stub) LogManager.Info("[LocalizationWatcher] Disposed!");
+	}
+
 	~LocalizationWatcher()
 	{
 		this.Dispose();
@@ -55,21 +66,15 @@ internal sealed class LocalizationWatcher : IDisposable
 		this._delayedEnableTimer?.Dispose();
 		this._delayedEnableTimer = null;
 
-		if(!this._stub)
-		{
-			LogManager.Info("[LocalizationWatcher] Enabled!");
-		}
+		if(!this._stub) LogManager.Info("[LocalizationWatcher] Enabled!");
 	}
 
 	public void DelayedEnable()
 	{
 		this._delayedEnableTimer?.Dispose();
-		this._delayedEnableTimer = Timers.SetTimeout(this.Enable, Constants.ReenableWatcherDelayMilliseconds);
+		this._delayedEnableTimer = Timers.SetTimeout(this.Enable, Constants.REENABLE_WATCHER_DELAY_MILLISECONDS);
 
-		if(!this._stub)
-		{
-			LogManager.Info("[LocalizationWatcher] Will enable after a delay...");
-		}
+		if(!this._stub) LogManager.Info("[LocalizationWatcher] Will enable after a delay...");
 	}
 
 	public void Disable()
@@ -77,62 +82,28 @@ internal sealed class LocalizationWatcher : IDisposable
 		this._disabled = true;
 		this._delayedEnableTimer?.Dispose();
 
-		if(!this._stub)
-		{
-			LogManager.Info("[LocalizationWatcher] Temporarily disabled!");
-		}
-	}
-
-	public void Dispose()
-	{
-		if(!this._stub)
-		{
-			LogManager.Info("[LocalizationWatcher] Disposing...");
-		}
-
-		this._delayedEnableTimer?.Dispose();
-		this._watcher?.Dispose();
-
-		if(!this._stub)
-		{
-			LogManager.Info("[LocalizationWatcher] Disposed!");
-		}
+		if(!this._stub) LogManager.Info("[LocalizationWatcher] Temporarily disabled!");
 	}
 
 	private void OnLocalizationFileChanged(object? sender, FileSystemEventArgs e)
 	{
 		try
 		{
-			if(this._disabled)
-			{
-				return;
-			}
+			if(this._disabled) return;
 
 			var name = Path.GetFileNameWithoutExtension(e.Name);
 
-			if(name is null)
-			{
-				return;
-			}
+			if(name is null) return;
 
 			var eventTime = File.GetLastWriteTime(e.FullPath);
 
-			if(!this._lastEventTimes.ContainsKey(name))
-			{
-				this._lastEventTimes[name] = DateTime.MinValue;
-			}
+			if(!this._lastEventTimes.ContainsKey(name)) this._lastEventTimes[name] = DateTime.MinValue;
 
-			if(eventTime.Ticks - this._lastEventTimes[name].Ticks < Constants.DuplicateEventThresholdTicks)
-			{
-				return;
-			}
+			if(eventTime.Ticks - this._lastEventTimes[name].Ticks < Constants.DUPLICATE_EVENT_THRESHOLD_TICKS) return;
 
 			LogManager.Info($"Localization \"{name}\": Changed.");
 
-			if(LocalizationManager.Instance.Localizations.ContainsKey(name))
-			{
-				return;
-			}
+			if(LocalizationManager.Instance.Localizations.ContainsKey(name)) return;
 
 			this._lastEventTimes[name] = eventTime;
 		}
@@ -146,10 +117,7 @@ internal sealed class LocalizationWatcher : IDisposable
 	{
 		try
 		{
-			if(this._disabled)
-			{
-				return;
-			}
+			if(this._disabled) return;
 
 			var name = Path.GetFileNameWithoutExtension(e.Name);
 
@@ -174,10 +142,7 @@ internal sealed class LocalizationWatcher : IDisposable
 	{
 		try
 		{
-			if(this._disabled)
-			{
-				return;
-			}
+			if(this._disabled) return;
 
 			var name = Path.GetFileNameWithoutExtension(e.Name);
 
@@ -193,10 +158,7 @@ internal sealed class LocalizationWatcher : IDisposable
 	{
 		try
 		{
-			if(this._disabled)
-			{
-				return;
-			}
+			if(this._disabled) return;
 
 			var oldName = Path.GetFileNameWithoutExtension(e.OldName);
 			var name = Path.GetFileNameWithoutExtension(e.Name);
@@ -211,10 +173,7 @@ internal sealed class LocalizationWatcher : IDisposable
 
 	private void OnLocalizationFileError(object? sender, ErrorEventArgs e)
 	{
-		if(this._disabled)
-		{
-			return;
-		}
+		if(this._disabled) return;
 
 		LogManager.Info("[LocalizationWatcher] Unknown error.");
 	}

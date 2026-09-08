@@ -5,13 +5,24 @@ namespace YURI_Overlay;
 
 internal sealed class DamageMeterUiManager : IDisposable
 {
-	private List<DamageMeterEntity> _damageMeterEntities = [];
-
 	private readonly List<Timer> _timers = [];
+	private List<DamageMeterEntity> _damageMeterEntities = [];
 
 	public DamageMeterUiManager()
 	{
 		this.Initialize();
+	}
+
+	public void Dispose()
+	{
+		LogManager.Info("[DamageMeterUiManager] Disposing...");
+
+		foreach(var timer in this._timers)
+		{
+			timer.Dispose();
+		}
+
+		LogManager.Info("[DamageMeterUiManager] Disposed!");
 	}
 
 	~DamageMeterUiManager()
@@ -31,18 +42,6 @@ internal sealed class DamageMeterUiManager : IDisposable
 	public void Draw(ImDrawListPtr drawList)
 	{
 		//DrawStaticUi(drawList);
-	}
-
-	public void Dispose()
-	{
-		LogManager.Info("[DamageMeterUiManager] Disposing...");
-
-		foreach(var timer in this._timers)
-		{
-			timer.Dispose();
-		}
-
-		LogManager.Info("[DamageMeterUiManager] Disposed!");
 	}
 
 	private void InitializeTimers()

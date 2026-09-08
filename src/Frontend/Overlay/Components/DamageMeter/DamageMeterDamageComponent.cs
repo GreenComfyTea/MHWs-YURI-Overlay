@@ -5,13 +5,12 @@ namespace YURI_Overlay;
 
 internal sealed class DamageMeterDamageComponent
 {
+	private readonly Func<DamageMeterDamageComponentCustomization?> _customizationAccessor;
+	private readonly BarElement _damageBarElement;
 	private readonly DamageMeterEntity _damageMeterEntity;
+	private readonly LabelElement _damagePercentageLabelElement;
 
 	private readonly LabelElement _damageValueLabelElement;
-	private readonly LabelElement _damagePercentageLabelElement;
-	private readonly BarElement _damageBarElement;
-
-	private readonly Func<DamageMeterDamageComponentCustomization?> _customizationAccessor;
 
 	public DamageMeterDamageComponent(DamageMeterEntity damageMeterEntity, Func<DamageMeterDamageComponentCustomization?> customizationAccessor)
 	{
@@ -27,10 +26,7 @@ internal sealed class DamageMeterDamageComponent
 	{
 		var customization = this._customizationAccessor();
 
-		if(customization?.Visible != true)
-		{
-			return;
-		}
+		if(customization?.Visible != true) return;
 
 		var sizeScaleModifier = ConfigManager.Instance.ActiveConfig.Data.GlobalSettings.GlobalScale.SizeScaleModifier ?? 1f;
 

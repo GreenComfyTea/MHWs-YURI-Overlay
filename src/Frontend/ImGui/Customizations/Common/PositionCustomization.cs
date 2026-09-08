@@ -27,10 +27,7 @@ internal sealed class PositionCustomization : Customization
 
 	public void Reset(PositionCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.X = defaultCustomization.X;
 		this.Y = defaultCustomization.Y;

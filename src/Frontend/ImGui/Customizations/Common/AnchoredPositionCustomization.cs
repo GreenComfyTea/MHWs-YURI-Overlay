@@ -5,16 +5,15 @@ namespace YURI_Overlay;
 
 internal sealed class AnchoredPositionCustomization : Customization
 {
+	private int? _anchorIndex;
 	public float? X;
 	public float? Y;
-
-	private int? _anchorIndex;
 
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public AnchorEnum? Anchor
 	{
-		get => this._anchorIndex.HasValue ? (AnchorEnum) this._anchorIndex.Value : null;
-		set => this._anchorIndex = value.HasValue ? (int) value.Value : null;
+		get => this._anchorIndex.HasValue ? (AnchorEnum)this._anchorIndex.Value : null;
+		set => this._anchorIndex = value.HasValue ? (int)value.Value : null;
 	}
 
 	public bool RenderImGui(string? parentName = "", AnchoredPositionCustomization? defaultCustomization = null)
@@ -29,7 +28,9 @@ internal sealed class AnchoredPositionCustomization : Customization
 		{
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.X}##{customizationName}", ref this.X, 0.1f, -8192f, 8192f, "%.1f", defaultCustomization?.X);
 			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.Y}##{customizationName}", ref this.Y, 0.1f, -8192f, 8192f, "%.1f", defaultCustomization?.Y);
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Anchor}##{customizationName}", ref this._anchorIndex, localizationHelper.Anchors, defaultCustomization?._anchorIndex);
+
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Anchor}##{customizationName}", ref this._anchorIndex, localizationHelper.Anchors,
+				defaultCustomization?._anchorIndex);
 
 			ImGui.TreePop();
 		}
@@ -39,10 +40,7 @@ internal sealed class AnchoredPositionCustomization : Customization
 
 	public void Reset(AnchoredPositionCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.X = defaultCustomization.X;
 		this.Y = defaultCustomization.Y;

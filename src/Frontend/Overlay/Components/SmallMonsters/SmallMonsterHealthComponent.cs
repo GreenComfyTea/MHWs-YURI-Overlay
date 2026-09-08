@@ -5,13 +5,12 @@ namespace YURI_Overlay;
 
 internal sealed class SmallMonsterHealthComponent
 {
-	private readonly SmallMonster _smallMonster;
+	private readonly Func<SmallMonsterHealthComponentCustomization?> _customizationAccessor;
+	private readonly BarElement _healthBarElement;
+	private readonly LabelElement _healthPercentageLabelElement;
 
 	private readonly LabelElement _healthValueLabelElement;
-	private readonly LabelElement _healthPercentageLabelElement;
-	private readonly BarElement _healthBarElement;
-
-	private readonly Func<SmallMonsterHealthComponentCustomization?> _customizationAccessor;
+	private readonly SmallMonster _smallMonster;
 
 	public SmallMonsterHealthComponent(SmallMonster smallMonster, Func<SmallMonsterHealthComponentCustomization?> customizationAccessor)
 	{

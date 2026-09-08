@@ -5,14 +5,14 @@ namespace YURI_Overlay;
 internal sealed class LargeMonsterDynamicUiCustomization : Customization
 {
 	public bool? Enabled;
-	public LargeMonsterDynamicUiSettingsCustomization Settings = new();
-	public WorldOffsetCustomization WorldOffset = new();
-	public OffsetCustomization Offset = new();
+	public LargeMonsterHealthComponentCustomization Health = new();
 
 	public LabelElementCustomization NameLabel = new();
-	public LargeMonsterHealthComponentCustomization Health = new();
-	public LargeMonsterStaminaComponentCustomization Stamina = new();
+	public OffsetCustomization Offset = new();
 	public LargeMonsterRageComponentCustomization Rage = new();
+	public LargeMonsterDynamicUiSettingsCustomization Settings = new();
+	public LargeMonsterStaminaComponentCustomization Stamina = new();
+	public WorldOffsetCustomization WorldOffset = new();
 
 	public bool RenderImGui(string parentName = "", LargeMonsterDynamicUiCustomization? defaultCustomization = null)
 	{
@@ -41,10 +41,7 @@ internal sealed class LargeMonsterDynamicUiCustomization : Customization
 
 	public void Reset(LargeMonsterDynamicUiCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Enabled = defaultCustomization.Enabled;
 		this.Settings.Reset(defaultCustomization.Settings);

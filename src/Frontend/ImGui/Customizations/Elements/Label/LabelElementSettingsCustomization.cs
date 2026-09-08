@@ -7,15 +7,15 @@ internal sealed class LabelElementSettingsCustomization : Customization
 {
 	private int? _alignmentIndex;
 
+	public float? FontSize;
+	public float? MaxWidth;
+
 	[JsonConverter(typeof(JsonStringEnumConverter))]
 	public AnchorEnum? Alignment
 	{
-		get => this._alignmentIndex.HasValue ? (AnchorEnum) this._alignmentIndex.Value : null;
-		set => this._alignmentIndex = value.HasValue ? (int) value.Value : null;
+		get => this._alignmentIndex.HasValue ? (AnchorEnum)this._alignmentIndex.Value : null;
+		set => this._alignmentIndex = value.HasValue ? (int)value.Value : null;
 	}
-
-	public float? FontSize;
-	public float? MaxWidth;
 
 	public bool RenderImGui(string? parentName = "", LabelElementSettingsCustomization? defaultCustomization = null)
 	{
@@ -29,8 +29,12 @@ internal sealed class LabelElementSettingsCustomization : Customization
 		{
 			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Alignment}##{customizationName}", ref this._alignmentIndex, localizationHelper.Anchors,
 				defaultCustomization?._alignmentIndex);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.FontSize}##{customizationName}", ref this.FontSize, 0.1f, 1f, 128f, "%.1f", defaultCustomization?.FontSize);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MaxWidth}##{customizationName}", ref this.MaxWidth, 0.1f, 0f, 4096f, "%.1f", defaultCustomization?.MaxWidth);
+
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.FontSize}##{customizationName}", ref this.FontSize, 0.1f, 1f, 128f, "%.1f",
+				defaultCustomization?.FontSize);
+
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MaxWidth}##{customizationName}", ref this.MaxWidth, 0.1f, 0f, 4096f, "%.1f",
+				defaultCustomization?.MaxWidth);
 
 			ImGui.TreePop();
 		}
@@ -40,10 +44,7 @@ internal sealed class LabelElementSettingsCustomization : Customization
 
 	public void Reset(LabelElementSettingsCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Alignment = defaultCustomization.Alignment;
 		this.FontSize = defaultCustomization.FontSize;

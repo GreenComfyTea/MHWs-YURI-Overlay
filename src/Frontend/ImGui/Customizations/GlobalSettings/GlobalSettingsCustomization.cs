@@ -4,10 +4,9 @@ namespace YURI_Overlay;
 
 internal sealed class GlobalSettingsCustomization : Customization
 {
-	public string? Localization = null;
-
 	//public GlobalFontsCustomization GlobalFonts = new();
 	public GlobalScaleCustomization GlobalScale = new();
+	public string? Localization = null;
 	public PerformanceCustomization Performance = new();
 
 	public bool RenderImGui(string? parentName = "", GlobalSettingsCustomization? defaultCustomization = null)
@@ -32,10 +31,7 @@ internal sealed class GlobalSettingsCustomization : Customization
 
 	public void Reset(GlobalSettingsCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.GlobalScale.Reset(defaultCustomization.GlobalScale);
 		this.Performance.Reset(defaultCustomization.Performance);

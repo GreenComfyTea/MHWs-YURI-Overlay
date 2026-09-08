@@ -4,12 +4,12 @@ namespace YURI_Overlay;
 
 internal sealed class BarElementCustomization : Customization
 {
-	public bool? Visible;
-	public BarElementSettingsCustomization Settings = new();
-	public OffsetCustomization Offset = new();
-	public SizeCustomization Size = new();
 	public BarElementColorsCustomization Colors = new();
+	public OffsetCustomization Offset = new();
 	public BarElementOutlineCustomization Outline = new();
+	public BarElementSettingsCustomization Settings = new();
+	public SizeCustomization Size = new();
+	public bool? Visible;
 
 	public bool RenderImGui(string? visibleName = "", string customizationName = "bar", BarElementCustomization? defaultCustomization = null)
 	{
@@ -35,10 +35,7 @@ internal sealed class BarElementCustomization : Customization
 
 	public void Reset(BarElementCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Visible = defaultCustomization.Visible;
 		this.Settings.Reset(defaultCustomization.Settings);

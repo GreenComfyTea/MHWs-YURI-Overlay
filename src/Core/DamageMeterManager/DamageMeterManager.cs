@@ -6,9 +6,9 @@ namespace YURI_Overlay;
 
 internal sealed class DamageMeterManager : IDisposable
 {
-	private static readonly Lazy<DamageMeterManager> Lazy = new(() => new DamageMeterManager());
+	private static readonly Lazy<DamageMeterManager> _lazy = new(() => new DamageMeterManager());
 
-	public static DamageMeterManager Instance => Lazy.Value;
+	public static List<ulong> ProcessedHitInfos = [];
 
 	public LocalPlayer? LocalPlayer;
 	public Dictionary<EnemyCharacter, OtherPlayer> OtherPlayers = [];
@@ -16,21 +16,7 @@ internal sealed class DamageMeterManager : IDisposable
 
 	public TotalDamageEntity TotalDamage = new();
 
-	public void Initialize()
-	{
-		LogManager.Info("[DamageMeterManager] Initializing...");
-
-		this.InitializeLocalPlayer();
-
-		PlayerManager.Instance.MasterPlayerChanged += this.OnMasterPlayerChanged;
-
-		var typeDef = TDB.Get().GetType("app.cEnemyStockDamage");
-		var method = typeDef.GetMethod("calcPreStockDamage");
-		var preHook = method.AddHook(false);
-		//preHook.AddPre(OnPre);
-
-		LogManager.Info("[DamageMeterManager] Initialized!");
-	}
+	public static DamageMeterManager Instance => _lazy.Value;
 
 	public void Dispose()
 	{
@@ -53,6 +39,22 @@ internal sealed class DamageMeterManager : IDisposable
 		LogManager.Info("[DamageMeterManager] Disposed!");
 	}
 
+	public void Initialize()
+	{
+		LogManager.Info("[DamageMeterManager] Initializing...");
+
+		this.InitializeLocalPlayer();
+
+		PlayerManager.Instance.MasterPlayerChanged += this.OnMasterPlayerChanged;
+
+		var typeDef = TDB.Get().GetType("app.cEnemyStockDamage");
+		var method = typeDef.GetMethod("calcPreStockDamage");
+		var preHook = method.AddHook(false);
+		//preHook.AddPre(OnPre);
+
+		LogManager.Info("[DamageMeterManager] Initialized!");
+	}
+
 	public void Update()
 	{
 		this.LocalPlayer?.Update();
@@ -72,15 +74,9 @@ internal sealed class DamageMeterManager : IDisposable
 	{
 		var playerManagerMasterPlayer = PlayerManager.Instance.MasterPlayer;
 
-		if(playerManagerMasterPlayer is null)
-		{
-			return;
-		}
+		if(playerManagerMasterPlayer is null) return;
 
-		if(this.LocalPlayer is not null && this.LocalPlayer.PlayerManageInfo == playerManagerMasterPlayer)
-		{
-			return;
-		}
+		if(this.LocalPlayer is not null && this.LocalPlayer.PlayerManageInfo == playerManagerMasterPlayer) return;
 
 		this.LocalPlayer = new LocalPlayer(playerManagerMasterPlayer);
 	}
@@ -103,8 +99,6 @@ internal sealed class DamageMeterManager : IDisposable
 		}
 	}
 
-	public static List<ulong> processedHitInfos = [];
-
 	[MethodHook(typeof(HitInfo), nameof(HitInfo.getActualAttackOwner), MethodHookType.Pre)]
 	public static PreHookResult OnPreCopy(Span<ulong> args)
 	{
@@ -121,12 +115,9 @@ internal sealed class DamageMeterManager : IDisposable
 
 		var hitInfo = hitInfoManagedObject.As<HitInfo>();
 
-		if(processedHitInfos.Contains(hitInfoPtr))
-		{
-			return PreHookResult.Continue;
-		}
+		if(ProcessedHitInfos.Contains(hitInfoPtr)) return PreHookResult.Continue;
 
-		processedHitInfos.Add(hitInfoPtr);
+		ProcessedHitInfos.Add(hitInfoPtr);
 
 		LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] hitInfo.distance: {hitInfo.AttackData._Attack}");
 
@@ -145,10 +136,7 @@ internal sealed class DamageMeterManager : IDisposable
 
 		try
 		{
-			if(args[5] != 0)
-			{
-				return PreHookResult.Continue;
-			}
+			if(args[5] != 0) return PreHookResult.Continue;
 
 			LogManager.Debug($"[DamageMeterManager.OnPreEnemyStockDamage] Called {args.Length}");
 

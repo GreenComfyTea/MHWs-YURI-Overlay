@@ -8,36 +8,23 @@ namespace YURI_Overlay;
 
 internal sealed class PlayerManager : IDisposable
 {
-	private static readonly Lazy<PlayerManager> Lazy = new(() => new PlayerManager());
-	public static PlayerManager Instance => Lazy.Value;
-
-	public Vector3 Position = Vector3.Zero;
-
-	public event EventHandler MasterPlayerChanged = delegate { };
-
-	public cPlayerManageInfo? MasterPlayer;
+	private static readonly Lazy<PlayerManager> _lazy = new(() => new PlayerManager());
 
 	private readonly List<Timer> _timers = [];
 
+	private bool _isUpdatePending = true;
+
 	private HunterCharacter? _masterPlayerCharacter;
 
-	private bool _isUpdatePending = true;
+	public cPlayerManageInfo? MasterPlayer;
+
+	public Vector3 Position = Vector3.Zero;
 
 	private PlayerManager()
 	{
 	}
 
-	public void Initialize()
-	{
-		LogManager.Info("[PlayerManager] Initializing...");
-
-		this.GameUpdate();
-		this.InitializeTimers();
-
-		ConfigManager.Instance.AnyConfigChanged += this.OnAnyConfigChanged;
-
-		LogManager.Info("[PlayerManager] Initialized!");
-	}
+	public static PlayerManager Instance => _lazy.Value;
 
 	public void Dispose()
 	{
@@ -53,6 +40,20 @@ internal sealed class PlayerManager : IDisposable
 		ConfigManager.Instance.AnyConfigChanged -= this.OnAnyConfigChanged;
 
 		LogManager.Info("[PlayerManager] Disposed!");
+	}
+
+	public event EventHandler MasterPlayerChanged = delegate { };
+
+	public void Initialize()
+	{
+		LogManager.Info("[PlayerManager] Initializing...");
+
+		this.GameUpdate();
+		this.InitializeTimers();
+
+		ConfigManager.Instance.AnyConfigChanged += this.OnAnyConfigChanged;
+
+		LogManager.Info("[PlayerManager] Initialized!");
 	}
 
 	private void InitializeTimers()
@@ -81,10 +82,8 @@ internal sealed class PlayerManager : IDisposable
 			this.Update();
 
 			if(this._masterPlayerCharacter is null)
-			{
 				//LogManager.Warn("[PlayerManager.GameUpdate] No master player character");
 				return;
-			}
 
 			var playerPosition = this._masterPlayerCharacter.Pos;
 
@@ -109,10 +108,7 @@ internal sealed class PlayerManager : IDisposable
 	{
 		try
 		{
-			if(!this._isUpdatePending)
-			{
-				return;
-			}
+			if(!this._isUpdatePending) return;
 
 			this._isUpdatePending = false;
 

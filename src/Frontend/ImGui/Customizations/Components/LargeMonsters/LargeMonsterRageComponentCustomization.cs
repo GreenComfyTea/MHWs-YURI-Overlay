@@ -4,13 +4,13 @@ namespace YURI_Overlay;
 
 internal sealed class LargeMonsterRageComponentCustomization : Customization
 {
-	public bool? Visible;
-	public OffsetCustomization Offset = new();
-	public LabelElementCustomization ValueLabel = new();
-	public LabelElementCustomization PercentageLabel = new();
 	public BarElementCustomization Bar = new();
-	public LabelElementCustomization TimerLabel = new();
+	public OffsetCustomization Offset = new();
+	public LabelElementCustomization PercentageLabel = new();
 	public BarElementCustomization TimerBar = new();
+	public LabelElementCustomization TimerLabel = new();
+	public LabelElementCustomization ValueLabel = new();
+	public bool? Visible;
 
 	public bool RenderImGui(string parentName = "", LargeMonsterRageComponentCustomization? defaultCustomization = null)
 	{
@@ -37,10 +37,7 @@ internal sealed class LargeMonsterRageComponentCustomization : Customization
 
 	public void Reset(LargeMonsterRageComponentCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Visible = defaultCustomization.Visible;
 		this.Offset.Reset(defaultCustomization.Offset);

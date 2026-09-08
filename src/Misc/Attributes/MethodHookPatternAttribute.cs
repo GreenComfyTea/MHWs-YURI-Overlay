@@ -5,11 +5,7 @@ namespace YURI_Overlay;
 
 internal sealed class MethodHookPatternAttribute : Attribute
 {
-	private static readonly List<IDisposable> ActiveHooks = [];
-
-	public Type DeclaringType { get; }
-	public string MethodSignaturePattern { get; }
-	public MethodHookType HookType { get; }
+	private static readonly List<IDisposable> _activeHooks = [];
 
 	public MethodHookPatternAttribute(Type declaringType, string methodSignaturePattern, MethodHookType type)
 	{
@@ -18,14 +14,18 @@ internal sealed class MethodHookPatternAttribute : Attribute
 		this.HookType = type;
 	}
 
+	public Type DeclaringType { get; }
+	public string MethodSignaturePattern { get; }
+	public MethodHookType HookType { get; }
+
 	public static void Initialize()
 	{
 		foreach(
 			var method in Assembly
-						  .GetExecutingAssembly()
-						  .GetTypes()
-						  .SelectMany(type => type.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
-						  .Where(method => method.GetCustomAttributes<MethodHookPatternAttribute>().Any())
+				.GetExecutingAssembly()
+				.GetTypes()
+				.SelectMany(type => type.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
+				.Where(method => method.GetCustomAttributes<MethodHookPatternAttribute>().Any())
 		)
 		{
 			foreach(var attr in method.GetCustomAttributes<MethodHookPatternAttribute>())
@@ -43,64 +43,43 @@ internal sealed class MethodHookPatternAttribute : Attribute
 				$"[MethodHookPattern] Found MethodHook for {methodHookPatternAttribute.DeclaringType.Name}.{methodHookPatternAttribute.MethodSignaturePattern} in {destination.Name} in {destination.DeclaringType?.FullName}"
 			);
 
-			if(!destination.IsStatic)
-			{
-				throw new ArgumentException("Destination method must be static");
-			}
+			if(!destination.IsStatic) throw new ArgumentException("Destination method must be static");
 
 			// === Step 1: Get type definition from your framework ===
 			var refTypeField = methodHookPatternAttribute.DeclaringType.GetField("REFType", BindingFlags.Static | BindingFlags.Public);
 
-			if(refTypeField is null)
-			{
-				throw new ArgumentException("Type does not have a REFrameworkNET.TypeDefinition field");
-			}
+			if(refTypeField is null) throw new ArgumentException("Type does not have a REFrameworkNET.TypeDefinition field");
 
-			var typeDefinition = (TypeDefinition?) refTypeField.GetValue(null);
+			var typeDefinition = (TypeDefinition?)refTypeField.GetValue(null);
 
-			if(typeDefinition is null)
-			{
-				throw new ArgumentException("Type does not have a REFrameworkNET.TypeDefinition field");
-			}
+			if(typeDefinition is null) throw new ArgumentException("Type does not have a REFrameworkNET.TypeDefinition field");
 
 			var method = typeDefinition.Methods.Find(method => method.Name.Contains(methodHookPatternAttribute.MethodSignaturePattern, StringComparison.Ordinal));
 
-			if(method is null)
-			{
-				throw new ArgumentException("Method not found");
-			}
+			if(method is null) throw new ArgumentException("Method not found");
 
 			var hook = method.AddHook(false);
 
-			if(hook is null)
-			{
-				throw new ArgumentException("Invalid method hook");
-			}
+			if(hook is null) throw new ArgumentException("Invalid method hook");
 
 			if(methodHookPatternAttribute.HookType == MethodHookType.Pre)
 			{
 				var preHookDelegate = Delegate.CreateDelegate(typeof(MethodHook.PreHookDelegate), destination);
 
-				if(preHookDelegate is null)
-				{
-					throw new ArgumentException("Failed to create delegate");
-				}
+				if(preHookDelegate is null) throw new ArgumentException("Failed to create delegate");
 
-				hook.AddPre((MethodHook.PreHookDelegate) preHookDelegate);
+				hook.AddPre((MethodHook.PreHookDelegate)preHookDelegate);
 			}
 			else if(methodHookPatternAttribute.HookType == MethodHookType.Post)
 			{
 				var postHookDelegate = Delegate.CreateDelegate(typeof(MethodHook.PostHookDelegate), destination);
 
-				if(postHookDelegate is null)
-				{
-					throw new ArgumentException("Failed to create delegate");
-				}
+				if(postHookDelegate is null) throw new ArgumentException("Failed to create delegate");
 
-				hook.AddPost((MethodHook.PostHookDelegate) postHookDelegate);
+				hook.AddPost((MethodHook.PostHookDelegate)postHookDelegate);
 			}
 
-			ActiveHooks.Add(hook);
+			_activeHooks.Add(hook);
 
 			LogManager.Info(
 				$"[MethodHookPattern] Installed MethodHook for {methodHookPatternAttribute.DeclaringType.Name}.{methodHookPatternAttribute.MethodSignaturePattern} in {destination.Name} in {destination.DeclaringType?.FullName}"
@@ -118,12 +97,12 @@ internal sealed class MethodHookPatternAttribute : Attribute
 	{
 		LogManager.Info("[MethodHookPattern] Disposing...");
 
-		foreach(var hook in ActiveHooks)
+		foreach(var hook in _activeHooks)
 		{
 			hook.Dispose();
 		}
 
-		ActiveHooks.Clear();
+		_activeHooks.Clear();
 
 		LogManager.Info("[MethodHookPattern] Disposing!");
 	}

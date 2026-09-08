@@ -4,13 +4,13 @@ namespace YURI_Overlay;
 
 internal sealed class LargeMonsterStaticUi
 {
-	private readonly LargeMonster _largeMonster;
 	private readonly Func<LargeMonsterStaticUiCustomization?> _customizationAccessor;
+	private readonly LargeMonsterHealthComponent _healthComponent;
+	private readonly LargeMonster _largeMonster;
 
 	private readonly LabelElement _nameLabelElement;
-	private readonly LargeMonsterHealthComponent _healthComponent;
-	private readonly LargeMonsterStaminaComponent _staminaComponent;
 	private readonly LargeMonsterRageComponent _rageComponent;
+	private readonly LargeMonsterStaminaComponent _staminaComponent;
 
 	public LargeMonsterStaticUi(LargeMonster largeMonster)
 	{
@@ -27,10 +27,7 @@ internal sealed class LargeMonsterStaticUi
 	{
 		var customization = this._customizationAccessor();
 
-		if(customization?.Enabled != true)
-		{
-			return;
-		}
+		if(customization?.Enabled != true) return;
 
 		var spacing = customization.Spacing;
 		var anchoredPosition = customization.Position;

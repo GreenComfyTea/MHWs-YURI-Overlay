@@ -51,10 +51,7 @@ internal sealed class ColorCustomization : Customization
 
 	public void Reset(ColorCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Color = defaultCustomization.Color;
 	}

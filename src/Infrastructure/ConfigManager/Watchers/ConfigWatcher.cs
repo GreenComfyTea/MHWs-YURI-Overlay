@@ -4,13 +4,13 @@ namespace YURI_Overlay;
 
 internal sealed class ConfigWatcher : IDisposable
 {
-	private readonly FileSystemWatcher? _watcher;
 	private readonly Dictionary<string, DateTime> _lastEventTimes = [];
 
-	private bool _disabled;
+	private readonly bool _stub;
+	private readonly FileSystemWatcher? _watcher;
 	private Timer? _delayedEnableTimer;
 
-	private readonly bool _stub;
+	private bool _disabled;
 
 	public ConfigWatcher(bool stub)
 	{
@@ -23,9 +23,10 @@ internal sealed class ConfigWatcher : IDisposable
 
 		try
 		{
-			this._watcher = new FileSystemWatcher(Constants.ConfigsPath);
+			this._watcher = new FileSystemWatcher(Constants.CONFIGS_PATH);
 
-			this._watcher.NotifyFilter = NotifyFilters.Attributes | NotifyFilters.CreationTime | NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.Security | NotifyFilters.Size;
+			this._watcher.NotifyFilter = NotifyFilters.Attributes | NotifyFilters.CreationTime | NotifyFilters.FileName | NotifyFilters.LastWrite | NotifyFilters.Security |
+			                             NotifyFilters.Size;
 
 			this._watcher.Changed += this.OnConfigFileChanged;
 			this._watcher.Created += this.OnConfigFileCreated;
@@ -44,19 +45,23 @@ internal sealed class ConfigWatcher : IDisposable
 		}
 	}
 
+	public void Dispose()
+	{
+		if(!this._stub) LogManager.Info("[ConfigWatcher] Disposing...");
+
+		this._delayedEnableTimer?.Dispose();
+		this._watcher?.Dispose();
+
+		if(!this._stub) LogManager.Info("[ConfigWatcher] Disposed!");
+	}
+
 	~ConfigWatcher()
 	{
-		if(!this._stub)
-		{
-			LogManager.Info("[ConfigWatcher] Disposing...");
-		}
+		if(!this._stub) LogManager.Info("[ConfigWatcher] Disposing...");
 
 		this.Dispose();
 
-		if(!this._stub)
-		{
-			LogManager.Info("[ConfigWatcher] Disposed!");
-		}
+		if(!this._stub) LogManager.Info("[ConfigWatcher] Disposed!");
 	}
 
 	public void Enable()
@@ -65,21 +70,15 @@ internal sealed class ConfigWatcher : IDisposable
 		this._delayedEnableTimer?.Dispose();
 		this._delayedEnableTimer = null;
 
-		if(!this._stub)
-		{
-			LogManager.Info("[LocalizationWatcher] Enabled!");
-		}
+		if(!this._stub) LogManager.Info("[LocalizationWatcher] Enabled!");
 	}
 
 	public void DelayedEnable()
 	{
 		this._delayedEnableTimer?.Dispose();
-		this._delayedEnableTimer = Timers.SetTimeout(this.Enable, Constants.ReenableWatcherDelayMilliseconds);
+		this._delayedEnableTimer = Timers.SetTimeout(this.Enable, Constants.REENABLE_WATCHER_DELAY_MILLISECONDS);
 
-		if(!this._stub)
-		{
-			LogManager.Info("[LocalizationWatcher] Will enable after a delay...");
-		}
+		if(!this._stub) LogManager.Info("[LocalizationWatcher] Will enable after a delay...");
 	}
 
 	public void Disable()
@@ -87,43 +86,18 @@ internal sealed class ConfigWatcher : IDisposable
 		this._disabled = true;
 		this._delayedEnableTimer?.Dispose();
 
-		if(!this._stub)
-		{
-			LogManager.Info("[LocalizationWatcher] Temporarily disabled!");
-		}
-	}
-
-	public void Dispose()
-	{
-		if(!this._stub)
-		{
-			LogManager.Info("[ConfigWatcher] Disposing...");
-		}
-
-		this._delayedEnableTimer?.Dispose();
-		this._watcher?.Dispose();
-
-		if(!this._stub)
-		{
-			LogManager.Info("[ConfigWatcher] Disposed!");
-		}
+		if(!this._stub) LogManager.Info("[LocalizationWatcher] Temporarily disabled!");
 	}
 
 	private void OnConfigFileChanged(object? sender, FileSystemEventArgs e)
 	{
 		try
 		{
-			if(this._disabled)
-			{
-				return;
-			}
+			if(this._disabled) return;
 
 			var name = Path.GetFileNameWithoutExtension(e.Name);
 
-			if(name is null)
-			{
-				return;
-			}
+			if(name is null) return;
 
 			var eventTime = File.GetLastWriteTime(e.FullPath);
 
@@ -136,10 +110,7 @@ internal sealed class ConfigWatcher : IDisposable
 				return;
 			}
 
-			if(eventTime.Ticks - lastEventTime.Ticks < Constants.DuplicateEventThresholdTicks)
-			{
-				return;
-			}
+			if(eventTime.Ticks - lastEventTime.Ticks < Constants.DUPLICATE_EVENT_THRESHOLD_TICKS) return;
 
 			LogManager.Info($"Config \"{name}\": Changed.");
 
@@ -155,10 +126,7 @@ internal sealed class ConfigWatcher : IDisposable
 	{
 		try
 		{
-			if(this._disabled)
-			{
-				return;
-			}
+			if(this._disabled) return;
 
 			var name = Path.GetFileNameWithoutExtension(e.Name);
 
@@ -183,10 +151,7 @@ internal sealed class ConfigWatcher : IDisposable
 	{
 		try
 		{
-			if(this._disabled)
-			{
-				return;
-			}
+			if(this._disabled) return;
 
 			var name = Path.GetFileNameWithoutExtension(e.Name);
 
@@ -202,10 +167,7 @@ internal sealed class ConfigWatcher : IDisposable
 	{
 		try
 		{
-			if(this._disabled)
-			{
-				return;
-			}
+			if(this._disabled) return;
 
 			var oldName = Path.GetFileNameWithoutExtension(e.OldName);
 			var name = Path.GetFileNameWithoutExtension(e.Name);
@@ -220,10 +182,7 @@ internal sealed class ConfigWatcher : IDisposable
 
 	private void OnConfigFileError(object? sender, ErrorEventArgs e)
 	{
-		if(this._disabled)
-		{
-			return;
-		}
+		if(this._disabled) return;
 
 		LogManager.Info("[ConfigWatcher] Unknown error.");
 	}

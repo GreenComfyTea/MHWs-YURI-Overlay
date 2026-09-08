@@ -4,9 +4,9 @@ namespace YURI_Overlay;
 
 internal sealed class LabelElementShadowCustomization : Customization
 {
-	public bool? Visible;
-	public OffsetCustomization Offset = new();
 	public ColorCustomization Color = new();
+	public OffsetCustomization Offset = new();
+	public bool? Visible;
 
 	public bool RenderImGui(string? parentName = "", LabelElementShadowCustomization? defaultCustomization = null)
 	{
@@ -30,10 +30,7 @@ internal sealed class LabelElementShadowCustomization : Customization
 
 	public void Reset(LabelElementShadowCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Visible = defaultCustomization.Visible;
 		this.Offset.Reset(defaultCustomization.Offset);

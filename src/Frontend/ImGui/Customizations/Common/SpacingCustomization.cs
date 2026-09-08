@@ -27,10 +27,7 @@ internal sealed class SpacingCustomization : Customization
 
 	public void Reset(SpacingCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.X = defaultCustomization.X;
 		this.Y = defaultCustomization.Y;

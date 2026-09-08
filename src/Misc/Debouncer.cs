@@ -22,10 +22,7 @@ internal sealed class Debouncer : IDisposable
 			.ContinueWith(
 				task =>
 				{
-					if(!task.IsCanceled)
-					{
-						action();
-					}
+					if(!task.IsCanceled) action();
 				},
 				TaskScheduler.Default
 			);

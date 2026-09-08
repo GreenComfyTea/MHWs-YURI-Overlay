@@ -4,13 +4,13 @@ namespace YURI_Overlay;
 
 internal sealed class DamageMeterPlayerWidgetCustomization : Customization
 {
+	public DamageMeterDamageComponentCustomization Damage = new();
+	public DamageMeterDpsComponentCustomization Dps = new();
 	public bool? Enabled;
-	public OffsetCustomization Offset = new();
 
 	public LabelElementCustomization HunterMasterRanksLabel = new();
 	public LabelElementCustomization NameLabel = new();
-	public DamageMeterDamageComponentCustomization Damage = new();
-	public DamageMeterDpsComponentCustomization DPS = new();
+	public OffsetCustomization Offset = new();
 
 	public bool RenderImGui(string? visibleName, string customizationName = "player", DamageMeterPlayerWidgetCustomization? defaultCustomization = null)
 	{
@@ -30,7 +30,7 @@ internal sealed class DamageMeterPlayerWidgetCustomization : Customization
 			);
 			isChanged |= this.NameLabel.RenderImGui(localization.NameLabel, $"{customizationName}-name-label", defaultCustomization?.NameLabel);
 			isChanged |= this.Damage.RenderImGui(customizationName, defaultCustomization?.Damage);
-			isChanged |= this.DPS.RenderImGui(customizationName, defaultCustomization?.DPS);
+			isChanged |= this.Dps.RenderImGui(customizationName, defaultCustomization?.Dps);
 
 			ImGui.TreePop();
 		}
@@ -40,16 +40,13 @@ internal sealed class DamageMeterPlayerWidgetCustomization : Customization
 
 	public void Reset(DamageMeterPlayerWidgetCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Enabled = defaultCustomization.Enabled;
 		this.Offset.Reset(defaultCustomization.Offset);
 		this.HunterMasterRanksLabel.Reset(defaultCustomization.HunterMasterRanksLabel);
 		this.NameLabel.Reset(defaultCustomization.NameLabel);
 		this.Damage.Reset(defaultCustomization.Damage);
-		this.DPS.Reset(defaultCustomization.DPS);
+		this.Dps.Reset(defaultCustomization.Dps);
 	}
 }

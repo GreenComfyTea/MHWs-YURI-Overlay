@@ -79,7 +79,7 @@ internal static class Utils
 	{
 		try
 		{
-			return JsonSerializer.Serialize(value, Constants.jsonSerializerOptionsInstanceS);
+			return JsonSerializer.Serialize(value, Constants.JsonSerializerOptionsInstance);
 		}
 		catch(Exception exception)
 		{
@@ -127,7 +127,7 @@ internal static class Utils
 		var blue = (colorAbgr & 0x00FF0000) >> 16;
 		var alpha = (colorAbgr & 0xFF000000) >> 24;
 
-		alpha = (uint) (alpha * opacity);
+		alpha = (uint)(alpha * opacity);
 
 		return (alpha << 24) | (blue << 16) | (green << 8) | red;
 	}
@@ -136,8 +136,8 @@ internal static class Utils
 	{
 		totalSeconds = Math.Clamp(totalSeconds, 0f, maxSeconds);
 
-		var minutes = (int) (totalSeconds / 60);
-		var seconds = (int) (totalSeconds % 60);
+		var minutes = (int)(totalSeconds / 60);
+		var seconds = (int)(totalSeconds % 60);
 
 		return $"{minutes}:{seconds:D2}";
 	}
@@ -149,12 +149,12 @@ internal static class Utils
 
 	public static int SecondsToMilliseconds(float? seconds)
 	{
-		return seconds is null ? 1000 : (int) Math.Round(1000f * (float) seconds);
+		return seconds is null ? 1000 : (int)Math.Round(1000f * (float)seconds);
 	}
 
 	public static unsafe ulong Dereference(ulong pointerAddress)
 	{
-		var pointer = (ulong*) pointerAddress;
+		var pointer = (ulong*)pointerAddress;
 		var dereferenced = *pointer;
 
 		return dereferenced;

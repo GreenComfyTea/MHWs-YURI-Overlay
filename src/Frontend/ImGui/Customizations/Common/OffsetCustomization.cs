@@ -27,10 +27,7 @@ internal sealed class OffsetCustomization : Customization
 
 	public void Reset(OffsetCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.X = defaultCustomization.X;
 		this.Y = defaultCustomization.Y;

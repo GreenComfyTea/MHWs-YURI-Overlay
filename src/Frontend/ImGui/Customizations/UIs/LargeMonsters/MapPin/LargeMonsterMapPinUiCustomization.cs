@@ -5,13 +5,13 @@ namespace YURI_Overlay;
 internal sealed class LargeMonsterMapPinUiCustomization : Customization
 {
 	public bool? Enabled;
-	public LargeMonsterMapPinUiSettingsCustomization Settings = new();
-	public AnchoredPositionCustomization Position = new();
+	public LargeMonsterHealthComponentCustomization Health = new();
 
 	public LabelElementCustomization NameLabel = new();
-	public LargeMonsterHealthComponentCustomization Health = new();
-	public LargeMonsterStaminaComponentCustomization Stamina = new();
+	public AnchoredPositionCustomization Position = new();
 	public LargeMonsterRageComponentCustomization Rage = new();
+	public LargeMonsterMapPinUiSettingsCustomization Settings = new();
+	public LargeMonsterStaminaComponentCustomization Stamina = new();
 
 	public bool RenderImGui(string? parentName = "", LargeMonsterMapPinUiCustomization? defaultCustomization = null)
 	{
@@ -39,10 +39,7 @@ internal sealed class LargeMonsterMapPinUiCustomization : Customization
 
 	public void Reset(LargeMonsterMapPinUiCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Enabled = defaultCustomization.Enabled;
 		this.Settings.Reset(defaultCustomization.Settings);

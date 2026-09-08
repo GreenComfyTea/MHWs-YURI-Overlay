@@ -4,10 +4,9 @@ namespace YURI_Overlay;
 
 internal sealed class GlobalScaleCustomization : Customization
 {
+	public OverlayFontScaleCustomization OverlayFontScale = new();
 	public float? PositionScaleModifier;
 	public float? SizeScaleModifier;
-
-	public OverlayFontScaleCustomization OverlayFontScale = new();
 
 	public bool RenderImGui(string? parentName = "", GlobalScaleCustomization? defaultCustomization = null)
 	{
@@ -48,10 +47,7 @@ internal sealed class GlobalScaleCustomization : Customization
 
 	public void Reset(GlobalScaleCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.PositionScaleModifier = defaultCustomization.PositionScaleModifier;
 		this.SizeScaleModifier = defaultCustomization.SizeScaleModifier;

@@ -5,10 +5,10 @@ namespace YURI_Overlay;
 internal sealed class LargeMonsterStaticUiSettingsCustomization : Customization
 {
 	public bool? RenderDeadMonsters;
-	public bool? RenderTargetedMonster;
+	public bool? RenderNonPinnedMonsters;
 	public bool? RenderNonTargetedMonsters;
 	public bool? RenderPinnedMonster;
-	public bool? RenderNonPinnedMonsters;
+	public bool? RenderTargetedMonster;
 
 	public bool RenderImGui(string? parentName = "", LargeMonsterStaticUiSettingsCustomization? defaultCustomization = null)
 	{
@@ -19,7 +19,8 @@ internal sealed class LargeMonsterStaticUiSettingsCustomization : Customization
 
 		if(ImGuiHelper.ResettableTreeNode(localization.Settings, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderDeadMonsters}##{customizationName}", ref this.RenderDeadMonsters, defaultCustomization?.RenderDeadMonsters);
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderDeadMonsters}##{customizationName}", ref this.RenderDeadMonsters,
+				defaultCustomization?.RenderDeadMonsters);
 
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderTargetedMonster}##{customizationName}", ref this.RenderTargetedMonster,
 				defaultCustomization?.RenderTargetedMonster);
@@ -29,7 +30,9 @@ internal sealed class LargeMonsterStaticUiSettingsCustomization : Customization
 				ref this.RenderNonTargetedMonsters,
 				defaultCustomization?.RenderNonTargetedMonsters
 			);
-			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderPinnedMonster}##{customizationName}", ref this.RenderPinnedMonster, defaultCustomization?.RenderPinnedMonster);
+
+			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.RenderPinnedMonster}##{customizationName}", ref this.RenderPinnedMonster,
+				defaultCustomization?.RenderPinnedMonster);
 
 			isChanged |= ImGuiHelper.ResettableCheckbox(
 				$"{localization.RenderNonPinnedMonsters}##{customizationName}",
@@ -45,10 +48,7 @@ internal sealed class LargeMonsterStaticUiSettingsCustomization : Customization
 
 	public void Reset(LargeMonsterStaticUiSettingsCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.RenderDeadMonsters = defaultCustomization.RenderDeadMonsters;
 		this.RenderTargetedMonster = defaultCustomization.RenderTargetedMonster;

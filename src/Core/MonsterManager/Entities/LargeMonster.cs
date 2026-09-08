@@ -7,75 +7,74 @@ namespace YURI_Overlay;
 
 internal sealed class LargeMonster : IDisposable
 {
-	public EnemyCharacter EnemyCharacter;
-	public cEnemyContext EnemyContext;
+	private readonly List<Timer> _timers = [];
+	private bool _isUpdateHealthPending = true;
+	private bool _isUpdateMapPinPending = true;
+	private bool _isUpdateMissionBeaconOffsetPending = true;
+	private bool _isUpdateModelRadiusPending = true;
 
-	public LargeMonsterDynamicUi? DynamicUi;
-	public LargeMonsterStaticUi? StaticUi;
-	public LargeMonsterTargetedUi? TargetedUi;
-	public LargeMonsterMapPinUi? MapPinUi;
+	private bool _isUpdateNamePending = true;
+	private bool _isUpdateRagePending = true;
+	private bool _isUpdateStaminaPending = true;
 
-	public EnemyDef.ID Id = 0;
-	public EnemyDef.ROLE_ID RoleId = 0;
-	public EnemyDef.LEGENDARY_ID LegendaryId = 0;
+	private Method? _nameStringMethod;
 
-	public string Name = "Large Monster";
-
-	public bool IsTargeted;
+	private Type? _stringType;
+	public float Distance;
 
 	public int DynamicSortingPriority;
-	public int StaticSortingPriority;
+
+	public LargeMonsterDynamicUi? DynamicUi;
+	public EnemyCharacter EnemyCharacter;
+	public cEnemyContext EnemyContext;
+	public float Health = -1;
+	public float HealthPercentage = -1;
+
+	public EnemyDef.ID Id = 0;
+
+	public bool IsAlive;
+	public bool IsEnraged;
+
+	public bool IsPinned;
+
+	public bool IsRageValid = true;
+
+	public bool IsStaminaValid = true;
+
+	public bool IsTargeted;
+	public bool IsTired;
+	public EnemyDef.LEGENDARY_ID LegendaryId = 0;
+	public LargeMonsterMapPinUi? MapPinUi;
+	public float MaxHealth = -1;
+	public float MaxRage = -1;
+	public float MaxStamina = -1;
 
 	public Vector3 MissionBeaconOffset = Vector3.Zero;
 	public float ModelRadius;
 
+	public string Name = "Large Monster";
+
 	public Vector3 Position = Vector3.Zero;
-	public float Distance;
-
-	public bool IsAlive;
-	public float Health = -1;
-	public float MaxHealth = -1;
-	public float HealthPercentage = -1;
-
-	public bool IsStaminaValid = true;
-	public bool IsTired;
-	public float Stamina = -1;
-	public float MaxStamina = -1;
-	public float StaminaPercentage = -1;
-
-	public float StaminaTimerSeconds = -1;
-	public float StaminaMaxTimerSeconds = -1;
-	public float StaminaRemainingTimerSeconds = -1;
-	public float StaminaRemainingTimerPercentage = -1;
-	public string StaminaRemainingTimerString = "0:00";
-
-	public bool IsRageValid = true;
-	public bool IsEnraged;
 	public float Rage = -1;
-	public float MaxRage = -1;
-	public float RagePercentage = -1;
-
-	public float RageTimerSeconds = -1;
 	public float RageMaxTimerSeconds = -1;
-	public float RageRemainingTimerSeconds = -1;
+	public float RagePercentage = -1;
 	public float RageRemainingTimerPercentage = -1;
+	public float RageRemainingTimerSeconds = -1;
 	public string RageRemainingTimerString = "0:00";
 
-	private readonly List<Timer> _timers = [];
+	public float RageTimerSeconds = -1;
+	public EnemyDef.ROLE_ID RoleId = 0;
+	public float Stamina = -1;
+	public float StaminaMaxTimerSeconds = -1;
+	public float StaminaPercentage = -1;
+	public float StaminaRemainingTimerPercentage = -1;
+	public float StaminaRemainingTimerSeconds = -1;
+	public string StaminaRemainingTimerString = "0:00";
 
-	private bool _isUpdateNamePending = true;
-	private bool _isUpdateMissionBeaconOffsetPending = true;
-	private bool _isUpdateModelRadiusPending = true;
-	private bool _isUpdateHealthPending = true;
-	private bool _isUpdateStaminaPending = true;
-	private bool _isUpdateRagePending = true;
-	private bool _isUpdateMapPinPending = true;
-
-	private Type? _stringType;
-
-	private Method? _nameStringMethod;
-
-	public bool IsPinned;
+	public float StaminaTimerSeconds = -1;
+	public int StaticSortingPriority;
+	public LargeMonsterStaticUi? StaticUi;
+	public LargeMonsterTargetedUi? TargetedUi;
 
 	public LargeMonster(EnemyCharacter enemyCharacter, cEnemyContext enemyContext)
 	{
@@ -160,17 +159,11 @@ internal sealed class LargeMonster : IDisposable
 		if(this.IsTargeted && this.IsPinned)
 		{
 			if(targetedMonsterPriorityValue > 0)
-			{
 				this.StaticSortingPriority = targetedMonsterPriorityValue >= pinnedMonsterPriorityValue ? targetedMonsterPriorityValue : pinnedMonsterPriorityValue;
-			}
 			else if(pinnedMonsterPriorityValue > 0)
-			{
 				this.StaticSortingPriority = pinnedMonsterPriorityValue;
-			}
 			else
-			{
 				this.StaticSortingPriority = targetedMonsterPriorityValue <= pinnedMonsterPriorityValue ? targetedMonsterPriorityValue : pinnedMonsterPriorityValue;
-			}
 		}
 		else if(this.IsTargeted)
 		{
@@ -310,14 +303,11 @@ internal sealed class LargeMonster : IDisposable
 	{
 		try
 		{
-			if(!this._isUpdateNamePending)
-			{
-				return;
-			}
+			if(!this._isUpdateNamePending) return;
 
 			this._isUpdateNamePending = false;
 
-			var name = (string?) this._nameStringMethod?.InvokeBoxed(this._stringType, null, [this.Id, this.RoleId, this.LegendaryId]);
+			var name = (string?)this._nameStringMethod?.InvokeBoxed(this._stringType, null, [this.Id, this.RoleId, this.LegendaryId]);
 
 			if(name is null)
 			{
@@ -338,10 +328,7 @@ internal sealed class LargeMonster : IDisposable
 	{
 		try
 		{
-			if(!this._isUpdateMissionBeaconOffsetPending)
-			{
-				return;
-			}
+			if(!this._isUpdateMissionBeaconOffsetPending) return;
 
 			this._isUpdateMissionBeaconOffsetPending = false;
 
@@ -368,10 +355,7 @@ internal sealed class LargeMonster : IDisposable
 	{
 		try
 		{
-			if(!this._isUpdateModelRadiusPending)
-			{
-				return;
-			}
+			if(!this._isUpdateModelRadiusPending) return;
 
 			this._isUpdateModelRadiusPending = false;
 
@@ -388,10 +372,7 @@ internal sealed class LargeMonster : IDisposable
 	{
 		try
 		{
-			if(!this._isUpdateHealthPending)
-			{
-				return;
-			}
+			if(!this._isUpdateHealthPending) return;
 
 			this._isUpdateHealthPending = false;
 
@@ -407,10 +388,7 @@ internal sealed class LargeMonster : IDisposable
 			this.Health = healthManager.Health;
 			this.MaxHealth = healthManager.MaxHealth;
 
-			if(!Utils.IsApproximatelyEqual(this.MaxHealth, 0f))
-			{
-				this.HealthPercentage = this.Health / this.MaxHealth;
-			}
+			if(!Utils.IsApproximatelyEqual(this.MaxHealth, 0f)) this.HealthPercentage = this.Health / this.MaxHealth;
 
 			this.IsAlive = !Utils.IsApproximatelyEqual(this.Health, 0f);
 		}
@@ -424,10 +402,7 @@ internal sealed class LargeMonster : IDisposable
 	{
 		try
 		{
-			if(!this._isUpdateStaminaPending)
-			{
-				return null;
-			}
+			if(!this._isUpdateStaminaPending) return null;
 
 			this._isUpdateStaminaPending = false;
 
@@ -451,10 +426,7 @@ internal sealed class LargeMonster : IDisposable
 
 			this.IsStaminaValid = tiredCondition.IsValid;
 
-			if(!this.IsStaminaValid)
-			{
-				return conditionsModule;
-			}
+			if(!this.IsStaminaValid) return conditionsModule;
 
 			this.IsTired = tiredCondition.IsActive;
 
@@ -466,9 +438,7 @@ internal sealed class LargeMonster : IDisposable
 				this.StaminaRemainingTimerSeconds = this.StaminaMaxTimerSeconds - this.StaminaTimerSeconds;
 
 				if(!Utils.IsApproximatelyEqual(this.StaminaMaxTimerSeconds, 0))
-				{
 					this.StaminaRemainingTimerPercentage = this.StaminaRemainingTimerSeconds / this.StaminaMaxTimerSeconds;
-				}
 
 				this.StaminaRemainingTimerString = Utils.FormatTimer(this.StaminaRemainingTimerSeconds, this.StaminaMaxTimerSeconds);
 
@@ -478,10 +448,7 @@ internal sealed class LargeMonster : IDisposable
 			this.Stamina = tiredCondition.Stamina;
 			this.MaxStamina = tiredCondition.DefaultStamina;
 
-			if(!Utils.IsApproximatelyEqual(this.MaxStamina, 0))
-			{
-				this.StaminaPercentage = this.Stamina / this.MaxStamina;
-			}
+			if(!Utils.IsApproximatelyEqual(this.MaxStamina, 0)) this.StaminaPercentage = this.Stamina / this.MaxStamina;
 
 			return conditionsModule;
 		}
@@ -497,10 +464,7 @@ internal sealed class LargeMonster : IDisposable
 	{
 		try
 		{
-			if(!this._isUpdateRagePending)
-			{
-				return;
-			}
+			if(!this._isUpdateRagePending) return;
 
 			this._isUpdateRagePending = false;
 
@@ -527,10 +491,7 @@ internal sealed class LargeMonster : IDisposable
 
 			this.IsRageValid = angryCondition.IsValid;
 
-			if(!this.IsRageValid)
-			{
-				return;
-			}
+			if(!this.IsRageValid) return;
 
 			this.IsEnraged = angryCondition.IsActive;
 
@@ -541,10 +502,7 @@ internal sealed class LargeMonster : IDisposable
 
 				this.RageRemainingTimerSeconds = this.RageMaxTimerSeconds - this.RageTimerSeconds;
 
-				if(!Utils.IsApproximatelyEqual(this.RageMaxTimerSeconds, 0))
-				{
-					this.RageRemainingTimerPercentage = this.RageRemainingTimerSeconds / this.RageMaxTimerSeconds;
-				}
+				if(!Utils.IsApproximatelyEqual(this.RageMaxTimerSeconds, 0)) this.RageRemainingTimerPercentage = this.RageRemainingTimerSeconds / this.RageMaxTimerSeconds;
 
 				this.RageRemainingTimerString = Utils.FormatTimer(this.RageRemainingTimerSeconds, this.RageMaxTimerSeconds);
 
@@ -554,10 +512,7 @@ internal sealed class LargeMonster : IDisposable
 			this.Rage = angryCondition.Value;
 			this.MaxRage = angryCondition.LimitValue;
 
-			if(!Utils.IsApproximatelyEqual(this.MaxRage, 0))
-			{
-				this.RagePercentage = this.Rage / this.MaxRage;
-			}
+			if(!Utils.IsApproximatelyEqual(this.MaxRage, 0)) this.RagePercentage = this.Rage / this.MaxRage;
 		}
 		catch(Exception exception)
 		{
@@ -569,10 +524,7 @@ internal sealed class LargeMonster : IDisposable
 	{
 		try
 		{
-			if(!this._isUpdateMapPinPending)
-			{
-				return;
-			}
+			if(!this._isUpdateMapPinPending) return;
 
 			this._isUpdateMapPinPending = false;
 

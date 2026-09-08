@@ -8,7 +8,7 @@ internal class TotalDamageEntity : DamageMeterEntity
 
 		this.StaticUi = new DamageMeterStaticUi(this);
 
-		this.Type = DamageMeterEntityTypeEnum.TotalDamage;
+		this.Type = DamageMeterEntityTypeEnum.Total;
 	}
 
 	public override void Dispose()

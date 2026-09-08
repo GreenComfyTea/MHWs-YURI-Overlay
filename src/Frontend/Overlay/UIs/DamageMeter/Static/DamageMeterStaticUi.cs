@@ -28,19 +28,14 @@ internal sealed class DamageMeterStaticUi
 		}
 
 		if(damageMeterEntity.Type == DamageMeterEntityTypeEnum.SupportHunter)
-		{
 			this._playerWidget = new DamageMeterPlayerWidget(damageMeterEntity, () => this._customizationAccessor()?.SupportHunters);
-		}
 	}
 
 	public void Draw(ImDrawListPtr drawList, int locationIndex)
 	{
 		var customization = this._customizationAccessor.Invoke();
 
-		if(customization?.Enabled != true)
-		{
-			return;
-		}
+		if(customization?.Enabled != true) return;
 
 		var spacing = customization.Spacing;
 

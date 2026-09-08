@@ -15,13 +15,9 @@ internal class NullChecker
 		var isValid = Validate(config);
 
 		if(isValid)
-		{
 			LogManager.Debug("Default config is valid!");
-		}
 		else
-		{
 			LogManager.Error("Default config is invalid!");
-		}
 	}
 
 	public static bool Validate(object obj, string path = "")
@@ -29,10 +25,7 @@ internal class NullChecker
 		var type = obj.GetType();
 
 		// Avoid checking primitive types, strings, and enums
-		if(type.IsPrimitive || type == typeof(string) || type.IsEnum || type is { IsValueType: true, IsClass: false })
-		{
-			return true;
-		}
+		if(type.IsPrimitive || type == typeof(string) || type.IsEnum || type is { IsValueType: true, IsClass: false }) return true;
 
 		var isValid = true;
 
@@ -56,10 +49,7 @@ internal class NullChecker
 		foreach(var property in properties)
 		{
 			// Skip indexer properties (e.g., this[int i])
-			if(property.GetIndexParameters().Length > 0)
-			{
-				continue;
-			}
+			if(property.GetIndexParameters().Length > 0) continue;
 
 			// Get the property value
 			object? propertyValue = null;
@@ -92,10 +82,7 @@ internal class NullChecker
 			{
 				// Recursively check nested objects
 				// Ensure it's a reference type and not a string or a value type that isn't nullable itself
-				if(property.PropertyType.IsClass && property.PropertyType != typeof(string))
-				{
-					isValid &= Validate(propertyValue, currentPath);
-				}
+				if(property.PropertyType.IsClass && property.PropertyType != typeof(string)) isValid &= Validate(propertyValue, currentPath);
 			}
 		}
 
@@ -127,10 +114,7 @@ internal class NullChecker
 			}
 			else
 			{
-				if(field.FieldType.IsClass && field.FieldType != typeof(string))
-				{
-					isValid &= Validate(fieldValue, currentPath);
-				}
+				if(field.FieldType.IsClass && field.FieldType != typeof(string)) isValid &= Validate(fieldValue, currentPath);
 			}
 		}
 

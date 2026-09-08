@@ -4,10 +4,10 @@ namespace YURI_Overlay;
 
 internal sealed class SmallMonstersUpdateDelaysCustomization : Customization
 {
-	public float? Name;
+	public float? Health;
 	public float? MissionBeaconOffset;
 	public float? ModelRadius;
-	public float? Health;
+	public float? Name;
 
 	public bool RenderImGui(string? parentName = "", SmallMonstersUpdateDelaysCustomization? defaultCustomization = null)
 	{
@@ -42,10 +42,7 @@ internal sealed class SmallMonstersUpdateDelaysCustomization : Customization
 
 	public void Reset(SmallMonstersUpdateDelaysCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Name = defaultCustomization.Name;
 		this.MissionBeaconOffset = defaultCustomization.MissionBeaconOffset;

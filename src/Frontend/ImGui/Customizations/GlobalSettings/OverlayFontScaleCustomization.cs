@@ -4,8 +4,8 @@ namespace YURI_Overlay;
 
 internal sealed class OverlayFontScaleCustomization : Customization
 {
-	public bool? ScaleWithReframeworkFontSize;
 	public float? OverlayFontScaleModifier;
+	public bool? ScaleWithReframeworkFontSize;
 
 	public bool RenderImGui(string? parentName = "", OverlayFontScaleCustomization? defaultCustomization = null)
 	{
@@ -17,7 +17,7 @@ internal sealed class OverlayFontScaleCustomization : Customization
 		if(ImGuiHelper.ResettableTreeNode(localization.OverlayFontScale, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox(
-				$"{localization.ScaleWithREFrameworkFontSize}##{customizationName}",
+				$"{localization.ScaleWithReFrameworkFontSize}##{customizationName}",
 				ref this.ScaleWithReframeworkFontSize,
 				defaultCustomization?.ScaleWithReframeworkFontSize
 			);
@@ -40,10 +40,7 @@ internal sealed class OverlayFontScaleCustomization : Customization
 
 	public void Reset(OverlayFontScaleCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.ScaleWithReframeworkFontSize = defaultCustomization.ScaleWithReframeworkFontSize;
 		this.OverlayFontScaleModifier = defaultCustomization.OverlayFontScaleModifier;

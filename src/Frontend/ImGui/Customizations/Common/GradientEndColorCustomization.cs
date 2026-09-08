@@ -5,13 +5,13 @@ namespace YURI_Overlay;
 
 internal sealed class GradientEndColorCustomization : Customization
 {
-	public bool? SplitIntoTwoColors;
-
 	[JsonIgnore]
 	public ColorInfo? ColorInfo1;
 
 	[JsonIgnore]
 	public ColorInfo? ColorInfo2;
+
+	public bool? SplitIntoTwoColors;
 
 	public string? _1
 	{
@@ -113,10 +113,7 @@ internal sealed class GradientEndColorCustomization : Customization
 
 	public void Reset(GradientEndColorCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.SplitIntoTwoColors = defaultCustomization.SplitIntoTwoColors;
 		this._1 = defaultCustomization._1;

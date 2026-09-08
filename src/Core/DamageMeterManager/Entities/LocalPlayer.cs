@@ -6,15 +6,14 @@ namespace YURI_Overlay;
 
 internal sealed class LocalPlayer : DamageMeterEntity
 {
-	public cPlayerManageInfo PlayerManageInfo;
-
-	public float AwardDamage;
-
 	private readonly List<Timer> _timers = [];
+	private bool _isUpdateHunterRankPending = true;
+	private bool _isUpdateMemberIndexPending = true;
 
 	private bool _isUpdateNamePending = true;
-	private bool _isUpdateMemberIndexPending = true;
-	private bool _isUpdateHunterRankPending = true;
+
+	public float AwardDamage;
+	public cPlayerManageInfo PlayerManageInfo;
 
 	public LocalPlayer(cPlayerManageInfo playerManageInfo)
 	{
@@ -132,17 +131,11 @@ internal sealed class LocalPlayer : DamageMeterEntity
 
 			byte[] bytes = [byte0, byte1, byte2, byte3];
 
-			if(!BitConverter.IsLittleEndian)
-			{
-				Array.Reverse(bytes);
-			}
+			if(!BitConverter.IsLittleEndian) Array.Reverse(bytes);
 
 			var damage = BitConverter.ToSingle(bytes, 0);
 
-			if(Utils.IsApproximatelyEqual(damage, 0f))
-			{
-				return;
-			}
+			if(Utils.IsApproximatelyEqual(damage, 0f)) return;
 
 			this.AwardDamage = damage;
 
@@ -198,10 +191,7 @@ internal sealed class LocalPlayer : DamageMeterEntity
 	{
 		try
 		{
-			if(!this._isUpdateMemberIndexPending)
-			{
-				return;
-			}
+			if(!this._isUpdateMemberIndexPending) return;
 
 			this._isUpdateMemberIndexPending = false;
 
@@ -235,10 +225,7 @@ internal sealed class LocalPlayer : DamageMeterEntity
 	{
 		try
 		{
-			if(!this._isUpdateNamePending)
-			{
-				return;
-			}
+			if(!this._isUpdateNamePending) return;
 
 			this._isUpdateNamePending = false;
 
@@ -281,10 +268,7 @@ internal sealed class LocalPlayer : DamageMeterEntity
 	{
 		try
 		{
-			if(!this._isUpdateHunterRankPending)
-			{
-				return;
-			}
+			if(!this._isUpdateHunterRankPending) return;
 
 			this._isUpdateHunterRankPending = false;
 

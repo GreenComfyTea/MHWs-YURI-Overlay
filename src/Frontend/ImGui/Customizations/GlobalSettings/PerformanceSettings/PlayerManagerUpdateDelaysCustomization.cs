@@ -25,10 +25,7 @@ internal sealed class PlayerManagerUpdateDelaysCustomization : Customization
 
 	public void Reset(PlayerManagerUpdateDelaysCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Update = defaultCustomization.Update;
 	}

@@ -2,21 +2,16 @@ namespace YURI_Overlay;
 
 internal sealed class LocalizationManager : IDisposable
 {
-	private static readonly Lazy<LocalizationManager> Lazy = new(() => new LocalizationManager());
+	private static readonly Lazy<LocalizationManager> _lazy = new(() => new LocalizationManager());
 
-	public static LocalizationManager Instance => Lazy.Value;
+	private LocalizationWatcher _localizationWatcherInstance;
+	public JsonDatabase<Localization> ActiveLocalization;
 
 	public LocalizationCustomization Customization;
 
 	public JsonDatabase<Localization> DefaultLocalization;
-	public JsonDatabase<Localization> ActiveLocalization;
 
 	public Dictionary<string, JsonDatabase<Localization>> Localizations;
-
-	public event EventHandler ActiveLocalizationChanged = delegate { };
-	public event EventHandler AnyLocalizationChanged = delegate { };
-
-	private LocalizationWatcher _localizationWatcherInstance;
 
 	private LocalizationManager()
 	{
@@ -27,22 +22,7 @@ internal sealed class LocalizationManager : IDisposable
 		this._localizationWatcherInstance = new LocalizationWatcher(true);
 	}
 
-	public void Initialize()
-	{
-		LogManager.Info("[LocalizationManager] Initializing...");
-
-		var configManager = ConfigManager.Instance;
-
-		this.LoadAllLocalizations();
-		ActivateLocalization(configManager.ActiveConfig.Data.GlobalSettings.Localization);
-
-		configManager.AnyConfigChanged += this.OnAnyConfigChanged;
-
-		this._localizationWatcherInstance = new LocalizationWatcher();
-		this.Customization = new LocalizationCustomization();
-
-		LogManager.Info("[LocalizationManager] Initialized!");
-	}
+	public static LocalizationManager Instance => _lazy.Value;
 
 	public void Dispose()
 	{
@@ -60,6 +40,26 @@ internal sealed class LocalizationManager : IDisposable
 		LogManager.Info("[LocalizationManager] Disposed!");
 	}
 
+	public event EventHandler ActiveLocalizationChanged = delegate { };
+	public event EventHandler AnyLocalizationChanged = delegate { };
+
+	public void Initialize()
+	{
+		LogManager.Info("[LocalizationManager] Initializing...");
+
+		var configManager = ConfigManager.Instance;
+
+		this.LoadAllLocalizations();
+		this.ActivateLocalization(configManager.ActiveConfig.Data.GlobalSettings.Localization);
+
+		configManager.AnyConfigChanged += this.OnAnyConfigChanged;
+
+		this._localizationWatcherInstance = new LocalizationWatcher();
+		this.Customization = new LocalizationCustomization();
+
+		LogManager.Info("[LocalizationManager] Initialized!");
+	}
+
 	public void ActivateLocalization(JsonDatabase<Localization> localization)
 	{
 		LogManager.Info($"[LocalizationManager] Activating localization \"{localization.Name}\"...");
@@ -73,10 +73,7 @@ internal sealed class LocalizationManager : IDisposable
 
 	public void ActivateLocalization(string? name)
 	{
-		if(name is null)
-		{
-			return;
-		}
+		if(name is null) return;
 
 		LogManager.Info($"[LocalizationManager] Searching for localization \"{name}\" to activate it...");
 
@@ -101,7 +98,7 @@ internal sealed class LocalizationManager : IDisposable
 	{
 		LogManager.Info($"[LocalizationManager] Initializing localization \"{name}\"...");
 
-		JsonDatabase<Localization> newLocalization = new(Constants.LocalizationsPath, name);
+		JsonDatabase<Localization> newLocalization = new(Constants.LOCALIZATIONS_PATH, name);
 		newLocalization.Data.IsoCode = name;
 		newLocalization.Save();
 
@@ -120,10 +117,10 @@ internal sealed class LocalizationManager : IDisposable
 	{
 		LogManager.Info("[LocalizationManager] Initializing default localization...");
 
-		JsonDatabase<Localization> defaultLocalization = new(Constants.LocalizationsPath, Constants.DefaultLocalization);
+		JsonDatabase<Localization> defaultLocalization = new(Constants.LOCALIZATIONS_PATH, Constants.DEFAULT_LOCALIZATION);
 		defaultLocalization.Data = new Localization();
 		defaultLocalization.Save();
-		this.Localizations[Constants.DefaultLocalization] = defaultLocalization;
+		this.Localizations[Constants.DEFAULT_LOCALIZATION] = defaultLocalization;
 		this.DefaultLocalization = defaultLocalization;
 
 		LogManager.Info("[LocalizationManager] Default localization is initialized!");
@@ -135,18 +132,15 @@ internal sealed class LocalizationManager : IDisposable
 		{
 			LogManager.Info("[LocalizationManager] Loading all localizations...");
 
-			Directory.CreateDirectory(Path.GetDirectoryName(Constants.LocalizationsPath)!);
+			Directory.CreateDirectory(Path.GetDirectoryName(Constants.LOCALIZATIONS_PATH)!);
 
-			var allConfigFilePathNames = Directory.GetFiles(Constants.LocalizationsPath);
+			var allConfigFilePathNames = Directory.GetFiles(Constants.LOCALIZATIONS_PATH);
 
 			foreach(var configFilePathName in allConfigFilePathNames)
 			{
 				var name = Path.GetFileNameWithoutExtension(configFilePathName);
 
-				if(name == Constants.DefaultLocalization)
-				{
-					continue;
-				}
+				if(name == Constants.DEFAULT_LOCALIZATION) continue;
 
 				this.InitializeLocalization(name);
 			}
@@ -165,12 +159,9 @@ internal sealed class LocalizationManager : IDisposable
 	{
 		var configManager = ConfigManager.Instance;
 
-		if(this.ActiveLocalization.Name == configManager.ActiveConfig.Data.GlobalSettings.Localization)
-		{
-			return;
-		}
+		if(this.ActiveLocalization.Name == configManager.ActiveConfig.Data.GlobalSettings.Localization) return;
 
-		ActivateLocalization(configManager.ActiveConfig.Data.GlobalSettings.Localization);
+		this.ActivateLocalization(configManager.ActiveConfig.Data.GlobalSettings.Localization);
 	}
 
 	private void OnLocalizationFileChanged(object? sender, EventArgs eventArgs)

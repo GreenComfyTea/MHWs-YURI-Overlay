@@ -4,11 +4,11 @@ namespace YURI_Overlay;
 
 internal sealed class UpdateDelaysCustomization : Customization
 {
-	public ScreenManagerUpdateDelaysCustomization ScreenManager = new();
-	public PlayerManagerUpdateDelaysCustomization PlayerManager = new();
-	public LargeMonstersUpdateDelaysCustomization LargeMonsters = new();
-	public SmallMonstersUpdateDelaysCustomization SmallMonsters = new();
 	public EndemicLifeUpdateDelaysCustomization EndemicLife = new();
+	public LargeMonstersUpdateDelaysCustomization LargeMonsters = new();
+	public PlayerManagerUpdateDelaysCustomization PlayerManager = new();
+	public ScreenManagerUpdateDelaysCustomization ScreenManager = new();
+	public SmallMonstersUpdateDelaysCustomization SmallMonsters = new();
 	public UiUpdateDelaysCustomization UIs = new();
 
 	public bool RenderImGui(string? parentName = "", UpdateDelaysCustomization? defaultCustomization = null)
@@ -35,10 +35,7 @@ internal sealed class UpdateDelaysCustomization : Customization
 
 	public void Reset(UpdateDelaysCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.ScreenManager.Reset(defaultCustomization.ScreenManager);
 		this.PlayerManager.Reset(defaultCustomization.PlayerManager);

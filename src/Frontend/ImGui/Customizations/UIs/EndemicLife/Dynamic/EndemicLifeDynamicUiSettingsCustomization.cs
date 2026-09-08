@@ -5,9 +5,9 @@ namespace YURI_Overlay;
 internal sealed class EndemicLifeDynamicUiSettingsCustomization : Customization
 {
 	public bool? AddModelRadiusToWorldOffsetY;
+	public float? MaxDistance;
 
 	public bool? OpacityFalloff;
-	public float? MaxDistance;
 
 	public bool RenderImGui(string? parentName = "", EndemicLifeDynamicUiSettingsCustomization? defaultCustomization = null)
 	{
@@ -24,7 +24,9 @@ internal sealed class EndemicLifeDynamicUiSettingsCustomization : Customization
 				defaultCustomization?.AddModelRadiusToWorldOffsetY
 			);
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.OpacityFalloff}##{customizationName}", ref this.OpacityFalloff, defaultCustomization?.OpacityFalloff);
-			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MaxDistance}##{customizationName}", ref this.MaxDistance, 0.1f, 0, 65536f, "%.1f", defaultCustomization?.MaxDistance);
+
+			isChanged |= ImGuiHelper.ResettableDragFloat($"{localization.MaxDistance}##{customizationName}", ref this.MaxDistance, 0.1f, 0, 65536f, "%.1f",
+				defaultCustomization?.MaxDistance);
 
 			ImGui.TreePop();
 		}
@@ -34,10 +36,7 @@ internal sealed class EndemicLifeDynamicUiSettingsCustomization : Customization
 
 	public void Reset(EndemicLifeDynamicUiSettingsCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.AddModelRadiusToWorldOffsetY = defaultCustomization.AddModelRadiusToWorldOffsetY;
 		this.OpacityFalloff = defaultCustomization.OpacityFalloff;

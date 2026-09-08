@@ -7,12 +7,9 @@ namespace YURI_Overlay;
 internal sealed class LocalizationCustomization : Customization
 {
 	private int _activeLocalizationIndex;
-
-	private string[] _localizationNames;
 	private string[] _localizationIsoCodes;
 
-	[JsonIgnore]
-	private Vector4 TranslatorColor { get; set; } = Constants.ModAuthorColor;
+	private string[] _localizationNames;
 
 	public LocalizationCustomization(bool stub)
 	{
@@ -37,6 +34,9 @@ internal sealed class LocalizationCustomization : Customization
 		localizationManager.AnyLocalizationChanged += this.OnAnyLocalizationChanged;
 	}
 
+	[JsonIgnore]
+	private Vector4 TranslatorColor { get; set; } = Constants.ModAuthorColor;
+
 	public bool RenderImGui(string? parentName = "")
 	{
 		var localizationManager = LocalizationManager.Instance;
@@ -46,11 +46,12 @@ internal sealed class LocalizationCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-language";
 
-		var englishLocalizationIndex = Array.IndexOf(this._localizationIsoCodes, Constants.DefaultLocalization);
+		var englishLocalizationIndex = Array.IndexOf(this._localizationIsoCodes, Constants.DEFAULT_LOCALIZATION);
 
 		if(ImGuiHelper.ResettableTreeNode(localization.Language, customizationName, ref isChanged, englishLocalizationIndex, this.Reset))
 		{
-			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Language}##{customizationName}", ref this._activeLocalizationIndex, this._localizationNames, englishLocalizationIndex);
+			isChanged |= ImGuiHelper.ResettableCombo($"{localization.Language}##{customizationName}", ref this._activeLocalizationIndex, this._localizationNames,
+				englishLocalizationIndex);
 
 			if(isChanged)
 			{
@@ -70,17 +71,14 @@ internal sealed class LocalizationCustomization : Customization
 
 	public void Reset(int defaultLocalizationIndex = -1)
 	{
-		if(defaultLocalizationIndex == -1)
-		{
-			return;
-		}
+		if(defaultLocalizationIndex == -1) return;
 
 		this._activeLocalizationIndex = defaultLocalizationIndex;
 	}
 
 	private void UpdateTranslatorColor()
 	{
-		this.TranslatorColor = LocalizationManager.Instance.ActiveLocalization.Data.LocalizationInfo.Translators.Equals(Constants.ModAuthor)
+		this.TranslatorColor = LocalizationManager.Instance.ActiveLocalization.Data.LocalizationInfo.Translators.Equals(Constants.MOD_AUTHOR)
 			? Constants.ModAuthorColor
 			: Constants.ImGuiUserNameColor;
 	}

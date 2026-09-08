@@ -4,11 +4,11 @@ namespace YURI_Overlay;
 
 internal sealed class DamageMeterDpsComponentCustomization : Customization
 {
-	public bool? Visible;
-	public OffsetCustomization Offset = new();
-	public LabelElementCustomization ValueLabel = new();
-	public LabelElementCustomization PercentageLabel = new();
 	public BarElementCustomization Bar = new();
+	public OffsetCustomization Offset = new();
+	public LabelElementCustomization PercentageLabel = new();
+	public LabelElementCustomization ValueLabel = new();
+	public bool? Visible;
 
 	public bool RenderImGui(string? parentName = "", DamageMeterDpsComponentCustomization? defaultCustomization = null)
 	{
@@ -17,7 +17,7 @@ internal sealed class DamageMeterDpsComponentCustomization : Customization
 		var isChanged = false;
 		var customizationName = $"{parentName}-dps";
 
-		if(ImGuiHelper.ResettableTreeNode(localization.DPS, customizationName, ref isChanged, defaultCustomization, this.Reset))
+		if(ImGuiHelper.ResettableTreeNode(localization.Dps, customizationName, ref isChanged, defaultCustomization, this.Reset))
 		{
 			isChanged |= ImGuiHelper.ResettableCheckbox($"{localization.Visible}##{customizationName}", ref this.Visible, defaultCustomization?.Visible);
 			isChanged |= this.Offset.RenderImGui(customizationName, defaultCustomization?.Offset);
@@ -33,10 +33,7 @@ internal sealed class DamageMeterDpsComponentCustomization : Customization
 
 	public void Reset(DamageMeterDpsComponentCustomization? defaultCustomization = null)
 	{
-		if(defaultCustomization is null)
-		{
-			return;
-		}
+		if(defaultCustomization is null) return;
 
 		this.Visible = defaultCustomization.Visible;
 		this.Offset.Reset(defaultCustomization.Offset);

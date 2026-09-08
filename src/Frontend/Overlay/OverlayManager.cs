@@ -5,18 +5,37 @@ namespace YURI_Overlay;
 
 internal sealed class OverlayManager : IDisposable
 {
-	private static readonly Lazy<OverlayManager> Lazy = new(() => new OverlayManager());
-
-	public static OverlayManager Instance => Lazy.Value;
+	private static readonly Lazy<OverlayManager> _lazy = new(() => new OverlayManager());
+	private EndemicLifeUiManager? _endemicLifeUiManager;
 
 	private LargeMonsterUiManager? _largeMonsterUiManager;
 	private SmallMonsterUiManager? _smallMonsterUiManager;
-	private EndemicLifeUiManager? _endemicLifeUiManager;
 
 	//private DamageMeterUiManager? _damageMeterUiManager = null;
 
 	private OverlayManager()
 	{
+	}
+
+	public static OverlayManager Instance => _lazy.Value;
+
+	public void Dispose()
+	{
+		LogManager.Info("[OverlayManager] Disposing...");
+
+		this._largeMonsterUiManager?.Dispose();
+		this._largeMonsterUiManager = null;
+
+		this._smallMonsterUiManager?.Dispose();
+		this._smallMonsterUiManager = null;
+
+		this._endemicLifeUiManager?.Dispose();
+		this._endemicLifeUiManager = null;
+
+		//_damageMeterUiManager?.Dispose();
+		//_damageMeterUiManager = null;
+
+		LogManager.Info("[OverlayManager] Disposed!");
 	}
 
 	public void Initialize()
@@ -63,24 +82,5 @@ internal sealed class OverlayManager : IDisposable
 			ImGui.End();
 			LogManager.Error(exception);
 		}
-	}
-
-	public void Dispose()
-	{
-		LogManager.Info("[OverlayManager] Disposing...");
-
-		this._largeMonsterUiManager?.Dispose();
-		this._largeMonsterUiManager = null;
-
-		this._smallMonsterUiManager?.Dispose();
-		this._smallMonsterUiManager = null;
-
-		this._endemicLifeUiManager?.Dispose();
-		this._endemicLifeUiManager = null;
-
-		//_damageMeterUiManager?.Dispose();
-		//_damageMeterUiManager = null;
-
-		LogManager.Info("[OverlayManager] Disposed!");
 	}
 }
